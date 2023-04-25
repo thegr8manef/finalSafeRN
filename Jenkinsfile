@@ -1,4 +1,3 @@
-pipeline {
     node('android-slave-2'){
 
     stages {
@@ -34,5 +33,4 @@ pipeline {
             }
         }
     }
-}
 }
