@@ -1,5 +1,5 @@
 pipeline {
-    node('android-slave-2')
+    node('android-slave-2'){
 
     stages {
         stage('Build') {
@@ -34,4 +34,5 @@ pipeline {
             }
         }
     }
+}
 }
