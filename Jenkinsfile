@@ -1,4 +1,5 @@
-node('android-slave-2') {
+pipeline {
+    node('android-slave-2')
 
     stages {
         stage('Build') {
