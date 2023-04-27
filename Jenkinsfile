@@ -1,36 +1,31 @@
-    node('android-slave-2'){
-
-    stages {
+pipeline {
+    agent any
+    stages{
         stage('Build') {
-            steps {
-			    echo "Building the project..."
-                sh 'npm install'
-                sh 'npm run lint'
-                sh 'npm run build'
+            steps{
+            echo("Building project...")
+                bat 'npm install'
+              //  bat 'npm run build'
             }
         }
-
         stage('Test') {
-            steps {
-				echo "Testing the project..."
-                sh 'npm run test'
-            }
+            steps{
+            echo("Testing project...")
+                bat 'npm run test'
         }
-
-        stage('Sonar') {
-            steps {
-				echo "Running Sonar..."			
-                withSonarQubeEnv('SonarQube') {
-                    sh 'npm run sonar'
-                }
-            }
         }
-
         stage('Deploy') {
-            steps {
-				echo "Deploying the project..."
-                sh 'npm run deploy'
-            }
+            steps{
+            echo("Deploying project...")
+                //bat 'npm run deploy'
         }
+        }
+        stage('Scan') {
+            steps {
+                withSonarQubeEnv(installationName: 'SQ') { 
+                    bat 'npx sonarqube-scanner'
+        }
+      }
     }
+}
 }
