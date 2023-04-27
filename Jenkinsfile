@@ -32,7 +32,7 @@ pipeline {
     
     		stage('Assemble') {
     		steps{
-		    //bat 'npx react-native run-android'
+		    bat 'npx react-native run-android --variant=release'
 			bat 'cd android & gradlew assembleDebug'
 			}
 		}
