@@ -27,12 +27,14 @@ pipeline {
         }
       }
     }
+
+
     
     		stage('Assemble') {
     		steps{
 		    //bat 'npx react-native run-android'
 			bat 'cd android'
-			bat ' gradlew assembleDebug'
+			bat ' .\gradlew assembleDebug'
 			}
 		}
 
