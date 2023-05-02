@@ -36,6 +36,20 @@ pipeline {
 			bat 'cd android & gradlew assembleDebug'
 			}
 		}
+		     stage('Mstore Upload'){
+                    def fileInfo = "android/app/build/outputs/apk/" + buildEnvironment.toLowerCase() + "/" + buildConfiguration.toLowerCase() + "/output-metadata.json" //sh doesn't support env var injection into strings
+                    def file = "android/app/build/outputs/apk/" + buildEnvironment.toLowerCase() + "/" + buildConfiguration.toLowerCase() + "/SurviveMedES_" + buildEnvironment.toLowerCase() + ".apk" // defining vars here
+
+
+
+curl -X POST ^
+"https://store.mobelite.fr/console/api_dev.php/api/upload_version" ^
+-H "Authorization: 23bae8d652d62b1aea015be6eeb6e8998f25fb97" ^
+-F applicationToken=%applicationToken% ^
+-F fileInfo=@%fileInfo% ^
+-F file=@%file%
+
+ }
 
 }
 }
