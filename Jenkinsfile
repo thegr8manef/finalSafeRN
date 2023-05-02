@@ -33,13 +33,13 @@ pipeline {
     		stage('Assemble') {
     		steps{
 		   // bat 'npx react-native run-android --variant=release'
-			bat 'cd android & gradlew assembleDebug'
+			bat 'cd android & gradlew assembleRelease'
 			}
 		}
 		     stage('Mstore Upload'){
 environment {
             filename = "android/app/build/outputs/apk/" + "debug" + "/" + "output-metadata.json" 
-            file = "android/app/build/outputs/apk/+"app-debug-"+"FSRN"+".apk""
+            file = "android/app/build/outputs/apk/+ "app-debug-FSRN" + "/" +".apk"
             }
 		     steps{
     /* bat "curl -X POST ^\n" +
