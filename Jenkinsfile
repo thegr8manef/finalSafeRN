@@ -38,16 +38,13 @@ pipeline {
 		}
 		     stage('Mstore Upload'){
 		     steps{
-                     fileInfo = "app/build/outputs/apk/" + buildEnvironment.toLowerCase() + "/" + buildConfiguration.toLowerCase() + "/output-metadata.json" //sh doesn't support env var injection into strings
-                     
+            const fs = require('fs');
+            const path = require('path');
 
-                     file = "android/app/build/outputs/apk/${buildEnvironment.toLowerCase()}/${buildConfiguration.toLowerCase()}/SurviveMedES_${buildEnvironment.toLowerCase()}.apk" // defining vars here
-bat label: '', script: """curl -X POST \\
-https://store.mobelite.fr/console/api_dev.php/api/upload_version \\
- -H \'Authorization: D1DD11692F1873D01A9824B279B41010\' \\
- -F applicationToken=$applicationToken \\
- -F \'fileInfo=@$fileInfo\' \\
- -F \'file=@$file\'"""//TODO: Maybe use http request plugin instead when new versions are released (Bug in Authentication creds)
+            const fileInfo = path.join('app', 'build', 'outputs', 'apk', buildEnvironment.toLowerCase(), buildConfiguration.toLowerCase(), 'output-metadata.json');
+            const contents = fs.readFileSync(fileInfo, 'utf8');
+
+            console.log(contents);
 
  }
  }
