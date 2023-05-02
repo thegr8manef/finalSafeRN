@@ -38,7 +38,7 @@ pipeline {
 		}
 		     stage('Mstore Upload'){
 environment {
-            filename = "android/app/build/outputs/apk/" + "release" + "/" + "output-metadata.json" 
+            filename = "android/app/build/outputs/apk/" + "debug" + "/" + "output-metadata.json" 
             file = "android/app/build/outputs/apk/%buildEnvironment:toLowerCase%/%buildConfiguration:toLowerCase%/SurviveMedES_%buildEnvironment:toLowerCase%.apk"
             }
 		     steps{
