@@ -37,6 +37,7 @@ pipeline {
 			}
 		}
 		     stage('Mstore Upload'){
+		     steps{
                     def fileInfo = "android/app/build/outputs/apk/" + buildEnvironment.toLowerCase() + "/" + buildConfiguration.toLowerCase() + "/output-metadata.json" //sh doesn't support env var injection into strings
                     def file = "android/app/build/outputs/apk/" + buildEnvironment.toLowerCase() + "/" + buildConfiguration.toLowerCase() + "/SurviveMedES_" + buildEnvironment.toLowerCase() + ".apk" // defining vars here
 bat label: '', script: """curl -X POST \\
@@ -46,6 +47,7 @@ https://store.mobelite.fr/console/api_dev.php/api/upload_version \\
  -F \'fileInfo=@$fileInfo\' \\
  -F \'file=@$file\'"""//TODO: Maybe use http request plugin instead when new versions are released (Bug in Authentication creds)
 
+ }
  }
 
 }
