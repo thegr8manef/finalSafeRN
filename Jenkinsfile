@@ -43,7 +43,7 @@ pipeline {
     "-H \"Authorization: D1DD11692F1873D01A9824B279B41010\" ^\n" +
     "-F applicationToken=23bae8d652d62b1aea015be6eeb6e8998f25fb97 ^\n" +
     "-F fileInfo="cd android/app/build/outputs/apk/" + buildEnvironment.toLowerCase() + "/" + buildConfiguration.toLowerCase() + "/output-metadata.json/" ^\n" +
-    "-F file="cd android/app/build/outputs/apk/" + buildEnvironment.toLowerCase() + "/" + buildConfiguration.toLowerCase() + "/SurviveMedES_" + buildEnvironment.toLowerCase() + ".apk/" ^\n"
+    "-F file="cd android/app/build/outputs/apk/" + buildEnvironment.toLowerCase() + "/" + buildConfiguration.toLowerCase() + "/SurviveMedES_" + buildEnvironment.toLowerCase() + ".apk" ^\n"
  }
  }
 
