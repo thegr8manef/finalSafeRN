@@ -48,7 +48,7 @@ pipeline {
  bat 'curl -X POST ^' +
     'https://store.mobelite.fr/console/api_dev.php/api/upload_version ^' +
     '-H "Authorization: D1DD11692F1873D01A9824B279B41010" ^' +
-    '-F applicationToken=%applicationToken% ^' +
+    '-F "applicationToken=23bae8d652d62b1aea015be6eeb6e8998f25fb97" ^' +
     '-F fileInfo=@%fileInfo% ^' +
     '-F file=@%file%'
  }
