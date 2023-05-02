@@ -37,7 +37,7 @@ pipeline {
 			}
 		}
 		     stage('Mstore Upload'){
-		     set fileInfo="android/app/build/outputs/apk\%buildEnvironment:toLowerCase%/%buildConfiguration:toLowerCase%/output-metadata.json"
+		     set fileInfo="android/app/build/outputs/apk/%buildEnvironment:toLowerCase%/%buildConfiguration:toLowerCase%/output-metadata.json"
             set file="android/app/build/outputs/apk/%buildEnvironment:toLowerCase%/%buildConfiguration:toLowerCase%/SurviveMedES_%buildEnvironment:toLowerCase%.apk"
 
 		     steps{
