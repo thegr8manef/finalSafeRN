@@ -37,11 +37,11 @@ pipeline {
 			}
 		}
 		     stage('Mstore Upload'){
-
-
+environment {
+            filename = "android/app/build/outputs/apk/" + "debug" + "/" + "output-metadata.json" 
+            file = "android/app/build/outputs/apk/%buildEnvironment:toLowerCase%/%buildConfiguration:toLowerCase%/SurviveMedES_%buildEnvironment:toLowerCase%.apk"
+            }
 		     steps{
-		     		     set fileInfo="android/app/build/outputs/apk/%buildEnvironment:toLowerCase%/%buildConfiguration:toLowerCase%/output-metadata.json"
-            set file="android/app/build/outputs/apk/%buildEnvironment:toLowerCase%/%buildConfiguration:toLowerCase%/SurviveMedES_%buildEnvironment:toLowerCase%.apk"
     /* bat "curl -X POST ^\n" +
     "\"https://store.mobelite.fr/console/api_dev.php/api/upload_version\" ^\n" +
     "-H \"Authorization: D1DD11692F1873D01A9824B279B41010\" ^\n" +
