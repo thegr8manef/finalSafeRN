@@ -38,15 +38,12 @@ pipeline {
 		}
 		     stage('Mstore Upload'){
 		     steps{
-        		def fileInfo = "app/build/outputs/apk/" + buildEnvironment.toLowerCase()  + "/" + buildConfiguration.toLowerCase() + "/output-metadata.json" //sh doesn't support env var injection into strings
-        		def file = "app/build/outputs/apk/" + buildEnvironment.toLowerCase()  + "/" + buildConfiguration.toLowerCase() + "/FinalSafe_" + buildEnvironment.toLowerCase() + ".apk" // defining vars here
-
-			bat label: '', script: """curl -X POST \\
-        	    https://store.mobelite.fr/console/api_dev.php/api/upload_version \\
-        		-H \'Authorization: D1DD11692F1873D01A9824B279B41010\' \\
-        		-F applicationToken=$applicationToken \\
-        		-F \'fileInfo=@$fileInfo\' \\
-        		-F \'file=@$file\'"""//TODO: Maybe use http request plugin instead when new versions are released (Bug in Authentication creds)
+bat"curl -X POST ^
+"https://store.mobelite.fr/console/api_dev.php/api/upload_version" ^
+-H "Authorization: D1DD11692F1873D01A9824B279B41010" ^
+-F applicationToken=%applicationToken% ^
+-F fileInfo="app/build/outputs/apk/" + buildEnvironment.toLowerCase()  + "/" + buildConfiguration.toLowerCase() + "/output-metadata.json" ^
+-F file="app/build/outputs/apk/" + buildEnvironment.toLowerCase()  + "/" + buildConfiguration.toLowerCase() + "/FinalSafe_" + buildEnvironment.toLowerCase() + ".apk""
 
  }
  }
