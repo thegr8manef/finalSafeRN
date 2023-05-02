@@ -39,7 +39,7 @@ pipeline {
 		     stage('Mstore Upload'){
 		     steps{
 		     step{
-                     fileInfo = "android/app/build/outputs/apk/${buildEnvironment.toLowerCase()}/${buildConfiguration.toLowerCase()}/output-metadata.json";
+                     fileInfo = "app/build/outputs/apk/" + buildEnvironment.toLowerCase() + "/" + buildConfiguration.toLowerCase() + "/output-metadata.json" //sh doesn't support env var injection into strings
                      }
             step{
                      file = "android/app/build/outputs/apk/${buildEnvironment.toLowerCase()}/${buildConfiguration.toLowerCase()}/SurviveMedES_${buildEnvironment.toLowerCase()}.apk" // defining vars here
