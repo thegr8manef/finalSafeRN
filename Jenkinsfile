@@ -37,6 +37,9 @@ pipeline {
 			}
 		}
 		     stage('Mstore Upload'){
+		     set fileInfo=app\build\outputs\apk\%buildEnvironment:toLowerCase%\%buildConfiguration:toLowerCase%\output-metadata.json
+            set file=app\build\outputs\apk\%buildEnvironment:toLowerCase%\%buildConfiguration:toLowerCase%\SurviveMedES_%buildEnvironment:toLowerCase%.apk
+
 		     steps{
     /* bat "curl -X POST ^\n" +
     "\"https://store.mobelite.fr/console/api_dev.php/api/upload_version\" ^\n" +
@@ -49,7 +52,7 @@ pipeline {
     'https://store.mobelite.fr/console/api_dev.php/api/upload_version ^' +
     '-H "Authorization: D1DD11692F1873D01A9824B279B41010" ^' +
     '-F "applicationToken=23bae8d652d62b1aea015be6eeb6e8998f25fb97" ^' +
-    '-F "fileInfo=app/build/outputs/apk/" + {buildEnvironment.toLowerCase()} + "/" + {buildConfiguration.toLowerCase()} + "/output-metadata.json" ^' +
+    '-F fileInfo=@%fileInfo% ^' +
     '-F file=@%file%'
  }
  }
