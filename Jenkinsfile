@@ -39,7 +39,7 @@ pipeline {
 		     stage('Mstore Upload'){
 environment {
             filename = "android/app/build/outputs/apk/" + "debug" + "/" + "output-metadata.json" 
-            file = "android/app/build/outputs/apk/"+ "app-debug-FSRN" + "/" +".apk"
+            file = "android/app/build/outputs/apk/"+ "app-debug"+".apk"
             }
 		     steps{
     /* bat "curl -X POST ^\n" +
