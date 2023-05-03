@@ -38,7 +38,7 @@ pipeline {
 		}
 		     stage('Mstore Upload'){
 environment {
-            $fileInfo = "android/app/build/outputs/apk/" + "release" + "/" + "output-metadata.json" 
+            fileInfo = "android/app/build/outputs/apk/" + "release" + "/" + "output-metadata.json" 
             file = "android/app/build/outputs/apk/"+ "app-release"+".apk"
             applicationToken="23bae8d652d62b1aea015be6eeb6e8998f25fb97"
             }
