@@ -50,12 +50,14 @@ environment {
     "-F fileInfo="cd android/app/build/outputs/apk/" + buildEnvironment.toLowerCase() + "/" + buildConfiguration.toLowerCase() + "/output-metadata.json/" ^\n" +
     "-F file="cd android/app/build/outputs/apk/" + buildEnvironment.toLowerCase() + "/" + buildConfiguration.toLowerCase() + "/SurviveMedES_" + buildEnvironment.toLowerCase() + ".apk" ^\n"
  */
- bat """curl -X POST \\
-        https://store.mobelite.fr/console/api_dev.php/api/upload_version\\
-        -H \'Authorization: D1DD11692F1873D01A9824B279B41010\' \\
-        -F applicationToken=%applicationToken% \\
-        -F \'fileInfo=%filename%\' \\
-        -F \'file=%file%\' """
+set API_URL=https://store.mobelite.fr/console/api_dev.php/api/upload_version
+set AUTH_TOKEN=D1DD11692F1873D01A9824B279B41010
+
+ bat curl -X POST "%API_URL%" ^
+     -H "Authorization: %AUTH_TOKEN%" ^
+     -F "applicationToken=%applicationToken%" ^
+     -F "fileInfo=%filename%" ^
+     -F "file=@%file%"
  }
  }
 
