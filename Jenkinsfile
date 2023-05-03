@@ -38,7 +38,7 @@ pipeline {
 		}
 		     stage('Mstore Upload'){
 environment {
-            filename = "android/app/build/outputs/apk/" + "release" + "/" + "output-metadata.json" 
+            $fileInfo = "android/app/build/outputs/apk/" + "release" + "/" + "output-metadata.json" 
             file = "android/app/build/outputs/apk/"+ "app-release"+".apk"
             applicationToken="23bae8d652d62b1aea015be6eeb6e8998f25fb97"
             }
@@ -50,11 +50,12 @@ environment {
     "-F fileInfo="cd android/app/build/outputs/apk/" + buildEnvironment.toLowerCase() + "/" + buildConfiguration.toLowerCase() + "/output-metadata.json/" ^\n" +
     "-F file="cd android/app/build/outputs/apk/" + buildEnvironment.toLowerCase() + "/" + buildConfiguration.toLowerCase() + "/SurviveMedES_" + buildEnvironment.toLowerCase() + ".apk" ^\n"
  */
-bat """curl -X POST ^ https://store.mobelite.fr/console/api_dev.php/api/upload_version ^ 
-    "-H \'Authorization: D1DD11692F1873D01A9824B279B41010\'" ^ 
-    "-F applicationToken=%applicationToken%" ^ 
-    "-F \'fileInfo=%fileInfo%\'" ^ 
-    "-F \'file=%file%\'" """
+ sh label: '', script: """curl -X POST \\
+https://store.mobelite.fr/console/api_dev.php/api/upload_version \\
+        -H \'Authorization: D1DD11692F1873D01A9824B279B41010\' \\
+     -F applicationToken=$applicationToken \\
+     -F \'fileInfo=@$fileInfo\' \\
+     -F \'file=@$file\'"""//TODO: Maybe use http request plugin instead when new versions are released (Bug in Authentication creds)
 
 
  }
