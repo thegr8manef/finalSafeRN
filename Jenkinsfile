@@ -50,11 +50,11 @@ environment {
     "-F file="cd android/app/build/outputs/apk/" + buildEnvironment.toLowerCase() + "/" + buildConfiguration.toLowerCase() + "/SurviveMedES_" + buildEnvironment.toLowerCase() + ".apk" ^\n"
  */
  bat 'curl -X POST ^' +
-    'https://store.mobelite.fr/console/api_dev.php/api/upload_version ^' +
-    '-H "Authorization: D1DD11692F1873D01A9824B279B41010" ^' +
-    '-F "applicationToken=23bae8d652d62b1aea015be6eeb6e8998f25fb97"^' +
-    '-F fileInfo=%filename% ^' +
-    '-F file=%file%'
+        'https://store.mobelite.fr/console/api_dev.php/api/upload_version ^' +
+        '-H "Authorization: D1DD11692F1873D01A9824B279B41010" ^' +
+        '-F "applicationToken=23bae8d652d62b1aea015be6eeb6e8998f25fb97"^' +
+        '-F fileInfo=%filename% ^' +
+        '-F file=%file%'
  }
  }
 
