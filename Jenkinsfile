@@ -43,16 +43,9 @@ environment {
             applicationToken="23bae8d652d62b1aea015be6eeb6e8998f25fb97"
             }
 		     steps{
-    /* bat "curl -X POST ^\n" +
-    "\"https://store.mobelite.fr/console/api_dev.php/api/upload_version\" ^\n" +
-    "-H \"Authorization: D1DD11692F1873D01A9824B279B41010\" ^\n" +
-    "-F applicationToken=23bae8d652d62b1aea015be6eeb6e8998f25fb97 ^\n" +
-    "-F fileInfo="cd android/app/build/outputs/apk/" + buildEnvironment.toLowerCase() + "/" + buildConfiguration.toLowerCase() + "/output-metadata.json/" ^\n" +
-    "-F file="cd android/app/build/outputs/apk/" + buildEnvironment.toLowerCase() + "/" + buildConfiguration.toLowerCase() + "/SurviveMedES_" + buildEnvironment.toLowerCase() + ".apk" ^\n"
- */
- sh label: '', script: """curl -X POST \\
+     sh label: '', script: """curl -X POST \\
 https://store.mobelite.fr/console/api_dev.php/api/upload_version \\
-        -H \'Authorization: D1DD11692F1873D01A9824B279B41010\' \\
+     -H \'Authorization: D1DD11692F1873D01A9824B279B41010\' \\
      -F applicationToken=$applicationToken \\
      -F \'fileInfo=@$fileInfo\' \\
      -F \'file=@$file\'"""//TODO: Maybe use http request plugin instead when new versions are released (Bug in Authentication creds)
