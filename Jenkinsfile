@@ -38,8 +38,8 @@ pipeline {
 		}
 		     stage('Mstore Upload'){
 environment {
-            filename = "android/app/build/outputs/apk/" + "debug" + "/" + "output-metadata.json" 
-            file = "android/app/build/outputs/apk/"+ "app-debug"+".apk"
+            filename = "android/app/build/outputs/apk/" + "release" + "/" + "output-metadata.json" 
+            file = "android/app/build/outputs/apk/"+ "app-release"+".apk"
             }
 		     steps{
     /* bat "curl -X POST ^\n" +
@@ -52,7 +52,7 @@ environment {
  bat 'curl -X POST ^' +
     'https://store.mobelite.fr/console/api_dev.php/api/upload_version ^' +
     '-H "Authorization: D1DD11692F1873D01A9824B279B41010" ^' +
-    '-F "applicationToken=23bae8d652d62b1aea015be6eeb6e8998f25fb97" ^' +
+    '-F "applicationToken=23bae8d652d62b1aea015be6eeb6e8998f25fb97"^' +
     '-F fileInfo=%filename% ^' +
     '-F file=%file%'
  }
