@@ -449,7 +449,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mobelite.FinalSafeRNAndroid";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mobelite.finalsafe";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/finalsafereactnative.app/finalsafereactnative";
 			};
@@ -473,7 +473,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mobelite.FinalSafeRNAndroid";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mobelite.finalsafe";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/finalsafereactnative.app/finalsafereactnative";
 			};
@@ -488,7 +488,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "finalsafereactnative/Info.plist";
-             INFOPLIST_KEY_CFBundleDisplayName = "finalsafe_reactnative";
+             INFOPLIST_KEY_CFBundleDisplayName = "FinalSafe RN";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -499,7 +499,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mobelite.FinalSafeRNAndroid";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mobelite.finalsafe";
 				PRODUCT_NAME = "finalsafereactnative";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -515,7 +515,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = "finalsafereactnative/Info.plist";
-             INFOPLIST_KEY_CFBundleDisplayName = "finalsafe_reactnative";
+             INFOPLIST_KEY_CFBundleDisplayName = "FinalSafe RN";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -526,7 +526,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mobelite.FinalSafeRNAndroid";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mobelite.finalsafe";
 				PRODUCT_NAME = "finalsafereactnative";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";

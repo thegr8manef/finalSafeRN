@@ -1,4 +1,4 @@
-package com.mobelite.FinalSafeRNAndroid;
+package com.mobelite.finalsafe;
 
 import android.app.Application;
 import com.facebook.react.PackageList;
