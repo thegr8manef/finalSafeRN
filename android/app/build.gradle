@@ -159,6 +159,9 @@ dependencies {
         exclude group:'com.squareup.okhttp3', module:'okhttp'
     }
 
+    // msal dependency
+     implementation 'com.microsoft.identity.client:msal:3.0.+'
+
     debugImplementation("com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}")
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")
