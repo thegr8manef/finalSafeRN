@@ -16,7 +16,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data
-                        android:host="com.mobelite.finalsafeProd"
+                        android:host="com.mobelite.FinalSafeRNAndroid"
                         android:path="/Xo8WBi6jzSxKDVR4drqm84yr9iU="
                         android:scheme="msauth" />
         </intent-filter>

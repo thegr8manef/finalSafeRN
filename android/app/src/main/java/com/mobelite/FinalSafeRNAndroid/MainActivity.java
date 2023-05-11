@@ -1,4 +1,4 @@
-package com.mobelite.finalsafeProd;
+package com.mobelite.FinalSafeRNAndroid;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
