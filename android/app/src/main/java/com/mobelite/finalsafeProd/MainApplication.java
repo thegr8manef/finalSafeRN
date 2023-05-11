@@ -1,4 +1,4 @@
-package com.mobelite.finalsafe;
+package com.mobelite.finalsafeProd;
 
 import android.app.Application;
 import com.facebook.react.PackageList;

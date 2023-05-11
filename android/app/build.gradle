@@ -93,9 +93,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.mobelite.finalsafe"
+    namespace "com.mobelite.finalsafeProd"
     defaultConfig {
-        applicationId "com.mobelite.finalsafe"
+        applicationId "com.mobelite.finalsafeProd"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

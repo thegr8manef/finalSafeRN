@@ -14,14 +14,13 @@ export default function App() {
     console.log("--------- START ----------")
     const config: MSALConfiguration = {
       auth: {
-        clientId: '23bfbee3-b374-491a-b242-0896fc0af16e',
+        clientId: 'fa807dca-fa96-492e-bde2-1c65d5652520',
      //   authority: 'https://login.microsoftonline.com/13fcd6fb-10d6-4cde-8ee4-afc1e1fada3f',
         // authority: 'default-authority',
       },
     };
     const pca = new PublicClientApplication(config);
-    const scopes = ['scope1', 'scope2'];
-    
+    const scopes = ["openid", "profile", "User.Read", "email"];    
   
     
 // Initialize the public client application:
@@ -32,8 +31,10 @@ export default function App() {
  }
 
 // Acquiring a token for the first time, you must call pca.acquireToken
-const params: MSALInteractiveParams = { scopes };
- const result: MSALResult | undefined = await pca.acquireToken(params);
+ const params: MSALInteractiveParams = { scopes };
+  const result: MSALResult | undefined = await pca.acquireToken(params);
+  console.log("--------- RESULTING ----------")
+  console.log(result?.accessToken)
 
   
   }

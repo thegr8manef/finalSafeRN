@@ -1,17 +1,14 @@
 {
-  "client_id": "23bfbee3-b374-491a-b242-0896fc0af16e",
-  "authorization_user_agent": "DEFAULT",
-  "redirect_uri": "msauth://com.mobelite.finalsafe/sA26dfVdVMxBd7eEkz3051JEpEk%3D",
-  "account_mode": "SINGLE",
-  "broker_redirect_uri_registered": false,
-  "authorities": [
-    {
-      "type": "AAD",
-      "authority_url": "https://login.microsoftonline.com/13fcd6fb-10d6-4cde-8ee4-afc1e1fada3f",
-      "audience": {
-        "type": "AzureADMyOrg",
-        "tenant_id": "13fcd6fb-10d6-4cde-8ee4-afc1e1fada3f"
-      }
-    }
+   "client_id" : "fa807dca-fa96-492e-bde2-1c65d5652520",
+   "authorization_user_agent" : "DEFAULT",
+   "redirect_uri" : "msauth://com.mobelite.finalsafeProd/Xo8WBi6jzSxKDVR4drqm84yr9iU%3D",
+   "authorities" : [
+  {
+   "type": "AAD",
+   "audience": {
+  "type": "AzureADandPersonalMicrosoftAccount",
+   "tenant_id": "common"
+  }
+ }
   ]
-}
+  }
