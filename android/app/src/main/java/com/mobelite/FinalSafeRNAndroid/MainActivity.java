@@ -13,7 +13,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "finalsafe_reactnative";
+    return "FinalSafe RN";
   }
 
   /**
