@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react'
 import PublicClientApplication from 'react-native-msal';
 import type { MSALConfiguration , MSALInteractiveParams, MSALResult} from 'react-native-msal';
 import styles from './LoginStyes'
-import fr from '../../assets/strings/fr';
 import DropDownPicker from 'react-native-dropdown-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import msalConfig from '../../config/msal-config';
