@@ -4,21 +4,19 @@ import {LOGIN} from './actionTypes';
 import {catchError, map, switchMap} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {ProfileService} from '../../domain/gateway/profileService';
-import { loginFailed, loginSuccess } from './action';
-
+import {loginFailed, loginSuccess} from './action';
 
 export const loginEpic: Epic = (
-action$,
-store: StateObservable<AppState>,
-{profileService}: {profileService: ProfileService},
+  action$,
+  store: StateObservable<AppState>,
+  {profileService}: {profileService: ProfileService},
 ) =>
-
-action$.pipe(
-ofType(LOGIN),
-switchMap(
-    () => profileService.loginMsal().pipe(
-                map((token: string) => loginSuccess(token)),
-                catchError(error => of(loginFailed(error))),
-),
-),
-);
+  action$.pipe(
+    ofType(LOGIN),
+    switchMap(() =>
+      profileService.loginMsal().pipe(
+        map((token: string) => loginSuccess(token)),
+        catchError(error => of(loginFailed(error))),
+      ),
+    ),
+  );

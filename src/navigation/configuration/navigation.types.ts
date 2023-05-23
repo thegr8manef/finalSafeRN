@@ -1,3 +1,4 @@
 export type StackParamList = {
-    Login : undefined
-}
+  Login: undefined;
+  Profile: undefined;
+};

@@ -1,10 +1,9 @@
 export interface ProfileState {
-    login : LoginState;
+  login: LoginState;
 }
 
 export interface LoginState {
-
-    loading : boolean;
-    error : string | undefined;
-    token : string | undefined;
+  loading: boolean;
+  error: string | undefined;
+  token: string | undefined;
 }

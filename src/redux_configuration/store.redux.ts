@@ -1,15 +1,14 @@
-import { AppState } from "react-native/types";
-import { Action, applyMiddleware, createStore, Store } from "redux";
-import { reduxReducer } from "./rootReducers";
-import { epicsMiddleware, rootEpics } from "./rootEpics";
+import {AppState} from 'react-native/types';
+import {Action, applyMiddleware, createStore, Store} from 'redux';
+import {reduxReducer} from './rootReducers';
+import {epicsMiddleware, rootEpics} from './rootEpics';
 
-export const reduxStore = () : Store<AppState> => {
-    const store : Store = createStore<AppState, Action, {}, {}>(
-        reduxReducer,
-        applyMiddleware(epicsMiddleware)
+export const reduxStore = (): Store<AppState> => {
+  const store: Store = createStore<AppState, Action, {}, {}>(
+    reduxReducer,
+    applyMiddleware(epicsMiddleware),
+  );
+  epicsMiddleware.run(rootEpics);
 
-    );
-    epicsMiddleware.run(rootEpics);
-
-    return store;
-}
+  return store;
+};
