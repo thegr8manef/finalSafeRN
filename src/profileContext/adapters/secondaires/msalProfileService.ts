@@ -11,11 +11,11 @@ export class MsalProfileService implements ProfileService {
     
 loginMsal(): Observable<result> {
 
-    console.log('pressed');
+   
   
 
 
-console.log("--------- START ----------")
+
 const config: MSALConfiguration = {
     auth: {
     clientId: 'fa807dca-fa96-492e-bde2-1c65d5652520',
@@ -34,7 +34,6 @@ const config: MSALConfiguration = {
     pca
     .acquireToken(params)
     .then(result => {
-    console.log(result);
     resolve(result.accessToken);
     })
     .catch(error => reject(error));
