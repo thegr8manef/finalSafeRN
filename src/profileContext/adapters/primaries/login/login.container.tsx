@@ -6,10 +6,17 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTranslation } from 'react-i18next';
 
 
+interface Props {
+  loading: boolean;
+  error: string | undefined;
+  token: string | undefined;
+  login: () => void;
+  }
+  
+  
 
 
-
-export  function LoginContainer(props) {
+export  const LoginContainer = (props:  Props) => {
   const [open, setOpen] = useState(false);
   const [language, setLanguage] = useState("")
   const [mounted, setMounted] = useState(false)
