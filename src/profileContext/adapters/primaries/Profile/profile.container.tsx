@@ -6,15 +6,33 @@ import {Divider} from '../../../../assets/components/Divider';
 import {Header} from '../../../../assets/components/Header';
 import InfoContainer from '../../../../assets/components/InfoContainer';
 import colors from '../../../../assets/colors';
+import { RouteProp } from "@react-navigation/native";
 
-interface Props {}
+import { StackNavigationProp } from "@react-navigation/stack";
+import { StackParamList } from "../../../../navigation/configuration/navigation.types";
 
-interface State {}
+interface Props {
+  navigation: StackNavigationProp<StackParamList>;
+    route: RouteProp<StackParamList, 'Profile'>;
+    }
+
+interface State {
+  
+}
 
 export class ProfileContainer extends PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
+    this.state = {
+    }
+     
   }
+
+  componentDidMount(): void {
+    //  console.log(this.props.route.params.result.getToken())
+  }
+
+  
 
   render(): ReactNode {
     return (
@@ -32,7 +50,7 @@ export class ProfileContainer extends PureComponent<Props, State> {
         </View>
         <View style={{flex: 0.8}}>
           <DetailsContainer
-            children={'foulen foulani'}
+            children={"dd"}
             children_email={'foulen@test.tn'}
           />
         </View>
