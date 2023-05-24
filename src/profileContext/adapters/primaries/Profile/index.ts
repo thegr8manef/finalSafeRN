@@ -13,3 +13,4 @@ export const ProfilePage = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(ProfileContainer);
+
