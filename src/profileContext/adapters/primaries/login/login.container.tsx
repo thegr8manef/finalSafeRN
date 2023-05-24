@@ -1,40 +1,115 @@
-import React, {PureComponent, ReactNode} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import { View, Text, Button, Image, Pressable } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import styles from './loginStyles'
+import DropDownPicker from 'react-native-dropdown-picker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useTranslation } from 'react-i18next';
+
 
 interface Props {
   loading: boolean;
   error: string | undefined;
   token: string | undefined;
   login: () => void;
-}
+  }
+  
+  
 
-interface State {}
 
-export class LoginContainer extends PureComponent<Props, State> {
-  constructor(props: Props) {
-    super(props);
+export  const LoginContainer = (props:  Props) => {
+  const [open, setOpen] = useState(false);
+  const [language, setLanguage] = useState("")
+  const [mounted, setMounted] = useState(false)
+
+  const { t, i18n } = useTranslation();
+
+  const [items, setItems] = useState([
+    {label: 'Français', value: 'fr'},
+    {label: 'Néelandais', value: 'nl'},
+    {label: 'Polonais', value: 'pl'},
+    {label: 'Allemand', value: 'al'},
+    {label: 'Anglais', value: 'en'},
+  ]);
+
+  useEffect(()=>{
+    setMounted(true)
+  })
+
+  const getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('language')
+     
+      if(value !== null) {
+              setLanguage(value)
+      }else{
+            setLanguage("Français")
+      }
+    } catch(e) {
+    
+    }
+  }
+  if(!mounted){
+   getData()
   }
 
-  render(): ReactNode {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.title}>login page </Text>
+  
 
-        <TouchableOpacity onPress={() => this.props.login()}>
-          <Text>Login</Text>
-        </TouchableOpacity>
+ 
+
+  const changeLanguage = async () => {
+    try {
+      i18n.changeLanguage(language)
+      await AsyncStorage.setItem('language', language)
+    } catch (e) {
+       
+    }
+  }
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.languageContainer} >
+          <DropDownPicker
+     
+
+            open={open}
+           value={language}
+           items={items}
+           setOpen={setOpen}
+           setValue={setLanguage}
+           setItems={setItems}
+           onChangeValue={ changeLanguage}
+           style={styles.dropDownPicker}
+           containerStyle={styles.dropDownPickerContainer}
+           placeholder={language}
+           disableBorderRadius={false}
+           dropDownContainerStyle={styles.dropDownPicker}
+         
+        />
+
       </View>
-    );
-  }
+
+      <View style={styles.mainContainer} >
+
+        <Image source={require('../../../../assets/img/logo_splash.png') } style={styles.logoImage} />
+               
+
+               <Text style={styles.description}>{t('sso_description')}</Text>
+
+                
+        </View>
+
+<View style={styles.bottomContainer} >
+<Pressable onPress={()=>{props.login()}}   style={styles.button}>
+                <Text style={styles.btnText}>{t("action_sign_in")}</Text>
+              
+               </Pressable>
+
+  <Image source={require('../../../../assets/img/logo_eiffage.png')} style={styles.eiffageLogo} />
+
+</View>
+   
+      
+    </View>
+  )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'red',
-  },
-  title: {
-    fontSize: 20,
-    color: 'black',
-  },
-});
