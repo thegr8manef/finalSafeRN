@@ -1,3 +1,4 @@
+import { result } from '../../domain/entity/result';
 import {
   LOGIN,
   LOGIN_FAILED,
@@ -16,7 +17,7 @@ export const loginFailed = (error: string): LoginActionFailed => ({
   payload: error,
 });
 
-export const loginSuccess = (token: string): LoginActionSuccess => ({
+export const loginSuccess = (result: result): LoginActionSuccess => ({
   type: LOGIN_SUCCESS,
-  payload: token,
+  payload: result,
 });

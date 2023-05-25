@@ -1,3 +1,5 @@
+import { result } from "../domain/entity/result";
+
 export interface ProfileState {
   login: LoginState;
 }
@@ -5,5 +7,5 @@ export interface ProfileState {
 export interface LoginState {
   loading: boolean;
   error: string | undefined;
-  token: string | undefined;
+  result: result | undefined;
 }

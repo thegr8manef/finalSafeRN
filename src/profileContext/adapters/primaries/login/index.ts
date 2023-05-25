@@ -9,11 +9,12 @@ import {LoginActionTypes} from '../../../useCases/Login/actionTypes';
 import {connect} from 'react-redux';
 import {LoginContainer} from './login.container';
 import {login} from '../../../useCases/Login/action';
+import { result } from '../../../domain/entity/result';
 
 interface StateToPropsType {
   loading: boolean;
   error: string | undefined;
-  token: string | undefined;
+  result: result | undefined;
 }
 
 interface DispatchToPropsType {
@@ -23,7 +24,7 @@ interface DispatchToPropsType {
 const mapStateToProps = (state: AppState): StateToPropsType => ({
   loading: loginLoadingSelector(state),
   error: loginErrorSelector(state),
-  token: tokenSelector(state),
+  result: tokenSelector(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => ({

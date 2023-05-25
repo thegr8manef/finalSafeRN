@@ -9,7 +9,7 @@ import {
 const initialState: LoginState = {
   loading: false,
   error: undefined,
-  token: undefined,
+  result: undefined,
 };
 
 export const reducerLogin = (
@@ -18,12 +18,12 @@ export const reducerLogin = (
 ): LoginState => {
   switch (action.type) {
     case LOGIN:
-      return {loading: true, error: undefined, token: undefined};
+      return {loading: true, error: undefined, result: undefined};
 
     case LOGIN_SUCCESS:
-      return {loading: false, error: undefined, token: action.payload};
+      return {loading: false, error: undefined, result: action.payload};
     case LOGIN_FAILED:
-      return {loading: false, error: action.payload, token: undefined};
+      return {loading: false, error: action.payload, result: undefined};
     default:
       return state;
   }

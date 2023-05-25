@@ -6,17 +6,17 @@ import PublicClientApplication, {
   MSALInteractiveParams,
   MSALResult,
 } from 'react-native-msal';
+import msalConfig from '../../../config/msal-config';
 
 export class MsalProfileService implements ProfileService {
   loginMsal(): Observable<result> {
     const config: MSALConfiguration = {
       auth: {
-        clientId: 'fa807dca-fa96-492e-bde2-1c65d5652520',
-        // authority: 'https://login.microsoftonline.com/13fcd6fb-10d6-4cde-8ee4-afc1e1fada3f',
-        // authority: 'default-authority',
+        clientId: msalConfig.clientId,
+       
       },
     };
-    const promiseSignup = new Promise<string>((resolve, reject) => {
+    const promiseSignup = new Promise<result>((resolve, reject) => {
       const pca = new PublicClientApplication(config);
       const scopes = ['openid', 'profile', 'User.Read', 'email'];
 
@@ -27,7 +27,7 @@ export class MsalProfileService implements ProfileService {
           pca
             .acquireToken(params)
             .then(result => {
-              resolve(result.accessToken);
+              resolve(result);
             })
             .catch(error => reject(error));
         })
