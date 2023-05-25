@@ -1,21 +1,21 @@
 export class result{
-    private accessToken : string
-    private account : account
+    private _accessToken : string
+    private _account : account
 
     constructor(
          accessToken : string,
          account : account,
      
     ){
-            this.accessToken = accessToken
-            this.account = account
+            this._accessToken = accessToken
+            this._account = account
     }
 
-     getToken() : string{
-        return this.accessToken
+     get accessToken() : string{
+        return this._accessToken
     }
-    getAccount(): account{
-        return this.account
+    get account(): account{
+        return this._account
     }
 
 }
@@ -23,50 +23,50 @@ export class result{
 
  class account{
     constructor(
-        private claims : claims,
-        private username : string
+        private _claims : claims,
+        private _username : string
      
     ){
 
     }
 
-    getClaims() : claims{
-        return this.claims
+    get claims() : claims{
+        return this._claims
     }
-    getUsername() : string{
-        return this.username
+    get username() : string{
+        return this._username
     }
 
 }
 
 class claims{
     constructor(
-        private aud : undefined,
-        private iss : string,
-        private name: string,
-        private oid : string,
-        private preferred_username : string 
+        private _aud : undefined,
+        private _iss : string,
+        private _name: string,
+        private _oid : string,
+        private _preferred_username : string 
 
      
     ){
 
     }
 
-    getAud() : undefined{
-        return this.aud
+    get aud() : undefined{
+        return this._aud
     }
 
-    getIss() : string{
-        return this.iss
+    get iss() : string{
+        return this._iss
     }
-    getName() : string{
-        return this.name
+    get name() : string{
+        return this._name
     }
-    getOid(): string{
-        return this.oid
+    get oid(): string{
+        return this._oid
     }
-    getPreferred_username() : string {
-        return this.preferred_username
+    get preferred_username() : string {
+        return this._preferred_username
     }
 
 }

@@ -43,8 +43,8 @@ export  const LoginContainer = (props:  Props) => {
   useEffect(()=>{
     setMounted(true)
    if(props.result != undefined){
-     
-    props.navigation.navigate('Profile', { result : props.result})
+
+   props.navigation.navigate('Profile', { result : props.result})
         
    }
     

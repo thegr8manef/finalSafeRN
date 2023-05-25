@@ -28,9 +28,6 @@ export class ProfileContainer extends PureComponent<Props, State> {
      
   }
 
-  componentDidMount(): void {
-    //  console.log(this.props.route.params.result.getToken())
-  }
 
   
 
@@ -50,8 +47,8 @@ export class ProfileContainer extends PureComponent<Props, State> {
         </View>
         <View style={{flex: 0.8}}>
           <DetailsContainer
-            children={"dd"}
-            children_email={'foulen@test.tn'}
+            children={this.props.route.params.result.account.claims.name}
+            children_email={this.props.route.params.result.account.username}
           />
         </View>
         <Divider />
