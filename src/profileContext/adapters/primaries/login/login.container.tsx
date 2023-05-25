@@ -7,13 +7,13 @@ import { useTranslation } from 'react-i18next';
 import { StackNavigationProp } from "@react-navigation/stack";
 import { StackParamList } from "../../../../navigation/configuration/navigation.types";
 import colors from '../../../../assets/colors';
-import { result } from '../../../domain/entity/result';
+import { Profile } from '../../../domain/entity/profile';
 
 
 interface Props {
   loading: boolean;
   error: string | undefined;
-  result: result | undefined;
+  profile: Profile | undefined;
   login: () => void;
   navigation: StackNavigationProp<StackParamList>;
   }
@@ -42,9 +42,9 @@ export  const LoginContainer = (props:  Props) => {
 
   useEffect(()=>{
     setMounted(true)
-   if(props.result != undefined){
+   if(props.profile != undefined){
 
-   props.navigation.navigate('Profile', { result : props.result})
+   props.navigation.navigate('Profile')
         
    }
     

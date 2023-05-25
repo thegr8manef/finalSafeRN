@@ -2,19 +2,19 @@ import {AppState} from '../../../../redux_configuration/appState';
 import {
   loginErrorSelector,
   loginLoadingSelector,
-  tokenSelector,
+  profileSelector,
 } from '../../../useCases/Login/selectors';
 import {Dispatch} from 'redux';
 import {LoginActionTypes} from '../../../useCases/Login/actionTypes';
 import {connect} from 'react-redux';
 import {LoginContainer} from './login.container';
 import {login} from '../../../useCases/Login/action';
-import { result } from '../../../domain/entity/result';
+import { Profile } from '../../../domain/entity/profile';
 
 interface StateToPropsType {
   loading: boolean;
   error: string | undefined;
-  result: result | undefined;
+  profile: Profile | undefined;
 }
 
 interface DispatchToPropsType {
@@ -24,7 +24,7 @@ interface DispatchToPropsType {
 const mapStateToProps = (state: AppState): StateToPropsType => ({
   loading: loginLoadingSelector(state),
   error: loginErrorSelector(state),
-  result: tokenSelector(state),
+  profile: profileSelector(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => ({

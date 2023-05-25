@@ -1,4 +1,4 @@
-import {result} from '../../domain/entity/result';
+import {Profile, result} from '../../domain/entity/profile';
 import {ProfileService} from '../../domain/gateway/profileService';
 import {Observable, from} from 'rxjs';
 import PublicClientApplication, {
@@ -7,16 +7,17 @@ import PublicClientApplication, {
   MSALResult,
 } from 'react-native-msal';
 import msalConfig from '../../../config/msal-config';
+import { ProfileMapper } from './mapper/profile.mapper';
 
 export class MsalProfileService implements ProfileService {
-  loginMsal(): Observable<result> {
+  loginMsal(): Observable<Profile> {
     const config: MSALConfiguration = {
       auth: {
         clientId: msalConfig.clientId,
        
       },
     };
-    const promiseSignup = new Promise<result>((resolve, reject) => {
+    const promiseSignup = new Promise<Profile>((resolve, reject) => {
       const pca = new PublicClientApplication(config);
       const scopes = ['openid', 'profile', 'User.Read', 'email'];
 
@@ -27,7 +28,7 @@ export class MsalProfileService implements ProfileService {
           pca
             .acquireToken(params)
             .then(result => {
-              resolve(result);
+              resolve(ProfileMapper.mapToProfile(result));
             })
             .catch(error => reject(error));
         })

@@ -1,4 +1,4 @@
-import { result } from "../../domain/entity/result";
+import { result } from "../../domain/entity/profile";
 
 export const LOGIN = 'LOGIN';
 

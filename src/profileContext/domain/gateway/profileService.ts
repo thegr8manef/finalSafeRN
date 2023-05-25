@@ -1,6 +1,6 @@
 import{Observable} from "rxjs";
-import { result } from "../entity/result";
+import { Profile } from "../entity/profile";
 
 export interface ProfileService{
-    loginMsal(): Observable<result>
+    loginMsal(): Observable<Profile>
 }
