@@ -3,18 +3,38 @@ import {ProfileContainer} from './profile.container';
 import { Profile } from '../../../domain/entity/profile';
 import { profileSelector } from '../../../useCases/Login/selectors';
 import { AppState } from '../../../../redux_configuration/appState';
+import { User } from '../../../domain/entity/user';
+import { loadUserInfoSelector,
+   loadUserInfoSuccessSelector,
+    loadUserInfoErrorSelector }
+     from '../../../useCases/ProfileDetails/selectors';
+ import {Dispatch} from 'redux';
+
+import { LoadProfileDetailsActionTypes } from '../../../useCases/ProfileDetails/actionType';
+import { loadProfileDetails } from '../../../useCases/ProfileDetails/action';
+
+
 interface StateToPropsType {
-  profile : Profile | undefined
+  profile : Profile | undefined,
+  loading: boolean;
+  error: string | undefined;
+  user: User | undefined;
 }
 
-interface DispatchToPropsType {}
+interface DispatchToPropsType {
+  loadProfileDetails: (accessToken : string)=> void
+}
 
 const mapStateToProps = (state: AppState): StateToPropsType => ({
-    profile : profileSelector(state)
+    profile : profileSelector(state),
+    loading : loadUserInfoSelector(state),
+    error: loadUserInfoErrorSelector(state),
+    user:  loadUserInfoSuccessSelector(state),
+
 })
 
-const mapDispatchToProps = (): DispatchToPropsType => ({
-  
+const mapDispatchToProps = (dispatch : Dispatch): DispatchToPropsType => ({
+  loadProfileDetails : (accessToken : string): LoadProfileDetailsActionTypes => dispatch(loadProfileDetails(accessToken)),
 });
 
 export const ProfilePage = connect(

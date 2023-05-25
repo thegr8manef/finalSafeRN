@@ -1,4 +1,4 @@
-import { result } from '../../domain/entity/profile';
+import { Profile } from '../../domain/entity/profile';
 import {
   LOGIN,
   LOGIN_FAILED,
@@ -17,7 +17,7 @@ export const loginFailed = (error: string): LoginActionFailed => ({
   payload: error,
 });
 
-export const loginSuccess = (result: result): LoginActionSuccess => ({
+export const loginSuccess = (profile: Profile): LoginActionSuccess => ({
   type: LOGIN_SUCCESS,
-  payload: result,
+  payload: profile,
 });

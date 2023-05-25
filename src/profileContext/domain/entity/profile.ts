@@ -3,7 +3,7 @@ export class Profile{
         private _id: string,
         private _name: string,
         private _accessToken :string,
-        private _email : string
+        private _email : string,
     ){
     }
 

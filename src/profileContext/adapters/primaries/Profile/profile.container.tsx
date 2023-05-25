@@ -15,6 +15,7 @@ import { Profile } from '../../../domain/entity/profile';
 interface Props {
      navigation: StackNavigationProp<StackParamList>;
      profile : Profile | undefined
+     loadProfileDetails: (accessToken : string)=> void;
 
     }
 
@@ -22,11 +23,15 @@ interface Props {
 export class ProfileContainer extends PureComponent<Props> {
   
 
+  componentDidMount(): void {
+    this.props.loadProfileDetails(this.props.profile?.accessToken!!)
+
+  }
 
   
 
   render(): ReactNode {
-
+   
     return (
       <SafeAreaView style={{flex: 1}}>
         <View style={styles.header_container}>
