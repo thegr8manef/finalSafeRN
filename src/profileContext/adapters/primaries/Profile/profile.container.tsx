@@ -6,6 +6,8 @@ import {Divider} from '../../../../assets/components/Divider';
 import {Header} from '../../../../assets/components/Header';
 import InfoContainer from '../../../../assets/components/InfoContainer';
 import colors from '../../../../assets/colors';
+import {CardOne} from '../../../../assets/components/CardOne';
+import { CardPieChart } from "../../../../assets/components/CardPieChart";
 
 interface Props {}
 
@@ -57,7 +59,10 @@ export class ProfileContainer extends PureComponent<Props, State> {
             children_info2={'DR EIC TESTS 3'}
           />
         </View>
-        <View style={{flex: 2, backgroundColor: '#eaeaea'}} />
+        <View
+          style={{flex: 2, backgroundColor: '#eaeaea', flexDirection: 'row'}}>
+          <CardPieChart textLabels={'TYPE DE VISITES'}  accessor={'population'}/>
+        </View>
       </SafeAreaView>
     );
   }
@@ -80,4 +85,3 @@ const styles = StyleSheet.create({
     height: 50,
   },
 });
-

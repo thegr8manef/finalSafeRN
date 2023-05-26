@@ -5,7 +5,7 @@ interface Props {
   textButton: string;
   OnPressCustomized: () => void;
 }
-export const ButtonPrimary =(props: Props) => {
+export const ButtonPrimary = (props: Props) => {
   return (
     <View style={styles.buttonOuterContainer}>
       <Pressable
@@ -20,7 +20,7 @@ export const ButtonPrimary =(props: Props) => {
       </Pressable>
     </View>
   );
-}
+};
 const styles = StyleSheet.create({
   buttonOuterContainer: {
     margin: 4,
