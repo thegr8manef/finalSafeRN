@@ -10,28 +10,23 @@ import { RouteProp } from "@react-navigation/native";
 
 import { StackNavigationProp } from "@react-navigation/stack";
 import { StackParamList } from "../../../../navigation/configuration/navigation.types";
+import { Profile } from '../../../domain/entity/profile';
 
 interface Props {
-  navigation: StackNavigationProp<StackParamList>;
-    route: RouteProp<StackParamList, 'Profile'>;
+     navigation: StackNavigationProp<StackParamList>;
+     profile : Profile | undefined
+
     }
 
-interface State {
+
+export class ProfileContainer extends PureComponent<Props> {
   
-}
-
-export class ProfileContainer extends PureComponent<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-    }
-     
-  }
 
 
   
 
   render(): ReactNode {
+
     return (
       <SafeAreaView style={{flex: 1}}>
         <View style={styles.header_container}>
@@ -46,10 +41,14 @@ export class ProfileContainer extends PureComponent<Props, State> {
           </View>
         </View>
         <View style={{flex: 0.8}}>
-          <DetailsContainer
-            children={this.props.route.params.result.account.claims.name}
-            children_email={this.props.route.params.result.account.username}
+          {this.props.profile ? 
+          <DetailsContainer 
+            children={this.props.profile?.name}
+            children_email={this.props.profile?.email}
           />
+          : 
+          null
+        }
         </View>
         <Divider />
         <View style={{flex: 0.8}}>

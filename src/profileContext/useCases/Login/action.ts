@@ -1,4 +1,4 @@
-import { result } from '../../domain/entity/result';
+import { result } from '../../domain/entity/profile';
 import {
   LOGIN,
   LOGIN_FAILED,
