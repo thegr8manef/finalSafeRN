@@ -1,5 +1,6 @@
 import { Profile } from "../../../domain/entity/profile";
-import { ProfileDto } from "../dto/profile.dto";
+import { User } from "../../../domain/entity/user";
+import { ProfileDto, userDto } from "../dto/profile.dto";
 
 export class ProfileMapper{
 
@@ -8,6 +9,15 @@ export class ProfileMapper{
                  profile.tenantId,
                  profile.account.claims.name, 
                  profile.accessToken,
-                 profile.account.username)
+                 profile.account.username,
+                 )
+    }
+
+    static mapToProfileDetails(userDetails : userDto) : User{
+        console.log(userDetails)
+                   return new User(
+               "", 
+                userDetails.rd.or.rg
+            )
     }
 }

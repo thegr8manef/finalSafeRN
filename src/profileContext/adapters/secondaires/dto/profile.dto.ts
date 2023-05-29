@@ -26,3 +26,27 @@ export interface ProfileDto
         scopes: string[],
         tenantId: string
         }
+
+
+
+
+/**
+ * User info from api
+ */
+
+        export interface userDto {
+            rc: string,
+            rm: string,
+            rd: {
+                or: {
+                    rg: string,
+                    ss: string,
+                    es: string
+                },
+             
+        }
+
+
+    }
+
+        

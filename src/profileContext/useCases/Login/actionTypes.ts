@@ -1,4 +1,4 @@
-import { result } from "../../domain/entity/profile";
+import { Profile } from "../../domain/entity/profile";
 
 export const LOGIN = 'LOGIN';
 
@@ -12,7 +12,7 @@ export interface LoginAction {
 
 export interface LoginActionSuccess {
   type: typeof LOGIN_SUCCESS;
-  payload: result;
+  payload: Profile;
 }
 
 export interface LoginActionFailed {
