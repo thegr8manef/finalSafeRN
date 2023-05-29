@@ -3,20 +3,21 @@ import { User } from "../domain/entity/user";
 
 export interface ProfileState {
   login: LoginState;
+  loadProfileDetails : LoadProfileState
 }
 
 export interface LoginState {
   loading: boolean;
   error: string | undefined;
-  profile: Profile | undefined |User;
+  profile: Profile | undefined;
 }
 
 /**
  * to load profile details
  */
-export interface ProfileDetailsStat {
-  loadProfileDetails : LoadProfileState
-}
+// export interface ProfileDetailsStat {
+//   loadProfileDetails : LoadProfileState
+// }
 
 
 
