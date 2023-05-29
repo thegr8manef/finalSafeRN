@@ -3,6 +3,7 @@ export class Stat {
     return this._resultCode;
   }
 
+
   get numberVisits(): number {
     return this._numberVisits;
   }

@@ -13,15 +13,15 @@ import {CardBarProgressVisites} from '../../../../assets/components/CardBarProgr
 import {Stat} from '../../../domain/entity/Stat';
 
 interface Props {
-  loading: boolean;stat
+  loading: boolean;
   error: string | undefined;
   stat: Stat | undefined;
   statFun: () => void;
 }
 
 export const DashboardContainer = (props: Props) => {
-  useEffect(()=>{
-    console.log(props.statFun)
+  useEffect(() => {
+    console.log(props.statFun);
   })
   return (
     <SafeAreaView style={{flex: 1}}>

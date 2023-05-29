@@ -1,4 +1,5 @@
 export interface StatDto {
+
   rc: string;
   rm: string;
   rd: {

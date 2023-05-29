@@ -5,6 +5,7 @@ export interface DashboardState {
 }
 
 export interface StatState {
+
   loading: boolean;
   error: string | undefined;
   stat: Stat | undefined;

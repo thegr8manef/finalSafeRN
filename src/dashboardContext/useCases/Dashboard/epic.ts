@@ -8,6 +8,7 @@ import {statFailed, statSuccess} from './action';
 import {Stat} from '../../domain/entity/Stat';
 
 export const statEpic: Epic = (
+  
   action$,
   store: StateObservable<AppState>,
   {dashboardService}: {dashboardService: DashboardService},

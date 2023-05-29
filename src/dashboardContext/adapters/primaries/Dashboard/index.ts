@@ -17,6 +17,7 @@ interface StateToPropsType {
   stat: Stat | undefined;
 }
 
+
 interface DispatchToPropsType {
   statFun: () => void;
 }

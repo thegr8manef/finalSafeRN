@@ -10,6 +10,7 @@ export interface StatAction {
   type: typeof STAT;
 }
 
+
 export interface StatActionSuccess {
   type: typeof STAT_SUCCESS;
   payload: Stat;

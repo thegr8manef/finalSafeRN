@@ -6,6 +6,7 @@ interface Props {
   textLabels: string;
   accessor: string;
 }
+
 const data = [
   {
     name: 'Seoul',

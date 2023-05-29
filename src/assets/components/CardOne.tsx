@@ -7,6 +7,7 @@ interface Props {
   textHints: string;
   colorText: string;
 }
+
 export const CardOne = (props: Props) => {
   return (
     <View style={styles.OuterContainer}>

@@ -8,6 +8,7 @@ const initialState: StatState = {
   stat: undefined,
 };
 
+
 export const reducerStat = (
   state = initialState,
   action: StatActionTypes,
