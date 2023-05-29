@@ -1,8 +1,14 @@
  {
   "translation":{
 
-    "action_sign_in": "Połącz",
-  "sso_description": "Witam w aplikacji Eiffage Budownictwo do zarządzania BHP.\nPotrzebny jest konto Eiffage, żeby się potączyć."
-  }
+  "action_sign_in" : "Połącz",
+  "sso_description": "Witam w aplikacji Eiffage Budownictwo do zarządzania BHP.\nPotrzebny jest konto Eiffage, żeby się potączyć.",
+  "txt.next"       : "Następny",
+  "txt.profile"    : "Profiel",
+  "txt.region"     : "Regiony",
+  "txt.filiale"    : "Oddział/ Spółka",
+  "txt.etablissement" : "Zakłady/ Odziały"
+
+    }
   
 }

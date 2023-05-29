@@ -1,4 +1,4 @@
-import React, {PureComponent, ReactNode} from 'react';
+import React, {PureComponent, ReactNode, useEffect, useState} from 'react';
 import {View, SafeAreaView, StyleSheet} from 'react-native';
 import {ButtonPrimary} from '../../../../assets/components/ButtonPrimary';
 import {DetailsContainer} from '../../../../assets/components/DetailsContainer';
@@ -6,50 +6,59 @@ import {Divider} from '../../../../assets/components/Divider';
 import {Header} from '../../../../assets/components/Header';
 import InfoContainer from '../../../../assets/components/InfoContainer';
 import colors from '../../../../assets/colors';
-import { RouteProp } from "@react-navigation/native";
-
 import { StackNavigationProp } from "@react-navigation/stack";
 import { StackParamList } from "../../../../navigation/configuration/navigation.types";
 import { Profile } from '../../../domain/entity/profile';
+import { User } from '../../../domain/entity/user';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
      navigation: StackNavigationProp<StackParamList>;
      profile : Profile | undefined
      loadProfileDetails: (accessToken : string)=> void;
-
+     user : User
     }
 
 
-export class ProfileContainer extends PureComponent<Props> {
-  
 
-  componentDidMount(): void {
-    this.props.loadProfileDetails(this.props.profile?.accessToken!!)
-
-  }
 
   
 
-  render(): ReactNode {
-   
-    return (
+  export  const ProfileContainer = (props:  Props) => {
+    
+    const [mounted, setMounted] = useState(false)
+
+    const { t } = useTranslation();
+
+
+    useEffect(()=>{
+      setMounted(true)    
+      
+    })
+
+    if(!mounted){
+      props.loadProfileDetails(props.profile?.accessToken!!)
+    }
+  
+          
+        return(
       <SafeAreaView style={{flex: 1}}>
         <View style={styles.header_container}>
           <View style={styles.button_container}>
             <ButtonPrimary
               OnPressCustomized={() => console.log('press')}
-              textButton="suivant"
+              textButton={t("txt.next")}
             />
           </View>
           <View style={styles.text_container}>
-            <Header>Profil</Header>
+            <Header>{t('txt.profile')}</Header>
           </View>
         </View>
         <View style={{flex: 0.8}}>
-          {this.props.profile ? 
+          {props.profile ? 
           <DetailsContainer 
-            children={this.props.profile?.name}
-            children_email={this.props.profile?.email}
+            children={props.profile?.name}
+            children_email={props.profile?.email}
           />
           : 
           null
@@ -58,29 +67,30 @@ export class ProfileContainer extends PureComponent<Props> {
         <Divider />
         <View style={{flex: 0.8}}>
           <InfoContainer
-            children_info1={'Régions'}
-            children_info2={'DR EIC TESTS 1'}
+            children_info1={t('txt.region')}
+            children_info2={props.user == undefined ? "" : props.user.region}
           />
         </View>
         <Divider />
         <View style={{flex: 0.8}}>
           <InfoContainer
-            children_info1={'Filiales'}
-            children_info2={'DR EIC TESTS 2'}
+            children_info1={t('txt.filiale')}
+            children_info2={props.user == undefined ? "" : props.user.function}
           />
         </View>
         <Divider />
         <View style={{flex: 0.8}}>
           <InfoContainer
-            children_info1={'Etablissements'}
-            children_info2={'DR EIC TESTS 3'}
+            children_info1={t('txt.etablissement')}
+            children_info2={' '}
           />
         </View>
         <View style={{flex: 2, backgroundColor: '#eaeaea'}} />
       </SafeAreaView>
-    );
+    )
+    
   }
-}
+
 
 const styles = StyleSheet.create({
   header_container: {

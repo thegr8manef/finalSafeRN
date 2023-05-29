@@ -37,19 +37,16 @@ export interface ProfileDto
         export interface userDto {
             rc: string,
             rm: string,
-            rd : {
-                user_func : {id : number,func_name : string}[],
-                regions : regions[]
-
-
-            }
+            rd: {
+                or: {
+                    rg: string,
+                    ss: string,
+                    es: string
+                },
+             
         }
 
 
-     
+    }
 
-        interface regions {
-            id : string,
-            title : string,
-            sas : {id: number, title : string, etc : {id : string, title: string}}[]
-        }
+        

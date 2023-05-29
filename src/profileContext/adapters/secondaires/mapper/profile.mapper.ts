@@ -14,12 +14,10 @@ export class ProfileMapper{
     }
 
     static mapToProfileDetails(userDetails : userDto) : User{
-        console.log('---------------')
         console.log(userDetails)
-
-            return new User(
-                userDetails.rd.user_func[0].func_name, 
-                userDetails.rd.regions[0].title
+                   return new User(
+               "", 
+                userDetails.rd.or.rg
             )
     }
 }
