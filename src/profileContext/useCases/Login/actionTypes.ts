@@ -1,3 +1,5 @@
+import { Profile } from "../../domain/entity/profile";
+
 export const LOGIN = 'LOGIN';
 
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -10,7 +12,7 @@ export interface LoginAction {
 
 export interface LoginActionSuccess {
   type: typeof LOGIN_SUCCESS;
-  payload: string;
+  payload: Profile;
 }
 
 export interface LoginActionFailed {

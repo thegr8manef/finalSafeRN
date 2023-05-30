@@ -1,8 +1,14 @@
  {
   "translation":{
 
-    "action_sign_in": "Anmelden",
-  "sso_description": "Herzlich willkommen in der App für Arbeitssicherheit von Eiffage Construction.\nSie benötigen ein Eiffage-Konto, um sich anzumelden."
-  }
+    "action_sign_in" : "Anmelden",
+    "sso_description": "Herzlich willkommen in der App für Arbeitssicherheit von Eiffage Construction.\nSie benötigen ein Eiffage-Konto, um sich anzumelden.",
+    "txt.next"       : "Weiter",
+    "txt.profile"    : "Profil",
+    "txt.region"     : "Regionen",
+    "txt.etablissement" : "Geschäftsstellen"
+
+
+    }
   
 }

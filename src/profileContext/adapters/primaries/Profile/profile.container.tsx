@@ -1,4 +1,4 @@
-import React, {PureComponent, ReactNode} from 'react';
+import React, {PureComponent, ReactNode, useEffect, useState} from 'react';
 import {View, SafeAreaView, StyleSheet} from 'react-native';
 import {ButtonPrimary} from '../../../../assets/components/ButtonPrimary';
 import {DetailsContainer} from '../../../../assets/components/DetailsContainer';
@@ -6,67 +6,91 @@ import {Divider} from '../../../../assets/components/Divider';
 import {Header} from '../../../../assets/components/Header';
 import InfoContainer from '../../../../assets/components/InfoContainer';
 import colors from '../../../../assets/colors';
-import {CardOne} from '../../../../assets/components/CardOne';
-import { CardPieChart } from "../../../../assets/components/CardPieChart";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { StackParamList } from "../../../../navigation/configuration/navigation.types";
+import { Profile } from '../../../domain/entity/profile';
+import { User } from '../../../domain/entity/user';
+import { useTranslation } from 'react-i18next';
 
-interface Props {}
+interface Props {
+     navigation: StackNavigationProp<StackParamList>;
+     profile : Profile | undefined
+     loadProfileDetails: (accessToken : string)=> void;
+     user : User
+    }
 
-interface State {}
 
-export class ProfileContainer extends PureComponent<Props, State> {
-  constructor(props: Props) {
-    super(props);
-  }
 
-  render(): ReactNode {
-    return (
+
+
+
+  export  const ProfileContainer = (props:  Props) => {
+
+    const [mounted, setMounted] = useState(false)
+
+    const { t } = useTranslation();
+
+
+    useEffect(()=>{
+      setMounted(true)
+
+    })
+
+    if(!mounted){
+      props.loadProfileDetails(props.profile?.accessToken!!)
+    }
+
+
+        return(
       <SafeAreaView style={{flex: 1}}>
         <View style={styles.header_container}>
           <View style={styles.button_container}>
             <ButtonPrimary
-              OnPressCustomized={() => console.log('press')}
-              textButton="suivant"
+              OnPressCustomized={() => props.navigation.navigate('Dashboard')}
+              textButton={t("txt.next")}
             />
           </View>
           <View style={styles.text_container}>
-            <Header>Profil</Header>
+            <Header>{t('txt.profile')}</Header>
           </View>
         </View>
         <View style={{flex: 0.8}}>
+          {props.profile ?
           <DetailsContainer
-            children={'foulen foulani'}
-            children_email={'foulen@test.tn'}
+            children={props.profile?.name}
+            children_email={props.profile?.email}
+          />
+          :
+          null
+        }
+        </View>
+        <Divider />
+        <View style={{flex: 0.8}}>
+          <InfoContainer
+            children_info1={t('txt.region')}
+            children_info2={props.user == undefined ? "" : props.user.region}
           />
         </View>
         <Divider />
         <View style={{flex: 0.8}}>
           <InfoContainer
-            children_info1={'Régions'}
-            children_info2={'DR EIC TESTS 1'}
+            children_info1={t('txt.filiale')}
+            children_info2={props.user == undefined ? "" : props.user.function}
           />
         </View>
         <Divider />
         <View style={{flex: 0.8}}>
           <InfoContainer
-            children_info1={'Filiales'}
-            children_info2={'DR EIC TESTS 2'}
+            children_info1={t('txt.etablissement')}
+            children_info2={' '}
           />
         </View>
-        <Divider />
-        <View style={{flex: 0.8}}>
-          <InfoContainer
-            children_info1={'Etablissements'}
-            children_info2={'DR EIC TESTS 3'}
-          />
-        </View>
-        <View
-          style={{flex: 2, backgroundColor: '#eaeaea', flexDirection: 'row'}}>
-          <CardPieChart textLabels={'TYPE DE VISITES'}  accessor={'population'}/>
-        </View>
+        <View style={{flex: 2, backgroundColor: '#eaeaea'}} />
       </SafeAreaView>
-    );
+    )
+
   }
-}
+
 
 const styles = StyleSheet.create({
   header_container: {
@@ -85,3 +109,4 @@ const styles = StyleSheet.create({
     height: 50,
   },
 });
+

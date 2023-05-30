@@ -5,6 +5,7 @@ import {catchError, map, switchMap} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {ProfileService} from '../../domain/gateway/profileService';
 import {loginFailed, loginSuccess} from './action';
+import { Profile } from '../../domain/entity/profile';
 
 export const loginEpic: Epic = (
   action$,
@@ -15,7 +16,7 @@ export const loginEpic: Epic = (
     ofType(LOGIN),
     switchMap(() =>
       profileService.loginMsal().pipe(
-        map((token: string) => loginSuccess(token)),
+        map((profile: Profile) => loginSuccess(profile)),
         catchError(error => of(loginFailed(error))),
       ),
     ),
