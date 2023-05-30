@@ -11,7 +11,7 @@ export class dashboardService implements DashboardService {
   private headers: Record<string, string> = {
     'Content-Type': 'application/json',
   };
-  statFun(): Observable<Stat> {
+  LoadStat(): Observable<Stat> {
     const url =
       'https://staging.finalsafe.mobelite.fr/ws.php/V2.3/api/statistic';
     this.headers.token =

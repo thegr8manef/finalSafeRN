@@ -1,22 +1,22 @@
 import {Stat} from '../../domain/entity/Stat';
 
-export const STAT = 'STAT';
+export const LOAD_STAT = 'STAT';
 
-export const STAT_SUCCESS = 'STAT_SUCCESS';
+export const LOAD_STAT_SUCCESS = 'STAT_SUCCESS';
 
-export const STAT_FAILED = 'STAT_FAILED';
+export const LOAD_STAT_FAILED = 'STAT_FAILED';
 
 export interface StatAction {
-  type: typeof STAT;
+  type: typeof LOAD_STAT;
 }
 
 export interface StatActionSuccess {
-  type: typeof STAT_SUCCESS;
+  type: typeof LOAD_STAT_SUCCESS;
   payload: Stat;
 }
 
 export interface StatActionFailed {
-  type: typeof STAT_FAILED;
+  type: typeof LOAD_STAT_FAILED;
   payload: string;
 }
 

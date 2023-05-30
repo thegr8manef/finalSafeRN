@@ -1,7 +1,7 @@
 import {
-  STAT,
-  STAT_FAILED,
-  STAT_SUCCESS,
+  LOAD_STAT,
+  LOAD_STAT_FAILED,
+  LOAD_STAT_SUCCESS,
   StatAction,
   StatActionFailed,
   StatActionSuccess,
@@ -9,13 +9,13 @@ import {
 import {Stat} from '../../domain/entity/Stat';
 
 export const stat = (): StatAction => ({
-  type: STAT,
+  type: LOAD_STAT,
 });
 export const statFailed = (error: string): StatActionFailed => ({
-  type: STAT_FAILED,
+  type: LOAD_STAT_FAILED,
   payload: error,
 });
 export const statSuccess = (stat: Stat): StatActionSuccess => ({
-  type: STAT_SUCCESS,
+  type: LOAD_STAT_SUCCESS,
   payload: stat,
 });

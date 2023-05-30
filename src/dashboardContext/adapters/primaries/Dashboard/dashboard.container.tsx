@@ -1,28 +1,25 @@
-import React, {PureComponent, ReactNode, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, SafeAreaView, StyleSheet, ScrollView} from 'react-native';
 import {ButtonPrimary} from '../../../../assets/components/ButtonPrimary';
-import {DetailsContainer} from '../../../../assets/components/DetailsContainer';
-import {Divider} from '../../../../assets/components/Divider';
 import {Header} from '../../../../assets/components/Header';
-import InfoContainer from '../../../../assets/components/InfoContainer';
 import colors from '../../../../assets/colors';
-import {CardPieChart} from '../../../../assets/components/CardPieChart';
-import {CardOne} from '../../../../assets/components/CardOne';
-import {CardBarProgress} from '../../../../assets/components/CardBarProgress';
-import {CardBarProgressVisites} from '../../../../assets/components/CardBarProgressVisites';
+import {CardPieChart} from '../components/CardPieChart';
+import {CardOne} from '../components/CardOne';
+import {CardBarProgress} from '../components/CardBarProgress';
+import {CardBarProgressVisites} from '../components/CardBarProgressVisites';
 import {Stat} from '../../../domain/entity/Stat';
 
 interface Props {
   loading: boolean;
   error: string | undefined;
   stat: Stat | undefined;
-  statFun: () => void;
+  LoadStat: () => void;
 }
 
 export const DashboardContainer = (props: Props) => {
   const [mount, setMount] = useState(false);
   if (!mount) {
-    props.statFun();
+    props.LoadStat();
   }
   useEffect(() => {
     setMount(true);
@@ -33,7 +30,7 @@ export const DashboardContainer = (props: Props) => {
         <View style={styles.button_container}>
           <ButtonPrimary
             OnPressCustomized={() => {
-              props.statFun();
+              props.LoadStat();
             }}
             textButton="suivant"
           />
