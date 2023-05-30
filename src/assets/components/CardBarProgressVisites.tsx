@@ -8,15 +8,13 @@ interface Props {
   textHint2: string;
   textHint3: string;
   textHint4: string;
-  valeurPrevention: number;
-  valeurConformite: number;
-  valeurHierarchique: number;
-  valeurFlash: number;
+  valeurPrevention: number | undefined;
+  valeurConformite: number | undefined;
+  valeurHierarchique: number | undefined;
+  valeurFlash: number | undefined;
 }
 
 const widthPregress = Dimensions.get('window').width / 1.1;
-console.log(Dimensions.get('window').width);
-console.log(Dimensions.get('window').height);
 export const CardBarProgressVisites = (props: Props) => {
   return (
     <View style={styles.OuterContainer}>

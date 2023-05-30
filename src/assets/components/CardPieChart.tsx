@@ -5,40 +5,45 @@ import {PieChart} from 'react-native-chart-kit';
 interface Props {
   textLabels: string;
   accessor: string;
+  PieChartConformeTotal: number;
+  PieChartPositivesTotal: number;
+  PieChartNonConformeTotal: number;
+  PieChartAmeliorerTotal: number;
 }
 
-const data = [
-  {
-    name: 'Seoul',
-    population: 40,
-    color: 'rgba(131, 167, 234, 1)',
-    legendFontColor: '#7F7F7F',
-    legendFontSize: 15,
-  },
-  {
-    name: 'Toronto',
-    population: 10,
-    color: '#F00',
-    legendFontColor: '#7F7F7F',
-    legendFontSize: 15,
-  },
-  {
-    name: 'Beijing',
-    population: 20,
-    color: 'yellow',
-    legendFontColor: '#7F7F7F',
-    legendFontSize: 15,
-  },
-  {
-    name: 'New York',
-    population: 30,
-    color: '#25d94a',
-    legendFontColor: '#7F7F7F',
-    legendFontSize: 15,
-  },
-];
+
 const width = Dimensions.get('window').width;
 export const CardPieChart = (props: Props) => {
+  const data = [
+    {
+      name: 'Conformes',
+      total: props.PieChartConformeTotal,
+      color: '#008000',
+      legendFontColor: '#7F7F7F',
+      legendFontSize: 12,
+    },
+    {
+      name: 'Positives',
+      total: props.PieChartPositivesTotal,
+      color: '#66b266',
+      legendFontColor: '#7F7F7F',
+      legendFontSize: 12,
+    },
+    {
+      name: 'Non conformes',
+      total: props.PieChartNonConformeTotal,
+      color: '#FF0000',
+      legendFontColor: '#7F7F7F',
+      legendFontSize: 12,
+    },
+    {
+      name: 'A ameliorer',
+      total: props.PieChartAmeliorerTotal,
+      color: '#ff7f7f',
+      legendFontColor: '#7F7F7F',
+      legendFontSize: 12,
+    },
+  ];
   return (
     <View style={styles.OuterContainer}>
       <View style={styles.Container}>

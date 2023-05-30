@@ -20,10 +20,9 @@ export class StatMapper {
       item.rd.sob.op,
       item.rd.sob.onc,
       item.rd.sob.on,
+      item.rd.sob.ocp,
+      item.rd.sob.oncn,
     );
-    console.log('stat');
-    console.log(stat.barProgressVisit1);
-    console.log(stat.barProgressVisit2);
     return stat;
   }
 }

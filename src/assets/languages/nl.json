@@ -2,7 +2,8 @@
   "translation":{
 
     "action_sign_in": "Verbinding maken",
-  "sso_description": "Welkom bij de app van Eiffage Construction voor het beheer van de preventie.\nU hebt een account van Eiffage nodig om verbinding te maken."
+  "sso_description": "Welkom bij de app van Eiffage Construction voor het beheer van de preventie.\nU hebt een account van Eiffage nodig om verbinding te maken.",
+    "txt.flash": "Flash"
   }
-  
+
 }

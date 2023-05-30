@@ -8,10 +8,12 @@ interface Props {
   textHint2: string;
   textHint3: string;
   textHint4: string;
+  valueHint1: number | undefined;
+  valueHint2: number | undefined;
+  valueHint3: number | undefined;
+  valueHint4: number | undefined;
 }
 const widthPregress = Dimensions.get('window').width / 1.1;
-console.log(Dimensions.get('window').width);
-console.log(Dimensions.get('window').height);
 export const CardBarProgress = (props: Props) => {
   return (
     <View style={styles.OuterContainer}>
@@ -22,7 +24,7 @@ export const CardBarProgress = (props: Props) => {
         <View style={{flex: 1}}>
           <Text>{props.textHint1}</Text>
           <Progress.Bar
-            progress={0.4135}
+            progress={props.valueHint1}
             width={widthPregress}
             borderWidth={0}
             unfilledColor={'#E8E8E8'}
@@ -34,7 +36,7 @@ export const CardBarProgress = (props: Props) => {
         <View style={{flex: 1}}>
           <Text>{props.textHint2}</Text>
           <Progress.Bar
-            progress={0.2889}
+            progress={props.valueHint2}
             width={widthPregress}
             borderWidth={0}
             unfilledColor={'#E8E8E8'}
@@ -46,7 +48,7 @@ export const CardBarProgress = (props: Props) => {
         <View style={{flex: 1}}>
           <Text>{props.textHint3}</Text>
           <Progress.Bar
-            progress={0.2411}
+            progress={props.valueHint3}
             width={widthPregress}
             borderWidth={0}
             unfilledColor={'#E8E8E8'}
@@ -58,7 +60,7 @@ export const CardBarProgress = (props: Props) => {
         <View style={{flex: 1}}>
           <Text>{props.textHint4}</Text>
           <Progress.Bar
-            progress={0.0565}
+            progress={props.valueHint4}
             width={widthPregress}
             borderWidth={0}
             unfilledColor={'#E8E8E8'}

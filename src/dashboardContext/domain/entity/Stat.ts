@@ -1,4 +1,11 @@
 export class Stat {
+  get HintObservation(): number {
+    return this._HintObservation;
+  }
+
+  get HintLevee(): number {
+    return this._HintLevee;
+  }
   get resultCode(): string {
     return this._resultCode;
   }
@@ -79,5 +86,7 @@ export class Stat {
     private _PieChartPositives: number,
     private _PieChartNonConforme: number,
     private _PieChartAmeliorer: number,
+    private _HintObservation: number,
+    private _HintLevee: number,
   ) {}
 }

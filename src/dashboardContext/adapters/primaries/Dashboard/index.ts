@@ -2,7 +2,7 @@ import {AppState} from '../../../../redux_configuration/appState';
 import {
   statErrorSelector,
   statLoadingSelector,
-  tokenSelector,
+  loadStatSelector,
 } from '../../../useCases/Dashboard/selectors';
 import {Dispatch} from 'redux';
 import {StatActionTypes} from '../../../useCases/Dashboard/actionTypes';
@@ -22,7 +22,7 @@ interface DispatchToPropsType {
 const mapStateToProps = (state: AppState): StateToPropsType => ({
   loading: statLoadingSelector(state),
   error: statErrorSelector(state),
-  stat: tokenSelector(state),
+  stat: loadStatSelector(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => ({
