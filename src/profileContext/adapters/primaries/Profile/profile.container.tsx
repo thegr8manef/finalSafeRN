@@ -22,31 +22,31 @@ interface Props {
 
 
 
-  
+
 
   export  const ProfileContainer = (props:  Props) => {
-    
+
     const [mounted, setMounted] = useState(false)
 
     const { t } = useTranslation();
 
 
     useEffect(()=>{
-      setMounted(true)    
-      
+      setMounted(true)
+
     })
 
     if(!mounted){
       props.loadProfileDetails(props.profile?.accessToken!!)
     }
-  
-          
+
+
         return(
       <SafeAreaView style={{flex: 1}}>
         <View style={styles.header_container}>
           <View style={styles.button_container}>
             <ButtonPrimary
-              OnPressCustomized={() => console.log('press')}
+              OnPressCustomized={() => props.navigation.navigate('Dashboard')}
               textButton={t("txt.next")}
             />
           </View>
@@ -55,12 +55,12 @@ interface Props {
           </View>
         </View>
         <View style={{flex: 0.8}}>
-          {props.profile ? 
-          <DetailsContainer 
+          {props.profile ?
+          <DetailsContainer
             children={props.profile?.name}
             children_email={props.profile?.email}
           />
-          : 
+          :
           null
         }
         </View>
@@ -88,7 +88,7 @@ interface Props {
         <View style={{flex: 2, backgroundColor: '#eaeaea'}} />
       </SafeAreaView>
     )
-    
+
   }
 
 
