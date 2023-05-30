@@ -3,5 +3,6 @@ import {DashboardState} from '../dashboardContext/configuration/state';
 
 export interface AppState {
   profile: ProfileState;
+
   dashboard: DashboardState;
 }

@@ -1,4 +1,4 @@
-import { FlatList } from "react-native";
+import {FlatList} from 'react-native';
 
 export const DASHBOARD = 'DASHBOARD';
 export const DASHBOARD_FAILED = 'DASHBOARD_FAILED';

@@ -8,6 +8,10 @@ interface Props {
   textHint2: string;
   textHint3: string;
   textHint4: string;
+  valeurPrevention: number;
+  valeurConformite: number;
+  valeurHierarchique: number;
+  valeurFlash: number;
 }
 
 const widthPregress = Dimensions.get('window').width / 1.1;
@@ -23,7 +27,7 @@ export const CardBarProgressVisites = (props: Props) => {
         <View style={{flex: 1}}>
           <Text>{props.textHint1}</Text>
           <Progress.Bar
-            progress={0.173}
+            progress={props.valeurPrevention}
             width={widthPregress}
             borderWidth={0}
             animated={true}
@@ -37,7 +41,7 @@ export const CardBarProgressVisites = (props: Props) => {
         <View style={{flex: 1}}>
           <Text>{props.textHint2}</Text>
           <Progress.Bar
-            progress={0.64}
+            progress={props.valeurConformite}
             width={widthPregress}
             borderWidth={0}
             animated={true}
@@ -50,7 +54,7 @@ export const CardBarProgressVisites = (props: Props) => {
         <View style={{flex: 1}}>
           <Text>{props.textHint3}</Text>
           <Progress.Bar
-            progress={0.18}
+            progress={props.valeurHierarchique}
             width={widthPregress}
             borderWidth={0}
             animated={true}
@@ -63,7 +67,7 @@ export const CardBarProgressVisites = (props: Props) => {
         <View style={{flex: 1}}>
           <Text>{props.textHint4}</Text>
           <Progress.Bar
-            progress={0.0533}
+            progress={props.valeurFlash}
             width={widthPregress}
             borderWidth={0}
             animated={true}

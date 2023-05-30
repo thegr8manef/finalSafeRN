@@ -8,7 +8,6 @@ import {statFailed, statSuccess} from './action';
 import {Stat} from '../../domain/entity/Stat';
 
 export const statEpic: Epic = (
-  
   action$,
   store: StateObservable<AppState>,
   {dashboardService}: {dashboardService: DashboardService},
@@ -17,7 +16,9 @@ export const statEpic: Epic = (
     ofType(STAT),
     switchMap(() =>
       dashboardService.statFun().pipe(
-        map((stat: Stat) => statSuccess(stat)),
+        map((stat: Stat) => {
+          return statSuccess(stat);
+          }),
         catchError(error => of(statFailed(error))),
       ),
     ),

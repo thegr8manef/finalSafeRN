@@ -22,7 +22,7 @@ export class dashboardService implements DashboardService {
     return new ObservableAjaxHttpClient()
       .post<StatDto>(url, body, this.headers)
       .pipe(
-        map(response => StatMapper.mapToStat(response)),
+        map(response => StatMapper.mapToStat(response.response)),
         catchError(err => throwError(err.status.toString())),
       );
   }

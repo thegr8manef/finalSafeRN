@@ -5,6 +5,7 @@ interface Props {
   textButton: string;
   OnPressCustomized: () => void;
 }
+
 export const ButtonPrimary = (props: Props) => {
   return (
     <View style={styles.buttonOuterContainer}>

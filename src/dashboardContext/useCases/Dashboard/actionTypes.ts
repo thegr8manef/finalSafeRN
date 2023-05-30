@@ -1,4 +1,4 @@
-import {Stat } from "../../domain/entity/Stat";
+import {Stat} from '../../domain/entity/Stat';
 
 export const STAT = 'STAT';
 
@@ -9,7 +9,6 @@ export const STAT_FAILED = 'STAT_FAILED';
 export interface StatAction {
   type: typeof STAT;
 }
-
 
 export interface StatActionSuccess {
   type: typeof STAT_SUCCESS;

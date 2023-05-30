@@ -3,7 +3,7 @@ import React from 'react';
 import colors from '../colors';
 interface Props {
   textLabels: string;
-  textValues: string;
+  textValues: string | undefined;
   textHints: string;
   colorText: string;
 }

@@ -1,4 +1,4 @@
-import React, { PureComponent, ReactNode, useEffect } from "react";
+import React, {PureComponent, ReactNode, useEffect, useState} from 'react';
 import {View, SafeAreaView, StyleSheet, ScrollView} from 'react-native';
 import {ButtonPrimary} from '../../../../assets/components/ButtonPrimary';
 import {DetailsContainer} from '../../../../assets/components/DetailsContainer';
@@ -20,9 +20,13 @@ interface Props {
 }
 
 export const DashboardContainer = (props: Props) => {
+  const [mount, setMount] = useState(false);
+  if (!mount) {
+    props.statFun();
+  }
   useEffect(() => {
-    console.log(props.statFun);
-  })
+    setMount(true);
+  });
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.header_container}>
@@ -43,19 +47,19 @@ export const DashboardContainer = (props: Props) => {
           style={{flex: 1, backgroundColor: '#eaeaea', flexDirection: 'row'}}>
           <CardOne
             textLabels={'Visites'}
-            textValues={'157'}
+            textValues={props.stat?.numberVisits.toString()}
             textHints={''}
             colorText={'black'}
           />
           <CardOne
             textLabels={'Observation'}
-            textValues={'491'}
+            textValues={props.stat?.numberObservation.toString()}
             textHints={'Conformes et Positives: 348'}
             colorText={'black'}
           />
           <CardOne
             textLabels={'Levée des réserves'}
-            textValues={'72.03%'}
+            textValues={props.stat?.numberLeveeDesReserves + '%'}
             textHints={'Non conformes et à améliorer: 143'}
             colorText={'green'}
           />
@@ -72,6 +76,26 @@ export const DashboardContainer = (props: Props) => {
             textHint3={'Hiérarchique'}
             textHint4={'Flash'}
             textLabels={'TYPE DE VISITES'}
+            valeurPrevention={
+              props.stat?.barProgressVisit1!! <= 100
+                ? props.stat?.barProgressVisit1!! / 100
+                : 0
+            }
+            valeurConformite={
+              props.stat?.barProgressVisit2!! <= 100
+                ? props.stat?.barProgressVisit2!! / 100
+                : 0
+            }
+            valeurHierarchique={
+              props.stat?.barProgressVisit3!! <= 100
+                ? props.stat?.barProgressVisit3!! / 100
+                : 0
+            }
+            valeurFlash={
+              props.stat?.barProgressVisit4!! <= 100
+                ? props.stat?.barProgressVisit4!! / 100
+                : 0
+            }
           />
           <CardPieChart
             textLabels={'CONFORMES ET POSITIVES / NON CONFORMES ET A AMELIORER'}

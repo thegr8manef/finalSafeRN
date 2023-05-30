@@ -16,12 +16,9 @@ interface StateToPropsType {
   error: string | undefined;
   stat: Stat | undefined;
 }
-
-
 interface DispatchToPropsType {
   statFun: () => void;
 }
-
 const mapStateToProps = (state: AppState): StateToPropsType => ({
   loading: statLoadingSelector(state),
   error: statErrorSelector(state),

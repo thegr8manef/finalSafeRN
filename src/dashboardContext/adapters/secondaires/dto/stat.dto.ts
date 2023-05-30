@@ -1,29 +1,28 @@
 export interface StatDto {
-
   rc: string;
   rm: string;
   rd: {
     srk: {
-      r-0: {
+      'r-0': {
         to: string;
         pct: number;
       };
-      r-1: {
+      'r-1': {
         to: string;
-        pct: number
+        pct: number;
       };
-      r-2: {
+      'r-2': {
         to: string;
-        pct: number
+        pct: number;
       };
-      others: number
+      others: number;
     };
     svt: {
       vf: number;
       vh: number;
       vc: number;
       vp: number;
-      tv: number
+      tv: number;
     };
     sob: {
       ol: number;
@@ -41,33 +40,29 @@ export interface StatDto {
       tvc: number;
     };
     scp: {
-      rg:
-        {
-          id: number;
-          ti: string;
-          pid: number;
-          piid: null;
-          or: number
-        }[]
-      ;
-      sas:
-        {
-          id: number;
-          ac: boolean;
-          ti: string;
-          pid: number;
-          or: number;
-          lvl: number;
-        }[];
-      etb:
-        {
-          id: number;
-          ac: boolean;
-          ti: string;
-          pid: number;
-          or: number;
-          lvl: number;
-        }[];
-
+      rg: {
+        id: number;
+        ti: string;
+        pid: number;
+        piid: null;
+        or: number;
+      }[];
+      sas: {
+        id: number;
+        ac: boolean;
+        ti: string;
+        pid: number;
+        or: number;
+        lvl: number;
+      }[];
+      etb: {
+        id: number;
+        ac: boolean;
+        ti: string;
+        pid: number;
+        or: number;
+        lvl: number;
+      }[];
     };
-  };}
+  };
+}

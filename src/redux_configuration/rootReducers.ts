@@ -5,5 +5,6 @@ import {combineReducers} from 'redux';
 
 export const reduxReducer = combineReducers<AppState>({
   profile: reducerProfile,
+
   dashboard: reducerDashboard,
 });

@@ -9,7 +9,6 @@ interface Props {
   textHint3: string;
   textHint4: string;
 }
-
 const widthPregress = Dimensions.get('window').width / 1.1;
 console.log(Dimensions.get('window').width);
 console.log(Dimensions.get('window').height);

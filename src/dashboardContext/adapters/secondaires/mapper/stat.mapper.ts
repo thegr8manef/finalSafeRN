@@ -3,15 +3,14 @@ import {Stat} from '../../../domain/entity/Stat';
 
 export class StatMapper {
   static mapToStat(item: StatDto): Stat {
-    console.log('mapper');
-    return new Stat(
+    const stat = new Stat(
       item.rc,
       item.rd.svt.tv,
       item.rd.sob.to,
       item.rd.sob.pol,
-      item.rd.srk['0'].pct,
-      item.rd.srk['1'].pct,
-      item.rd.srk['2'].pct,
+      item.rd.srk["r-0"].pct,
+      item.rd.srk["r-1"].pct,
+      item.rd.srk["r-2"].pct,
       item.rd.srk.others,
       item.rd.svt.vp,
       item.rd.svt.vc,
@@ -22,5 +21,9 @@ export class StatMapper {
       item.rd.sob.onc,
       item.rd.sob.on,
     );
+    console.log('stat');
+    console.log(stat.barProgressVisit1);
+    console.log(stat.barProgressVisit2);
+    return stat;
   }
 }

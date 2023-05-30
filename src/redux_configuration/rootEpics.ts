@@ -9,6 +9,7 @@ export const rootEpics = combineEpics(profileRootEpics, dashboardRootEpics);
 export const epicsMiddleware = createEpicMiddleware({
   dependencies: {
     ...profileEpicsDependecies,
+
     ...dashboardEpicsDependecies,
   },
 });

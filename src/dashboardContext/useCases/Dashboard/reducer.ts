@@ -1,13 +1,12 @@
 import {StatState} from '../../configuration/state';
 import {STAT, STAT_FAILED, STAT_SUCCESS, StatActionTypes} from './actionTypes';
-import {Stat } from "../../domain/entity/Stat";
+import {Stat} from '../../domain/entity/Stat';
 
 const initialState: StatState = {
   loading: false,
   error: undefined,
   stat: undefined,
 };
-
 
 export const reducerStat = (
   state = initialState,
