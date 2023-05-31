@@ -1,6 +1,7 @@
 import {View, Text, StyleSheet, Dimensions} from 'react-native';
 import React from 'react';
 import {PieChart} from 'react-native-chart-kit';
+import { t } from "i18next";
 
 interface Props {
   textLabels: string;
@@ -16,28 +17,28 @@ const width = Dimensions.get('window').width;
 export const CardPieChart = (props: Props) => {
   const data = [
     {
-      name: 'Conformes',
+      name: t('txt.conformes'),
       total: props.PieChartConformeTotal,
       color: '#008000',
       legendFontColor: '#7F7F7F',
       legendFontSize: 12,
     },
     {
-      name: 'Positives',
+      name: t('txt.positives'),
       total: props.PieChartPositivesTotal,
       color: '#66b266',
       legendFontColor: '#7F7F7F',
       legendFontSize: 12,
     },
     {
-      name: 'Non conformes',
+      name: t('txt.non.conformes'),
       total: props.PieChartNonConformeTotal,
       color: '#FF0000',
       legendFontColor: '#7F7F7F',
       legendFontSize: 12,
     },
     {
-      name: 'A ameliorer',
+      name: t('txt.a.ameliorer'),
       total: props.PieChartAmeliorerTotal,
       color: '#ff7f7f',
       legendFontColor: '#7F7F7F',
