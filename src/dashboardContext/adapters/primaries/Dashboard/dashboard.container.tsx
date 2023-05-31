@@ -14,7 +14,7 @@ import {CardBarProgressVisites} from '../components/CardBarProgressVisites';
 import {Stat} from '../../../domain/entity/Stat';
 import {HeaderDashboard} from '../components/HeaderDashboard';
 import {User} from '../../../../profileContext/domain/entity/user';
-import {t} from 'i18next';
+import {useTranslation} from 'react-i18next';
 
 interface Props {
   loading: boolean;
@@ -29,6 +29,8 @@ export const DashboardContainer = (props: Props) => {
   if (!mount) {
     props.LoadStat();
   }
+  const {t} = useTranslation();
+
   useEffect(() => {
     setMount(true);
   });
