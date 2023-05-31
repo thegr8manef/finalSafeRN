@@ -13,7 +13,7 @@ i18next.use(initReactI18next).init({
     en: en,
     fr: fr,
     al: al,
-    nl: nl,
+    bl: bl,
     pl: pl,
   },
   lng: 'en', // Set the default language
