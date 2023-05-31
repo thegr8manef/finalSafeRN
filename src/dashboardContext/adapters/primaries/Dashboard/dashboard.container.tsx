@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {View, SafeAreaView, StyleSheet, ScrollView} from 'react-native';
+import {View, SafeAreaView, StyleSheet, ScrollView, Image} from 'react-native';
 import {ButtonPrimary} from '../../../../assets/components/ButtonPrimary';
-import {Header} from '../../../../assets/components/Header';
 import colors from '../../../../assets/colors';
 import {CardPieChart} from '../components/CardPieChart';
 import {CardOne} from '../components/CardOne';
 import {CardBarProgress} from '../components/CardBarProgress';
 import {CardBarProgressVisites} from '../components/CardBarProgressVisites';
 import {Stat} from '../../../domain/entity/Stat';
+import {HeaderDashboard} from '../components/HeaderDashboard';
 
 interface Props {
   loading: boolean;
@@ -27,17 +27,7 @@ export const DashboardContainer = (props: Props) => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.header_container}>
-        <View style={styles.button_container}>
-          <ButtonPrimary
-            OnPressCustomized={() => {
-              props.LoadStat();
-            }}
-            textButton="suivant"
-          />
-        </View>
-        <View style={styles.text_container}>
-          <Header>Profil</Header>
-        </View>
+        <HeaderDashboard visits={165} dateDebut={'01/01/2023'} dateFinale={'30/05/2023'} labelPerimetre={'DR EIC TESTS'} numberChantier={17}>Tableau de bord</HeaderDashboard>
       </View>
       {props.stat ? (
         <ScrollView style={{flex: 1}}>
@@ -135,7 +125,7 @@ export const DashboardContainer = (props: Props) => {
 
 const styles = StyleSheet.create({
   header_container: {
-    flex: 0.1,
+    flex: 0.4,
     flexDirection: 'row-reverse',
     height: 1,
   },
@@ -145,8 +135,12 @@ const styles = StyleSheet.create({
     height: 50,
   },
   text_container: {
-    flex: 3,
     backgroundColor: colors.primary,
     height: 50,
+  },
+  logoImage: {
+    width: '20%',
+    height: '60%',
+    resizeMode: 'stretch',
   },
 });
