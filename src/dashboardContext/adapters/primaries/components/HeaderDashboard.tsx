@@ -1,11 +1,11 @@
 import {View, Text, StyleSheet, Image, SafeAreaView} from 'react-native';
 import colors from '../../../../assets/colors';
 import React from 'react';
-import {Divider} from '../../../../assets/components/Divider';
+import { t } from "i18next";
 
 interface Props {
   children: string;
-  visits: string;
+  visits: number;
   dateDebut: string;
   dateFinale: string;
   labelPerimetre: string;
@@ -45,13 +45,16 @@ export const HeaderDashboard = (props: Props) => {
             />
           </View>
           <View style={styles.containerPerimetre}>
-            <Text style={styles.text1}>Perimetre</Text>
+            <Text style={styles.text1}>{t('txt.primetre')}</Text>
             <Text style={styles.text2}>{props.labelPerimetre}</Text>
           </View>
           <View style={styles.containerVide} />
           <View style={styles.containerPerimetre}>
-            <Text style={styles.text1}>Chantiers</Text>
-            <Text style={styles.text2}>{props.numberChantier} selections</Text>
+            <Text style={styles.text1}>{t('txt.chantiers')}</Text>
+            <Text style={styles.text2}>
+              {props.numberChantier}
+              {t('txt.selections')}
+            </Text>
           </View>
           <View style={styles.imagePerimetre}>
             <Image
@@ -67,7 +70,8 @@ export const HeaderDashboard = (props: Props) => {
             style={styles.ImageInfo}
           />
           <Text style={styles.textStat}>
-            Statisques calculées du {props.dateDebut} au {props.dateFinale}{' '}
+            {t('txt.dashboard.message')} {props.dateDebut} {t('au')}
+            {props.dateFinale}
           </Text>
         </View>
       </View>
