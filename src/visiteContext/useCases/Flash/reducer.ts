@@ -13,7 +13,7 @@ initialState = {
   flash: undefined,
 };
 
-export const reducerStat = (
+export const reducerVisitFlash = (
   state = initialState,
   action: FlashActionTypes,
 ): FlashState => {

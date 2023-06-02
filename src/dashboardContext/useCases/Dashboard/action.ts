@@ -8,7 +8,7 @@ import {
 } from './actionTypes';
 import {Stat} from '../../domain/entity/Stat';
 
-export const stat = (): StatAction => ({
+export const LoadStat = (): StatAction => ({
   type: LOAD_STAT,
 });
 export const statFailed = (error: string): StatActionFailed => ({

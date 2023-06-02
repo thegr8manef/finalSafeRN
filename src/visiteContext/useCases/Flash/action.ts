@@ -1,14 +1,14 @@
 import {
-  FlashAction,
   FlashActionFailed,
   FlashActionSuccess,
   LOAD_FLASH,
   LOAD_FLASH_FAILED,
   LOAD_FLASH_SUCCESS,
+  LoadFlashAction,
 } from './actionTypes';
 import {Flash} from '../../domain/entity/Flash';
 
-export const flash = (): FlashAction => ({
+export const LoadFlash = (): LoadFlashAction => ({
   type: LOAD_FLASH,
 });
 export const flashFailed = (error: string): FlashActionFailed => ({

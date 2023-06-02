@@ -6,7 +6,7 @@ export const LOAD_FLASH_SUCCESS = 'LOAD_FLASH_SUCCESS';
 
 export const LOAD_FLASH_FAILED = 'LOAD_FLASH_FAILED';
 
-export interface FlashAction {
+export interface LoadFlashAction {
   type: typeof LOAD_FLASH;
 }
 
@@ -21,6 +21,6 @@ export interface FlashActionFailed {
 }
 
 export type FlashActionTypes =
-  | FlashAction
+  | LoadFlashAction
   | FlashActionSuccess
   | FlashActionFailed;

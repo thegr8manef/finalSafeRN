@@ -9,7 +9,7 @@ import {
   flashLoadSelector,
 } from '../../../../useCases/Flash/selectors';
 import {FlashActionTypes} from '../../../../useCases/Flash/actionTypes';
-import {flash} from '../../../../useCases/Flash/action';
+import {LoadFlash} from '../../../../useCases/Flash/action';
 
 interface StateToPropsType {
   loadingVisits: boolean;
@@ -26,7 +26,7 @@ const mapStateToProps = (state: AppState): StateToPropsType => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => ({
-  LoadFlash: (): FlashActionTypes => dispatch(flash()),
+  LoadFlash: (): FlashActionTypes => dispatch(LoadFlash()),
 });
 
 export const VisitsFlashPage = connect(

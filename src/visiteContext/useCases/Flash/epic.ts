@@ -7,7 +7,7 @@ import {flashFailed, flashSuccess} from './action';
 import {Flash} from '../../domain/entity/Flash';
 import {VisitsService} from '../../domain/gateway/visitsService';
 
-export const flashEpic: Epic = (
+export const VisitFlashEpic: Epic = (
   action$,
   store: StateObservable<AppState>,
   {visitsService}: {visitsService: VisitsService},
