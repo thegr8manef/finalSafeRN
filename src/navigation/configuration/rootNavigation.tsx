@@ -8,6 +8,7 @@ import {LoginPage} from '../../profileContext/adapters/primaries/login';
 import {ProfilePage} from '../../profileContext/adapters/primaries/Profile';
 import {DashboardPage} from '../../dashboardContext/adapters/primaries/Dashboard';
 import {VisitsFlashPage} from '../../visiteContext/adapters/primaries/Visits/Flash';
+import { CameraPage } from "../../visiteContext/adapters/primaries/Visits/Camera";
 const Stack = createStackNavigator<StackParamList>();
 
 export default class RootNavigation extends PureComponent {
