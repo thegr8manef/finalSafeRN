@@ -2,7 +2,7 @@ import i18next from 'i18next';
 import en from '../languages/en.json';
 import fr from '../languages/fr.json';
 import al from '../languages/al.json';
-import nl from '../languages/nl.json';
+import bl from '../languages/bl.json';
 import pl from '../languages/pl.json';
 
 import {initReactI18next} from 'react-i18next';
