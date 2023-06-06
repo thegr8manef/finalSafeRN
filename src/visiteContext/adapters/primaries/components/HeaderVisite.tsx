@@ -8,7 +8,7 @@ interface Props {
 }
 export const HeaderVisite = (props: Props) => {
   return (
-    <SafeAreaView style={{flex: 0.4}}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.rectangle}>
         <View style={{flex: 0.5}}>
           <Image
@@ -44,4 +44,7 @@ const styles = StyleSheet.create({
     height: '40%',
     resizeMode: 'stretch',
   },
+  container: {
+    flex: 0.5,
+  }
 });

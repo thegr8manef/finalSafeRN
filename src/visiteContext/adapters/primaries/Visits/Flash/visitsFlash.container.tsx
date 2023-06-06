@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useMemo} from 'react';
 import {
   Image,
   SafeAreaView,
@@ -6,7 +6,11 @@ import {
   Text,
   View,
   TouchableOpacity,
+  Platform,
+  PermissionsAndroid,
   Pressable,
+  Alert,
+  ScrollView,
 } from 'react-native';
 import colors from '../../../../../assets/colors';
 import {Flash} from '../../../../domain/entity/Flash';
@@ -15,6 +19,8 @@ import {HeaderVisite} from '../../components/HeaderVisite';
 import CheckBox from '@react-native-community/checkbox';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {StackParamList} from '../../../../../navigation/configuration/navigation.types';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {RadioGroup} from 'react-native-radio-buttons-group';
 
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
@@ -26,126 +32,293 @@ interface Props {
 
 export const VisitFlashContainer = (props: Props) => {
   const [mount, setMount] = useState(false);
-  const [toggleCheckBox, setToggleCheckBox] = useState(false);
-  const [toggleCheckBox1, setToggleCheckBox1] = useState(false);
-  const [toggleCheckBox2, setToggleCheckBox2] = useState(false);
+  const [selectedId, setSelectedId] = useState();
+  const [btnPositive, setbtnPositive] = useState(false);
+  const [btnNegative, setbtnNegative] = useState(false);
+
+  const [filePath, setFilePath] = useState({});
   if (!mount) {
     props.loadingVisits;
   }
+
   const {t} = useTranslation();
 
+  const OptionEcartSansRisque = useMemo(
+    () => [
+      {
+        id: '1', // acts as primary key, should be unique and non-empty string
+        label: "je sais, je peux, j'agis",
+        value: '1',
+        color: colors.primary,
+        labelStyle: styles.radioButton1,
+      },
+      {
+        id: '2',
+        label: 'je sais, je ne peux pas,je signale',
+        value: '2',
+        color: colors.primary,
+        labelStyle: styles.radioButton2,
+      },
+      {
+        id: '3',
+        label: 'Je ne sais pas, je signale',
+        value: '3',
+        color: colors.primary,
+        labelStyle: styles.radioButton3,
+      },
+    ],
+    [],
+  );
   useEffect(() => {
     setMount(true);
   });
+  const _onPressButtonPostiveON = () => {
+    setbtnPositive(true);
+    setbtnNegative(false);
+  };
+
+  const _onPressButtonNegativeON = () => {
+    setbtnNegative(true);
+    setbtnPositive(false);
+  };
+  const _onPressButtonPostiveOFF = () => {
+    setbtnPositive(false);
+    setbtnNegative(true);
+  };
+
+  const _onPressButtonNegativeOFF = () => {
+    setbtnPositive(true);
+    setbtnNegative(false);
+  };
+  const requestCameraPermission = async () => {
+    if (Platform.OS === 'android') {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.CAMERA,
+          {
+            buttonNegative: undefined,
+            buttonNeutral: undefined,
+            buttonPositive: '',
+            title: 'Camera Permission',
+            message: 'App needs camera permission',
+          },
+        );
+        // If CAMERA Permission is granted
+        return granted === PermissionsAndroid.RESULTS.GRANTED;
+      } catch (err) {
+        console.warn(err);
+        return false;
+      }
+    } else {
+      return true;
+    }
+  };
+
+  const requestExternalWritePermission = async () => {
+    if (Platform.OS === 'android') {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+          {
+            buttonNegative: undefined,
+            buttonNeutral: undefined,
+            buttonPositive: '',
+            title: 'External Storage Write Permission',
+            message: 'App needs write permission',
+          },
+        );
+        // If WRITE_EXTERNAL_STORAGE Permission is granted
+        return granted === PermissionsAndroid.RESULTS.GRANTED;
+      } catch (err) {
+        console.warn(err);
+        alert('Write permission err', err);
+      }
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  const captureImage = async type => {
+    let options = {
+      mediaType: type,
+      maxWidth: 300,
+      maxHeight: 550,
+      quality: 1,
+      videoQuality: 'low',
+      durationLimit: 30, //Video max duration in seconds
+      saveToPhotos: true,
+    };
+    let isCameraPermitted = await requestCameraPermission();
+    let isStoragePermitted = await requestExternalWritePermission();
+    if (isCameraPermitted && isStoragePermitted) {
+      launchCamera(options, response => {
+        console.log('Response = ', response.assets[0]);
+
+        if (response.didCancel) {
+          alert('User cancelled camera picker');
+          return;
+        } else if (response.errorCode == 'camera_unavailable') {
+          alert('Camera not available on device');
+          return;
+        } else if (response.errorCode == 'permission') {
+          alert('Permission not satisfied');
+          return;
+        } else if (response.errorCode == 'others') {
+          alert(response.errorMessage);
+          return;
+        }
+        console.log('base64 -> ', response.assets[0].base64);
+        console.log('uri -> ', response.assets[0].uri);
+        console.log('width -> ', response.assets[0].width);
+        console.log('height -> ', response.assets[0].height);
+        console.log('fileSize -> ', response.assets[0].fileSize);
+        console.log('type -> ', response.assets[0].type);
+        console.log('fileName -> ', response.assets[0].fileName);
+        setFilePath(response.assets[0]);
+      });
+    }
+  };
+
+  const chooseFile = type => {
+    let options = {
+      mediaType: type,
+      maxWidth: 300,
+      maxHeight: 550,
+      quality: 1,
+    };
+    launchImageLibrary(options, response => {
+      console.log('Response = ', response.assets[0]);
+
+      if (response.didCancel) {
+        alert('User cancelled camera picker');
+        return;
+      } else if (response.errorCode == 'camera_unavailable') {
+        alert('Camera not available on device');
+        return;
+      } else if (response.errorCode == 'permission') {
+        alert('Permission not satisfied');
+        return;
+      } else if (response.errorCode == 'others') {
+        alert(response.errorMessage);
+        return;
+      }
+      console.log('base64 -> ', response.assets[0].base64);
+      console.log('uri -> ', response.assets[0].uri);
+      console.log('width -> ', response.assets[0].width);
+      console.log('height -> ', response.assets[0].height);
+      console.log('fileSize -> ', response.assets[0].fileSize);
+      console.log('type -> ', response.assets[0].type);
+      console.log('fileName -> ', response.assets[0].fileName);
+      setFilePath(response.assets[0]);
+    });
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <HeaderVisite children={'Observation flash'} />
-      <View style={{flex: 1, backgroundColor: colors.gris100}} />
-      <View
-        style={{
-          height: '14%',
-          borderTopColor: colors.primary,
-          borderTopWidth: 3,
-          backgroundColor: colors.gris100,
-          flexDirection: 'row',
-          marginHorizontal: 16,
-        }}>
-        <TouchableOpacity
-          onPress={console.log('Positive Pressed')}
-          style={{flex: 1}}>
-          <View style={{flex: 2}}>
-            <Image
-              source={require('../../../../../assets/img/icn_positive_disabled_blocked.png')}
-              style={styles.logoImage1}
-            />
-          </View>
-          <View style={{flex: 1}}>
-            <Text style={{color: colors.gris300, textAlign: 'center'}}>
-              Observation positive
-            </Text>
-          </View>
-        </TouchableOpacity>
+      <ScrollView contentContainerStyle={{flexGrow: 1}}>
+        <View style={{height: 170, backgroundColor: 'white'}} />
 
         <View
           style={{
-            flex: 0.01,
-            backgroundColor: colors.gris300,
-            marginVertical: 10,
-          }}
-        />
-        <TouchableOpacity
-          onPress={console.log('Negative Pressed')}
-          style={{flex: 1}}>
-          <View style={{flex: 2}}>
-            <Image
-              source={require('../../../../../assets/img/icn_negative_disabled.png')}
-              style={styles.logoImage2}
+            height: 100,
+            borderTopColor: colors.primary,
+            borderTopWidth: 3,
+            backgroundColor: colors.gris100,
+            flexDirection: 'row',
+            marginHorizontal: 25,
+          }}>
+          {!btnPositive && btnNegative ? (
+            <TouchableOpacity
+              onPress={_onPressButtonPostiveON}
+              style={{flex: 1}}>
+              <View style={{flex: 2}}>
+                <Image
+                  source={require('../../../../../assets/img/icn_positive_disabled_blocked.png')}
+                  style={styles.logoImage1}
+                />
+              </View>
+              <View style={{flex: 1}}>
+                <Text style={{color: colors.gris300, textAlign: 'center'}}>
+                  Observation positive
+                </Text>
+              </View>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              onPress={_onPressButtonPostiveOFF}
+              style={{flex: 1}}>
+              <View style={{flex: 2}}>
+                <Image
+                  source={require('../../../../../assets/img/icn_positive_disabled_blocked.png')}
+                  style={[styles.logoImage1, {tintColor: 'green'}]}
+                />
+              </View>
+              <View style={{flex: 1}}>
+                <Text style={{color: colors.gris300, textAlign: 'center'}}>
+                  Observation positive
+                </Text>
+              </View>
+            </TouchableOpacity>
+          )}
+          <View
+            style={{
+              flex: 0.01,
+              backgroundColor: colors.gris300,
+              marginVertical: 10,
+            }}
+          />
+          {!btnNegative && btnPositive ? (
+            <TouchableOpacity
+              onPress={_onPressButtonNegativeON}
+              style={{flex: 1}}>
+              <View style={{flex: 2}}>
+                <Image
+                  source={require('../../../../../assets/img/icn_negative_disabled.png')}
+                  style={styles.logoImage2}
+                />
+              </View>
+              <View style={{flex: 1}}>
+                <Text style={{color: colors.gris300, textAlign: 'center'}}>
+                  Observation négative
+                </Text>
+              </View>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              onPress={_onPressButtonNegativeOFF}
+              style={{flex: 1}}>
+              <View style={{flex: 2}}>
+                <Image
+                  source={require('../../../../../assets/img/icn_negative_disabled.png')}
+                  style={[styles.logoImage2, {tintColor: 'red'}]}
+                />
+              </View>
+              <View style={{flex: 1}}>
+                <Text style={{color: colors.gris300, textAlign: 'center'}}>
+                  Observation négative
+                </Text>
+              </View>
+            </TouchableOpacity>
+          )}
+        </View>
+        {btnNegative ? (
+          <View style={{height: 130, marginStart: 25, marginTop: 5}}>
+            <Text>Pour corriger l'écart sans risque* :</Text>
+            <RadioGroup
+              radioButtons={OptionEcartSansRisque}
+              onPress={setSelectedId}
+              selectedId={selectedId}
+              layout="column"
+              containerStyle={{alignItems: 'flex-start'}}
+              buttonColor={'#2196f3'}
+              labelColor={'#000'}
             />
           </View>
-          <View style={{flex: 1}}>
-            <Text style={{color: colors.gris300, textAlign: 'center'}}>
-              Observation négative
-            </Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-      <View style={{flex: 2}}>
-        <Text>Pour corriger l'écart sans risque* :</Text>
-        <View style={{flexDirection: 'row'}}>
-          <CheckBox
-            disabled={false}
-            value={toggleCheckBox}
-            onValueChange={newValue => setToggleCheckBox(newValue)}
-            tintColors={{true: colors.primary, false: colors.gris200}}
-            style={{marginTop: 5}}
-          />
-          <Text
-            style={{
-              marginTop: 5,
-              backgroundColor: '#98FB98',
-              width: 320,
-              fontSize: 17,
-            }}>
-            je sais, je peux, j'agis
-          </Text>
-        </View>
-        <View style={{flexDirection: 'row'}}>
-          <CheckBox
-            disabled={false}
-            value={toggleCheckBox1}
-            onValueChange={newValue => setToggleCheckBox1(newValue)}
-            tintColors={{true: colors.primary, false: colors.gris200}}
-            style={{marginTop: 5}}
-          />
-          <Text
-            style={{
-              marginTop: 5,
-              backgroundColor: '#FFDAB9',
-              width: 320,
-              fontSize: 17,
-            }}>
-            je sais, je ne peux pas,je signale
-          </Text>
-        </View>
-        <View style={{flexDirection: 'row'}}>
-          <CheckBox
-            disabled={false}
-            value={toggleCheckBox2}
-            onValueChange={newValue => setToggleCheckBox2(newValue)}
-            tintColors={{true: colors.primary, false: colors.gris200}}
-            style={{marginTop: 5}}
-          />
-          <Text
-            style={{
-              marginTop: 5,
-              backgroundColor: '#F08080',
-              width: 320,
-              fontSize: 17,
-            }}>
-            Je ne sais pas, je signale
-          </Text>
-        </View>
-        <View style={{flex: 1, flexDirection: 'column'}}>
+        ) : null}
+
+        <View style={{height: 50, flexDirection: 'column', marginStart: 25, marginTop: 5}}>
           <Text>Commentaires*</Text>
           <TouchableOpacity>
             <Image
@@ -158,28 +331,36 @@ export const VisitFlashContainer = (props: Props) => {
             />
           </TouchableOpacity>
         </View>
-        <View style={{flex: 2, backgroundColor: colors.gris100}}>
-          <Text
-            style={{
-              textAlign: 'center',
-              marginTop: '13%',
-              fontSize: 18,
-              color: 'black',
-            }}>
-            Aucune Image
-          </Text>
+        <View style={{height: 160, backgroundColor: colors.gris100}}>
+          {Object.keys(filePath).length === 0 ? (
+            <Text style={{textAlign: 'center', alignContent: 'center'}}>
+              Aucune Image
+            </Text>
+          ) : (
+            <Image
+              source={{uri: filePath.uri}}
+              style={[
+                styles.imageStyle,
+                {borderColor: colors.primary, borderWidth: 2},
+              ]}
+            />
+          )}
         </View>
         <View
           style={{
-            flex: 1,
+            height: 55,
             backgroundColor: 'white',
             borderTopColor: colors.gris200,
             borderTopWidth: 1,
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            bottom: 0,
           }}>
           <View style={{flex: 1, flexDirection: 'row'}}>
             <View style={{flex: 1, flexDirection: 'row'}}>
               <View style={{flex: 1}}>
-                <Pressable onPress={() => props.navigation.navigate('Dashboard')}>
+                <Pressable onPress={() => captureImage('photo')}>
                   <Image
                     style={styles.logoImage5}
                     source={require('../../../../../assets/img/icn_prendre_photo.png')}
@@ -187,10 +368,12 @@ export const VisitFlashContainer = (props: Props) => {
                 </Pressable>
               </View>
               <View style={{flex: 1}}>
-                <Image
-                  style={styles.logoImage5}
-                  source={require('../../../../../assets/img/icn_file.png')}
-                />
+                <Pressable onPress={() => chooseFile('photo')}>
+                  <Image
+                    style={styles.logoImage5}
+                    source={require('../../../../../assets/img/icn_file.png')}
+                  />
+                </Pressable>
               </View>
             </View>
             <View style={{flex: 1, backgroundColor: 'white'}} />
@@ -207,7 +390,7 @@ export const VisitFlashContainer = (props: Props) => {
             </View>
           </View>
         </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -222,7 +405,7 @@ const styles = StyleSheet.create({
     resizeMode: 'stretch',
     marginTop: '10%',
     alignSelf: 'center',
-    tintColor: 'green',
+    tintColor: colors.gris200,
   },
   logoImage2: {
     width: 30,
@@ -230,7 +413,7 @@ const styles = StyleSheet.create({
     resizeMode: 'stretch',
     marginTop: '16%',
     alignSelf: 'center',
-    tintColor: 'red',
+    tintColor: colors.gris200,
   },
   logoImage3: {
     width: 10,
@@ -253,5 +436,32 @@ const styles = StyleSheet.create({
     resizeMode: 'stretch',
     alignSelf: 'center',
     marginTop: '25%',
+  },
+  imageStyle: {
+    width: 120,
+    height: 120,
+    margin: 20,
+  },
+  imageBorderStyle: {
+    width: 105,
+    height: 105,
+    margin: 0,
+    borderWidth: 2,
+    borderColor: colors.primary,
+  },
+  radioButton1: {
+    backgroundColor: '#47ce3d',
+    width: '87%',
+    fontSize: 17,
+  },
+  radioButton2: {
+    backgroundColor: '#ce983d',
+    width: '87%',
+    fontSize: 17,
+  },
+  radioButton3: {
+    backgroundColor: '#ce3d3d',
+    width: '87%',
+    fontSize: 17,
   },
 });
