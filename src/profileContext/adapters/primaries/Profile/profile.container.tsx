@@ -6,91 +6,78 @@ import {Divider} from '../../../../assets/components/Divider';
 import {Header} from '../../../../assets/components/Header';
 import InfoContainer from '../../../../assets/components/InfoContainer';
 import colors from '../../../../assets/colors';
-import { StackNavigationProp } from "@react-navigation/stack";
-import { StackParamList } from "../../../../navigation/configuration/navigation.types";
-import { Profile } from '../../../domain/entity/profile';
-import { User } from '../../../domain/entity/user';
-import { useTranslation } from 'react-i18next';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {StackParamList} from '../../../../navigation/configuration/navigation.types';
+import {Profile} from '../../../domain/entity/profile';
+import {User} from '../../../domain/entity/user';
+import {useTranslation} from 'react-i18next';
 
 interface Props {
-     navigation: StackNavigationProp<StackParamList>;
-     profile : Profile | undefined
-     loadProfileDetails: (accessToken : string)=> void;
-     user : User
-    }
+  navigation: StackNavigationProp<StackParamList>;
+  profile: Profile | undefined;
+  loadProfileDetails: (accessToken: string) => void;
+  user: User;
+}
 
+export const ProfileContainer = (props: Props) => {
+  const [mounted, setMounted] = useState(false);
 
+  const {t} = useTranslation();
 
+  useEffect(() => {
+    setMounted(true);
+  });
 
+  if (!mounted) {
+    props.loadProfileDetails(props.profile?.accessToken!!);
+  }
 
-
-  export  const ProfileContainer = (props:  Props) => {
-
-    const [mounted, setMounted] = useState(false)
-
-    const { t } = useTranslation();
-
-
-    useEffect(()=>{
-      setMounted(true)
-
-    })
-
-    if(!mounted){
-      props.loadProfileDetails(props.profile?.accessToken!!)
-    }
-
-
-        return(
-      <SafeAreaView style={{flex: 1}}>
-        <View style={styles.header_container}>
-          <View style={styles.button_container}>
-            <ButtonPrimary
-              OnPressCustomized={() => props.navigation.navigate('Dashboard')}
-              textButton={t("txt.next")}
-            />
-          </View>
-          <View style={styles.text_container}>
-            <Header>{t('txt.profile')}</Header>
-          </View>
+  return (
+    <SafeAreaView style={{flex: 1}}>
+      <View style={styles.header_container}>
+        <View style={styles.button_container}>
+          <ButtonPrimary
+            OnPressCustomized={() => props.navigation.navigate('Drawer')}
+            textButton={t('txt.next')}
+          />
         </View>
-        <View style={{flex: 0.8}}>
-          {props.profile ?
+        <View style={styles.text_container}>
+          <Header>{t('txt.profile')}</Header>
+        </View>
+      </View>
+      <View style={{flex: 0.8}}>
+        {props.profile ? (
           <DetailsContainer
             children={props.profile?.name}
             children_email={props.profile?.email}
           />
-          :
-          null
-        }
-        </View>
-        <Divider />
-        <View style={{flex: 0.8}}>
-          <InfoContainer
-            children_info1={t('txt.region')}
-            children_info2={props.user == undefined ? "" : props.user.region}
-          />
-        </View>
-        <Divider />
-        <View style={{flex: 0.8}}>
-          <InfoContainer
-            children_info1={t('txt.filiale')}
-            children_info2={props.user == undefined ? "" : props.user.function}
-          />
-        </View>
-        <Divider />
-        <View style={{flex: 0.8}}>
-          <InfoContainer
-            children_info1={t('txt.etablissement')}
-            children_info2={' '}
-          />
-        </View>
-        <View style={{flex: 2, backgroundColor: '#eaeaea'}} />
-      </SafeAreaView>
-    )
-
-  }
-
+        ) : null}
+      </View>
+      <Divider />
+      <View style={{flex: 0.8}}>
+        <InfoContainer
+          children_info1={t('txt.region')}
+          children_info2={props.user == undefined ? '' : props.user.region}
+        />
+      </View>
+      <Divider />
+      <View style={{flex: 0.8}}>
+        <InfoContainer
+          children_info1={t('txt.filiale')}
+          children_info2={props.user == undefined ? '' : props.user.function}
+        />
+      </View>
+      <Divider />
+      <View style={{flex: 0.8}}>
+        <InfoContainer
+          children_info1={t('txt.etablissement')}
+          children_info2={' '}
+        />
+      </View>
+      <View style={{flex: 2, backgroundColor: '#eaeaea'}} />
+    </SafeAreaView>
+  );
+};
 
 const styles = StyleSheet.create({
   header_container: {
@@ -109,4 +96,3 @@ const styles = StyleSheet.create({
     height: 50,
   },
 });
-

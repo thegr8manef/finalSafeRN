@@ -8,7 +8,7 @@ import {StackParamList} from './navigation.types';
 import {LoginPage} from '../../profileContext/adapters/primaries/login';
 import {ProfilePage} from '../../profileContext/adapters/primaries/Profile';
 import {DashboardPage} from '../../dashboardContext/adapters/primaries/Dashboard';
-import DrawerNavigation from '../drawer/drawerNavigation';
+import {DrawerNavigation} from '../drawer/drawerNavigation';
 const Stack = createStackNavigator<StackParamList>();
 
 export default class RootNavigation extends PureComponent {
@@ -20,8 +20,7 @@ export default class RootNavigation extends PureComponent {
           headerShown: false,
         }}>
         {/* <Stack.Screen name={'Login'} component={LoginPage} />
-        <Stack.Screen name={'Profile'} component={ProfilePage} />
-        <Stack.Screen name={'Dashboard'} component={DashboardPage} /> */}
+        <Stack.Screen name={'Profile'} component={ProfilePage} /> */}
         <Stack.Screen name={'Drawer'} component={DrawerNavigation} />
       </Stack.Navigator>
     );
