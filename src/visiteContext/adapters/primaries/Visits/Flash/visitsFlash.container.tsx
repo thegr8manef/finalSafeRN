@@ -5,22 +5,24 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity,
   Platform,
   PermissionsAndroid,
   Pressable,
-  Alert,
   ScrollView,
 } from 'react-native';
 import colors from '../../../../../assets/colors';
 import {Flash} from '../../../../domain/entity/Flash';
 import {useTranslation} from 'react-i18next';
 import {HeaderVisite} from '../../components/HeaderVisite';
-import CheckBox from '@react-native-community/checkbox';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {StackParamList} from '../../../../../navigation/configuration/navigation.types';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {RadioGroup} from 'react-native-radio-buttons-group';
+import {ModalVisite} from '../../components/ModalVisite';
+import {OPON} from '../../components/ObservationPositiveON';
+import {OPOFF} from '../../components/ObservationPositiveOFF';
+import {ONON} from '../../components/ObservationNegativeON';
+import {ONOFF} from '../../components/ObservationNegativeOFF';
 
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
@@ -33,9 +35,8 @@ interface Props {
 export const VisitFlashContainer = (props: Props) => {
   const [mount, setMount] = useState(false);
   const [selectedId, setSelectedId] = useState();
-  const [btnPositive, setbtnPositive] = useState(false);
-  const [btnNegative, setbtnNegative] = useState(false);
-
+  const [btnPositive, setbtnPositive] = useState(true);
+  const [btnNegative, setbtnNegative] = useState(true);
   const [filePath, setFilePath] = useState({});
   if (!mount) {
     props.loadingVisits;
@@ -73,22 +74,22 @@ export const VisitFlashContainer = (props: Props) => {
     setMount(true);
   });
   const _onPressButtonPostiveON = () => {
-    setbtnPositive(true);
-    setbtnNegative(false);
+    setbtnPositive(false);
+    setbtnNegative(true);
   };
 
   const _onPressButtonNegativeON = () => {
-    setbtnNegative(true);
-    setbtnPositive(false);
+    setbtnNegative(false);
+    setbtnPositive(true);
   };
   const _onPressButtonPostiveOFF = () => {
-    setbtnPositive(false);
-    setbtnNegative(true);
+    setbtnPositive(true);
+    setbtnNegative(false);
   };
 
   const _onPressButtonNegativeOFF = () => {
-    setbtnPositive(true);
-    setbtnNegative(false);
+    setbtnPositive(false);
+    setbtnNegative(true);
   };
   const requestCameraPermission = async () => {
     if (Platform.OS === 'android') {
@@ -218,93 +219,23 @@ export const VisitFlashContainer = (props: Props) => {
     <SafeAreaView style={styles.container}>
       <HeaderVisite children={'Observation flash'} />
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
-        <View style={{height: 170, backgroundColor: 'white'}} />
+        <View style={styles.ContainerChantier} />
 
-        <View
-          style={{
-            height: 100,
-            borderTopColor: colors.primary,
-            borderTopWidth: 3,
-            backgroundColor: colors.gris100,
-            flexDirection: 'row',
-            marginHorizontal: 25,
-          }}>
-          {!btnPositive && btnNegative ? (
-            <TouchableOpacity
-              onPress={_onPressButtonPostiveON}
-              style={{flex: 1}}>
-              <View style={{flex: 2}}>
-                <Image
-                  source={require('../../../../../assets/img/icn_positive_disabled_blocked.png')}
-                  style={styles.logoImage1}
-                />
-              </View>
-              <View style={{flex: 1}}>
-                <Text style={{color: colors.gris300, textAlign: 'center'}}>
-                  Observation positive
-                </Text>
-              </View>
-            </TouchableOpacity>
+        <View style={styles.ContainerObservation}>
+          {btnPositive && !btnNegative ? (
+            <OPON onPressPositive={_onPressButtonPostiveON} />
           ) : (
-            <TouchableOpacity
-              onPress={_onPressButtonPostiveOFF}
-              style={{flex: 1}}>
-              <View style={{flex: 2}}>
-                <Image
-                  source={require('../../../../../assets/img/icn_positive_disabled_blocked.png')}
-                  style={[styles.logoImage1, {tintColor: 'green'}]}
-                />
-              </View>
-              <View style={{flex: 1}}>
-                <Text style={{color: colors.gris300, textAlign: 'center'}}>
-                  Observation positive
-                </Text>
-              </View>
-            </TouchableOpacity>
+            <OPOFF onPressPositiveOFF={_onPressButtonPostiveOFF} />
           )}
-          <View
-            style={{
-              flex: 0.01,
-              backgroundColor: colors.gris300,
-              marginVertical: 10,
-            }}
-          />
-          {!btnNegative && btnPositive ? (
-            <TouchableOpacity
-              onPress={_onPressButtonNegativeON}
-              style={{flex: 1}}>
-              <View style={{flex: 2}}>
-                <Image
-                  source={require('../../../../../assets/img/icn_negative_disabled.png')}
-                  style={styles.logoImage2}
-                />
-              </View>
-              <View style={{flex: 1}}>
-                <Text style={{color: colors.gris300, textAlign: 'center'}}>
-                  Observation négative
-                </Text>
-              </View>
-            </TouchableOpacity>
+          <View style={styles.DividerObservation} />
+          {btnNegative && !btnPositive ? (
+            <ONON onPressNegative={_onPressButtonNegativeON} />
           ) : (
-            <TouchableOpacity
-              onPress={_onPressButtonNegativeOFF}
-              style={{flex: 1}}>
-              <View style={{flex: 2}}>
-                <Image
-                  source={require('../../../../../assets/img/icn_negative_disabled.png')}
-                  style={[styles.logoImage2, {tintColor: 'red'}]}
-                />
-              </View>
-              <View style={{flex: 1}}>
-                <Text style={{color: colors.gris300, textAlign: 'center'}}>
-                  Observation négative
-                </Text>
-              </View>
-            </TouchableOpacity>
+            <ONOFF onPressNegativeOFF={_onPressButtonNegativeOFF} />
           )}
         </View>
-        {btnNegative ? (
-          <View style={{height: 130, marginStart: 25, marginTop: 5}}>
+        {!btnNegative ? (
+          <View style={styles.RadioContainer}>
             <Text>Pour corriger l'écart sans risque* :</Text>
             <RadioGroup
               radioButtons={OptionEcartSansRisque}
@@ -318,49 +249,24 @@ export const VisitFlashContainer = (props: Props) => {
           </View>
         ) : null}
 
-        <View style={{height: 50, flexDirection: 'column', marginStart: 25, marginTop: 5}}>
+        <View style={styles.CommentairesContainer}>
           <Text>Commentaires*</Text>
-          <TouchableOpacity>
-            <Image
-              source={require('../../../../../assets/img/icn_textarea.png')}
-              style={styles.logoImage3}
-            />
-            <Image
-              source={require('../../../../../assets/img/Untitled-1.png')}
-              style={styles.logoImage4}
-            />
-          </TouchableOpacity>
+          <ModalVisite />
         </View>
-        <View style={{height: 160, backgroundColor: colors.gris100}}>
+        <View style={styles.ImageContainer}>
           {Object.keys(filePath).length === 0 ? (
-            <Text style={{textAlign: 'center', alignContent: 'center'}}>
-              Aucune Image
-            </Text>
+            <Text style={styles.ImageContainerText}>Aucune Image</Text>
           ) : (
-            <Image
-              source={{uri: filePath.uri}}
-              style={[
-                styles.imageStyle,
-                {borderColor: colors.primary, borderWidth: 2},
-              ]}
-            />
+            <Image source={{uri: filePath.uri}} style={styles.imageStyle} />
           )}
         </View>
-        <View
-          style={{
-            height: 55,
-            backgroundColor: 'white',
-            borderTopColor: colors.gris200,
-            borderTopWidth: 1,
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            bottom: 0,
-          }}>
-          <View style={{flex: 1, flexDirection: 'row'}}>
-            <View style={{flex: 1, flexDirection: 'row'}}>
+        <View style={styles.BottomNav}>
+          <View style={styles.DividerTwoImageBottomNav}>
+            <View style={styles.DividerTwoImageBottomNav}>
               <View style={{flex: 1}}>
-                <Pressable onPress={() => captureImage('photo')}>
+                <Pressable
+                  onPress={() => captureImage('photo')}
+                  android_ripple={{color: colors.gris300}}>
                   <Image
                     style={styles.logoImage5}
                     source={require('../../../../../assets/img/icn_prendre_photo.png')}
@@ -368,7 +274,9 @@ export const VisitFlashContainer = (props: Props) => {
                 </Pressable>
               </View>
               <View style={{flex: 1}}>
-                <Pressable onPress={() => chooseFile('photo')}>
+                <Pressable
+                  onPress={() => chooseFile('photo')}
+                  android_ripple={{color: colors.gris300}}>
                   <Image
                     style={styles.logoImage5}
                     source={require('../../../../../assets/img/icn_file.png')}
@@ -376,17 +284,11 @@ export const VisitFlashContainer = (props: Props) => {
                 </Pressable>
               </View>
             </View>
-            <View style={{flex: 1, backgroundColor: 'white'}} />
-            <View style={{flex: 1, backgroundColor: 'white'}}>
-              <Text
-                style={{
-                  textAlign: 'center',
-                  marginTop: '13%',
-                  fontSize: 18,
-                  color: 'black',
-                }}>
-                Sauvegarder
-              </Text>
+            <View style={styles.dividerBottomNav} />
+            <View style={styles.dividerBottomNav}>
+              <Pressable android_ripple={{color: colors.gris300}}>
+                <Text style={styles.buttonBottomnav}>Sauvegarder</Text>
+              </Pressable>
             </View>
           </View>
         </View>
@@ -398,22 +300,6 @@ export const VisitFlashContainer = (props: Props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  logoImage1: {
-    width: 30,
-    height: '50%',
-    resizeMode: 'stretch',
-    marginTop: '10%',
-    alignSelf: 'center',
-    tintColor: colors.gris200,
-  },
-  logoImage2: {
-    width: 30,
-    height: '50%',
-    resizeMode: 'stretch',
-    marginTop: '16%',
-    alignSelf: 'center',
-    tintColor: colors.gris200,
   },
   logoImage3: {
     width: 10,
@@ -436,11 +322,15 @@ const styles = StyleSheet.create({
     resizeMode: 'stretch',
     alignSelf: 'center',
     marginTop: '25%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   imageStyle: {
     width: 120,
     height: 120,
     margin: 20,
+    borderColor: colors.primary,
+    borderWidth: 2,
   },
   imageBorderStyle: {
     width: 105,
@@ -463,5 +353,69 @@ const styles = StyleSheet.create({
     backgroundColor: '#ce3d3d',
     width: '87%',
     fontSize: 17,
+  },
+  buttonBottomnav: {
+    textAlign: 'center',
+    marginTop: '13%',
+    fontSize: 18,
+    color: 'black',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  dividerBottomNav: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
+  BottomNav: {
+    height: 55,
+    backgroundColor: 'white',
+    borderTopColor: colors.gris200,
+    borderTopWidth: 1,
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
+  DividerTwoImageBottomNav: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  ImageContainerText: {
+    textAlign: 'center',
+    alignContent: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  ImageContainer: {
+    height: 160,
+    backgroundColor: colors.gris100,
+  },
+  CommentairesContainer: {
+    height: 70,
+    flexDirection: 'column',
+    marginStart: 25,
+    marginTop: 30,
+  },
+  RadioContainer: {
+    height: 130,
+    marginStart: 25,
+    marginTop: 5,
+  },
+  DividerObservation: {
+    flex: 0.01,
+    backgroundColor: colors.gris300,
+    marginVertical: 10,
+  },
+  ContainerObservation: {
+    height: 100,
+    borderTopColor: colors.primary,
+    borderTopWidth: 3,
+    backgroundColor: colors.gris100,
+    flexDirection: 'row',
+    marginHorizontal: 25,
+  },
+  ContainerChantier: {
+    height: 170,
+    backgroundColor: 'white',
   },
 });
