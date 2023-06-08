@@ -20,7 +20,7 @@ export const HeaderDashboard = (props: Props) => {
         <View style={{flex: 2}}>
           <TouchableOpacity onPress={() => props.navigation.openDrawer()}>
             <Image
-              source={require('../../../../assets/img/icn_visit_flash.png')}
+              source={require('../../../../assets/img/sidenav.png')}
               style={styles.logoImage1}
             />
           </TouchableOpacity>
@@ -30,7 +30,7 @@ export const HeaderDashboard = (props: Props) => {
         </View>
         <View style={{flex: 1.5}}>
           <Image
-            source={require('../../../../assets/img/Flash.png')}
+            source={require('../../../../assets/img/icn_visit_flash.png')}
             style={styles.logoImage}
           />
         </View>
@@ -101,6 +101,7 @@ const styles = StyleSheet.create({
     width: '40%',
     height: '60%',
     resizeMode: 'stretch',
+    tintColor: colors.black,
   },
   logoImage1: {
     margin: '15%',

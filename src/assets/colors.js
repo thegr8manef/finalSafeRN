@@ -6,4 +6,5 @@ export default colors = {
   gris: '#e1e1e1',
   gris200: '#bdbbbb',
   griy500: '#eeeeee',
+  black: '#000',
 };
