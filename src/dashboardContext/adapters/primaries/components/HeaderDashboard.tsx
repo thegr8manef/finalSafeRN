@@ -20,7 +20,7 @@ export const HeaderDashboard = (props: Props) => {
         <View style={{flex: 2}}>
           <TouchableOpacity onPress={() => props.navigation.openDrawer()}>
             <Image
-              source={require('../../../../assets/img/sidenav.png')}
+              source={require('../../../../assets/img/icn_visit_flash.png')}
               style={styles.logoImage1}
             />
           </TouchableOpacity>

@@ -19,8 +19,8 @@ export default class RootNavigation extends PureComponent {
           cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
           headerShown: false,
         }}>
-        {/* <Stack.Screen name={'Login'} component={LoginPage} />
-        <Stack.Screen name={'Profile'} component={ProfilePage} /> */}
+        <Stack.Screen name={'Login'} component={LoginPage} />
+        <Stack.Screen name={'Profile'} component={ProfilePage} />
         <Stack.Screen name={'Drawer'} component={DrawerNavigation} />
       </Stack.Navigator>
     );
