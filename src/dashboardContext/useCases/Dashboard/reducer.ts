@@ -1,5 +1,10 @@
 import {StatState} from '../../configuration/state';
-import {LOAD_STAT, LOAD_STAT_FAILED, LOAD_STAT_SUCCESS, StatActionTypes} from './actionTypes';
+import {
+  LOAD_STAT,
+  LOAD_STAT_FAILED,
+  LOAD_STAT_SUCCESS,
+  StatActionTypes,
+} from './actionTypes';
 import {Stat} from '../../domain/entity/Stat';
 
 const initialState: StatState = {

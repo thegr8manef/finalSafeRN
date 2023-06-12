@@ -8,8 +8,8 @@ import {Dispatch} from 'redux';
 import {StatActionTypes} from '../../../useCases/Dashboard/actionTypes';
 import {connect} from 'react-redux';
 import {DashboardContainer} from './dashboard.container';
-import {stat} from '../../../useCases/Dashboard/action';
-import {Stat} from "../../../domain/entity/Stat";
+import {LoadStat} from '../../../useCases/Dashboard/action';
+import {Stat} from '../../../domain/entity/Stat';
 
 interface StateToPropsType {
   loading: boolean;
@@ -26,7 +26,7 @@ const mapStateToProps = (state: AppState): StateToPropsType => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => ({
-  LoadStat: (): StatActionTypes => dispatch(stat()),
+  LoadStat: (): StatActionTypes => dispatch(LoadStat()),
 });
 
 export const DashboardPage = connect(

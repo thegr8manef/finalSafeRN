@@ -4,5 +4,7 @@ export default colors = {
   textColor: '#000',
   default: '#fafafa',
   gris: '#e1e1e1',
+  gris100: '#d5d5d5',
   gris200: '#bdbbbb',
+  gris300: '#656565',
 };

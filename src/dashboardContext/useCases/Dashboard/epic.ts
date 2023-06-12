@@ -1,6 +1,6 @@
 import {Epic, ofType, StateObservable} from 'redux-observable';
 import {AppState} from '../../../redux_configuration/appState';
-import {LOAD_STAT} from "./actionTypes";
+import {LOAD_STAT} from './actionTypes';
 import {catchError, map, switchMap} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {DashboardService} from '../../domain/gateway/dashboardService';
@@ -18,7 +18,7 @@ export const statEpic: Epic = (
       dashboardService.LoadStat().pipe(
         map((stat: Stat) => {
           return statSuccess(stat);
-          }),
+        }),
         catchError(error => of(statFailed(error))),
       ),
     ),
