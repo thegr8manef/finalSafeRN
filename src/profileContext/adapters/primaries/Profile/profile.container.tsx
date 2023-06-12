@@ -37,7 +37,7 @@ export const ProfileContainer = (props: Props) => {
       <View style={styles.header_container}>
         <View style={styles.button_container}>
           <ButtonPrimary
-            OnPressCustomized={() => props.navigation.navigate('Drawer')}
+            OnPressCustomized={() => props.navigation.replace('Home')}
             textButton={t('txt.next')}
           />
         </View>

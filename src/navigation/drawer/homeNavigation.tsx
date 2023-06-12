@@ -3,47 +3,20 @@ import {StyleSheet, View, Text, Image} from 'react-native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {DashboardPage} from '../../dashboardContext/adapters/primaries/Dashboard';
 import colors from '../../assets/colors';
-import {
-  DrawerContentScrollView,
-  DrawerItemList,
-} from '@react-navigation/drawer';
+
 import {useTranslation} from 'react-i18next';
+import {MenuLeft} from './menuLeft';
+import {MenuLeftPage} from './index.menuLeft';
 
 const Drawer = createDrawerNavigator();
 
-const Header = props => {
-  return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.headerContainer}>
-          <View style={styles.userInfo}>
-            <Text style={styles.username}>Hiba Souissi</Text>
-            <Text style={styles.email}>
-              hsouissi@mobelitedev.onmicrosoft.com
-            </Text>
-          </View>
-          <View style={styles.logoutBtn}>
-            <Image
-              source={require('../../assets/img/icn_logout.png')}
-              style={styles.icn_logout}
-            />
-          </View>
-        </View>
-      </View>
-      <DrawerContentScrollView {...props}>
-        <DrawerItemList {...props} />
-      </DrawerContentScrollView>
-    </View>
-  );
-};
-
-export const DrawerNavigation = () => {
+export const HomeNavigation = () => {
   const {t} = useTranslation();
 
   return (
     <Drawer.Navigator
       initialRouteName="Dashboard"
-      drawerContent={props => <Header {...props} />}
+      drawerContent={props => <MenuLeft {...props} />}
       screenOptions={{
         headerShown: false,
         drawerActiveBackgroundColor: colors.griy500,
@@ -148,45 +121,6 @@ export const DrawerNavigation = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.white,
-  },
-
-  header: {
-    flex: 0.2,
-    backgroundColor: colors.primary,
-  },
-  headerContainer: {
-    flex: 1,
-    flexDirection: 'row',
-  },
-  userInfo: {
-    flex: 0.75,
-    marginLeft: 25,
-    marginTop: 30,
-  },
-  logoutBtn: {
-    flex: 0.25,
-  },
-  username: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    fontFamily: 'AvenirLTStdHeavy',
-    color: colors.textColor,
-  },
-  email: {
-    top: 5,
-    fontSize: 16,
-    fontWeight: '500',
-    color: colors.textColor,
-  },
-  icn_logout: {
-    width: 35,
-    height: 30,
-    resizeMode: 'stretch',
-    marginTop: 60,
-  },
   icon: {
     width: 24,
     height: 24,

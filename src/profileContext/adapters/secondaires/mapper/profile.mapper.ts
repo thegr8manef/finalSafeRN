@@ -5,6 +5,7 @@ import { ProfileDto, userDto } from "../dto/profile.dto";
 export class ProfileMapper{
 
     static mapToProfile(profile : ProfileDto) : Profile{
+      
             return new Profile(
                  profile.tenantId,
                  profile.account.claims.name, 
@@ -14,7 +15,7 @@ export class ProfileMapper{
     }
 
     static mapToProfileDetails(userDetails : userDto) : User{
-        console.log(userDetails)
+      
                    return new User(
                "", 
                 userDetails.rd.or.rg
