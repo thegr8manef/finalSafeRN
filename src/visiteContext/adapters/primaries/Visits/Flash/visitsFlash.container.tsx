@@ -35,8 +35,8 @@ interface Props {
 export const VisitFlashContainer = (props: Props) => {
   const [mount, setMount] = useState(false);
   const [selectedId, setSelectedId] = useState();
-  const [btnPositive, setbtnPositive] = useState(true);
-  const [btnNegative, setbtnNegative] = useState(true);
+  const [btnPositive, setbtnPositive] = useState(false);
+  const [btnNegative, setbtnNegative] = useState(false);
   const [filePath, setFilePath] = useState({});
   if (!mount) {
     props.loadingVisits;
@@ -48,21 +48,21 @@ export const VisitFlashContainer = (props: Props) => {
     () => [
       {
         id: '1', // acts as primary key, should be unique and non-empty string
-        label: "je sais, je peux, j'agis",
+        label: t('txt_i_know_i_can_i_act'),
         value: '1',
         color: colors.primary,
         labelStyle: styles.radioButton1,
       },
       {
         id: '2',
-        label: 'je sais, je ne peux pas,je signale',
+        label: t('txt_i_know_i_can_not_i_report'),
         value: '2',
         color: colors.primary,
         labelStyle: styles.radioButton2,
       },
       {
         id: '3',
-        label: 'Je ne sais pas, je signale',
+        label: t('txt_i_do_not_know_i_report'),
         value: '3',
         color: colors.primary,
         labelStyle: styles.radioButton3,
@@ -74,22 +74,22 @@ export const VisitFlashContainer = (props: Props) => {
     setMount(true);
   });
   const _onPressButtonPostiveON = () => {
-    setbtnPositive(false);
-    setbtnNegative(true);
+    setbtnPositive(true);
+    setbtnNegative(false);
   };
 
   const _onPressButtonNegativeON = () => {
-    setbtnNegative(false);
-    setbtnPositive(true);
+    setbtnNegative(true);
+    setbtnPositive(false);
   };
   const _onPressButtonPostiveOFF = () => {
-    setbtnPositive(true);
-    setbtnNegative(false);
+    setbtnPositive(false);
+    setbtnNegative(true);
   };
 
   const _onPressButtonNegativeOFF = () => {
-    setbtnPositive(false);
-    setbtnNegative(true);
+    setbtnPositive(true);
+    setbtnNegative(false);
   };
   const requestCameraPermission = async () => {
     if (Platform.OS === 'android') {
@@ -217,26 +217,26 @@ export const VisitFlashContainer = (props: Props) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <HeaderVisite children={'Observation flash'} />
+      <HeaderVisite children={t('txt_visit_flash')} />
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
         <View style={styles.ContainerChantier} />
 
         <View style={styles.ContainerObservation}>
-          {btnPositive && !btnNegative ? (
+          {!btnPositive ? (
             <OPON onPressPositive={_onPressButtonPostiveON} />
           ) : (
             <OPOFF onPressPositiveOFF={_onPressButtonPostiveOFF} />
           )}
           <View style={styles.DividerObservation} />
-          {btnNegative && !btnPositive ? (
+          {!btnNegative ? (
             <ONON onPressNegative={_onPressButtonNegativeON} />
           ) : (
             <ONOFF onPressNegativeOFF={_onPressButtonNegativeOFF} />
           )}
         </View>
-        {!btnNegative ? (
+        {btnNegative ? (
           <View style={styles.RadioContainer}>
-            <Text>Pour corriger l'écart sans risque* :</Text>
+            <Text>{t('txt_evaluation_visit_flash')}</Text>
             <RadioGroup
               radioButtons={OptionEcartSansRisque}
               onPress={setSelectedId}
@@ -250,12 +250,14 @@ export const VisitFlashContainer = (props: Props) => {
         ) : null}
 
         <View style={styles.CommentairesContainer}>
-          <Text>Commentaires*</Text>
+          <Text>{t('txt.commentaires')}</Text>
           <ModalVisite />
         </View>
         <View style={styles.ImageContainer}>
           {Object.keys(filePath).length === 0 ? (
-            <Text style={styles.ImageContainerText}>Aucune Image</Text>
+            <Text style={styles.ImageContainerText}>
+              {t('txt.aucune.image')}
+            </Text>
           ) : (
             <Image source={{uri: filePath.uri}} style={styles.imageStyle} />
           )}
@@ -287,7 +289,7 @@ export const VisitFlashContainer = (props: Props) => {
             <View style={styles.dividerBottomNav} />
             <View style={styles.dividerBottomNav}>
               <Pressable android_ripple={{color: colors.gris300}}>
-                <Text style={styles.buttonBottomnav}>Sauvegarder</Text>
+                <Text style={styles.buttonBottomnav}>{t('txt.sauvegarder.remarque')}</Text>
               </Pressable>
             </View>
           </View>

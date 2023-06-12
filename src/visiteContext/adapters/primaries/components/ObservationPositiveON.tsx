@@ -8,10 +8,12 @@ import {
 } from 'react-native';
 import colors from '../../../../assets/colors';
 import React from 'react';
+import { useTranslation } from "react-i18next";
 
 interface Props {
   onPressPositive: void;
 }
+const {t} = useTranslation();
 export const OPON = (props: Props) => {
   return (
     <TouchableOpacity onPress={props.onPressPositive} style={{flex: 1}}>
@@ -22,7 +24,7 @@ export const OPON = (props: Props) => {
         />
       </View>
       <View style={{flex: 1}}>
-        <Text style={styles.TextObservation}>Observation positive</Text>
+        <Text style={styles.TextObservation}>{t('observation_positive')}</Text>
       </View>
     </TouchableOpacity>
   );
