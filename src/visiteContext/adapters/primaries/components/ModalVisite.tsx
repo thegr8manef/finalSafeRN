@@ -1,14 +1,24 @@
 import React, {useState} from 'react';
-import { Alert, Modal, StyleSheet, Text, Pressable, View, Image, TextInput } from "react-native";
-import { HeaderModal } from "./HeaderModal";
-import colors from "../../../../assets/colors";
+import {
+  Alert,
+  Modal,
+  StyleSheet,
+  Text,
+  Pressable,
+  View,
+  Image,
+  TextInput,
+} from 'react-native';
+import {HeaderModal} from './HeaderModal';
+import colors from '../../../../assets/colors';
+import {useTranslation} from 'react-i18next';
 interface Props {}
-
 
 export const ModalVisite = (props: Props) => {
   const [modalVisible, setModalVisible] = useState(false);
-  const [text, onChangeText] = React.useState('Useless Text');
+  const [empty, setEmpty] = React.useState(true);
   const [commentaires, onChangeCommentaires] = React.useState('');
+  const {t} = useTranslation();
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -16,22 +26,26 @@ export const ModalVisite = (props: Props) => {
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
           setModalVisible(!modalVisible);
         }}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <HeaderModal
-              children={'Commentaires'}
-              onPressCustomizePositive={() => setModalVisible(!modalVisible)}
-              onPressCustomizeNegative={() => setModalVisible(!modalVisible)}
+              children={t('txt.commentaires.without.start')}
+              onPressCustomizePositive={() => {setModalVisible(!modalVisible);
+              setEmpty(false)}}
+              onPressCustomizeNegative={() => {
+                setModalVisible(!modalVisible);
+                setEmpty(true);
+                onChangeCommentaires(null)
+              }}
             />
             <TextInput
               style={styles.input}
               onChangeText={onChangeCommentaires}
               value={commentaires}
               cursorColor={colors.primary}
-              placeholder="Commentaires*"
+              placeholder={t('txt.commentaires')}
               keyboardType="web-search"
             />
           </View>
@@ -41,6 +55,12 @@ export const ModalVisite = (props: Props) => {
         style={[styles.button, styles.buttonOpen]}
         onPress={() => setModalVisible(true)}
         android_ripple={{color: colors.gris300}}>
+          { !empty ? (
+        <Text style={{marginBottom: '-4%', marginLeft: '5%', fontSize: 17}}>{commentaires}</Text>
+          ) :(
+            <Text style={{marginBottom: '-4%', marginLeft: '5%', fontSize: 17}}>{null}</Text>
+          )
+          }
         <Image
           source={require('../../../../assets/img/icn_textarea.png')}
           style={styles.logoImage3}
@@ -71,8 +91,7 @@ const styles = StyleSheet.create({
     padding: 20,
     opacity: 1,
   },
-  buttonOpen: {
-  },
+  buttonOpen: {},
   buttonClose: {
     backgroundColor: '#2196F3',
   },
@@ -105,6 +124,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     borderBottomColor: colors.primary,
     padding: 10,
-    marginTop: 20
+    marginTop: 20,
   },
 });

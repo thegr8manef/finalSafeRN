@@ -169,13 +169,6 @@ export const VisitFlashContainer = (props: Props) => {
           alert(response.errorMessage);
           return;
         }
-        console.log('base64 -> ', response.assets[0].base64);
-        console.log('uri -> ', response.assets[0].uri);
-        console.log('width -> ', response.assets[0].width);
-        console.log('height -> ', response.assets[0].height);
-        console.log('fileSize -> ', response.assets[0].fileSize);
-        console.log('type -> ', response.assets[0].type);
-        console.log('fileName -> ', response.assets[0].fileName);
         setFilePath(response.assets[0]);
       });
     }
@@ -204,13 +197,6 @@ export const VisitFlashContainer = (props: Props) => {
         alert(response.errorMessage);
         return;
       }
-      console.log('base64 -> ', response.assets[0].base64);
-      console.log('uri -> ', response.assets[0].uri);
-      console.log('width -> ', response.assets[0].width);
-      console.log('height -> ', response.assets[0].height);
-      console.log('fileSize -> ', response.assets[0].fileSize);
-      console.log('type -> ', response.assets[0].type);
-      console.log('fileName -> ', response.assets[0].fileName);
       setFilePath(response.assets[0]);
     });
   };
