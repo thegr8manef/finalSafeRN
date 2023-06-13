@@ -13,8 +13,8 @@ import {useTranslation} from 'react-i18next';
 interface Props {
   onPressNegative: void;
 }
-const {t} = useTranslation();
 export const ONON = (props: Props) => {
+  const {t} = useTranslation();
   return (
     <TouchableOpacity onPress={props.onPressNegative} style={{flex: 1}}>
       <View style={{flex: 2}}>
