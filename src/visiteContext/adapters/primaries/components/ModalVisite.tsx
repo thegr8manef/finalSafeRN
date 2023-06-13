@@ -46,7 +46,7 @@ export const ModalVisite = (props: Props) => {
           style={styles.logoImage3}
         />
         <Image
-          source={require('../../../../assets/img/Untitled-1.png')}
+          source={require('../../../../assets/img/Divider.png')}
           style={styles.logoImage4}
         />
       </Pressable>
