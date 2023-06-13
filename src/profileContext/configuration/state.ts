@@ -4,6 +4,7 @@ import { User } from "../domain/entity/user";
 export interface ProfileState {
   login: LoginState;
   loadProfileDetails : LoadProfileState
+  checkUserConnected : CheckUserConnectedState
 }
 
 export interface LoginState {
@@ -25,4 +26,9 @@ export interface LoadProfileState {
   loading: boolean;
   error: string | undefined;
   user : User | undefined;
+}
+
+
+export interface CheckUserConnectedState {
+  profile : Profile |undefined
 }
