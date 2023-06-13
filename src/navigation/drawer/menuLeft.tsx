@@ -16,38 +16,13 @@ interface Props {
 }
 
 export const MenuLeft = props => {
-  const [username, setUsername] = useState('-');
-  const [email, setEmail] = useState('-');
-  const [mount, setMount] = useState(false);
-
-  useEffect(() => {
-    setMount(true);
-  });
-  let _email = '-';
-  const getData = async () => {
-    try {
-      const _email: string = await AsyncStorage.getItem('email');
-      const _username: string = await AsyncStorage.getItem('username');
-      if (_email != null && _username != null) {
-        setEmail(_email);
-        setUsername(_username);
-      }
-    } catch (error) {
-      console.log('Error retrieving data:', error);
-    }
-  };
-
-  if (!mount) {
-    getData();
-  }
-
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.headerContainer}>
           <View style={styles.userInfo}>
-            <Text style={styles.username}>{username}</Text>
-            <Text style={styles.email}>{email}</Text>
+            <Text style={styles.username}>-</Text>
+            <Text style={styles.email}>-</Text>
           </View>
           <View style={styles.logoutBtn}>
             <Image

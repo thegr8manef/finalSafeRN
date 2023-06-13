@@ -6,7 +6,6 @@ import colors from '../../assets/colors';
 
 import {useTranslation} from 'react-i18next';
 import {MenuLeft} from './menuLeft';
-import {MenuLeftPage} from './index.menuLeft';
 
 const Drawer = createDrawerNavigator();
 

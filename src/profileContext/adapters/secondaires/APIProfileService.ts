@@ -43,8 +43,6 @@ export class APIProfileService implements ProfileService {
             .acquireToken(params)
             .then(result  => {
               resolve(ProfileMapper.mapToProfile(result));
-              AsyncStorage.setItem('username', result!!.account.claims!!.name )
-              AsyncStorage.setItem('email', result!!.account.claims!!.preferred_username)
             })
             .catch(error => reject(error));
         })
