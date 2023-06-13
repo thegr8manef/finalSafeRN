@@ -7,5 +7,5 @@ export const statLoadingSelector = (appState: AppState): boolean =>
 export const statErrorSelector = (appState: AppState): string | undefined =>
   appState.dashboard.stat.error;
 
-export const loadStatSelector = (appState: AppState): Stat =>
+export const loadStatSelector = (appState: AppState): Stat | undefined =>
   appState.dashboard.stat.stat;

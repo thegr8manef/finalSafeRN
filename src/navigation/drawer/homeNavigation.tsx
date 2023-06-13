@@ -6,6 +6,7 @@ import colors from '../../assets/colors';
 
 import {useTranslation} from 'react-i18next';
 import {MenuLeft} from './menuLeft';
+import {VisitsFlashPage} from '../../visiteContext/adapters/primaries/Visits/Flash';
 
 const Drawer = createDrawerNavigator();
 
@@ -54,7 +55,7 @@ export const HomeNavigation = () => {
       />
       <Drawer.Screen
         name={'visit.flash'}
-        component={DashboardPage}
+        component={VisitsFlashPage}
         options={{
           drawerLabel: () => (
             <Text style={styles.label}>{t('txt.new.visit.flash')}</Text>

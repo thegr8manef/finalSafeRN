@@ -1,4 +1,3 @@
-import {Text, View} from 'react-native';
 import React, {PureComponent} from 'react';
 import {
   CardStyleInterpolators,
@@ -7,7 +6,6 @@ import {
 import {StackParamList} from './navigation.types';
 import {LoginPage} from '../../profileContext/adapters/primaries/login';
 import {ProfilePage} from '../../profileContext/adapters/primaries/Profile';
-import {DashboardPage} from '../../dashboardContext/adapters/primaries/Dashboard';
 import {HomeNavigation} from '../drawer/homeNavigation';
 const Stack = createStackNavigator<StackParamList>();
 
