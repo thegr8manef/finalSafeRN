@@ -22,6 +22,7 @@ interface Props {
   stat: Stat | undefined;
   user: User;
   LoadStat: () => void;
+  navigation: any;
 }
 
 export const DashboardContainer = (props: Props) => {
@@ -38,6 +39,7 @@ export const DashboardContainer = (props: Props) => {
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.header_container}>
         <HeaderDashboard
+          navigation={props.navigation}
           visits={165}
           dateDebut={'01/01/2023'}
           dateFinale={'30/05/2023'}

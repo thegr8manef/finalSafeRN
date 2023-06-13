@@ -1,9 +1,17 @@
 import React, {useState} from 'react';
-import { Alert, Modal, StyleSheet, Text, Pressable, View, Image, TextInput } from "react-native";
-import { HeaderModal } from "./HeaderModal";
-import colors from "../../../../assets/colors";
+import {
+  Alert,
+  Modal,
+  StyleSheet,
+  Text,
+  Pressable,
+  View,
+  Image,
+  TextInput,
+} from 'react-native';
+import {HeaderModal} from './HeaderModal';
+import colors from '../../../../assets/colors';
 interface Props {}
-
 
 export const ModalVisite = (props: Props) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -71,8 +79,7 @@ const styles = StyleSheet.create({
     padding: 20,
     opacity: 1,
   },
-  buttonOpen: {
-  },
+  buttonOpen: {},
   buttonClose: {
     backgroundColor: '#2196F3',
   },
@@ -105,6 +112,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     borderBottomColor: colors.primary,
     padding: 10,
-    marginTop: 20
+    marginTop: 20,
   },
 });

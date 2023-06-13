@@ -12,6 +12,9 @@ import { userDto } from './dto/profile.dto';
 import ws from '../../../config/ws';
 import { ObservableAjaxHttpClient } from '../../../common/adapters/secondaries/real/observableAjaxHttpClient';
 import { User } from '../../domain/entity/user';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 
 export class APIProfileService implements ProfileService {
   
@@ -38,7 +41,7 @@ export class APIProfileService implements ProfileService {
           const params: MSALInteractiveParams = {scopes};
           pca
             .acquireToken(params)
-            .then(result => {
+            .then(result  => {
               resolve(ProfileMapper.mapToProfile(result));
             })
             .catch(error => reject(error));
@@ -71,8 +74,7 @@ export class APIProfileService implements ProfileService {
 
           .post<userDto>(ws.baseUrl+"details-profile",body, _headers)
           .pipe(
-              map(response => ProfileMapper.mapToProfileDetails(response.response)
-              ),
+              map(response => ProfileMapper.mapToProfileDetails(response.response)),
               catchError(err =>  throwError(err))
            )
           

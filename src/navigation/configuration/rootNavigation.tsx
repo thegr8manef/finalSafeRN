@@ -6,9 +6,7 @@ import {
 import {StackParamList} from './navigation.types';
 import {LoginPage} from '../../profileContext/adapters/primaries/login';
 import {ProfilePage} from '../../profileContext/adapters/primaries/Profile';
-import {DashboardPage} from '../../dashboardContext/adapters/primaries/Dashboard';
-import {VisitsFlashPage} from '../../visiteContext/adapters/primaries/Visits/Flash';
-import { CameraPage } from "../../visiteContext/adapters/primaries/Visits/Camera";
+import {HomeNavigation} from '../drawer/homeNavigation';
 const Stack = createStackNavigator<StackParamList>();
 
 export default class RootNavigation extends PureComponent {
@@ -19,11 +17,9 @@ export default class RootNavigation extends PureComponent {
           cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
           headerShown: false,
         }}>
-        <Stack.Screen name={'Flash'} component={VisitsFlashPage} />
         <Stack.Screen name={'Login'} component={LoginPage} />
         <Stack.Screen name={'Profile'} component={ProfilePage} />
-        <Stack.Screen name={'Dashboard'} component={DashboardPage} />
-
+        <Stack.Screen name={'Home'} component={HomeNavigation} />
       </Stack.Navigator>
     );
   }
