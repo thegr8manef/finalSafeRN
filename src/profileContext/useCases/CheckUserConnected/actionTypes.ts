@@ -13,6 +13,7 @@ export interface SetUserInfo{
 export interface GetUserInfo{
     type : typeof GET_USER_INFO;
     payload : Profile
+    
 }
 
 

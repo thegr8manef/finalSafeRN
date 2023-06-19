@@ -10,5 +10,6 @@ export const setUserInfo = (profile : Profile) : SetUserInfo=>({
 export const getUserInfo = (profile : Profile) : GetUserInfo=>({
     type : GET_USER_INFO,
     payload : profile
+  
 
 })

@@ -16,8 +16,7 @@ action$.pipe(
     ofType(LOAD_PROFILE_DETAILS),
     switchMap((action) =>
         profileService.loadProfileDetails(action.payload).pipe(
-            map((userInfo : User) => loadProfileDetailsSuccess(userInfo)),
-            catchError(error=> of(loadProfileDetailsFailed(error))),
+            map((userInfo : User) => loadProfileDetailsSuccess(userInfo))
         )
     )
 )
