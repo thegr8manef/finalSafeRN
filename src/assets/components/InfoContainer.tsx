@@ -2,21 +2,21 @@ import {Text, View, StyleSheet} from 'react-native';
 import React, {Component} from 'react';
 
 interface Props {
-  children_info1: string;
-  children_info2 : string
+  label_title: string;
+  label_subtitle: string;
 }
-export const InfoContainer = (props: Props) => {
+export const InfoContainer = (props: Props): JSX.Element => {
   return (
     <View style={styles.container_info}>
       <View style={styles.container_text_info}>
-        <Text style={styles.text_title_info}>{props.children_info1}</Text>
+        <Text style={styles.text_title_info}>{props.label_title}</Text>
       </View>
       <View style={styles.container_text_info}>
-        <Text style={styles.text_info_info}>{props.children_info2}</Text>
+        <Text style={styles.text_info_info}>{props.label_subtitle}</Text>
       </View>
     </View>
   );
-}
+};
 
 export default InfoContainer;
 

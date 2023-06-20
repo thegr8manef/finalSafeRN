@@ -2,17 +2,17 @@ import {Text, View, StyleSheet} from 'react-native';
 import React, {Component} from 'react';
 
 interface Props {
-  children: string;
-  children_email: string;
+  name_label: string;
+  email_label: string;
 }
-export const DetailsContainer = (props: Props) => {
+export const DetailsContainer: React.FC<Props> = (props: Props) => {
   return (
     <View style={styles.container_details}>
       <View style={styles.container_text}>
-        <Text style={styles.text_full_name}>{props.children}</Text>
+        <Text style={styles.text_full_name}>{props.name_label}</Text>
       </View>
       <View style={styles.container_text}>
-        <Text style={styles.text_email}>{props.children_email}</Text>
+        <Text style={styles.text_email}>{props.email_label}</Text>
       </View>
     </View>
   );

@@ -6,7 +6,7 @@ interface Props {
   OnPressCustomized: () => void;
 }
 
-export const ButtonPrimary = (props: Props) => {
+export const ButtonPrimary = (props: Props): JSX.Element => {
   return (
     <View style={styles.buttonOuterContainer}>
       <Pressable

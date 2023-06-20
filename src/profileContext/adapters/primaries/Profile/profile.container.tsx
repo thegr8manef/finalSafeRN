@@ -19,7 +19,7 @@ interface Props {
   user: User;
 }
 
-export const ProfileContainer = (props: Props) => {
+export const ProfileContainer: React.FC<Props> = (props: Props) => {
   const [mounted, setMounted] = useState(false);
 
   const {t} = useTranslation();
@@ -42,36 +42,36 @@ export const ProfileContainer = (props: Props) => {
           />
         </View>
         <View style={styles.text_container}>
-          <Header>{t('txt.profile')}</Header>
+          <Header label_title={t('txt.profile')}></Header>
         </View>
       </View>
       <View style={{flex: 0.8}}>
         {props.profile ? (
           <DetailsContainer
-            children={props.profile?.name}
-            children_email={props.profile?.email}
+            name_label={props.profile?.name}
+            email_label={props.profile?.email}
           />
         ) : null}
       </View>
       <Divider />
       <View style={{flex: 0.8}}>
         <InfoContainer
-          children_info1={t('txt.region')}
-          children_info2={props.user == undefined ? '' : props.user.region}
+          label_title={t('txt.region')}
+          label_subtitle={props.user == undefined ? '' : props.user.region}
         />
       </View>
       <Divider />
       <View style={{flex: 0.8}}>
         <InfoContainer
-          children_info1={t('txt.filiale')}
-          children_info2={props.user == undefined ? '' : props.user.function}
+          label_title={t('txt.filiale')}
+          label_subtitle={props.user == undefined ? '' : props.user.function}
         />
       </View>
       <Divider />
       <View style={{flex: 0.8}}>
         <InfoContainer
-          children_info1={t('txt.etablissement')}
-          children_info2={' '}
+          label_title={t('txt.etablissement')}
+          label_subtitle={' '}
         />
       </View>
       <View style={{flex: 2, backgroundColor: '#eaeaea'}} />

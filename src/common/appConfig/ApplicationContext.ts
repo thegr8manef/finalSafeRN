@@ -15,6 +15,9 @@ import {Zone} from '../adapters/secondaries/db/entity/Zone';
 import realm_config from '../../config/realm-config';
 
 class ApplicationContext {
+  private static instance: ApplicationContext;
+  private _db: Promise<Realm>;
+
   private static realmConfigDB: Configuration = {
     schema: [
       Accompagnant,
@@ -35,13 +38,21 @@ class ApplicationContext {
     encryptionKey: this.toByteArray(realm_config.databaseKey),
   };
 
-  static async getInstance(): Promise<Realm> {
-    try {
-      const realm = await Realm.open(ApplicationContext.realmConfigDB);
-      return realm; // Return the opened realm instance
-    } catch (error) {
-      throw error;
+  static getInstance(): ApplicationContext {
+    if (!ApplicationContext.instance) {
+      ApplicationContext.instance = new ApplicationContext();
+
+      ApplicationContext.instance._db = Realm.open(
+        ApplicationContext.realmConfigDB,
+      );
+
+      return ApplicationContext.instance;
     }
+    return ApplicationContext.instance;
+  }
+
+  db(): Promise<Realm> {
+    return this._db;
   }
 
   private static toByteArray(str: string): Int8Array {
