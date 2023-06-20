@@ -1,16 +1,17 @@
 import {View, Text, StyleSheet} from 'react-native';
-import colors from '../colors';
+import colors from "../colors";
 
 interface Props {
-  label_title: string;
+  children: string;
 }
-export const Header = (props: Props): JSX.Element => {
+export const Header = (props: Props) => {
   return (
     <View style={styles.rectangle}>
-      <Text style={styles.textCentre}>{props.label_title}</Text>
+      <Text style={styles.textCentre}>{props.children}</Text>
     </View>
   );
-};
+}
+
 
 const styles = StyleSheet.create({
   rectangle: {
