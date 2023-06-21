@@ -9,6 +9,9 @@ import {
   PermissionsAndroid,
   Pressable,
   ScrollView,
+  FlatList,
+  Dimensions,
+  TouchableOpacity
 } from 'react-native';
 import colors from '../../../../../assets/colors';
 import {Flash} from '../../../../domain/entity/Flash';
@@ -24,6 +27,8 @@ import {OPOFF} from '../../components/ObservationPositiveOFF';
 import {ONON} from '../../components/ObservationNegativeON';
 import {ONOFF} from '../../components/ObservationNegativeOFF';
 
+
+
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
   loadingVisits: boolean;
@@ -31,7 +36,6 @@ interface Props {
   flash: Flash | undefined;
   LoadFlash: () => void;
 }
-
 export const VisitFlashContainer = (props: Props) => {
   const [mount, setMount] = useState(false);
   const [selectedId, setSelectedId] = useState();
@@ -41,7 +45,19 @@ export const VisitFlashContainer = (props: Props) => {
   if (!mount) {
     props.loadingVisits;
   }
+  const [images, setimages] = useState([]);
+  const addItem = () => {
+    
+    const newItem = filePath.uri;
+    console.log('images',images.length === 0)
+    if(images.length === 0){
+      setimages([newItem]);
 
+    }else{
+      setimages([...  images, newItem]);
+    }
+    
+  };
   const {t} = useTranslation();
 
   const OptionEcartSansRisque = useMemo(
@@ -72,7 +88,7 @@ export const VisitFlashContainer = (props: Props) => {
   );
   useEffect(() => {
     setMount(true);
-  });
+  }, []);
   const _onPressButtonPostiveON = () => {
     setbtnPositive(true);
     setbtnNegative(false);
@@ -169,7 +185,12 @@ export const VisitFlashContainer = (props: Props) => {
           alert(response.errorMessage);
           return;
         }
-        setFilePath(response.assets[0]);
+        const timeout = setTimeout(() => {
+          addItem();
+          setFilePath(response.assets[0]);
+
+        }, 500);
+        return () => clearTimeout(timeout);
       });
     }
   };
@@ -197,7 +218,12 @@ export const VisitFlashContainer = (props: Props) => {
         alert(response.errorMessage);
         return;
       }
-      setFilePath(response.assets[0]);
+      const timeout = setTimeout(() => {
+        addItem();
+        setFilePath(response.assets[0]);
+      }, 500);
+  
+      return () => clearTimeout(timeout);
     });
   };
 
@@ -205,7 +231,8 @@ export const VisitFlashContainer = (props: Props) => {
     <SafeAreaView style={styles.container}>
       <HeaderVisite children={t('txt_visit_flash')} />
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
-        <View style={styles.ContainerChantier} />
+        <View style={styles.ContainerChantier}>
+        </View>
 
         <View style={styles.ContainerObservation}>
           {!btnPositive ? (
@@ -240,13 +267,25 @@ export const VisitFlashContainer = (props: Props) => {
           <ModalVisite />
         </View>
         <View style={styles.ImageContainer}>
-          {Object.keys(filePath).length === 0 ? (
+          {Object.keys(filePath).length === 0 || images === null ? (
             <Text style={styles.ImageContainerText}>
               {t('txt.aucune.image')}
             </Text>
           ) : (
-            <Image source={{uri: filePath.uri}} style={styles.imageStyle} />
-          )}
+            // <Image source={{uri: filePath.uri}} style={styles.imageStyle} />
+            <FlatList
+            horizontal={true} 
+            showsHorizontalScrollIndicator={false} 
+            data={images}
+            renderItem={ ({ item, index }) => (
+              <Image source={{uri:item}} /* Use item to set the image source */
+                key={index} /* Important to set a key for list items,
+                               but it's wrong to use indexes as keys, see below */
+                style={styles.imageStyle}
+              />
+            )}
+          />
+)}
         </View>
         <View style={styles.BottomNav}>
           <View style={styles.DividerTwoImageBottomNav}>
@@ -403,7 +442,17 @@ const styles = StyleSheet.create({
     marginHorizontal: 25,
   },
   ContainerChantier: {
-    height: 170,
+    height: 150,
     backgroundColor: 'white',
+  },
+  item: {
+    backgroundColor: '#f9c2ff',
+    padding: 10,
+    marginVertical: 4,
+    marginHorizontal: 8,
+    height: 50
+  },
+  title: {
+    fontSize: 16,
   },
 });
