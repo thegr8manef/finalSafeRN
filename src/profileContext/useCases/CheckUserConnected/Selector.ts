@@ -1,7 +1,7 @@
-import { AppState } from "../../../redux_configuration/appState";
+import {AppState} from '../../../redux_configuration/appState';
 
-export const setUserInfoSelector = (appState : AppState) => 
-        appState.profile.checkUserConnected.profile
+export const setUserConnectedSelector = (appState: AppState) =>
+  appState.profile.checkUserConnected.userConnected;
 
-export const getUserInfoSelector = (appState : AppState) =>
-        appState.profile.checkUserConnected.profile
+export const checkUserConnectedSelector = (appState: AppState): boolean =>
+  appState.profile.checkUserConnected.userConnected;

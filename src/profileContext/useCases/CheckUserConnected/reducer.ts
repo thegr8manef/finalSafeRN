@@ -1,23 +1,26 @@
-import { CheckUserConnectedState } from "../../configuration/state";
-import { Profile } from "../../domain/entity/profile";
-import { GET_USER_INFO, SET_USER_INFO, UserInfoActionTypes } from "./actionTypes";
+import {CheckUserConnectedState} from '../../configuration/state';
+import {
+  CHECK_USER_CONNECTED,
+  SET_USER_CONNECTED,
+  UserInfoActionTypes,
+} from './actionTypes';
 
-const initialState : CheckUserConnectedState = {
-    profile : undefined
-}
+const initialState: CheckUserConnectedState = {
+  userConnected: false,
+};
 
-export const reducerCheckUser  = (
-    state = initialState,
-    action: UserInfoActionTypes
+export const reducerCheckUser = (
+  state = initialState,
+  action: UserInfoActionTypes,
 ): CheckUserConnectedState => {
-    switch(action.type) {
-        case SET_USER_INFO: {
-            return {profile : undefined}
-        }
-        case GET_USER_INFO: {
-            return {profile : action.payload}
-        }
-        default: 
-           return state;
+  switch (action.type) {
+    case SET_USER_CONNECTED: {
+      return {userConnected: true};
     }
-}
+    case CHECK_USER_CONNECTED: {
+      return {userConnected: action.payload};
+    }
+    default:
+      return state;
+  }
+};

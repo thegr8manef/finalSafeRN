@@ -1,6 +1,6 @@
-import { Profile } from "../entity/profile";
+import {Observable} from 'rxjs';
 
 export interface UserConnectedService {
-    setUserInfo(profile : Profile): Profile | undefined
-    getUserInfo() : Profile
+  setUserConnected(userConnected: boolean): boolean;
+  checkUserConnected(): Observable<boolean>;
 }

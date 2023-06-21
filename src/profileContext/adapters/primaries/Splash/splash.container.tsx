@@ -7,19 +7,25 @@ import {Profile} from '../../../domain/entity/profile';
 import * as Progress from 'react-native-progress';
 
 interface Props {
-  profile: Profile | undefined;
+  userConncted: boolean;
   navigation: StackNavigationProp<StackParamList>;
-  getUserInfo: () => void;
+  checkUserConnceted: () => void;
 }
 
 export default function SplashScreen(props: Props) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => {
-      props.navigation.replace('Login');
-    }, 3000);
+    // setMounted(true);
+    // if (props.userConncted) {
+    //   props.navigation.replace('Home');
+    // } else {
+    //   props.navigation.replace('Login');
+    // }
   });
+  if (mounted == false) {
+    props.checkUserConnceted();
+  }
 
   return (
     <SafeAreaView style={styles.container}>

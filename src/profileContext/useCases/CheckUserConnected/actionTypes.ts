@@ -1,22 +1,15 @@
-import { Profile } from "../../domain/entity/profile";
+export const SET_USER_CONNECTED = 'SET_USER_CONNECTED';
 
-export const SET_USER_INFO = "SET_USER_INFO"
+export const CHECK_USER_CONNECTED = 'CHECK_USER_CONNECTED';
 
-export const GET_USER_INFO = "GET_USER_INFO"
-
-
-export interface SetUserInfo{
-    type : typeof SET_USER_INFO;
-    payload : Profile
+export interface SetUserConnected {
+  type: typeof SET_USER_CONNECTED;
+  payload: boolean;
 }
 
-export interface GetUserInfo{
-    type : typeof GET_USER_INFO;
-    payload : Profile
-    
+export interface CheckUserConnected {
+  type: typeof CHECK_USER_CONNECTED;
+  payload: boolean | undefined;
 }
 
-
-export type UserInfoActionTypes = 
-        | SetUserInfo
-        | GetUserInfo;
+export type UserInfoActionTypes = SetUserConnected | CheckUserConnected;

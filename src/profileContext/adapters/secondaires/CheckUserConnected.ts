@@ -1,29 +1,30 @@
-import { Profile } from "../../domain/entity/profile";
-import { UserConnectedService } from "../../domain/gateway/userConnectedService";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Observable} from 'rxjs';
+import {UserConnectedService} from '../../domain/gateway/userConnectedService';
+import ApplicationContext from '../../../common/appConfig/ApplicationContext';
+export class CheckUserConnected implements UserConnectedService {
+  setUserConnected(userConnected: boolean): boolean {
+    throw new Error('Method not implemented.');
+  }
 
+  checkUserConnected(): Observable<boolean> {
+    const db = ApplicationContext.getInstance().db();
+    return new Observable<boolean>(observer => {
+      try {
+        db.then(realm => {
+          realm?.write(() => {
+            const objects = realm.objects('User');
+            objects.forEach(object => {
+              const propertyValue = object['connected'];
+              observer.next(propertyValue);
+              console.log('------***', propertyValue);
 
-export class CheckUserConnected implements UserConnectedService{
-    setUserInfo(profile: Profile): Profile | undefined  {
-        
-        AsyncStorage.setItem('username', profile.name )
-        AsyncStorage.setItem('email', profile.email)
-        AsyncStorage.setItem('token', profile.accessToken)
-        return undefined
-
-    }
-    getUserInfo(): Profile {
-        let _email =  AsyncStorage.getItem('email');
-        let _username=  AsyncStorage.getItem('username');
-        let _token    =  AsyncStorage.getItem('token');
-
-       
-
-
-
-          return new Profile("", _username, _token, _email)
-         
-        
-    }
-    
+              observer.complete();
+            });
+          });
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    });
+  }
 }

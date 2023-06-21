@@ -5,8 +5,8 @@ import {catchError, concatMap, switchMap} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {ProfileService} from '../../domain/gateway/profileService';
 import {loginFailed, loginSuccess} from './action';
-import { Profile } from '../../domain/entity/profile';
-import { setUserInfo } from '../CheckUserConnected/actions';
+import {Profile} from '../../domain/entity/profile';
+import {setUserConnected} from '../CheckUserConnected/actions';
 
 export const loginEpic: Epic = (
   action$,
@@ -17,16 +17,10 @@ export const loginEpic: Epic = (
     ofType(LOGIN),
     switchMap(() =>
       profileService.loginMsal().pipe(
-       
-        concatMap((profile: Profile, ) => {
-          return [
-            loginSuccess(profile),
-            setUserInfo(profile)
-          ]
+        concatMap((profile: Profile) => {
+          return [loginSuccess(profile), setUserConnected(true)];
         }),
-        catchError(error => of(loginFailed(error)))
-
-        
+        catchError(error => of(loginFailed(error))),
       ),
     ),
   );

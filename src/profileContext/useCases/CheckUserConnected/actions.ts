@@ -1,15 +1,19 @@
-import { Profile } from "../../domain/entity/profile";
-import { GET_USER_INFO, GetUserInfo, SET_USER_INFO, SetUserInfo } from "./actionTypes";
+import {Profile} from '../../domain/entity/profile';
+import {
+  CHECK_USER_CONNECTED,
+  CheckUserConnected,
+  SET_USER_CONNECTED,
+  SetUserConnected,
+} from './actionTypes';
 
-export const setUserInfo = (profile : Profile) : SetUserInfo=>({
-    type : SET_USER_INFO,
-    payload: profile
-    
-})
+export const setUserConnected = (userConnected: boolean): SetUserConnected => ({
+  type: SET_USER_CONNECTED,
+  payload: userConnected,
+});
 
-export const getUserInfo = (profile : Profile) : GetUserInfo=>({
-    type : GET_USER_INFO,
-    payload : profile
-  
-
-})
+export const checkUserConnected = (
+  ifConnected: boolean | undefined,
+): CheckUserConnected => ({
+  type: CHECK_USER_CONNECTED,
+  payload: ifConnected,
+});
