@@ -9,23 +9,25 @@ import * as Progress from 'react-native-progress';
 interface Props {
   userConncted: boolean;
   navigation: StackNavigationProp<StackParamList>;
-  checkUserConnceted: () => void;
+  checkUserConnected: () => void;
 }
 
 export default function SplashScreen(props: Props) {
   const [mounted, setMounted] = useState(false);
-
   useEffect(() => {
-    // setMounted(true);
-    // if (props.userConncted) {
-    //   props.navigation.replace('Home');
-    // } else {
-    //   props.navigation.replace('Login');
-    // }
-  });
-  if (mounted == false) {
-    props.checkUserConnceted();
-  }
+    console.log('-------------SCREEN---------------');
+    console.log('-------------' + props.userConncted + '---------------');
+
+    setTimeout(() => {
+      props.checkUserConnected();
+
+      if (props.userConncted) {
+        props.navigation.replace('Home');
+      } else {
+        props.navigation.replace('Login');
+      }
+    }, 3000);
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>

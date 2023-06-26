@@ -7,11 +7,11 @@ import {connect} from 'react-redux';
 import SplashScreen from './splash.container';
 
 interface StateToPropsType {
-  userConncted: boolean | undefined;
+  userConncted: boolean;
 }
 
 interface DispatchToPropsType {
-  checkUserConnceted: () => void;
+  checkUserConnected: () => void;
 }
 
 const mapStateToProps = (state: AppState): StateToPropsType => ({
@@ -19,8 +19,8 @@ const mapStateToProps = (state: AppState): StateToPropsType => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => ({
-  checkUserConnceted: (): UserInfoActionTypes =>
-    dispatch(checkUserConnected(undefined)),
+  checkUserConnected: (): UserInfoActionTypes =>
+    dispatch(checkUserConnected(false)),
 });
 
 export const SplashPage = connect(

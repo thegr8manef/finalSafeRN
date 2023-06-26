@@ -5,6 +5,7 @@ export interface ProfileState {
   login: LoginState;
   loadProfileDetails: LoadProfileState;
   checkUserConnected: CheckUserConnectedState;
+  setUserConnected: SetUserConnectedState;
 }
 
 export interface LoginState {
@@ -28,4 +29,9 @@ export interface LoadProfileState {
 
 export interface CheckUserConnectedState {
   userConnected: boolean;
+}
+
+export interface SetUserConnectedState {
+  userConnected: boolean;
+  profile: Profile | undefined;
 }

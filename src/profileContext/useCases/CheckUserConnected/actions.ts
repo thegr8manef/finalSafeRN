@@ -1,18 +1,7 @@
-import {Profile} from '../../domain/entity/profile';
-import {
-  CHECK_USER_CONNECTED,
-  CheckUserConnected,
-  SET_USER_CONNECTED,
-  SetUserConnected,
-} from './actionTypes';
-
-export const setUserConnected = (userConnected: boolean): SetUserConnected => ({
-  type: SET_USER_CONNECTED,
-  payload: userConnected,
-});
+import {CHECK_USER_CONNECTED, CheckUserConnected} from './actionTypes';
 
 export const checkUserConnected = (
-  ifConnected: boolean | undefined,
+  ifConnected: boolean,
 ): CheckUserConnected => ({
   type: CHECK_USER_CONNECTED,
   payload: ifConnected,

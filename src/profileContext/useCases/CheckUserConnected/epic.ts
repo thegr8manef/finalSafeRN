@@ -8,15 +8,13 @@ import {checkUserConnected} from './actions';
 export const checkUserEpic: Epic = (
   action$,
   store: StateObservable<AppState>,
-  {checkUserServices}: {checkUserServices: UserConnectedService},
+  {userServices}: {userServices: UserConnectedService},
 ) =>
   action$.pipe(
     ofType(CHECK_USER_CONNECTED),
-    switchMap(() =>
-      checkUserServices.checkUserConnected().pipe(
-        map((ifConnected: boolean) => {
-          return checkUserConnected(ifConnected);
-        }),
-      ),
+    switchMap(action =>
+      userServices
+        .checkUserConnected()
+        .pipe(map((ifConnected: boolean) => checkUserConnected(ifConnected))),
     ),
   );

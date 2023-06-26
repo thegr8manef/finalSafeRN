@@ -1,9 +1,5 @@
 import {CheckUserConnectedState} from '../../configuration/state';
-import {
-  CHECK_USER_CONNECTED,
-  SET_USER_CONNECTED,
-  UserInfoActionTypes,
-} from './actionTypes';
+import {CHECK_USER_CONNECTED, UserInfoActionTypes} from './actionTypes';
 
 const initialState: CheckUserConnectedState = {
   userConnected: false,
@@ -14,9 +10,6 @@ export const reducerCheckUser = (
   action: UserInfoActionTypes,
 ): CheckUserConnectedState => {
   switch (action.type) {
-    case SET_USER_CONNECTED: {
-      return {userConnected: true};
-    }
     case CHECK_USER_CONNECTED: {
       return {userConnected: action.payload};
     }
