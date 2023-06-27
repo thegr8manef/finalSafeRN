@@ -6,6 +6,7 @@ export interface ProfileState {
   loadProfileDetails: LoadProfileState;
   checkUserConnected: CheckUserConnectedState;
   setUserConnected: SetUserConnectedState;
+  loadProfileDetailsDb: LoadProfileDbState;
 }
 
 export interface LoginState {
@@ -25,6 +26,12 @@ export interface LoadProfileState {
   loading: boolean;
   error: string | undefined;
   user: User | undefined;
+}
+
+export interface LoadProfileDbState {
+  loading: boolean;
+  error: string | undefined;
+  profile: Profile | undefined;
 }
 
 export interface CheckUserConnectedState {

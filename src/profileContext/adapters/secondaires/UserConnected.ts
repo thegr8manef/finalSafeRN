@@ -2,6 +2,7 @@ import {Observable, from} from 'rxjs';
 import {UserConnectedService} from '../../domain/gateway/userConnectedService';
 import ApplicationContext from '../../../common/appConfig/ApplicationContext';
 import {Profile} from '../../domain/entity/profile';
+import {LocalProfilMapper} from './mapper/localProfile.mapper';
 export class UserConnected implements UserConnectedService {
   setUserConnected(userConnected: Profile) {
     const db = ApplicationContext.getInstance().db();
@@ -29,19 +30,32 @@ export class UserConnected implements UserConnectedService {
 
     const promiseCheckUser = new Promise<boolean>((resolve, reject) => {
       try {
-        console.log('-------------START---------------');
-
         db.then(realm => {
           realm?.write(() => {
             const objects = realm.objects('User');
-            console.log('-------------GET ObJECT---------------');
             resolve(objects[0].connected);
 
             console.log(objects[0].connected);
-            return;
           });
         });
-        console.log('-------------END---------------');
+      } catch (error) {
+        console.log(error);
+      }
+    });
+    return from(promiseCheckUser);
+  }
+
+  loadProfileDetails(): Observable<Profile> {
+    const db = ApplicationContext.getInstance().db();
+
+    const promiseCheckUser = new Promise<Profile>((resolve, reject) => {
+      try {
+        db.then(realm => {
+          realm?.write(() => {
+            const objects = realm.objects('User');
+            resolve(LocalProfilMapper.mapUserDbToProfile(objects[0]));
+          });
+        });
       } catch (error) {
         console.log(error);
       }

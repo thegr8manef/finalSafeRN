@@ -12,10 +12,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface Props {
   profile: Profile | undefined;
-  loadProfileDetails: (accessToken: string) => void;
+  loadProfileDetailsDb: () => void;
 }
 
 export const MenuLeft = props => {
+  useEffect(() => {
+    props.loadProfileDetailsDb();
+  });
   return (
     <View style={styles.container}>
       <View style={styles.header}>
