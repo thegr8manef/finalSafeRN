@@ -15,17 +15,23 @@ interface Props {
   loadProfileDetailsDb: () => void;
 }
 
-export const MenuLeft = props => {
+export const MenuLeft = (props: Props) => {
+  const [mounted, setMounted] = useState(false);
+
   useEffect(() => {
-    props.loadProfileDetailsDb();
+    setMounted(true);
   });
+
+  if (!mounted) {
+    props.loadProfileDetailsDb();
+  }
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.headerContainer}>
           <View style={styles.userInfo}>
-            <Text style={styles.username}>-</Text>
-            <Text style={styles.email}>-</Text>
+            <Text style={styles.username}>{props.profile?.name}</Text>
+            <Text style={styles.email}>{props.profile?.email}</Text>
           </View>
           <View style={styles.logoutBtn}>
             <Image

@@ -1,6 +1,5 @@
 import {AppState} from '../../../redux_configuration/appState';
 import {Profile} from '../../domain/entity/profile';
-import {User} from '../../domain/entity/user';
 
 export const loadUserInfoDbSelector = (appState: AppState): boolean =>
   appState.profile.loadProfileDetailsDb.loading;

@@ -41,4 +41,5 @@ export interface CheckUserConnectedState {
 export interface SetUserConnectedState {
   userConnected: boolean;
   profile: Profile | undefined;
+  error: string | undefined;
 }

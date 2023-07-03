@@ -7,27 +7,34 @@ import {Profile} from '../../../domain/entity/profile';
 import * as Progress from 'react-native-progress';
 
 interface Props {
-  userConncted: boolean;
+  userConncted: any;
   navigation: StackNavigationProp<StackParamList>;
   checkUserConnected: () => void;
 }
 
-export default function SplashScreen(props: Props) {
+export const SplashScreen: React.FC<Props> = (props: Props) => {
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
-    // console.log('-------------SCREEN---------------');
-    // console.log('-------------' + props.userConncted + '---------------');
-
+    setMounted(true);
     setTimeout(() => {
-      //  props.checkUserConnected();
-
-      // if (props.userConncted) {
-      props.navigation.replace('Home');
-      //} else {
-      // props.navigation.replace('Login');
-      //}
+      if (props.userConncted == true && props.userConncted != undefined) {
+        props.navigation.reset({
+          index: 0,
+          routes: [{name: 'Home'}],
+        });
+      }
+      if (props.userConncted == false && props.userConncted != undefined) {
+        props.navigation.reset({
+          index: 0,
+          routes: [{name: 'Login'}],
+        });
+      }
     }, 3000);
-  }, []);
+  });
+
+  if (!mounted) {
+    props.checkUserConnected();
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -52,7 +59,7 @@ export default function SplashScreen(props: Props) {
       </View>
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

@@ -15,9 +15,9 @@ export const loadUserInfoDB: Epic = (
 ) =>
   action$.pipe(
     ofType(LOAD_PROFILE_DETAILS_DB),
-    switchMap(() =>
+    switchMap(action =>
       userServices
         .loadProfileDetails()
-        .pipe(map(data => loadProfileDetailsSuccessDb(data))),
+        .pipe(map((data: Profile) => loadProfileDetailsSuccessDb(data))),
     ),
   );

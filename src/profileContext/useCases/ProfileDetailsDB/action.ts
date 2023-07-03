@@ -15,10 +15,10 @@ export const loadProfileDetailsDb = (): LoadProfileDetailsDbAction => ({
 });
 
 export const loadProfileDetailsSuccessDb = (
-  userInfo: Profile,
+  profile: Profile,
 ): LoadProfileDetailsSuccessDbAction => ({
   type: LOAD_PROFILE_DETAILS_SUCCESS_DB,
-  payload: userInfo,
+  payload: profile,
 });
 
 export const loadProfileDetailsFailedDb = (
