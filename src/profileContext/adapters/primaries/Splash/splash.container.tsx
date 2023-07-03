@@ -7,7 +7,7 @@ import {Profile} from '../../../domain/entity/profile';
 import * as Progress from 'react-native-progress';
 
 interface Props {
-  userConncted: any;
+  userConncted: boolean;
   navigation: StackNavigationProp<StackParamList>;
   checkUserConnected: () => void;
 }

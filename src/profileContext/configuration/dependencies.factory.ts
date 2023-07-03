@@ -1,5 +1,5 @@
 import {APIProfileService} from '../adapters/secondaires/APIProfileService';
-import {UserConnected} from '../adapters/secondaires/UserConnected';
+import {DBUserService} from '../adapters/secondaires/DBUserService';
 import {ProfileService} from '../domain/gateway/profileService';
 import {UserConnectedService} from '../domain/gateway/userConnectedService';
 
@@ -8,7 +8,7 @@ export class ProfileDependanciesFactory {
     return new APIProfileService();
   }
 
-  static userServices(): UserConnectedService {
-    return new UserConnected();
+  static DBUserService(): UserConnectedService {
+    return new DBUserService();
   }
 }

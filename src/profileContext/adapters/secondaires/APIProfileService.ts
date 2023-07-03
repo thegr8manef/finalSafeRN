@@ -65,9 +65,10 @@ export class APIProfileService implements ProfileService {
     const body: Record<string, string> = {
       lu: '-1',
     };
+    const URL = ws.baseUrl + 'details-profile';
     return new ObservableAjaxHttpClient()
 
-      .post<userDto>(ws.baseUrl + 'details-profile', body, _headers)
+      .post<userDto>(URL, body, _headers)
       .pipe(
         map(response => ProfileMapper.mapToProfileDetails(response.response)),
         catchError(err => throwError(err)),

@@ -3,7 +3,7 @@ import {UserConnectedService} from '../../domain/gateway/userConnectedService';
 import ApplicationContext from '../../../common/appConfig/ApplicationContext';
 import {Profile} from '../../domain/entity/profile';
 import {LocalProfilMapper} from './mapper/localProfile.mapper';
-export class UserConnected implements UserConnectedService {
+export class DBUserService implements UserConnectedService {
   setUserConnected(userConnected: Profile): Observable<boolean> {
     return new Observable<boolean>(observer => {
       const db = ApplicationContext.getInstance().db();

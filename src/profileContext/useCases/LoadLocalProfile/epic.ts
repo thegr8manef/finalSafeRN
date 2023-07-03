@@ -3,21 +3,21 @@ import {AppState} from '../../../redux_configuration/appState';
 import {ProfileService} from '../../domain/gateway/profileService';
 import {User} from '../../domain/entity/user';
 import {map, switchMap} from 'rxjs/operators';
-import {LOAD_PROFILE_DETAILS_DB} from './actionType';
-import {loadProfileDetailsSuccessDb} from './action';
+import {LOAD_LOCAL_PROFILE} from './actionType';
+import {loadLocalProfileSuccess} from './action';
 import {Profile} from '../../domain/entity/profile';
 import {UserConnectedService} from '../../domain/gateway/userConnectedService';
 
-export const loadUserInfoDB: Epic = (
+export const loadLocalProfile: Epic = (
   action$,
   store: StateObservable<AppState>,
   {userServices}: {userServices: UserConnectedService},
 ) =>
   action$.pipe(
-    ofType(LOAD_PROFILE_DETAILS_DB),
+    ofType(LOAD_LOCAL_PROFILE),
     switchMap(action =>
       userServices
         .loadProfileDetails()
-        .pipe(map((data: Profile) => loadProfileDetailsSuccessDb(data))),
+        .pipe(map((data: Profile) => loadLocalProfileSuccess(data))),
     ),
   );

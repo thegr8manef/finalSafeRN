@@ -3,12 +3,12 @@ import {loginEpic} from '../useCases/Login/epic';
 import {loadUserInfo} from '../useCases/ProfileDetails/epic';
 import {checkUserEpic} from '../useCases/CheckUserConnected/epic';
 import {setUserEpic} from '../useCases/SetUserConnected/epic';
-import {loadUserInfoDB} from '../useCases/ProfileDetailsDB/epic';
+import {loadLocalProfile} from '../useCases/LoadLocalProfile/epic';
 
 export const profileRootEpics = combineEpics(
   loginEpic,
   loadUserInfo,
   checkUserEpic,
   setUserEpic,
-  loadUserInfoDB,
+  loadLocalProfile,
 );

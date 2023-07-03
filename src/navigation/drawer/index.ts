@@ -1,14 +1,14 @@
 import {Dispatch} from 'redux';
 import {Profile} from '../../profileContext/domain/entity/profile';
 import {
-  loadUserInfoDbSelector,
-  loadUserInfoErrorDbSelector,
-  loadUserInfoSuccessDbSelector,
-} from '../../profileContext/useCases/ProfileDetailsDB/selectors';
+  loadLocalProfileSelector,
+  loadLocalProfileErrorSelector,
+  loadLocalProfileSuccessSelector,
+} from '../../profileContext/useCases/LoadLocalProfile/selectors';
 import {AppState} from '../../redux_configuration/appState';
-import {LoadProfileDetailsActionDbTypes} from '../../profileContext/useCases/ProfileDetailsDB/actionType';
+import {LoadLoacalProfileActionDbTypes} from '../../profileContext/useCases/LoadLocalProfile/actionType';
 import {MenuLeft} from './menuLeft';
-import {loadProfileDetailsDb} from '../../profileContext/useCases/ProfileDetailsDB/action';
+import {loadLocalProfile} from '../../profileContext/useCases/LoadLocalProfile/action';
 import {connect} from 'react-redux';
 
 interface StateToPropsType {
@@ -18,18 +18,18 @@ interface StateToPropsType {
 }
 
 interface DispatchToPropsType {
-  loadProfileDetailsDb: () => void;
+  loadProfileLocal: () => void;
 }
 
 const mapStateToProps = (state: AppState): StateToPropsType => ({
-  profile: loadUserInfoSuccessDbSelector(state),
-  loading: loadUserInfoDbSelector(state),
-  error: loadUserInfoErrorDbSelector(state),
+  profile: loadLocalProfileSuccessSelector(state),
+  loading: loadLocalProfileSelector(state),
+  error: loadLocalProfileErrorSelector(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => ({
-  loadProfileDetailsDb: (): LoadProfileDetailsActionDbTypes =>
-    dispatch(loadProfileDetailsDb()),
+  loadProfileLocal: (): LoadLoacalProfileActionDbTypes =>
+    dispatch(loadLocalProfile()),
 });
 
 export const MenuLeftPage = connect(

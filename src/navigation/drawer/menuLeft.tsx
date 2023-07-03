@@ -12,7 +12,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface Props {
   profile: Profile | undefined;
-  loadProfileDetailsDb: () => void;
+  loadProfileLocal: () => void;
 }
 
 export const MenuLeft = (props: Props) => {
@@ -23,7 +23,7 @@ export const MenuLeft = (props: Props) => {
   });
 
   if (!mounted) {
-    props.loadProfileDetailsDb();
+    props.loadProfileLocal();
   }
   return (
     <View style={styles.container}>
