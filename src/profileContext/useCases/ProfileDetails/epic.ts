@@ -4,7 +4,8 @@ import {LOAD_PROFILE_DETAILS} from './actionType';
 import {ProfileService} from '../../domain/gateway/profileService';
 import {loadProfileDetailsFailed, loadProfileDetailsSuccess} from './action';
 import {User} from '../../domain/entity/user';
-import {map, switchMap} from 'rxjs/operators';
+import {concatMap, switchMap} from 'rxjs/operators';
+import {updateLocalProfile} from '../UpdateLocalProfile/actions';
 
 export const loadUserInfo: Epic = (
   action$,
@@ -14,8 +15,13 @@ export const loadUserInfo: Epic = (
   action$.pipe(
     ofType(LOAD_PROFILE_DETAILS),
     switchMap(action =>
-      profileService
-        .loadProfileDetails(action.payload)
-        .pipe(map((userInfo: User) => loadProfileDetailsSuccess(userInfo))),
+      profileService.loadProfileDetails(action.payload).pipe(
+        concatMap((userInfo: User) => {
+          return [
+            loadProfileDetailsSuccess(userInfo),
+            updateLocalProfile(userInfo),
+          ];
+        }),
+      ),
     ),
   );

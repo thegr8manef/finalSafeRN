@@ -3,6 +3,7 @@ import {UserService} from '../../domain/gateway/userService';
 import ApplicationContext from '../../../common/appConfig/ApplicationContext';
 import {Profile} from '../../domain/entity/profile';
 import {LocalProfilMapper} from './mapper/localProfile.mapper';
+import {User} from '../../domain/entity/user';
 export class DBUserService implements UserService {
   setUserConnected(userConnected: Profile): Observable<void> {
     const promiSetUser = new Promise<void>((resolve, reject) => {
@@ -71,5 +72,24 @@ export class DBUserService implements UserService {
       }
     });
     return from(promiseCheckUser);
+  }
+
+  updateLocalProfile(user: User): Observable<void> {
+    const promiUpdateUser = new Promise<void>((resolve, reject) => {
+      const db = ApplicationContext.getInstance().db();
+      try {
+        db.then(realm => {
+          let updt = realm.objects('User');
+          realm?.write(() => {
+            updt[0].rg = user.region;
+          });
+          resolve();
+        });
+      } catch (error) {
+        reject(error);
+      }
+    });
+
+    return from(promiUpdateUser);
   }
 }

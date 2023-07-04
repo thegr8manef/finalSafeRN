@@ -34,7 +34,7 @@ class ApplicationContext {
       Zone,
     ],
     schemaVersion: 15,
-    //  encryptionKey: this.toByteArray(realm_config.databaseKey),
+    encryptionKey: this.toByteArray(realm_config.databaseKey),
   };
 
   static getInstance(): ApplicationContext {
