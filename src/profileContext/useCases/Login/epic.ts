@@ -1,11 +1,12 @@
 import {Epic, ofType, StateObservable} from 'redux-observable';
 import {AppState} from '../../../redux_configuration/appState';
 import {LOGIN} from './actionTypes';
-import {catchError, map, switchMap} from 'rxjs/operators';
+import {catchError, concatMap, switchMap} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {ProfileService} from '../../domain/gateway/profileService';
 import {loginFailed, loginSuccess} from './action';
-import { Profile } from '../../domain/entity/profile';
+import {Profile} from '../../domain/entity/profile';
+import {setUserConnected} from '../SetUserConnected/actions';
 
 export const loginEpic: Epic = (
   action$,
@@ -16,7 +17,9 @@ export const loginEpic: Epic = (
     ofType(LOGIN),
     switchMap(() =>
       profileService.loginMsal().pipe(
-        map((profile: Profile) => loginSuccess(profile)),
+        concatMap((profile: Profile) => {
+          return [loginSuccess(profile), setUserConnected(profile)];
+        }),
         catchError(error => of(loginFailed(error))),
       ),
     ),

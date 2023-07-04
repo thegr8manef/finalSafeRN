@@ -1,9 +1,12 @@
-import { Profile } from "../domain/entity/profile";
-import { User } from "../domain/entity/user";
+import {Profile} from '../domain/entity/profile';
+import {User} from '../domain/entity/user';
 
 export interface ProfileState {
   login: LoginState;
-  loadProfileDetails : LoadProfileState
+  loadProfileDetails: LoadProfileState;
+  checkUserConnected: CheckUserConnectedState;
+  setUserConnected: SetUserConnectedState;
+  loadLocalProfile: LoadLocalProfileState;
 }
 
 export interface LoginState {
@@ -19,10 +22,24 @@ export interface LoginState {
 //   loadProfileDetails : LoadProfileState
 // }
 
-
-
 export interface LoadProfileState {
   loading: boolean;
   error: string | undefined;
-  user : User | undefined;
+  user: User | undefined;
+}
+
+export interface LoadLocalProfileState {
+  loading: boolean;
+  error: string | undefined;
+  profile: Profile | undefined;
+}
+
+export interface CheckUserConnectedState {
+  userConnected: boolean;
+}
+
+export interface SetUserConnectedState {
+  userConnected: boolean;
+  profile: Profile | undefined;
+  error: string | undefined;
 }

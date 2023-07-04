@@ -1,5 +1,5 @@
 import {AppState} from '../../../redux_configuration/appState';
-import { Profile } from '../../domain/entity/profile';
+import {Profile} from '../../domain/entity/profile';
 
 export const loginLoadingSelector = (appState: AppState): boolean =>
   appState.profile.login.loading;
