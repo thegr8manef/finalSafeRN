@@ -5,28 +5,25 @@ import {VisitFlashContainer} from './visitsFlash.container';
 import {Flash} from '../../../../domain/entity/Flash';
 import {
   flashErrorSelector,
-  flashLoadingSelector,
-  flashLoadSelector,
+  flashSavingSelector,
 } from '../../../../useCases/Flash/selectors';
 import {FlashActionTypes} from '../../../../useCases/Flash/actionTypes';
-import {LoadFlash} from '../../../../useCases/Flash/action';
+import {SaveFlash} from '../../../../useCases/Flash/action';
 
 interface StateToPropsType {
-  loadingVisits: boolean;
+  savingVisits: Flash | undefined;
   errorVisits: string | undefined;
-  flash: Flash | undefined;
 }
 interface DispatchToPropsType {
-  LoadFlash: () => void;
+  SaveFlash: (data : Flash) => void;
 }
 const mapStateToProps = (state: AppState): StateToPropsType => ({
-  loadingVisits: flashLoadingSelector(state),
+  savingVisits: flashSavingSelector(state),
   errorVisits: flashErrorSelector(state),
-  flash: flashLoadSelector(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => ({
-  LoadFlash: (): FlashActionTypes => dispatch(LoadFlash()),
+  SaveFlash: (data : Flash): FlashActionTypes => dispatch(SaveFlash(data)),
 });
 
 export const VisitsFlashPage = connect(

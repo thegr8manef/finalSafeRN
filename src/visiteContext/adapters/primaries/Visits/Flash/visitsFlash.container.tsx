@@ -29,7 +29,7 @@ interface Props {
   loadingVisits: boolean;
   errorVisits: string | undefined;
   flash: Flash | undefined;
-  LoadFlash: () => void;
+  SaveFlash: (data : Flash) => void;
 }
 
 export const VisitFlashContainer = (props: Props) => {
@@ -41,7 +41,6 @@ export const VisitFlashContainer = (props: Props) => {
   if (!mount) {
     props.loadingVisits;
   }
-
   const {t} = useTranslation();
 
   const OptionEcartSansRisque = useMemo(
