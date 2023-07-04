@@ -64,7 +64,6 @@ export class DBUserService implements UserService {
         db.then(realm => {
           realm?.write(() => {
             const objects = realm.objects('User');
-            console.log(objects[0]);
             resolve(LocalProfilMapper.mapUserDbToProfile(objects[0]));
           });
         });
@@ -84,7 +83,7 @@ export class DBUserService implements UserService {
           realm?.write(() => {
             updt[0].rg = user.region;
           });
-          resolve(); // Emit the boolean value
+          resolve();
         });
       } catch (error) {
         reject(error);
