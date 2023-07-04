@@ -7,6 +7,7 @@ export interface ProfileState {
   checkUserConnected: CheckUserConnectedState;
   setUserConnected: SetUserConnectedState;
   loadLocalProfile: LoadLocalProfileState;
+  updateLocalProfile: UpdateLocalProfileState;
 }
 
 export interface LoginState {
@@ -41,5 +42,10 @@ export interface CheckUserConnectedState {
 export interface SetUserConnectedState {
   userConnected: boolean;
   profile: Profile | undefined;
+  error: string | undefined;
+}
+
+export interface UpdateLocalProfileState {
+  loading: boolean;
   error: string | undefined;
 }
