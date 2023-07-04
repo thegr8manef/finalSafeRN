@@ -6,12 +6,12 @@ import {map, switchMap} from 'rxjs/operators';
 import {LOAD_LOCAL_PROFILE} from './actionType';
 import {loadLocalProfileSuccess} from './action';
 import {Profile} from '../../domain/entity/profile';
-import {UserConnectedService} from '../../domain/gateway/userConnectedService';
+import {UserService} from '../../domain/gateway/userService';
 
 export const loadLocalProfile: Epic = (
   action$,
   store: StateObservable<AppState>,
-  {userServices}: {userServices: UserConnectedService},
+  {userServices}: {userServices: UserService},
 ) =>
   action$.pipe(
     ofType(LOAD_LOCAL_PROFILE),

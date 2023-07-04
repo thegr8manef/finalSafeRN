@@ -1,11 +1,11 @@
 import {Observable, from} from 'rxjs';
-import {UserConnectedService} from '../../domain/gateway/userConnectedService';
+import {UserService} from '../../domain/gateway/userService';
 import ApplicationContext from '../../../common/appConfig/ApplicationContext';
 import {Profile} from '../../domain/entity/profile';
 import {LocalProfilMapper} from './mapper/localProfile.mapper';
-export class DBUserService implements UserConnectedService {
-  setUserConnected(userConnected: Profile): Observable<boolean> {
-    return new Observable<boolean>(observer => {
+export class DBUserService implements UserService {
+  setUserConnected(userConnected: Profile): Observable<void> {
+    const promiSetUser = new Promise<void>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
       try {
         db.then(realm => {
@@ -22,18 +22,18 @@ export class DBUserService implements UserConnectedService {
               visitCreated: 0,
             });
           });
-          observer.next(true); // Emit the boolean value
-          observer.complete(); // Complete the observable
+          resolve(); // Emit the boolean value
         });
       } catch (error) {
-        observer.next(false); // Emit the boolean value
-        observer.complete(); // Complete the observable
+        reject(error);
       }
     });
+
+    return from(promiSetUser);
   }
 
   checkUserConnected(): Observable<boolean> {
-    return new Observable<boolean>(observer => {
+    const promiseCheckUser = new Promise<boolean>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
 
       try {
@@ -42,18 +42,17 @@ export class DBUserService implements UserConnectedService {
             const objects = realm.objects('User');
             if (objects.length > 0) {
               const connected = objects[0].connected;
-              observer.next(connected); // Emit the boolean value
-              observer.complete(); // Complete the observable
+              resolve(connected);
             } else {
-              observer.next(false);
-              observer.complete();
+              resolve(false);
             }
           });
         });
       } catch (error) {
-        observer.error(error); // Emit an error if there's an exception
+        reject(error);
       }
     });
+    return from(promiseCheckUser);
   }
 
   loadProfileDetails(): Observable<Profile> {
@@ -68,7 +67,7 @@ export class DBUserService implements UserConnectedService {
           });
         });
       } catch (error) {
-        console.log(error);
+        reject(error);
       }
     });
     return from(promiseCheckUser);

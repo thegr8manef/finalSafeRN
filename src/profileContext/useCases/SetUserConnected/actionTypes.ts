@@ -13,7 +13,6 @@ export interface SetUserConnected {
 
 export interface SetUserConnectedSuccess {
   type: typeof SET_USER_CONNECTED_SUCCESS;
-  payload: boolean;
 }
 
 export interface SetUserConnectedError {

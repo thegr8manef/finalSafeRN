@@ -13,11 +13,8 @@ export const setUserConnected = (profile: Profile): SetUserConnected => ({
   payload: profile,
 });
 
-export const setUserConnectedSuccess = (
-  isComplted: boolean,
-): SetUserConnectedSuccess => ({
+export const setUserConnectedSuccess = (): SetUserConnectedSuccess => ({
   type: SET_USER_CONNECTED_SUCCESS,
-  payload: isComplted,
 });
 
 export const setUserConnectedError = (
