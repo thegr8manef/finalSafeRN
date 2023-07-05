@@ -17,11 +17,9 @@ export const VisitFlashEpic: Epic = (
     switchMap(action =>
       visitsService.SaveFlash(action.payload).pipe(
         map(() => {
-          console.log('Save flash success EPIC')
           return flashSuccess(action.payload);
         }),
         catchError(error => of(flashFailed(error))),
       ),
     ),
   );
-console.log('epic/out')
