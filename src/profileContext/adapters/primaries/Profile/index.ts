@@ -5,8 +5,8 @@ import { profileSelector } from '../../../useCases/Login/selectors';
 import { AppState } from '../../../../redux_configuration/appState';
 import { User } from '../../../domain/entity/user';
 import { loadUserInfoSelector,
-   loadUserInfoSuccessSelector,
-    loadUserInfoErrorSelector }
+          loadUserInfoSuccessSelector,
+            loadUserInfoErrorSelector }
      from '../../../useCases/ProfileDetails/selectors';
  import {Dispatch} from 'redux';
 

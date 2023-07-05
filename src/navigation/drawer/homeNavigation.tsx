@@ -7,6 +7,7 @@ import colors from '../../assets/colors';
 import {useTranslation} from 'react-i18next';
 import {MenuLeft} from './menuLeft';
 import {VisitsFlashPage} from '../../visiteContext/adapters/primaries/Visits/Flash';
+import {MenuLeftPage} from '.';
 
 const Drawer = createDrawerNavigator();
 
@@ -16,7 +17,7 @@ export const HomeNavigation = () => {
   return (
     <Drawer.Navigator
       initialRouteName="Dashboard"
-      drawerContent={props => <MenuLeft {...props} />}
+      drawerContent={props => <MenuLeftPage {...props} />}
       screenOptions={{
         headerShown: false,
         drawerActiveBackgroundColor: colors.griy500,

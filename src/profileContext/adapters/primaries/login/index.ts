@@ -9,7 +9,7 @@ import {LoginActionTypes} from '../../../useCases/Login/actionTypes';
 import {connect} from 'react-redux';
 import {LoginContainer} from './login.container';
 import {login} from '../../../useCases/Login/action';
-import { Profile } from '../../../domain/entity/profile';
+import {Profile} from '../../../domain/entity/profile';
 
 interface StateToPropsType {
   loading: boolean;

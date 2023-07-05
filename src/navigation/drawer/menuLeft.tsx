@@ -12,17 +12,26 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface Props {
   profile: Profile | undefined;
-  loadProfileDetails: (accessToken: string) => void;
+  loadProfileLocal: () => void;
 }
 
-export const MenuLeft = props => {
+export const MenuLeft = (props: Props) => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  });
+
+  if (!mounted) {
+    props.loadProfileLocal();
+  }
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.headerContainer}>
           <View style={styles.userInfo}>
-            <Text style={styles.username}>-</Text>
-            <Text style={styles.email}>-</Text>
+            <Text style={styles.username}>{props.profile?.name}</Text>
+            <Text style={styles.email}>{props.profile?.email}</Text>
           </View>
           <View style={styles.logoutBtn}>
             <Image
