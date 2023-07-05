@@ -12,25 +12,19 @@ import ApplicationContext from './src/common/appConfig/ApplicationContext';
 const store = reduxStore();
 
 export default function App() {
-//   const db = ApplicationContext.getInstance().db();
+  const db = ApplicationContext.getInstance().db();
 
-//     try {
+  try {
+    db.then(realm => {
+      realm?.write(() => {
+        const objects = realm.objects('Remarque');
 
-//       db.then(realm => {
-
-//         realm?.write(() => {
-
-//           const objects = realm.objects('Remarque');
-
-// console.log(objects)
-//         });
-
-//       });
-
-//     } catch (error) {
-// console.log(error)
-//     }
-
+        console.log(objects);
+      });
+    });
+  } catch (error) {
+    console.log(error);
+  }
 
   return (
     <Provider store={store}>

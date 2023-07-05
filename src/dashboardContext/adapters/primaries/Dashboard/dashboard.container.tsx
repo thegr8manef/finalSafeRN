@@ -4,7 +4,7 @@ import {
   SafeAreaView,
   StyleSheet,
   ScrollView,
-  ProgressBarAndroid,
+  ActivityIndicator,
 } from 'react-native';
 import colors from '../../../../assets/colors';
 import {CardPieChart} from '../components/CardPieChart';
@@ -134,7 +134,11 @@ export const DashboardContainer = (props: Props) => {
           </View>
         </ScrollView>
       ) : (
-        <ProgressBarAndroid color="#fed73e" />
+        <ActivityIndicator
+          size="large"
+          color={colors.primary}
+          style={{display: props.loading ? 'flex' : 'none'}}
+        />
       )}
     </SafeAreaView>
   );
