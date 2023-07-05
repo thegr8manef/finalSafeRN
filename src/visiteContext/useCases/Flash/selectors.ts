@@ -6,3 +6,8 @@ appState.visits.flash.flash;
 
 export const flashErrorSelector = (appState: AppState): string | undefined =>
   appState.visits.flash.errorVisits;
+
+export const flashLoadSelector = (appState: AppState): Flash | undefined =>
+  appState.visits.flash.flash;
+
+

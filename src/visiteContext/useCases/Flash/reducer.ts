@@ -3,6 +3,7 @@ import {
   FlashActionTypes,
   SAVE_FLASH,
   SAVE_FLASH_FAILED,
+  SAVE_FLASH_SUCCESS
 } from './actionTypes';
 
 let initialState: FlashState;
@@ -17,10 +18,14 @@ export const reducerVisitFlash = (
 ): FlashState => {
   switch (action.type) {
     case SAVE_FLASH:
-      return {
-        errorVisits: undefined,
-        flash: action.payload
-      };
+      return { errorVisits: undefined, flash: action.payload};
+
+      case SAVE_FLASH_SUCCESS:
+        return {
+          errorVisits: undefined,
+          flash: action.payload,
+        };
+    
     case SAVE_FLASH_FAILED:
       return {
         errorVisits: action.payload,

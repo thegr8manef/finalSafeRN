@@ -1,41 +1,38 @@
 import {VisitsService} from '../../domain/gateway/visitsService';
-import {Observable} from 'rxjs';
+import {Observable, from} from 'rxjs';
 import {Flash} from '../../domain/entity/Flash';
 import ApplicationContext from '../../../common/appConfig/ApplicationContext';
 
 export class DbVisitsService implements VisitsService {
-  SaveFlash(data : Flash): Observable<void> {
-    const flash = new Flash;
+  SaveFlash(data: Flash): Observable<void> {
     const saveFlashtoDb = new Promise<void>((resolve, reject) => {
-
       const db = ApplicationContext.getInstance().db();
-
+      console.log('Connection with realm DB')
       try {
         db.then(realm => {
           realm?.write(() => {
+            console.log('SaveFlash map to realm start '+realm.isEmpty);
             realm.create('Remarque', {
-              nbPhoto: 0 ,
-              ds: flash.ds,
-              photos: flash.photos,
-              nt: false,
-              ti: flash.ti,
-              VisiteId: -1,
-              or: 0,
-              note: null,
-              levee: false,
-              VisiteIdLevee: -1,
-              lvl : flash.lvl
+              nbPhoto: data.images.length,
+              ds: data.commentaire,
+              photos: data.images,
+              ti: data.commentaire,
+              lvl: data.level,
             });
+            console.log('Finished writing in');
+            resolve(); // Resolve the Promise
           });
-          resolve(); // Emit the boolean value
+        }).catch(error => {
+          console.error(error)
+          reject(error);
         });
       } catch (error) {
+        console.error(error)
         reject(error);
       }
     });
+    console.log('Return this act')
     return from(saveFlashtoDb);
-
   }
-
-  };
+}
     

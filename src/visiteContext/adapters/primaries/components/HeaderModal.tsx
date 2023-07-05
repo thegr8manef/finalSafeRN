@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Image, SafeAreaView, Pressable } from "react-native";
 import colors from '../../../../assets/colors';
 import React, { useState } from "react";
-import {t} from 'i18next';
+import {useTranslation} from 'react-i18next';
 
 interface Props {
   children: string;
@@ -9,13 +9,14 @@ interface Props {
   onPressCustomizeNegative: void;
 }
 export const HeaderModal = (props: Props) => {
+  const {t} = useTranslation();
   return (
     <SafeAreaView>
       <View style={styles.rectangle}>
         <View style={styles.containerButtonRight}>
           <Pressable onPress={props.onPressCustomizeNegative}
             android_ripple={{color: colors.gris300}}>
-            <Text style={styles.textExtremetyLeft}>Annuler</Text>
+            <Text style={styles.textExtremetyLeft}>{t('txt.annuler')}</Text>
           </Pressable>
         </View>
         <View style={styles.containerButtonCenter}>
@@ -24,7 +25,7 @@ export const HeaderModal = (props: Props) => {
         <View style={styles.containerButtonLeft}>
           <Pressable onPress={props.onPressCustomizePositive}
             android_ripple={{color: colors.gris300}}>
-            <Text style={styles.textExtremetyRight} >Valider</Text>
+            <Text style={styles.textExtremetyRight} >{t('txt.valider')}</Text>
           </Pressable>
         </View>
       </View>

@@ -33,7 +33,6 @@ class ApplicationContext {
       StatisticVisit,
       Zone,
     ],
-    path: `${RNFS.DocumentDirectoryPath}/dynamicdb.realm`,
     schemaVersion: 15,
     encryptionKey: this.toByteArray(realm_config.databaseKey),
   };

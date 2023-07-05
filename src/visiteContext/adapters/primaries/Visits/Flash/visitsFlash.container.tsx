@@ -9,6 +9,9 @@ import {
   PermissionsAndroid,
   Pressable,
   ScrollView,
+  FlatList,
+  Dimensions,
+  TouchableOpacity
 } from 'react-native';
 import colors from '../../../../../assets/colors';
 import {Flash} from '../../../../domain/entity/Flash';
@@ -24,6 +27,8 @@ import {OPOFF} from '../../components/ObservationPositiveOFF';
 import {ONON} from '../../components/ObservationNegativeON';
 import {ONOFF} from '../../components/ObservationNegativeOFF';
 
+
+
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
   loadingVisits: boolean;
@@ -31,16 +36,33 @@ interface Props {
   flash: Flash | undefined;
   SaveFlash: (data : Flash) => void;
 }
-
 export const VisitFlashContainer = (props: Props) => {
   const [mount, setMount] = useState(false);
-  const [selectedId, setSelectedId] = useState();
+  const [commentaires,setcommentaires] = useState('');
+  const [selectedId, setSelectedId] = useState(0);
   const [btnPositive, setbtnPositive] = useState(false);
   const [btnNegative, setbtnNegative] = useState(false);
   const [filePath, setFilePath] = useState({});
   if (!mount) {
     props.loadingVisits;
   }
+  const SaveData = () => {
+    const flash = new Flash(
+   commentaires, images, selectedId)
+    props.SaveFlash(flash)
+  }
+  const [images, setimages] = useState([]);
+  const addItem = () => {
+    const newItem = filePath.uri;
+    console.log('images',images.length === 0)
+    if(images.length === 0){
+      setimages([newItem]);
+
+    }else{
+      setimages([...  images, newItem]);
+    }
+    
+  };
   const {t} = useTranslation();
 
   const OptionEcartSansRisque = useMemo(
@@ -71,7 +93,7 @@ export const VisitFlashContainer = (props: Props) => {
   );
   useEffect(() => {
     setMount(true);
-  });
+  }, []);
   const _onPressButtonPostiveON = () => {
     setbtnPositive(true);
     setbtnNegative(false);
@@ -168,14 +190,12 @@ export const VisitFlashContainer = (props: Props) => {
           alert(response.errorMessage);
           return;
         }
-        console.log('base64 -> ', response.assets[0].base64);
-        console.log('uri -> ', response.assets[0].uri);
-        console.log('width -> ', response.assets[0].width);
-        console.log('height -> ', response.assets[0].height);
-        console.log('fileSize -> ', response.assets[0].fileSize);
-        console.log('type -> ', response.assets[0].type);
-        console.log('fileName -> ', response.assets[0].fileName);
-        setFilePath(response.assets[0]);
+        const timeout = setTimeout(() => {
+          addItem();
+          setFilePath(response.assets[0]);
+
+        }, 500);
+        return () => clearTimeout(timeout);
       });
     }
   };
@@ -203,14 +223,12 @@ export const VisitFlashContainer = (props: Props) => {
         alert(response.errorMessage);
         return;
       }
-      console.log('base64 -> ', response.assets[0].base64);
-      console.log('uri -> ', response.assets[0].uri);
-      console.log('width -> ', response.assets[0].width);
-      console.log('height -> ', response.assets[0].height);
-      console.log('fileSize -> ', response.assets[0].fileSize);
-      console.log('type -> ', response.assets[0].type);
-      console.log('fileName -> ', response.assets[0].fileName);
-      setFilePath(response.assets[0]);
+      const timeout = setTimeout(() => {
+        addItem();
+        setFilePath(response.assets[0]);
+      }, 500);
+  
+      return () => clearTimeout(timeout);
     });
   };
 
@@ -218,7 +236,8 @@ export const VisitFlashContainer = (props: Props) => {
     <SafeAreaView style={styles.container}>
       <HeaderVisite children={t('txt_visit_flash')} />
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
-        <View style={styles.ContainerChantier} />
+        <View style={styles.ContainerChantier}>
+        </View>
 
         <View style={styles.ContainerObservation}>
           {!btnPositive ? (
@@ -250,16 +269,28 @@ export const VisitFlashContainer = (props: Props) => {
 
         <View style={styles.CommentairesContainer}>
           <Text>{t('txt.commentaires')}</Text>
-          <ModalVisite />
+          <ModalVisite commentaires={commentaires} setcommentaires={setcommentaires}/>
         </View>
         <View style={styles.ImageContainer}>
-          {Object.keys(filePath).length === 0 ? (
+          {Object.keys(filePath).length === 0 || images === null ? (
             <Text style={styles.ImageContainerText}>
               {t('txt.aucune.image')}
             </Text>
           ) : (
-            <Image source={{uri: filePath.uri}} style={styles.imageStyle} />
-          )}
+            // <Image source={{uri: filePath.uri}} style={styles.imageStyle} />
+            <FlatList
+            horizontal={true} 
+            showsHorizontalScrollIndicator={false} 
+            data={images}
+            renderItem={ ({ item, index }) => (
+              <Image source={{uri:item}} /* Use item to set the image source */
+                key={index} /* Important to set a key for list items,
+                               but it's wrong to use indexes as keys, see below */
+                style={styles.imageStyle}
+              />
+            )}
+          />
+)}
         </View>
         <View style={styles.BottomNav}>
           <View style={styles.DividerTwoImageBottomNav}>
@@ -287,7 +318,8 @@ export const VisitFlashContainer = (props: Props) => {
             </View>
             <View style={styles.dividerBottomNav} />
             <View style={styles.dividerBottomNav}>
-              <Pressable android_ripple={{color: colors.gris300}}>
+              <Pressable android_ripple={{color: colors.gris300}}
+              onPress={() => SaveData()}>
                 <Text style={styles.buttonBottomnav}>{t('txt.sauvegarder.remarque')}</Text>
               </Pressable>
             </View>
@@ -416,7 +448,17 @@ const styles = StyleSheet.create({
     marginHorizontal: 25,
   },
   ContainerChantier: {
-    height: 170,
+    height: 150,
     backgroundColor: 'white',
+  },
+  item: {
+    backgroundColor: '#f9c2ff',
+    padding: 10,
+    marginVertical: 4,
+    marginHorizontal: 8,
+    height: 50
+  },
+  title: {
+    fontSize: 16,
   },
 });

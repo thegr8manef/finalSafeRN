@@ -1,28 +1,22 @@
 import { Photo } from "./Photo";
 
 export class Flash {
-    // tk?: string;
-    // idt?: string;
-    // idr?: string;
-    nbPhoto?: number; // 0
-    ds?: string; //Commentaire
-    // pm?: string; // empty
-    photos?: Array<Photo>;
-    nt?: boolean; // false
-    // idcs?: string; //1870 or 666
-    ti?: string; //Commentaire
-    VisiteId?: string; // -1
-    or?: number; // 0
-    note?: string; // null
-    levee?: boolean; //false
-    VisiteIdLevee?: string; // -1
-    // dt?: string; //date of the syncho of observation
-    // dtl?: string; //date of the creaction of observation
-    // ordreGlobal?: number;
-    // fromObs?: boolean; // false
-    // completed?: boolean; //true
-    // unq?: boolean;
-     lvl?: number; //level of flash observation radio
-    // tg?: number;
-    // qt?: string; //null
+     constructor(
+  private _commentaire: string,
+  private _images: Photo[],
+  private _level: number
+     ){
+
+     }
+     
+     get commentaire(): string{
+        return this._commentaire
+     }
+
+     get images(): Photo[]{
+        return this._images
+     }
+     get level(): number{
+        return this._level
+     }
 }
