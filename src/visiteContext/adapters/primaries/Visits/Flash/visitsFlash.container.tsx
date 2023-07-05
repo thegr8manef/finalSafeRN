@@ -150,6 +150,7 @@ export const VisitFlashContainer = (props: Props) => {
         // If WRITE_EXTERNAL_STORAGE Permission is granted
         return granted === PermissionsAndroid.RESULTS.GRANTED;
       } catch (err) {
+        alert('Write permission err', err);
       }
       return false;
     } else {
@@ -171,6 +172,19 @@ export const VisitFlashContainer = (props: Props) => {
     let isStoragePermitted = await requestExternalWritePermission();
     if (isCameraPermitted && isStoragePermitted) {
       launchCamera(options, response => {
+        if (response.didCancel) {
+          alert('User cancelled camera picker');
+          return;
+        } else if (response.errorCode == 'camera_unavailable') {
+          alert('Camera not available on device');
+          return;
+        } else if (response.errorCode == 'permission') {
+          alert('Permission not satisfied');
+          return;
+        } else if (response.errorCode == 'others') {
+          alert(response.errorMessage);
+          return;
+        }
         const timeout = setTimeout(() => {
           addItem();
           setFilePath(response.assets[0]);
@@ -189,6 +203,19 @@ export const VisitFlashContainer = (props: Props) => {
       quality: 1,
     };
     launchImageLibrary(options, response => {
+      if (response.didCancel) {
+        alert('User cancelled camera picker');
+        return;
+      } else if (response.errorCode == 'camera_unavailable') {
+        alert('Camera not available on device');
+        return;
+      } else if (response.errorCode == 'permission') {
+        alert('Permission not satisfied');
+        return;
+      } else if (response.errorCode == 'others') {
+        alert(response.errorMessage);
+        return;
+      }
       const timeout = setTimeout(() => {
         addItem();
         setFilePath(response.assets[0]);
