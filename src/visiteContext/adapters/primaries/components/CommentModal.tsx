@@ -17,7 +17,7 @@ interface Props {
   setcommentaires : (text: string)=> void
 }
 
-export const ModalVisite = (props: Props) => {
+export const CommentModal = (props: Props) => {
   
   const [modalVisible, setModalVisible] = useState(false);
   const [empty, setEmpty] = React.useState(true);

@@ -21,7 +21,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {StackParamList} from '../../../../../navigation/configuration/navigation.types';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {RadioGroup} from 'react-native-radio-buttons-group';
-import {ModalVisite} from '../../components/ModalVisite';
+import {CommentModal} from '../../components/CommentModal';
 import {OPON} from '../../components/ObservationPositiveON';
 import {OPOFF} from '../../components/ObservationPositiveOFF';
 import {ONON} from '../../components/ObservationNegativeON';
@@ -39,7 +39,7 @@ interface Props {
 export const VisitFlashContainer = (props: Props) => {
   const [mount, setMount] = useState(false);
   const [commentaires,setcommentaires] = useState('');
-  const [selectedId, setSelectedId] = useState(0);
+  const [levelId, setLevelId] = useState(0);
   const [btnPositive, setbtnPositive] = useState(false);
   const [btnNegative, setbtnNegative] = useState(false);
   const [filePath, setFilePath] = useState({});
@@ -48,13 +48,12 @@ export const VisitFlashContainer = (props: Props) => {
   }
   const SaveData = () => {
     const flash = new Flash(
-   commentaires, images, selectedId)
+   commentaires, images, levelId)
     props.SaveFlash(flash)
   }
   const [images, setimages] = useState([]);
   const addItem = () => {
     const newItem = filePath.uri;
-    console.log('images',images.length === 0)
     if(images.length === 0){
       setimages([newItem]);
 
@@ -128,7 +127,6 @@ export const VisitFlashContainer = (props: Props) => {
         // If CAMERA Permission is granted
         return granted === PermissionsAndroid.RESULTS.GRANTED;
       } catch (err) {
-        console.warn(err);
         return false;
       }
     } else {
@@ -152,8 +150,6 @@ export const VisitFlashContainer = (props: Props) => {
         // If WRITE_EXTERNAL_STORAGE Permission is granted
         return granted === PermissionsAndroid.RESULTS.GRANTED;
       } catch (err) {
-        console.warn(err);
-        alert('Write permission err', err);
       }
       return false;
     } else {
@@ -175,21 +171,6 @@ export const VisitFlashContainer = (props: Props) => {
     let isStoragePermitted = await requestExternalWritePermission();
     if (isCameraPermitted && isStoragePermitted) {
       launchCamera(options, response => {
-        console.log('Response = ', response.assets[0]);
-
-        if (response.didCancel) {
-          alert('User cancelled camera picker');
-          return;
-        } else if (response.errorCode == 'camera_unavailable') {
-          alert('Camera not available on device');
-          return;
-        } else if (response.errorCode == 'permission') {
-          alert('Permission not satisfied');
-          return;
-        } else if (response.errorCode == 'others') {
-          alert(response.errorMessage);
-          return;
-        }
         const timeout = setTimeout(() => {
           addItem();
           setFilePath(response.assets[0]);
@@ -208,21 +189,6 @@ export const VisitFlashContainer = (props: Props) => {
       quality: 1,
     };
     launchImageLibrary(options, response => {
-      console.log('Response = ', response.assets[0]);
-
-      if (response.didCancel) {
-        alert('User cancelled camera picker');
-        return;
-      } else if (response.errorCode == 'camera_unavailable') {
-        alert('Camera not available on device');
-        return;
-      } else if (response.errorCode == 'permission') {
-        alert('Permission not satisfied');
-        return;
-      } else if (response.errorCode == 'others') {
-        alert(response.errorMessage);
-        return;
-      }
       const timeout = setTimeout(() => {
         addItem();
         setFilePath(response.assets[0]);
@@ -257,8 +223,8 @@ export const VisitFlashContainer = (props: Props) => {
             <Text>{t('txt_evaluation_visit_flash')}</Text>
             <RadioGroup
               radioButtons={OptionEcartSansRisque}
-              onPress={setSelectedId}
-              selectedId={selectedId}
+              onPress={setLevelId}
+              selectedId={levelId}
               layout="column"
               containerStyle={{alignItems: 'flex-start'}}
               buttonColor={'#2196f3'}
@@ -269,7 +235,7 @@ export const VisitFlashContainer = (props: Props) => {
 
         <View style={styles.CommentairesContainer}>
           <Text>{t('txt.commentaires')}</Text>
-          <ModalVisite commentaires={commentaires} setcommentaires={setcommentaires}/>
+          <CommentModal commentaires={commentaires} setcommentaires={setcommentaires}/>
         </View>
         <View style={styles.ImageContainer}>
           {Object.keys(filePath).length === 0 || images === null ? (
