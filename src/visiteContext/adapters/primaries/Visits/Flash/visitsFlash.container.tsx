@@ -19,13 +19,13 @@ import {useTranslation} from 'react-i18next';
 import {HeaderVisite} from '../../components/HeaderVisite';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {StackParamList} from '../../../../../navigation/configuration/navigation.types';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {RadioGroup} from 'react-native-radio-buttons-group';
 import {CommentModal} from '../../components/CommentModal';
 import {OPON} from '../../components/ObservationPositiveON';
 import {OPOFF} from '../../components/ObservationPositiveOFF';
 import {ONON} from '../../components/ObservationNegativeON';
 import {ONOFF} from '../../components/ObservationNegativeOFF';
+import ImageController from '../../components/ImageController';
 
 
 
@@ -42,7 +42,7 @@ export const VisitFlashContainer = (props: Props) => {
   const [levelId, setLevelId] = useState(0);
   const [btnPositive, setbtnPositive] = useState(false);
   const [btnNegative, setbtnNegative] = useState(false);
-  const [filePath, setFilePath] = useState({});
+
   if (!mount) {
     props.loadingVisits;
   }
@@ -52,16 +52,7 @@ export const VisitFlashContainer = (props: Props) => {
     props.SaveFlash(flash)
   }
   const [images, setimages] = useState([]);
-  const addItem = () => {
-    const newItem = filePath.uri;
-    if(images.length === 0){
-      setimages([newItem]);
 
-    }else{
-      setimages([...  images, newItem]);
-    }
-    
-  };
   const {t} = useTranslation();
 
   const OptionEcartSansRisque = useMemo(
@@ -111,119 +102,6 @@ export const VisitFlashContainer = (props: Props) => {
     setbtnPositive(true);
     setbtnNegative(false);
   };
-  const requestCameraPermission = async () => {
-    if (Platform.OS === 'android') {
-      try {
-        const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.CAMERA,
-          {
-            buttonNegative: undefined,
-            buttonNeutral: undefined,
-            buttonPositive: '',
-            title: 'Camera Permission',
-            message: 'App needs camera permission',
-          },
-        );
-        // If CAMERA Permission is granted
-        return granted === PermissionsAndroid.RESULTS.GRANTED;
-      } catch (err) {
-        return false;
-      }
-    } else {
-      return true;
-    }
-  };
-
-  const requestExternalWritePermission = async () => {
-    if (Platform.OS === 'android') {
-      try {
-        const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-          {
-            buttonNegative: undefined,
-            buttonNeutral: undefined,
-            buttonPositive: '',
-            title: 'External Storage Write Permission',
-            message: 'App needs write permission',
-          },
-        );
-        // If WRITE_EXTERNAL_STORAGE Permission is granted
-        return granted === PermissionsAndroid.RESULTS.GRANTED;
-      } catch (err) {
-        alert('Write permission err', err);
-      }
-      return false;
-    } else {
-      return true;
-    }
-  };
-
-  const captureImage = async type => {
-    let options = {
-      mediaType: type,
-      maxWidth: 300,
-      maxHeight: 550,
-      quality: 1,
-      videoQuality: 'low',
-      durationLimit: 30, //Video max duration in seconds
-      saveToPhotos: true,
-    };
-    let isCameraPermitted = await requestCameraPermission();
-    let isStoragePermitted = await requestExternalWritePermission();
-    if (isCameraPermitted && isStoragePermitted) {
-      launchCamera(options, response => {
-        if (response.didCancel) {
-          alert('User cancelled camera picker');
-          return;
-        } else if (response.errorCode == 'camera_unavailable') {
-          alert('Camera not available on device');
-          return;
-        } else if (response.errorCode == 'permission') {
-          alert('Permission not satisfied');
-          return;
-        } else if (response.errorCode == 'others') {
-          alert(response.errorMessage);
-          return;
-        }
-        const timeout = setTimeout(() => {
-          addItem();
-          setFilePath(response.assets[0]);
-
-        }, 500);
-        return () => clearTimeout(timeout);
-      });
-    }
-  };
-
-  const chooseFile = type => {
-    let options = {
-      mediaType: type,
-      maxWidth: 300,
-      maxHeight: 550,
-      quality: 1,
-    };
-    launchImageLibrary(options, response => {
-      if (response.didCancel) {
-        alert('User cancelled camera picker');
-        return;
-      } else if (response.errorCode == 'camera_unavailable') {
-        alert('Camera not available on device');
-        return;
-      } else if (response.errorCode == 'permission') {
-        alert('Permission not satisfied');
-        return;
-      } else if (response.errorCode == 'others') {
-        alert(response.errorMessage);
-        return;
-      }
-      const timeout = setTimeout(() => {
-        addItem();
-        setFilePath(response.assets[0]);
-      }, 500);
-  
-      return () => clearTimeout(timeout);
-    });
-  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -265,7 +143,7 @@ export const VisitFlashContainer = (props: Props) => {
           <CommentModal commentaires={commentaires} setcommentaires={setcommentaires}/>
         </View>
         <View style={styles.ImageContainer}>
-          {Object.keys(filePath).length === 0 || images === null ? (
+          {Object.keys(images).length === 0 || images === null ? (
             <Text style={styles.ImageContainerText}>
               {t('txt.aucune.image')}
             </Text>
@@ -287,28 +165,7 @@ export const VisitFlashContainer = (props: Props) => {
         </View>
         <View style={styles.BottomNav}>
           <View style={styles.DividerTwoImageBottomNav}>
-            <View style={styles.DividerTwoImageBottomNav}>
-              <View style={{flex: 1}}>
-                <Pressable
-                  onPress={() => captureImage('photo')}
-                  android_ripple={{color: colors.gris300}}>
-                  <Image
-                    style={styles.logoImage5}
-                    source={require('../../../../../assets/img/icn_prendre_photo.png')}
-                  />
-                </Pressable>
-              </View>
-              <View style={{flex: 1}}>
-                <Pressable
-                  onPress={() => chooseFile('photo')}
-                  android_ripple={{color: colors.gris300}}>
-                  <Image
-                    style={styles.logoImage5}
-                    source={require('../../../../../assets/img/icn_file.png')}
-                  />
-                </Pressable>
-              </View>
-            </View>
+            <ImageController images={images} setimages={setimages} />
             <View style={styles.dividerBottomNav} />
             <View style={styles.dividerBottomNav}>
               <Pressable android_ripple={{color: colors.gris300}}
