@@ -1,21 +1,23 @@
 import {
   FlashActionFailed,
   FlashActionSuccess,
-  LOAD_FLASH,
-  LOAD_FLASH_FAILED,
-  LOAD_FLASH_SUCCESS,
-  LoadFlashAction,
+  SAVE_FLASH,
+  SAVE_FLASH_FAILED,
+  SAVE_FLASH_SUCCESS,
+  SaveFlashAction,
 } from './actionTypes';
 import {Flash} from '../../domain/entity/Flash';
 
-export const LoadFlash = (): LoadFlashAction => ({
-  type: LOAD_FLASH,
+export const SaveFlash = (data :Flash): SaveFlashAction => ({
+  type: SAVE_FLASH,
+  payload : data
 });
-export const flashFailed = (error: string): FlashActionFailed => ({
-  type: LOAD_FLASH_FAILED,
+export const SaveFlashFailed = (error: string): FlashActionFailed => ({
+  type: SAVE_FLASH_FAILED,
   payload: error,
 });
-export const flashSuccess = (flash: Flash): FlashActionSuccess => ({
-  type: LOAD_FLASH_SUCCESS,
+export const SaveFlashSuccess = (flash: Flash): FlashActionSuccess => ({
+  type: SAVE_FLASH_SUCCESS,
   payload: flash,
 });
+

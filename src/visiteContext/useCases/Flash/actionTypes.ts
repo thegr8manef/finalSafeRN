@@ -1,26 +1,25 @@
 import {Flash} from '../../domain/entity/Flash';
 
-export const LOAD_FLASH = 'LOAD_FLASH';
+export const SAVE_FLASH = 'SAVE_FLASH';
+export const SAVE_FLASH_SUCCESS = 'SAVE_FLASH_SUCCESS';
+export const SAVE_FLASH_FAILED = 'SAVE_FLASH_FAILED';
 
-export const LOAD_FLASH_SUCCESS = 'LOAD_FLASH_SUCCESS';
-
-export const LOAD_FLASH_FAILED = 'LOAD_FLASH_FAILED';
-
-export interface LoadFlashAction {
-  type: typeof LOAD_FLASH;
-}
-
-export interface FlashActionSuccess {
-  type: typeof LOAD_FLASH_SUCCESS;
-  payload: Flash;
+export interface SaveFlashAction {
+  type: typeof SAVE_FLASH;
+  payload : Flash
 }
 
 export interface FlashActionFailed {
-  type: typeof LOAD_FLASH_FAILED;
+  type: typeof SAVE_FLASH_FAILED;
   payload: string;
 }
 
+export interface FlashActionSuccess {
+  type: typeof SAVE_FLASH_SUCCESS;
+  payload: Flash;
+}
+
 export type FlashActionTypes =
-  | LoadFlashAction
+  | SaveFlashAction
   | FlashActionSuccess
   | FlashActionFailed;

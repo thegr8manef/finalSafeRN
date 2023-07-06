@@ -7,6 +7,8 @@ import {StackParamList} from './navigation.types';
 import {LoginPage} from '../../profileContext/adapters/primaries/login';
 import {ProfilePage} from '../../profileContext/adapters/primaries/Profile';
 import {HomeNavigation} from '../drawer/homeNavigation';
+import {DashboardPage} from '../../dashboardContext/adapters/primaries/Dashboard';
+import {VisitsFlashPage} from '../../visiteContext/adapters/primaries/Visits/Flash';
 import {SplashPage} from '../../profileContext/adapters/primaries/Splash';
 const Stack = createStackNavigator<StackParamList>();
 

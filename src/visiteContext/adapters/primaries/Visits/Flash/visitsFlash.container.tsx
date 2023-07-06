@@ -9,6 +9,9 @@ import {
   PermissionsAndroid,
   Pressable,
   ScrollView,
+  FlatList,
+  Dimensions,
+  TouchableOpacity
 } from 'react-native';
 import colors from '../../../../../assets/colors';
 import {Flash} from '../../../../domain/entity/Flash';
@@ -16,31 +19,39 @@ import {useTranslation} from 'react-i18next';
 import {HeaderVisite} from '../../components/HeaderVisite';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {StackParamList} from '../../../../../navigation/configuration/navigation.types';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {RadioGroup} from 'react-native-radio-buttons-group';
-import {ModalVisite} from '../../components/ModalVisite';
+import {CommentModal} from '../../components/CommentModal';
 import {OPON} from '../../components/ObservationPositiveON';
 import {OPOFF} from '../../components/ObservationPositiveOFF';
 import {ONON} from '../../components/ObservationNegativeON';
 import {ONOFF} from '../../components/ObservationNegativeOFF';
+import ImageController from '../../components/ImageController';
+
+
 
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
   loadingVisits: boolean;
   errorVisits: string | undefined;
   flash: Flash | undefined;
-  LoadFlash: () => void;
+  SaveFlash: (data : Flash) => void;
 }
-
 export const VisitFlashContainer = (props: Props) => {
   const [mount, setMount] = useState(false);
-  const [selectedId, setSelectedId] = useState();
+  const [commentaires,setcommentaires] = useState('');
+  const [levelId, setLevelId] = useState(0);
   const [btnPositive, setbtnPositive] = useState(false);
   const [btnNegative, setbtnNegative] = useState(false);
-  const [filePath, setFilePath] = useState({});
+
   if (!mount) {
     props.loadingVisits;
   }
+  const SaveData = () => {
+    const flash = new Flash(
+   commentaires, images, levelId)
+    props.SaveFlash(flash)
+  }
+  const [images, setimages] = useState([]);
 
   const {t} = useTranslation();
 
@@ -72,7 +83,7 @@ export const VisitFlashContainer = (props: Props) => {
   );
   useEffect(() => {
     setMount(true);
-  });
+  }, []);
   const _onPressButtonPostiveON = () => {
     setbtnPositive(true);
     setbtnNegative(false);
@@ -91,135 +102,13 @@ export const VisitFlashContainer = (props: Props) => {
     setbtnPositive(true);
     setbtnNegative(false);
   };
-  const requestCameraPermission = async () => {
-    if (Platform.OS === 'android') {
-      try {
-        const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.CAMERA,
-          {
-            buttonNegative: undefined,
-            buttonNeutral: undefined,
-            buttonPositive: '',
-            title: 'Camera Permission',
-            message: 'App needs camera permission',
-          },
-        );
-        // If CAMERA Permission is granted
-        return granted === PermissionsAndroid.RESULTS.GRANTED;
-      } catch (err) {
-        console.warn(err);
-        return false;
-      }
-    } else {
-      return true;
-    }
-  };
-
-  const requestExternalWritePermission = async () => {
-    if (Platform.OS === 'android') {
-      try {
-        const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-          {
-            buttonNegative: undefined,
-            buttonNeutral: undefined,
-            buttonPositive: '',
-            title: 'External Storage Write Permission',
-            message: 'App needs write permission',
-          },
-        );
-        // If WRITE_EXTERNAL_STORAGE Permission is granted
-        return granted === PermissionsAndroid.RESULTS.GRANTED;
-      } catch (err) {
-        console.warn(err);
-        alert('Write permission err', err);
-      }
-      return false;
-    } else {
-      return true;
-    }
-  };
-
-  const captureImage = async type => {
-    let options = {
-      mediaType: type,
-      maxWidth: 300,
-      maxHeight: 550,
-      quality: 1,
-      videoQuality: 'low',
-      durationLimit: 30, //Video max duration in seconds
-      saveToPhotos: true,
-    };
-    let isCameraPermitted = await requestCameraPermission();
-    let isStoragePermitted = await requestExternalWritePermission();
-    if (isCameraPermitted && isStoragePermitted) {
-      launchCamera(options, response => {
-        console.log('Response = ', response.assets[0]);
-
-        if (response.didCancel) {
-          alert('User cancelled camera picker');
-          return;
-        } else if (response.errorCode == 'camera_unavailable') {
-          alert('Camera not available on device');
-          return;
-        } else if (response.errorCode == 'permission') {
-          alert('Permission not satisfied');
-          return;
-        } else if (response.errorCode == 'others') {
-          alert(response.errorMessage);
-          return;
-        }
-        console.log('base64 -> ', response.assets[0].base64);
-        console.log('uri -> ', response.assets[0].uri);
-        console.log('width -> ', response.assets[0].width);
-        console.log('height -> ', response.assets[0].height);
-        console.log('fileSize -> ', response.assets[0].fileSize);
-        console.log('type -> ', response.assets[0].type);
-        console.log('fileName -> ', response.assets[0].fileName);
-        setFilePath(response.assets[0]);
-      });
-    }
-  };
-
-  const chooseFile = type => {
-    let options = {
-      mediaType: type,
-      maxWidth: 300,
-      maxHeight: 550,
-      quality: 1,
-    };
-    launchImageLibrary(options, response => {
-      console.log('Response = ', response.assets[0]);
-
-      if (response.didCancel) {
-        alert('User cancelled camera picker');
-        return;
-      } else if (response.errorCode == 'camera_unavailable') {
-        alert('Camera not available on device');
-        return;
-      } else if (response.errorCode == 'permission') {
-        alert('Permission not satisfied');
-        return;
-      } else if (response.errorCode == 'others') {
-        alert(response.errorMessage);
-        return;
-      }
-      console.log('base64 -> ', response.assets[0].base64);
-      console.log('uri -> ', response.assets[0].uri);
-      console.log('width -> ', response.assets[0].width);
-      console.log('height -> ', response.assets[0].height);
-      console.log('fileSize -> ', response.assets[0].fileSize);
-      console.log('type -> ', response.assets[0].type);
-      console.log('fileName -> ', response.assets[0].fileName);
-      setFilePath(response.assets[0]);
-    });
-  };
 
   return (
     <SafeAreaView style={styles.container}>
       <HeaderVisite children={t('txt_visit_flash')} />
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
-        <View style={styles.ContainerChantier} />
+        <View style={styles.ContainerChantier}>
+        </View>
 
         <View style={styles.ContainerObservation}>
           {!btnPositive ? (
@@ -239,8 +128,8 @@ export const VisitFlashContainer = (props: Props) => {
             <Text>{t('txt_evaluation_visit_flash')}</Text>
             <RadioGroup
               radioButtons={OptionEcartSansRisque}
-              onPress={setSelectedId}
-              selectedId={selectedId}
+              onPress={setLevelId}
+              selectedId={levelId}
               layout="column"
               containerStyle={{alignItems: 'flex-start'}}
               buttonColor={'#2196f3'}
@@ -251,44 +140,36 @@ export const VisitFlashContainer = (props: Props) => {
 
         <View style={styles.CommentairesContainer}>
           <Text>{t('txt.commentaires')}</Text>
-          <ModalVisite />
+          <CommentModal commentaires={commentaires} setcommentaires={setcommentaires}/>
         </View>
         <View style={styles.ImageContainer}>
-          {Object.keys(filePath).length === 0 ? (
+          {Object.keys(images).length === 0 || images === null ? (
             <Text style={styles.ImageContainerText}>
               {t('txt.aucune.image')}
             </Text>
           ) : (
-            <Image source={{uri: filePath.uri}} style={styles.imageStyle} />
-          )}
+            // <Image source={{uri: filePath.uri}} style={styles.imageStyle} />
+            <FlatList
+            horizontal={true} 
+            showsHorizontalScrollIndicator={false} 
+            data={images}
+            renderItem={ ({ item, index }) => (
+              <Image source={{uri:item}} /* Use item to set the image source */
+                key={index} /* Important to set a key for list items,
+                               but it's wrong to use indexes as keys, see below */
+                style={styles.imageStyle}
+              />
+            )}
+          />
+)}
         </View>
         <View style={styles.BottomNav}>
           <View style={styles.DividerTwoImageBottomNav}>
-            <View style={styles.DividerTwoImageBottomNav}>
-              <View style={{flex: 1}}>
-                <Pressable
-                  onPress={() => captureImage('photo')}
-                  android_ripple={{color: colors.gris300}}>
-                  <Image
-                    style={styles.logoImage5}
-                    source={require('../../../../../assets/img/icn_prendre_photo.png')}
-                  />
-                </Pressable>
-              </View>
-              <View style={{flex: 1}}>
-                <Pressable
-                  onPress={() => chooseFile('photo')}
-                  android_ripple={{color: colors.gris300}}>
-                  <Image
-                    style={styles.logoImage5}
-                    source={require('../../../../../assets/img/icn_file.png')}
-                  />
-                </Pressable>
-              </View>
-            </View>
+            <ImageController images={images} setimages={setimages} />
             <View style={styles.dividerBottomNav} />
             <View style={styles.dividerBottomNav}>
-              <Pressable android_ripple={{color: colors.gris300}}>
+              <Pressable android_ripple={{color: colors.gris300}}
+              onPress={() => SaveData()}>
                 <Text style={styles.buttonBottomnav}>{t('txt.sauvegarder.remarque')}</Text>
               </Pressable>
             </View>
@@ -417,7 +298,17 @@ const styles = StyleSheet.create({
     marginHorizontal: 25,
   },
   ContainerChantier: {
-    height: 170,
+    height: 150,
     backgroundColor: 'white',
+  },
+  item: {
+    backgroundColor: '#f9c2ff',
+    padding: 10,
+    marginVertical: 4,
+    marginHorizontal: 8,
+    height: 50
+  },
+  title: {
+    fontSize: 16,
   },
 });
