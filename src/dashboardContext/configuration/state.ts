@@ -3,7 +3,7 @@ import {Stat} from '../domain/entity/Stat';
 export interface DashboardState {
   stat: StatState;
   saveStat: SaveStatState;
-  loadLocalStat: LoaclStatState;
+  loadLocalStat: LocalStatState;
 }
 export interface StatState {
   loading: boolean;
@@ -16,7 +16,7 @@ export interface SaveStatState {
   error: string | undefined;
 }
 
-export interface LoaclStatState {
+export interface LocalStatState {
   loading: boolean;
   error: string | undefined;
   stat: Stat | undefined;

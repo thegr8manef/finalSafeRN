@@ -5,7 +5,7 @@ import ApplicationContext from '../../../common/appConfig/ApplicationContext';
 import {StatDto} from './dto/stat.dto';
 import {StatMapper} from './mapper/stat.mapper';
 
-export class dbDashboardService implements DBDashboardService {
+export class dbStatRepository implements DBDashboardService {
   loadStatFomLocal(): Observable<Stat> {
     const promisLoadStat = new Promise<Stat>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();

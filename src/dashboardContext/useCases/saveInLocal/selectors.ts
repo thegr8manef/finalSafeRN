@@ -1,6 +1,6 @@
 import {AppState} from '../../../redux_configuration/appState';
 
-export const SaveStatLoadingSelector = (appState: AppState): boolean =>
+export const saveStatLoadingSelector = (appState: AppState): boolean =>
   appState.dashboard.saveStat.loading;
 
 export const statErrorSelector = (appState: AppState): string | undefined =>

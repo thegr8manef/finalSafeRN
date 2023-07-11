@@ -10,12 +10,12 @@ import {loadLocalStatSuccess} from './actions';
 export const loadLocalStatEpic: Epic = (
   action$,
   store: StateObservable<AppState>,
-  {dbDashboardService}: {dbDashboardService: DBDashboardService},
+  {stateRepository}: {stateRepository: DBDashboardService},
 ) =>
   action$.pipe(
     ofType(LOAD_LOCAL_STAT),
     switchMap(action =>
-      dbDashboardService
+      stateRepository
         .loadStatFomLocal()
         .pipe(map((stat: Stat) => loadLocalStatSuccess(stat))),
     ),

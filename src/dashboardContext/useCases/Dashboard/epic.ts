@@ -7,7 +7,7 @@ import {DashboardService} from '../../domain/gateway/dashboardService';
 import {statFailed, statSuccess} from './action';
 import {Stat} from '../../domain/entity/Stat';
 import {StatDto} from '../../adapters/secondaires/dto/stat.dto';
-import {SaveStat} from '../saveInLocal/actions';
+import {saveStat} from '../saveInLocal/actions';
 import {loadLocalStat} from '../LoadLocalStat/actions';
 
 export const statEpic: Epic = (
@@ -20,7 +20,7 @@ export const statEpic: Epic = (
     switchMap(() =>
       dashboardService.LoadStat().pipe(
         concatMap((dtoStat: StatDto) => {
-          return [SaveStat(dtoStat)];
+          return [saveStat(dtoStat)];
         }),
         catchError(error => of(statFailed(error))),
       ),

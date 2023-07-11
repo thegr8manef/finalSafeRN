@@ -9,7 +9,7 @@ import {
   SaveStatActionSuccess,
 } from './actionTypes';
 
-export const SaveStat = (stat: StatDto): SaveStatAction => ({
+export const saveStat = (stat: StatDto): SaveStatAction => ({
   type: SAVE_STAT,
   payload: stat,
 });

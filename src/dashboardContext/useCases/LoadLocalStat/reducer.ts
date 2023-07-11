@@ -1,4 +1,4 @@
-import {LoaclStatState, StatState} from '../../configuration/state';
+import {LocalStatState, StatState} from '../../configuration/state';
 import {
   LOAD_LOCAL_STAT,
   LOAD_LOCAL_STAT_FAILED,
@@ -6,7 +6,7 @@ import {
   LoadLocalStatActionTypes,
 } from './actionTypes';
 
-const initialState: LoaclStatState = {
+const initialState: LocalStatState = {
   stat: undefined,
   loading: false,
   error: undefined,
@@ -15,7 +15,7 @@ const initialState: LoaclStatState = {
 export const reducerLoadLocalStat = (
   state = initialState,
   action: LoadLocalStatActionTypes,
-): LoaclStatState => {
+): LocalStatState => {
   switch (action.type) {
     case LOAD_LOCAL_STAT:
       return {loading: true, error: undefined, stat: undefined};

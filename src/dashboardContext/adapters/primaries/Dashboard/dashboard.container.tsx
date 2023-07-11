@@ -33,8 +33,6 @@ export const DashboardContainer = (props: Props) => {
   const {t} = useTranslation();
 
   useEffect(() => {
-    console.log(props.stat);
-
     setMount(true);
   });
   return (

@@ -1,5 +1,5 @@
 import {dashboardService} from '../adapters/secondaires/dashboardService';
-import {dbDashboardService} from '../adapters/secondaires/dbDashboardService';
+import {dbStatRepository} from '../adapters/secondaires/dbStatRepository';
 import {DashboardService} from '../domain/gateway/dashboardService';
 import {DBDashboardService} from '../domain/gateway/dbDashboardService';
 
@@ -8,7 +8,7 @@ export class DashboardDependanciesFactory {
     return new dashboardService();
   }
 
-  static getDBDashboardService(): DBDashboardService {
-    return new dbDashboardService();
+  static getDBStatRepository(): DBDashboardService {
+    return new dbStatRepository();
   }
 }
