@@ -1,37 +1,43 @@
-import {Observable} from 'redux';
+import {Observable, from} from 'rxjs';
 import {Stat} from '../../domain/entity/Stat';
 import {DBDashboardService} from '../../domain/gateway/dbDashboardService';
 import ApplicationContext from '../../../common/appConfig/ApplicationContext';
+import {StatDto} from './dto/stat.dto';
+import {StatMapper} from './mapper/stat.mapper';
 
 export class dbDashboardService implements DBDashboardService {
   loadStatFomLocal(): Observable<Stat> {
-    throw new Error('Method not implemented.');
-  }
-  saveStatInLocal(): Observable<void> {
-    const promiSetUser = new Promise<void>((resolve, reject) => {
+    const promisLoadStat = new Promise<Stat>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
+      console.log('------------START---------------');
       try {
         db.then(realm => {
-          realm?.write(() => {
-            realm.create('Statistic', {
-              fn: userConnected.name.substring(
-                0,
-                userConnected.name.indexOf(' '),
-              ),
-              ln: userConnected.name.substring(userConnected.name.indexOf(' ')),
-              em: userConnected.email,
-              connected: true,
-              lr: false,
-              visitCreated: 0,
-            });
-          });
-          resolve(); // Emit the boolean value
+          const objects = realm.objects('Statistic');
+          resolve(objects => StatMapper.mapToStat(objects));
         });
       } catch (error) {
         reject(error);
       }
     });
 
-    return from(promiSetUser);
+    return from(promisLoadStat);
+  }
+  saveStatInLocal(stat: StatDto): Observable<void> {
+    const promisSaveStat = new Promise<void>((resolve, reject) => {
+      const db = ApplicationContext.getInstance().db();
+      console.log('------------START---------------');
+      try {
+        db.then(realm => {
+          realm?.write(() => {
+            realm.create('Statistic', StatMapper.mapToStatDB(stat));
+          });
+          resolve();
+        });
+      } catch (error) {
+        reject(error);
+      }
+    });
+
+    return from(promisSaveStat);
   }
 }

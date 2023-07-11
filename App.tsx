@@ -7,10 +7,22 @@ import {NavigationContainer} from '@react-navigation/native';
 import RootNavigation from './src/navigation/configuration/rootNavigation';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import colors from './src/assets/colors';
+import ApplicationContext from './src/common/appConfig/ApplicationContext';
 
 const store = reduxStore();
 
 export default function App() {
+  const db = ApplicationContext.getInstance().db();
+
+  try {
+    db.then(realm => {
+      realm?.write(() => {
+        const objects = realm.objects('Statistic');
+        console.log(objects);
+      });
+    });
+  } catch (error) {}
+
   return (
     <Provider store={store}>
       <StatusBar backgroundColor={colors.primary} />
