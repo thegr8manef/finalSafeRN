@@ -8,6 +8,7 @@ import {statFailed, statSuccess} from './action';
 import {Stat} from '../../domain/entity/Stat';
 import {StatDto} from '../../adapters/secondaires/dto/stat.dto';
 import {SaveStat} from '../saveInLocal/actions';
+import {loadLocalStat} from '../LoadLocalStat/actions';
 
 export const statEpic: Epic = (
   action$,

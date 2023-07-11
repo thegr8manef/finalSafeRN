@@ -21,18 +21,20 @@ interface Props {
   error: string | undefined;
   stat: Stat | undefined;
   user: User;
-  LoadStat: () => void;
+  loadStat: () => void;
   navigation: any;
 }
 
 export const DashboardContainer = (props: Props) => {
   const [mount, setMount] = useState(false);
   if (!mount) {
-    props.LoadStat();
+    props.loadStat();
   }
   const {t} = useTranslation();
 
   useEffect(() => {
+    console.log(props.stat);
+
     setMount(true);
   });
   return (

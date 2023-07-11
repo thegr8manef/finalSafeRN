@@ -9,11 +9,10 @@ export class dbDashboardService implements DBDashboardService {
   loadStatFomLocal(): Observable<Stat> {
     const promisLoadStat = new Promise<Stat>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
-      console.log('------------START---------------');
       try {
         db.then(realm => {
           const objects = realm.objects('Statistic');
-          resolve(objects => StatMapper.mapToStat(objects));
+          resolve(StatMapper.mapToStat(objects[0]));
         });
       } catch (error) {
         reject(error);
@@ -25,7 +24,6 @@ export class dbDashboardService implements DBDashboardService {
   saveStatInLocal(stat: StatDto): Observable<void> {
     const promisSaveStat = new Promise<void>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
-      console.log('------------START---------------');
       try {
         db.then(realm => {
           realm?.write(() => {
