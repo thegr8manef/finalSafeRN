@@ -10,6 +10,11 @@ import {connect} from 'react-redux';
 import {DashboardContainer} from './dashboard.container';
 import {LoadStat} from '../../../useCases/Dashboard/action';
 import {Stat} from '../../../domain/entity/Stat';
+import {
+  loadLocalStatErrorSelector,
+  loadLocalStatLoadingSelector,
+  loadLocalStatSelector,
+} from '../../../useCases/LoadLocalStat/selectors';
 
 interface StateToPropsType {
   loading: boolean;
@@ -17,16 +22,16 @@ interface StateToPropsType {
   stat: Stat | undefined;
 }
 interface DispatchToPropsType {
-  LoadStat: () => void;
+  loadStat: () => void;
 }
 const mapStateToProps = (state: AppState): StateToPropsType => ({
-  loading: statLoadingSelector(state),
-  error: statErrorSelector(state),
-  stat: loadStatSelector(state),
+  loading: loadLocalStatLoadingSelector(state),
+  error: loadLocalStatErrorSelector(state),
+  stat: loadLocalStatSelector(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => ({
-  LoadStat: (): StatActionTypes => dispatch(LoadStat()),
+  loadStat: (): StatActionTypes => dispatch(LoadStat()),
 });
 
 export const DashboardPage = connect(
