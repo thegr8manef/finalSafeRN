@@ -1,4 +1,4 @@
-import {StatDto} from '../../adapters/secondaires/dto/stat.dto';
+import {Statistic} from '../../../common/adapters/secondaries/db/entity/Statistic';
 
 export const SAVE_STAT = 'SAVE_STAT';
 export const SAVE_STAT_SUCCESS = 'SAVE_STAT_SUCCESS';
@@ -6,7 +6,7 @@ export const SAVE_STAT_FAILED = 'SAVE_STAT_FAILED';
 
 export interface SaveStatAction {
   type: typeof SAVE_STAT;
-  payload: StatDto;
+  payload: Statistic;
 }
 
 export interface SaveStatActionSuccess {

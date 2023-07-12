@@ -4,8 +4,9 @@ import {DBDashboardService} from '../../domain/gateway/dbDashboardService';
 import ApplicationContext from '../../../common/appConfig/ApplicationContext';
 import {StatDto} from './dto/stat.dto';
 import {StatMapper} from './mapper/stat.mapper';
+import {Statistic} from '../../../common/adapters/secondaries/db/entity/Statistic';
 
-export class dbStatRepository implements DBDashboardService {
+export class dbStatRepository implements dbStatRepository {
   loadStatFomLocal(): Observable<Stat> {
     const promisLoadStat = new Promise<Stat>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
@@ -21,13 +22,13 @@ export class dbStatRepository implements DBDashboardService {
 
     return from(promisLoadStat);
   }
-  saveStatInLocal(stat: StatDto): Observable<void> {
+  saveStatInLocal(stat: Statistic): Observable<void> {
     const promisSaveStat = new Promise<void>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
       try {
         db.then(realm => {
           realm?.write(() => {
-            realm.create('Statistic', StatMapper.mapToStatDB(stat));
+            realm.create('Statistic', stat);
           });
           resolve();
         });
