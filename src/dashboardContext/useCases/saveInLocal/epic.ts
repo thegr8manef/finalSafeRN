@@ -3,7 +3,7 @@ import {AppState} from '../../../redux_configuration/appState';
 import {SAVE_STAT} from './actionTypes';
 import {saveStatSuccess} from './actions';
 import {concatMap, switchMap} from 'rxjs/operators';
-import {DBDashboardService} from '../../domain/gateway/dbDashboardService';
+import {DBDashboardService} from '../../domain/gateway/DBStatRepository';
 import {loadLocalStat} from '../LoadLocalStat/actions';
 
 export const saveStatInLocal: Epic = (
