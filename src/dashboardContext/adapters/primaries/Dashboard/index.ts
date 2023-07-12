@@ -3,12 +3,12 @@ import {
   statErrorSelector,
   statLoadingSelector,
   loadStatSelector,
-} from '../../../useCases/Dashboard/selectors';
+} from '../../../useCases/LoadStat/selectors';
 import {Dispatch} from 'redux';
-import {StatActionTypes} from '../../../useCases/Dashboard/actionTypes';
+import {StatActionTypes} from '../../../useCases/LoadStat/actionTypes';
 import {connect} from 'react-redux';
 import {DashboardContainer} from './dashboard.container';
-import {LoadStat} from '../../../useCases/Dashboard/action';
+import {LoadStat} from '../../../useCases/LoadStat/action';
 import {Stat} from '../../../domain/entity/Stat';
 import {
   loadLocalStatErrorSelector,

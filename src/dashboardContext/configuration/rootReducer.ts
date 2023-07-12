@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux';
 import {DashboardState} from './state';
-import {reducerStat} from '../useCases/Dashboard/reducer';
+import {reducerStat} from '../useCases/LoadStat/reducer';
 import {reducerSaveStatInLocal} from '../useCases/saveInLocal/reducer';
 import {reducerLoadLocalStat} from '../useCases/LoadLocalStat/reducer';
 

@@ -1,12 +1,11 @@
 import {Observable, from} from 'rxjs';
 import {Stat} from '../../domain/entity/Stat';
-import {DBDashboardService} from '../../domain/gateway/dbDashboardService';
 import ApplicationContext from '../../../common/appConfig/ApplicationContext';
-import {StatDto} from './dto/stat.dto';
 import {StatMapper} from './mapper/stat.mapper';
 import {Statistic} from '../../../common/adapters/secondaries/db/entity/Statistic';
+import {DBStatRepository} from '../../domain/gateway/DBStatRepository';
 
-export class dbStatRepository implements dbStatRepository {
+export class dbStatRepository implements DBStatRepository {
   loadStatFomLocal(): Observable<Stat> {
     const promisLoadStat = new Promise<Stat>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();

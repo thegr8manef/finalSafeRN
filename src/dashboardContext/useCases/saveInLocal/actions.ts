@@ -1,3 +1,4 @@
+import {Statistic} from '../../../common/adapters/secondaries/db/entity/Statistic';
 import {StatDto} from '../../adapters/secondaires/dto/stat.dto';
 
 import {
@@ -9,7 +10,7 @@ import {
   SaveStatActionSuccess,
 } from './actionTypes';
 
-export const saveStat = (stat: StatDto): SaveStatAction => ({
+export const saveStat = (stat: Statistic): SaveStatAction => ({
   type: SAVE_STAT,
   payload: stat,
 });
