@@ -1,6 +1,7 @@
 import {View, Text, StyleSheet, Dimensions} from 'react-native';
 import React from 'react';
 import * as Progress from 'react-native-progress';
+import colors from '../../../../assets/colors';
 
 interface Props {
   textLabels: string;
@@ -8,7 +9,7 @@ interface Props {
   textHint2: string;
   textHint3: string;
   textHint4: string;
-  valeurPrevention: number | undefined;
+  valeurPrevention: number;
   valeurConformite: number | undefined;
   valeurHierarchique: number | undefined;
   valeurFlash: number | undefined;
@@ -30,10 +31,9 @@ export const CardBarProgressVisites = (props: Props) => {
             borderWidth={0}
             animated={true}
             animationType={'decay'}
-            color={'yellow'}
-            height={12}
+            color={colors.yellow}
+            height={10}
             borderRadius={0}
-
           />
         </View>
         <View style={{flex: 1}}>
@@ -44,8 +44,8 @@ export const CardBarProgressVisites = (props: Props) => {
             borderWidth={0}
             animated={true}
             animationType={'decay'}
-            color={'green'}
-            height={12}
+            color={colors.green}
+            height={10}
             borderRadius={0}
           />
         </View>
@@ -57,8 +57,8 @@ export const CardBarProgressVisites = (props: Props) => {
             borderWidth={0}
             animated={true}
             animationType={'decay'}
-            color={'blue'}
-            height={12}
+            color={colors.blue}
+            height={10}
             borderRadius={0}
           />
         </View>
@@ -70,8 +70,8 @@ export const CardBarProgressVisites = (props: Props) => {
             borderWidth={0}
             animated={true}
             animationType={'decay'}
-            color={'red'}
-            height={12}
+            color={colors.red}
+            height={10}
             borderRadius={0}
           />
         </View>

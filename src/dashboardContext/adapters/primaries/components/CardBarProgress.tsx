@@ -1,6 +1,7 @@
 import {View, Text, StyleSheet, Dimensions} from 'react-native';
 import React from 'react';
 import * as Progress from 'react-native-progress';
+import colors from '../../../../assets/colors';
 
 interface Props {
   textLabels: string;
@@ -30,7 +31,7 @@ export const CardBarProgress = (props: Props) => {
             unfilledColor={'#E8E8E8'}
             animated={true}
             animationType={'decay'}
-            color={'#f356b5'}
+            color={colors.red200}
           />
         </View>
         <View style={{flex: 1}}>
@@ -42,7 +43,7 @@ export const CardBarProgress = (props: Props) => {
             unfilledColor={'#E8E8E8'}
             animated={true}
             animationType={'decay'}
-            color={'#b459ec'}
+            color={colors.blue200}
           />
         </View>
         <View style={{flex: 1}}>
@@ -54,7 +55,7 @@ export const CardBarProgress = (props: Props) => {
             unfilledColor={'#E8E8E8'}
             animated={true}
             animationType={'decay'}
-            color={'#e37718'}
+            color={colors.orange}
           />
         </View>
         <View style={{flex: 1}}>
@@ -66,7 +67,7 @@ export const CardBarProgress = (props: Props) => {
             unfilledColor={'#E8E8E8'}
             animated={true}
             animationType={'decay'}
-            color={'grey'}
+            color={colors.gray700}
           />
         </View>
       </View>
