@@ -10,7 +10,7 @@ export const HeaderVisite = (props: Props) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.rectangle}>
-        <View style={{flex: 0.5}}>
+        <View style={{height: 70}}>
           <Image
             source={require('../../../../assets/img/sidenav.png')}
             style={styles.logoImage1}
@@ -45,6 +45,6 @@ const styles = StyleSheet.create({
     resizeMode: 'stretch',
   },
   container: {
-    height :50
-  }
+    height: 50,
+  },
 });

@@ -1,8 +1,8 @@
 import {View, Text, Modal, StyleSheet} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import colors from '../../../../assets/colors';
-import {HeaderModal} from './HeaderModal';
 import {useTranslation} from 'react-i18next';
+import {TextInput} from 'react-native-gesture-handler';
 
 interface Props {
   modalVisible: boolean;
@@ -11,10 +11,7 @@ interface Props {
 
 export const SiteWithCode = (props: Props) => {
   const {t} = useTranslation();
-  //   const [modalVisible, setModalVisible] = useState(props.modalVisible);
-  useEffect(() => {
-    console.log(props.modalVisible);
-  });
+
   return (
     <Modal
       animationType="slide"
@@ -34,6 +31,11 @@ export const SiteWithCode = (props: Props) => {
           </Text>
           <Text style={styles.normalText}>{t('txt.valider')}</Text>
         </View>
+        <View style={styles.container}>
+          <Text>{t('txt.code.chantier')}</Text>
+          <TextInput cursorColor={colors.primary} />
+          <View style={{height: 1, backgroundColor: colors.primary}}></View>
+        </View>
       </View>
     </Modal>
   );
@@ -44,7 +46,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    height: '10%',
+    height: 70,
     paddingLeft: 20,
     paddingRight: 20,
     backgroundColor: colors.primary,
@@ -57,5 +59,8 @@ const styles = StyleSheet.create({
     height: '90%',
     marginTop: '10%',
     alignItems: 'center',
+  },
+  container: {
+    margin: 30,
   },
 });

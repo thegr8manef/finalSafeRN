@@ -230,17 +230,17 @@ const styles = StyleSheet.create({
     borderColor: colors.primary,
   },
   radioButton1: {
-    backgroundColor: '#47ce3d',
+    backgroundColor: colors.green300,
     width: '87%',
     fontSize: 17,
   },
   radioButton2: {
-    backgroundColor: '#ce983d',
+    backgroundColor: colors.yellow900,
     width: '87%',
     fontSize: 17,
   },
   radioButton3: {
-    backgroundColor: '#ce3d3d',
+    backgroundColor: colors.pink,
     width: '87%',
     fontSize: 17,
   },

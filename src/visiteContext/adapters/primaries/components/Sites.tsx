@@ -3,10 +3,14 @@ import React, {useState} from 'react';
 import colors from '../../../../assets/colors';
 import {useTranslation} from 'react-i18next';
 import {SiteWithCode} from './SiteWithCode';
+import {SiteWithName} from './SiteWithName';
 
 export const Sites = () => {
   const {t} = useTranslation();
   const [withCodeVisibilty, setWithCodeVisibilty] = useState(false);
+  const [withNameVisibilty, setWithNameVisibilty] = useState(false);
+
+  const [code, setCode] = useState(0);
 
   return (
     <View style={styles.container}>
@@ -23,7 +27,11 @@ export const Sites = () => {
           <Text style={styles.label}>{t('code_chantier_btn')}</Text>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.touchableContainer}>
+      <TouchableOpacity
+        style={styles.touchableContainer}
+        onPress={() => {
+          setWithNameVisibilty(true);
+        }}>
         <View style={styles.siteContainer}>
           <Image
             source={require('../../../../assets/img/icon_chantier.png')}
@@ -45,6 +53,10 @@ export const Sites = () => {
       <SiteWithCode
         modalVisible={withCodeVisibilty}
         setWithCodeVisibilty={setWithCodeVisibilty}
+      />
+      <SiteWithName
+        modalVisible={withNameVisibilty}
+        setWithNameVisibilty={setWithNameVisibilty}
       />
     </View>
   );
