@@ -34,6 +34,7 @@ interface Props {
   errorVisits: string | undefined;
   flash: Flash | undefined;
   SaveFlash: (data: Flash) => void;
+  navigationDrawer: any;
 }
 export const VisitFlashContainer = (props: Props) => {
   const [mount, setMount] = useState(false);
@@ -103,7 +104,10 @@ export const VisitFlashContainer = (props: Props) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <HeaderVisite children={t('txt_visit_flash')} />
+      <HeaderVisite
+        children={t('txt_visit_flash')}
+        navigation={props.navigation}
+      />
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
         <View style={styles.ContainerChantier}>
           <Sites></Sites>

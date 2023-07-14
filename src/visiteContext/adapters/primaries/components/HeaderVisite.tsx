@@ -1,20 +1,30 @@
-import {View, Text, StyleSheet, Image, SafeAreaView} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  SafeAreaView,
+  TouchableOpacity,
+} from 'react-native';
 import colors from '../../../../assets/colors';
 import React from 'react';
 import {t} from 'i18next';
 
 interface Props {
   children: string;
+  navigation: any;
 }
 export const HeaderVisite = (props: Props) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.rectangle}>
         <View style={{height: 70}}>
-          <Image
-            source={require('../../../../assets/img/sidenav.png')}
-            style={styles.logoImage1}
-          />
+          <TouchableOpacity onPress={() => props.navigation.openDrawer()}>
+            <Image
+              source={require('../../../../assets/img/sidenav.png')}
+              style={styles.logoImage1}
+            />
+          </TouchableOpacity>
         </View>
         <View style={{flex: 1.5}}>
           <Text style={styles.textCentre}>{props.children}</Text>
