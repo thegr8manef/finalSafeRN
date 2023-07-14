@@ -11,7 +11,7 @@ import {
   ScrollView,
   FlatList,
   Dimensions,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native';
 import colors from '../../../../../assets/colors';
 import {Flash} from '../../../../domain/entity/Flash';
@@ -26,19 +26,18 @@ import {OPOFF} from '../../components/ObservationPositiveOFF';
 import {ONON} from '../../components/ObservationNegativeON';
 import {ONOFF} from '../../components/ObservationNegativeOFF';
 import ImageController from '../../components/ImageController';
-
-
+import {Sites} from '../../components/Sites';
 
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
   loadingVisits: boolean;
   errorVisits: string | undefined;
   flash: Flash | undefined;
-  SaveFlash: (data : Flash) => void;
+  SaveFlash: (data: Flash) => void;
 }
 export const VisitFlashContainer = (props: Props) => {
   const [mount, setMount] = useState(false);
-  const [commentaires,setcommentaires] = useState('');
+  const [commentaires, setcommentaires] = useState('');
   const [levelId, setLevelId] = useState(0);
   const [btnPositive, setbtnPositive] = useState(false);
   const [btnNegative, setbtnNegative] = useState(false);
@@ -47,10 +46,9 @@ export const VisitFlashContainer = (props: Props) => {
     props.loadingVisits;
   }
   const SaveData = () => {
-    const flash = new Flash(
-   commentaires, images, levelId)
-    props.SaveFlash(flash)
-  }
+    const flash = new Flash(commentaires, images, levelId);
+    props.SaveFlash(flash);
+  };
   const [images, setimages] = useState([]);
 
   const {t} = useTranslation();
@@ -108,6 +106,7 @@ export const VisitFlashContainer = (props: Props) => {
       <HeaderVisite children={t('txt_visit_flash')} />
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
         <View style={styles.ContainerChantier}>
+          <Sites></Sites>
         </View>
 
         <View style={styles.ContainerObservation}>
@@ -140,7 +139,10 @@ export const VisitFlashContainer = (props: Props) => {
 
         <View style={styles.CommentairesContainer}>
           <Text>{t('txt.commentaires')}</Text>
-          <CommentModal commentaires={commentaires} setcommentaires={setcommentaires}/>
+          <CommentModal
+            commentaires={commentaires}
+            setcommentaires={setcommentaires}
+          />
         </View>
         <View style={styles.ImageContainer}>
           {Object.keys(images).length === 0 || images === null ? (
@@ -150,27 +152,31 @@ export const VisitFlashContainer = (props: Props) => {
           ) : (
             // <Image source={{uri: filePath.uri}} style={styles.imageStyle} />
             <FlatList
-            horizontal={true} 
-            showsHorizontalScrollIndicator={false} 
-            data={images}
-            renderItem={ ({ item, index }) => (
-              <Image source={{uri:item}} /* Use item to set the image source */
-                key={index} /* Important to set a key for list items,
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              data={images}
+              renderItem={({item, index}) => (
+                <Image
+                  source={{uri: item}} /* Use item to set the image source */
+                  key={index} /* Important to set a key for list items,
                                but it's wrong to use indexes as keys, see below */
-                style={styles.imageStyle}
-              />
-            )}
-          />
-)}
+                  style={styles.imageStyle}
+                />
+              )}
+            />
+          )}
         </View>
         <View style={styles.BottomNav}>
           <View style={styles.DividerTwoImageBottomNav}>
             <ImageController images={images} setimages={setimages} />
             <View style={styles.dividerBottomNav} />
             <View style={styles.dividerBottomNav}>
-              <Pressable android_ripple={{color: colors.gris300}}
-              onPress={() => SaveData()}>
-                <Text style={styles.buttonBottomnav}>{t('txt.sauvegarder.remarque')}</Text>
+              <Pressable
+                android_ripple={{color: colors.gris300}}
+                onPress={() => SaveData()}>
+                <Text style={styles.buttonBottomnav}>
+                  {t('txt.sauvegarder.remarque')}
+                </Text>
               </Pressable>
             </View>
           </View>
@@ -183,6 +189,7 @@ export const VisitFlashContainer = (props: Props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.white,
   },
   logoImage3: {
     width: 10,
@@ -298,7 +305,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 25,
   },
   ContainerChantier: {
-    height: 150,
+    height: 100,
+    margin: 30,
     backgroundColor: 'white',
   },
   item: {
@@ -306,7 +314,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginVertical: 4,
     marginHorizontal: 8,
-    height: 50
+    height: 50,
   },
   title: {
     fontSize: 16,

@@ -113,37 +113,38 @@ const styles = StyleSheet.create({
   },
   containerVisites: {
     flex: 0.8,
-    backgroundColor: colors.gris,
+    backgroundColor: '#e9e9e9',
   },
   containerText: {
     backgroundColor: 'white',
-    height: '60%',
-    width: '35%',
-    borderRadius: 7,
+    height: '70%',
+    width: '30%',
+    borderRadius: 5,
     margin: 15,
+    justifyContent: 'center',
   },
   text: {
     textAlign: 'center',
-    marginTop: '7%',
-    fontWeight: 'bold',
+
     color: 'black',
-    fontSize: 12,
+    fontSize: 10,
   },
   containerChantier: {
     flex: 1,
+    backgroundColor: colors.white,
   },
   perimetre: {
     flexDirection: 'row',
-    height: '40%',
+    height: '50%',
   },
   statics: {
     flexDirection: 'row',
-    height: '40%',
+    height: '30%',
   },
   ImageInfo: {
     marginStart: 10,
-    flex: 0.2,
-    width: '100%',
+
+    width: '5%',
     height: '70%',
     resizeMode: 'stretch',
   },
