@@ -8,21 +8,30 @@ import {UserInfoActionTypes} from '../../../useCases/CheckUserConnected/actionTy
 import {checkUserConnected} from '../../../useCases/CheckUserConnected/actions';
 import {connect} from 'react-redux';
 import {SplashScreen} from './splash.container';
+import {LoadDataActionTypes} from '../../../../common/synchronisationContext/useCases/SynchronisationLoad/actionTypes';
+import {loadData} from '../../../../common/synchronisationContext/useCases/SynchronisationLoad/actions';
+import {loadingDataSelector} from '../../../../common/synchronisationContext/useCases/SynchronisationLoad/selectors';
+import {loadingSaveSelector} from '../../../../common/synchronisationContext/useCases/SynchronisationSave/selectors';
 
 interface StateToPropsType {
   userConncted: boolean;
+  loading: boolean;
 }
 
 interface DispatchToPropsType {
   checkUserConnected: (state: boolean) => void;
+  synchronisation: (accessToken: string) => void;
 }
 
 const mapStateToProps = (state: AppState): StateToPropsType => ({
   userConncted: checkUserConnectedSuccessSelector(state),
+  loading: loadingDataSelector(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => ({
   checkUserConnected: (): UserInfoActionTypes => dispatch(checkUserConnected()),
+  synchronisation: (accessToken: string): LoadDataActionTypes =>
+    dispatch(loadData(accessToken)),
 });
 
 export const SplashPage = connect(

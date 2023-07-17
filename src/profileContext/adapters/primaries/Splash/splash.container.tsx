@@ -1,4 +1,11 @@
-import {View, StyleSheet, SafeAreaView, StatusBar, Image} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  SafeAreaView,
+  StatusBar,
+  Image,
+  ActivityIndicator,
+} from 'react-native';
 import React, {useEffect, useRef, Component, useState} from 'react';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {StackParamList} from '../../../../navigation/configuration/navigation.types';
@@ -10,6 +17,8 @@ interface Props {
   userConncted: boolean;
   navigation: StackNavigationProp<StackParamList>;
   checkUserConnected: () => void;
+  synchronisation: (accessToken: string) => void;
+  loading: boolean;
 }
 
 export const SplashScreen: React.FC<Props> = (props: Props) => {
@@ -18,6 +27,8 @@ export const SplashScreen: React.FC<Props> = (props: Props) => {
     setMounted(true);
     setTimeout(() => {
       if (props.userConncted == true && props.userConncted != undefined) {
+        if (props.loading != false) {
+        }
         props.navigation.reset({
           index: 0,
           routes: [{name: 'Home'}],
@@ -34,6 +45,7 @@ export const SplashScreen: React.FC<Props> = (props: Props) => {
 
   if (!mounted) {
     props.checkUserConnected();
+    props.synchronisation(' ');
   }
 
   return (
@@ -51,6 +63,11 @@ export const SplashScreen: React.FC<Props> = (props: Props) => {
         <Image
           style={styles.squares_splash_img}
           source={require('../../../../assets/img/img_squares_splash.png')}
+        />
+        <ActivityIndicator
+          size="large"
+          color={colors.primary}
+          style={{display: props.loading ? 'flex' : 'none'}}
         />
         <Image
           style={styles.logo_eiffage}
