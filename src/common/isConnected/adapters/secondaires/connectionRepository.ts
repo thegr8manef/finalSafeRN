@@ -1,5 +1,5 @@
 import {Observable, from} from 'rxjs';
-import {ConnectionRepository} from '../../domain/geteway/ConnectionRepository';
+import {ConnectionRepository} from '../../domain/gateway/ConnectionRepository';
 import NetInfo from '@react-native-community/netinfo';
 
 export class connectionRepository implements ConnectionRepository {
@@ -16,8 +16,5 @@ export class connectionRepository implements ConnectionRepository {
       } catch (error) {}
     });
     return from(promisConnection);
-  }
-  setConnectionState(): Observable<void> {
-    throw new Error('Method not implemented.');
   }
 }

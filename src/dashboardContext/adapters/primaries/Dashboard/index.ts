@@ -15,9 +15,8 @@ import {
   loadLocalStatLoadingSelector,
   loadLocalStatSelector,
 } from '../../../useCases/LoadLocalStat/selectors';
-import {loadConnectionStateSelector} from '../../../../common/isConnected/useCase/listnerConnection/selector';
-import {LoadConnectionStateActionTypes} from '../../../../common/isConnected/useCase/listnerConnection/actionTypes';
-import {loadConnectionStat} from '../../../../common/isConnected/useCase/listnerConnection/actions';
+import {loadConnectionStateSelector} from '../../../../common/isConnected/useCase/loadConnectionState/selector';
+
 import {LoadLocalStatActionTypes} from '../../../useCases/LoadLocalStat/actionTypes';
 import {loadLocalStat} from '../../../useCases/LoadLocalStat/actions';
 
@@ -29,7 +28,6 @@ interface StateToPropsType {
 }
 interface DispatchToPropsType {
   loadStat: () => void;
-  loadConnectionState: () => void;
   loadLocalStat: () => void;
 }
 const mapStateToProps = (state: AppState): StateToPropsType => ({
@@ -41,8 +39,6 @@ const mapStateToProps = (state: AppState): StateToPropsType => ({
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => ({
   loadStat: (): StatActionTypes => dispatch(LoadStat()),
-  loadConnectionState: (): LoadConnectionStateActionTypes =>
-    dispatch(loadConnectionStat()),
   loadLocalStat: (): LoadLocalStatActionTypes => dispatch(loadLocalStat()),
 });
 

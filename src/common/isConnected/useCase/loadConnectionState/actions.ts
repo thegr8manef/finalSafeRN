@@ -5,9 +5,11 @@ import {
   LoadConnectionStateAction,
   LoadConnectionStateFailedAction,
   LoadConnectionStateSuccessAction,
+  SET_CONNECTION_STATE,
+  SetConnectionStateAction,
 } from './actionTypes';
 
-export const loadConnectionStat = (): LoadConnectionStateAction => ({
+export const loadConnectionState = (): LoadConnectionStateAction => ({
   type: LOAD_CONNECTION_STATE,
 });
 
@@ -23,4 +25,11 @@ export const loadConnectionStatFailed = (
 ): LoadConnectionStateFailedAction => ({
   type: LOAD_CONNECTION_STATE_FAILED,
   payload: error,
+});
+
+export const setConnectionState = (
+  connectionState: boolean,
+): SetConnectionStateAction => ({
+  type: SET_CONNECTION_STATE,
+  payload: connectionState,
 });

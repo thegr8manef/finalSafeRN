@@ -3,7 +3,7 @@ import {AppState} from '../../../../redux_configuration/appState';
 import {LOAD_CONNECTION_STATE} from './actionTypes';
 import {map, switchMap} from 'rxjs/operators';
 import {loadConnectionStatSuccess} from './actions';
-import {ConnectionRepository} from '../../domain/geteway/ConnectionRepository';
+import {ConnectionRepository} from '../../domain/gateway/ConnectionRepository';
 
 export const loadConnectionStatEpic: Epic = (
   action$,

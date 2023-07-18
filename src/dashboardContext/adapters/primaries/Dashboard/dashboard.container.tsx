@@ -22,7 +22,7 @@ interface Props {
   stat: Stat | undefined;
   user: User;
   loadStat: () => void;
-  loadConnectionState: () => void;
+
   loadLocalStat: () => void;
   navigation: any;
   connectionState: boolean | undefined;
@@ -31,9 +31,7 @@ interface Props {
 export const DashboardContainer = (props: Props) => {
   const [mount, setMount] = useState(false);
   const [checkConnection, setCheckConnection] = useState(false);
-  if (!mount) {
-    props.loadConnectionState();
-  }
+
   const checkConnectionState = () => {
     if (!checkConnection) {
       if (props.connectionState === true) {
@@ -51,7 +49,6 @@ export const DashboardContainer = (props: Props) => {
 
   useEffect(() => {
     checkConnectionState();
-    setMount(true);
   });
 
   return (
