@@ -25,27 +25,27 @@ export const SplashScreen: React.FC<Props> = (props: Props) => {
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
     setMounted(true);
-    setTimeout(() => {
-      if (props.userConncted == true && props.userConncted != undefined) {
-        if (props.loading != false) {
-        }
-        props.navigation.reset({
-          index: 0,
-          routes: [{name: 'Home'}],
-        });
-      }
-      if (props.userConncted == false && props.userConncted != undefined) {
-        props.navigation.reset({
-          index: 0,
-          routes: [{name: 'Login'}],
-        });
-      }
-    }, 3000);
+    // setTimeout(() => {
+    //   if (props.userConncted == true && props.userConncted != undefined) {
+    //     props.synchronisation(' ');
+    //     if (props.loading == true) {
+    //       props.navigation.reset({
+    //         index: 0,
+    //         routes: [{name: 'Home'}],
+    //       });
+    //     }
+    //   }
+    //   if (props.userConncted == false && props.userConncted != undefined) {
+    //     props.navigation.reset({
+    //       index: 0,
+    //       routes: [{name: 'Login'}],
+    //     });
+    //   }
+    // }, 3000);
   });
 
   if (!mounted) {
     props.checkUserConnected();
-    props.synchronisation(' ');
   }
 
   return (
@@ -57,6 +57,13 @@ export const SplashScreen: React.FC<Props> = (props: Props) => {
           style={styles.logo_splash}
           source={require('../../../../assets/img/logo_splash.png')}
         />
+        <View>
+          <ActivityIndicator
+            size="large"
+            color={colors.primary}
+            style={{display: props.loading ? 'none' : 'flex'}}
+          />
+        </View>
       </View>
 
       <View style={styles.container_squares_splash_img}>
@@ -64,11 +71,7 @@ export const SplashScreen: React.FC<Props> = (props: Props) => {
           style={styles.squares_splash_img}
           source={require('../../../../assets/img/img_squares_splash.png')}
         />
-        <ActivityIndicator
-          size="large"
-          color={colors.primary}
-          style={{display: props.loading ? 'flex' : 'none'}}
-        />
+
         <Image
           style={styles.logo_eiffage}
           source={require('../../../../assets/img/logo_eiffage.png')}
