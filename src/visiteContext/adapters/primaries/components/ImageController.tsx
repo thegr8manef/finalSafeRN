@@ -12,7 +12,6 @@ interface Props {
   
 
 export const ImageController = (props: Props) => {
-    const [filePath, setFilePath] = useState({});
     const addItem = (newItem : string) => {
         if(props.images.length === null){
           props.setimages([newItem]);
