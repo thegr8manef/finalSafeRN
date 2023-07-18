@@ -16,7 +16,6 @@ export const reducerLoadConnectionState = (
   state = initialState,
   action: LoadConnectionStateActionTypes,
 ): LoadConnectionState => {
-  console.log(action.type);
   switch (action.type) {
     case LOAD_CONNECTION_STATE:
       return {loading: true, error: undefined, state: undefined};
