@@ -4,10 +4,12 @@ import {AppState} from './appState';
 import {combineReducers} from 'redux';
 import {reducerVisits} from '../visiteContext/configuration/rootReducer';
 import {reducerSynchronisation} from '../common/synchronisationContext/configuration/rootReducer';
+import {reducerConnection} from '../common/isConnected/configuration/rootReducer';
 
 export const reduxReducer = combineReducers<AppState>({
   profile: reducerProfile,
   visits: reducerVisits,
   dashboard: reducerDashboard,
   synchronisation: reducerSynchronisation,
+  connection: reducerConnection,
 });

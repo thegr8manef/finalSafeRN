@@ -22,19 +22,29 @@ interface Props {
   stat: Stat | undefined;
   user: User;
   loadStat: () => void;
+
+  loadLocalStat: () => void;
   navigation: any;
+  connectionStatus: boolean;
 }
 
 export const DashboardContainer = (props: Props) => {
   const [mount, setMount] = useState(false);
-  if (!mount) {
-    props.loadStat();
-  }
   const {t} = useTranslation();
+
+  if (!mount) {
+    if (props.connectionStatus === true) {
+      props.loadStat();
+    }
+    if (props.connectionStatus === false) {
+      props.loadLocalStat();
+    }
+  }
 
   useEffect(() => {
     setMount(true);
   });
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.header_container}>
@@ -85,16 +95,10 @@ export const DashboardContainer = (props: Props) => {
               textHint3={t('txt.hierarchique')}
               textHint4={t('txt.flash')}
               textLabels={t('txt.type.visits')}
-              valeurPrevention={(props.stat?.barProgressVisit1 * 0.01).toFixed(
-                2,
-              )}
-              valeurConformite={(props.stat?.barProgressVisit2 * 0.01).toFixed(
-                2,
-              )}
-              valeurHierarchique={(
-                props.stat?.barProgressVisit3 * 0.01
-              ).toFixed(2)}
-              valeurFlash={(props.stat?.barProgressVisit4 * 0.01).toFixed(2)}
+              valeurPrevention={props.stat?.barProgressVisit1 * 0.01}
+              valeurConformite={props.stat?.barProgressVisit2 * 0.01}
+              valeurHierarchique={props.stat?.barProgressVisit3 * 0.01}
+              valeurFlash={props.stat?.barProgressVisit4 * 0.01}
             />
             <CardPieChart
               textLabels={t('txt.conform.positive.not.conform.negative')}
@@ -126,10 +130,10 @@ export const DashboardContainer = (props: Props) => {
               textHint2={'2-' + t('txt.risks')}
               textHint3={'3-CHUTE DE HAUTEUR'}
               textHint4={t('txt.others')}
-              valueHint1={(props.stat?.barProgressRisque1 * 0.01).toFixed(2)}
-              valueHint2={(props.stat?.barProgressRisque2 * 0.01).toFixed(2)}
-              valueHint3={(props.stat?.barProgressRisque3 * 0.01).toFixed(2)}
-              valueHint4={(props.stat?.barProgressRisque4 * 0.01).toFixed(2)}
+              valueHint1={props.stat?.barProgressRisque1 * 0.01}
+              valueHint2={props.stat?.barProgressRisque2 * 0.01}
+              valueHint3={props.stat?.barProgressRisque3 * 0.01}
+              valueHint4={props.stat?.barProgressRisque4 * 0.01}
             />
           </View>
         </ScrollView>
@@ -146,9 +150,8 @@ export const DashboardContainer = (props: Props) => {
 
 const styles = StyleSheet.create({
   header_container: {
-    flex: 0.4,
     flexDirection: 'row-reverse',
-    height: 1,
+    height: '27%',
   },
   button_container: {
     backgroundColor: colors.primary,

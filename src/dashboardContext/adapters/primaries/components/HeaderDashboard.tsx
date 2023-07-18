@@ -73,7 +73,7 @@ export const HeaderDashboard = (props: Props) => {
             source={require('../../../../assets/img/icn_info.png')}
             style={styles.ImageInfo}
           />
-          <Text style={styles.textStat}>
+          <Text style={[styles.textStat, {fontSize: 12}]}>
             {t('txt.dashboard.message')} {props.dateDebut} {t('au')}
             {props.dateFinale}
           </Text>
@@ -85,7 +85,7 @@ export const HeaderDashboard = (props: Props) => {
 
 const styles = StyleSheet.create({
   rectangle: {
-    flex: 0.7,
+    height: '30%',
     backgroundColor: colors.primary,
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -98,15 +98,17 @@ const styles = StyleSheet.create({
   },
   logoImage: {
     margin: '15%',
-    width: '40%',
-    height: '60%',
+    top: 2,
+    width: '45%',
+    height: '50%',
     resizeMode: 'stretch',
     tintColor: colors.black,
   },
   logoImage1: {
-    margin: '15%',
-    width: '20%',
-    height: '40%',
+    width: '25%',
+    marginTop: '17%',
+    marginLeft: '20%',
+    height: '55%',
     resizeMode: 'stretch',
   },
   containerVisites: {
@@ -117,7 +119,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     height: '60%',
     width: '35%',
-    borderRadius: 10,
+    borderRadius: 7,
     margin: 15,
   },
   text: {
@@ -128,21 +130,21 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   containerChantier: {
-    flex: 1.1,
+    flex: 1,
   },
   perimetre: {
     flexDirection: 'row',
-    flex: 3,
+    height: '40%',
   },
   statics: {
     flexDirection: 'row',
-    flex: 1.5,
+    height: '40%',
   },
   ImageInfo: {
     marginStart: 10,
     flex: 0.2,
-    width: '90%',
-    height: '90%',
+    width: '100%',
+    height: '70%',
     resizeMode: 'stretch',
   },
   textStat: {

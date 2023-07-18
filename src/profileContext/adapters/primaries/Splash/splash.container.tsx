@@ -25,23 +25,23 @@ export const SplashScreen: React.FC<Props> = (props: Props) => {
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
     setMounted(true);
-    // setTimeout(() => {
-    //   if (props.userConncted == true && props.userConncted != undefined) {
-    //     props.synchronisation(' ');
-    //     if (props.loading == true) {
-    //       props.navigation.reset({
-    //         index: 0,
-    //         routes: [{name: 'Home'}],
-    //       });
-    //     }
-    //   }
-    //   if (props.userConncted == false && props.userConncted != undefined) {
-    //     props.navigation.reset({
-    //       index: 0,
-    //       routes: [{name: 'Login'}],
-    //     });
-    //   }
-    // }, 3000);
+    setTimeout(() => {
+      if (props.userConncted == true && props.userConncted != undefined) {
+        props.synchronisation(' ');
+        if (props.loading == true) {
+          props.navigation.reset({
+            index: 0,
+            routes: [{name: 'Home'}],
+          });
+        }
+      }
+      if (props.userConncted == false && props.userConncted != undefined) {
+        props.navigation.reset({
+          index: 0,
+          routes: [{name: 'Login'}],
+        });
+      }
+    }, 3000);
   });
 
   if (!mounted) {
