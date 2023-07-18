@@ -5,7 +5,7 @@ import {map, switchMap} from 'rxjs/operators';
 import {loadConnectionStatusSuccess} from './actions';
 import {ConnectionRepository} from '../../domain/gateway/ConnectionRepository';
 
-export const loadConnectionStatEpic: Epic = (
+export const loadConnectionStatusEpic: Epic = (
   action$,
   store: StateObservable<AppState>,
   {connectionRepository}: {connectionRepository: ConnectionRepository},
