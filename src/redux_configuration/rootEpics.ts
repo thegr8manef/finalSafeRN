@@ -5,11 +5,14 @@ import {combineEpics, createEpicMiddleware} from 'redux-observable';
 import {dashboardRootEpics} from '../dashboardContext/configuration/rootEpic';
 import {visitsEpicsDependecies} from '../visiteContext/configuration/depnedencies.redux';
 import {visitsRootEpics} from '../visiteContext/configuration/rootEpic';
+import {connectionRootEpics} from '../common/isConnected/configuration/rootEpic';
+import {connectionEpicsDependencies} from '../common/isConnected/configuration/depnedencies.redux';
 
 export const rootEpics = combineEpics(
   profileRootEpics,
   dashboardRootEpics,
   visitsRootEpics,
+  connectionRootEpics,
 );
 
 export const epicsMiddleware = createEpicMiddleware({
@@ -17,5 +20,6 @@ export const epicsMiddleware = createEpicMiddleware({
     ...profileEpicsDependecies,
     ...visitsEpicsDependecies,
     ...dashboardEpicsDependecies,
+    ...connectionEpicsDependencies,
   },
 });

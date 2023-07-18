@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     flex: 1,
     margin: 10,
     overflow: 'hidden',
-    height: 140,
+    height: '90%',
     backgroundColor: 'white',
   },
   Container: {
