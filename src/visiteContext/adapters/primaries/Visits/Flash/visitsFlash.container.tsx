@@ -25,7 +25,7 @@ import {OPON} from '../../components/ObservationPositiveON';
 import {OPOFF} from '../../components/ObservationPositiveOFF';
 import {ONON} from '../../components/ObservationNegativeON';
 import {ONOFF} from '../../components/ObservationNegativeOFF';
-import ImageController from '../../components/ImageController';
+import {ImageController} from '../../components/ImageController';
 
 
 

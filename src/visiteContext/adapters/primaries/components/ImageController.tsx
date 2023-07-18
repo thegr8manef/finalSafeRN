@@ -12,12 +12,9 @@ interface Props {
   
 
 export const ImageController = (props: Props) => {
-    const [filePath, setFilePath] = useState({});
-    const addItem = () => {
-        const newItem = filePath.uri;
-        if(props.images.length === 0){
+    const addItem = (newItem : string) => {
+        if(props.images.length === null){
           props.setimages([newItem]);
-    
         }else{
           props.setimages([...  props.images, newItem]);
         }
@@ -98,12 +95,7 @@ export const ImageController = (props: Props) => {
               alert(response.errorMessage);
               return;
             }
-            const timeout = setTimeout(() => {
-              addItem();
-              setFilePath(response.assets[0]);
-    
-            }, 500);
-            return () => clearTimeout(timeout);
+            addItem(response.assets[0].uri);
           });
         }
       };
@@ -129,12 +121,7 @@ export const ImageController = (props: Props) => {
             alert(response.errorMessage);
             return;
           }
-          const timeout = setTimeout(() => {
-            addItem();
-            setFilePath(response.assets[0]);
-          }, 500);
-      
-          return () => clearTimeout(timeout);
+          addItem(response.assets[0].uri);
         });
       };
     return (
