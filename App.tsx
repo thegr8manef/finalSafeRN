@@ -8,9 +8,9 @@ import RootNavigation from './src/navigation/configuration/rootNavigation';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import colors from './src/assets/colors';
 import {
-  loadConnectionState,
-  setConnectionState,
-} from './src/common/isConnected/useCase/loadConnectionState/actions';
+  loadConnectionStatus,
+  setConnectionStatus,
+} from './src/common/isConnected/useCase/loadConnectionStatus/actions';
 import NetInfo from '@react-native-community/netinfo';
 
 const store = reduxStore();
@@ -19,12 +19,12 @@ export default function App() {
   const [mount, setMount] = useState(false);
 
   if (!mount) {
-    store.dispatch(loadConnectionState());
+    store.dispatch(loadConnectionStatus());
   }
 
   useEffect(() => {
     NetInfo.addEventListener(state => {
-      store.dispatch(setConnectionState(state.isConnected!!));
+      store.dispatch(setConnectionStatus(state.isConnected!!));
     });
     setMount(true);
   });

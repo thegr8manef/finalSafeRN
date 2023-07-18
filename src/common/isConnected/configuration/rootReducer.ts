@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux';
-import {ConnectionState} from './state';
-import {reducerLoadConnectionState} from '../useCase/loadConnectionState/reducer';
+import {ConnectionStatus} from './state';
+import {reducerLoadConnectionStatus} from '../useCase/loadConnectionStatus/reducer';
 
-export const reducerConnection = combineReducers<ConnectionState>({
-  loadConnectionState: reducerLoadConnectionState,
+export const reducerConnection = combineReducers<ConnectionStatus>({
+  loadConnectionStatus: reducerLoadConnectionStatus,
 });
