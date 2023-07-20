@@ -23,11 +23,16 @@ interface Props {
 
 export const SplashScreen: React.FC<Props> = (props: Props) => {
   const [mounted, setMounted] = useState(false);
+  const [mountedSyn, setMountedSyn] = useState(false);
+
   useEffect(() => {
     setMounted(true);
     setTimeout(() => {
       if (props.userConncted == true && props.userConncted != undefined) {
-        props.synchronisation(' ');
+        if (!mountedSyn) {
+          props.synchronisation(' ');
+          setMountedSyn(true);
+        }
         if (props.loading == true) {
           props.navigation.reset({
             index: 0,

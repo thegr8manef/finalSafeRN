@@ -12,10 +12,12 @@ import {LoadDataActionTypes} from '../../../../common/synchronisationContext/use
 import {loadData} from '../../../../common/synchronisationContext/useCases/SynchronisationLoad/actions';
 import {loadingDataSelector} from '../../../../common/synchronisationContext/useCases/SynchronisationLoad/selectors';
 import {loadingSaveSelector} from '../../../../common/synchronisationContext/useCases/SynchronisationSave/selectors';
+import {loadConnectionStatusSelector} from '../../../../common/isConnected/useCase/loadConnectionStatus/selector';
 
 interface StateToPropsType {
   userConncted: boolean;
   loading: boolean;
+  connectionStatus: boolean | undefined;
 }
 
 interface DispatchToPropsType {
@@ -26,6 +28,7 @@ interface DispatchToPropsType {
 const mapStateToProps = (state: AppState): StateToPropsType => ({
   userConncted: checkUserConnectedSuccessSelector(state),
   loading: loadingDataSelector(state),
+  connectionStatus: loadConnectionStatusSelector(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => ({
