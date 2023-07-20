@@ -105,7 +105,7 @@ export const VisitFlashContainer = (props: Props) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header children={t('txt_visit_flash')} navigation={props.navigation} />
+      <Header title={t('txt_visit_flash')} navigation={props.navigation} />
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
         <View style={styles.ContainerChantier}>
           <Sites></Sites>

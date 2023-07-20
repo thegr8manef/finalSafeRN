@@ -48,7 +48,7 @@ export const DashboardContainer = (props: Props) => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <Header navigation={props.navigation} children={t('txt.dashboard')} />
+      <Header navigation={props.navigation} title={t('txt.dashboard')} />
       <View style={styles.header_container}>
         <HeaderDashboard
           navigation={props.navigation}

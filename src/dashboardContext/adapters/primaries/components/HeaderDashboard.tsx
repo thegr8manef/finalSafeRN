@@ -3,7 +3,6 @@ import colors from '../../../../assets/colors';
 import React from 'react';
 import {t} from 'i18next';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {Header} from '../../../../common/adapters/primaries/components/header';
 
 interface Props {
   children: string;

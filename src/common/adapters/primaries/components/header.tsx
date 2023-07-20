@@ -11,7 +11,7 @@ import React from 'react';
 import {t} from 'i18next';
 
 interface Props {
-  children: string;
+  title: string;
   navigation: any;
 }
 export const Header = (props: Props) => {
@@ -26,7 +26,7 @@ export const Header = (props: Props) => {
             source={require('../../../../assets/img/sidenav.png')}
           />
         </Pressable>
-        <Text style={styles.page_title}>{props.children}</Text>
+        <Text style={styles.page_title}>{props.title}</Text>
       </View>
       <View style={styles.header_icn_flash}>
         <Pressable style={styles.pressable_flash}>

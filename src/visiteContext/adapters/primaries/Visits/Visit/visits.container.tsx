@@ -19,7 +19,7 @@ export const VisitsContainer = (props: Props) => {
 
   return (
     <View style={styles.container}>
-      <Header children={t('txt.visites')} navigation={props.navigation} />
+      <Header title={t('txt.visites')} navigation={props.navigation} />
 
       <View style={styles.main}>
         <Text style={styles.txt_synchro}>{t('txt.aucune.synchro')}</Text>
