@@ -60,6 +60,7 @@ export const VisitFlashContainer = (props: Props) => {
       style: 'cancel',
     },
     {text: 'OUI', onPress: () => [props.SaveFlash(flash),console.log('oui'),props.navigation.goBack()]},
+    //props.navigation..jumpTo('visites');
   ]);
   const SaveData = () => {
 if(!btnNegative && !btnPositive){
