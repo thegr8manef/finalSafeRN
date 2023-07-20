@@ -15,6 +15,7 @@ import {Stat} from '../../../domain/entity/Stat';
 import {HeaderDashboard} from '../components/HeaderDashboard';
 import {User} from '../../../../profileContext/domain/entity/user';
 import {useTranslation} from 'react-i18next';
+import {Header} from '../../../../common/adapters/primaries/components/header';
 
 interface Props {
   loading: boolean;
@@ -56,6 +57,7 @@ export const DashboardContainer = (props: Props) => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
+      <Header navigation={props.navigation} children={t('txt.dashboard')} />
       <View style={styles.header_container}>
         <HeaderDashboard
           navigation={props.navigation}
@@ -160,7 +162,7 @@ export const DashboardContainer = (props: Props) => {
 const styles = StyleSheet.create({
   header_container: {
     flexDirection: 'row-reverse',
-    height: '27%',
+    height: '20%',
   },
   button_container: {
     backgroundColor: colors.primary,

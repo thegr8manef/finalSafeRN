@@ -27,6 +27,7 @@ import {ONON} from '../../components/ObservationNegativeON';
 import {ONOFF} from '../../components/ObservationNegativeOFF';
 import ImageController from '../../components/ImageController';
 import {Sites} from '../../components/Sites';
+import {Header} from '../../../../../common/adapters/primaries/components/header';
 
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
@@ -104,10 +105,7 @@ export const VisitFlashContainer = (props: Props) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <HeaderVisite
-        children={t('txt_visit_flash')}
-        navigation={props.navigation}
-      />
+      <Header children={t('txt_visit_flash')} navigation={props.navigation} />
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
         <View style={styles.ContainerChantier}>
           <Sites></Sites>
