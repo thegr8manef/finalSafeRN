@@ -25,9 +25,9 @@ import {OPON} from '../../components/ObservationPositiveON';
 import {OPOFF} from '../../components/ObservationPositiveOFF';
 import {ONON} from '../../components/ObservationNegativeON';
 import {ONOFF} from '../../components/ObservationNegativeOFF';
-import ImageController from '../../components/ImageController';
 import {Sites} from '../../components/Sites';
 import {Header} from '../../../../../common/adapters/primaries/components/header';
+import {ImageController} from '../../components/ImageController';
 
 interface Props {
   navigation: StackNavigationProp<StackParamList>;

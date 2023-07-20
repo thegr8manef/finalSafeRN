@@ -1,14 +1,9 @@
-export interface ConnectionState {
-  loadConnectionState: LoadConnectionState;
-  setConnectionState: SetConnectionState;
+export interface ConnectionStatus {
+  loadConnectionStatus: LoadConnectionStatus;
 }
 
-export interface LoadConnectionState {
+export interface LoadConnectionStatus {
   loading: boolean;
   error: string | undefined;
-  state: boolean | undefined;
-}
-
-export interface SetConnectionState {
-  state: boolean | undefined;
+  status: boolean | undefined;
 }

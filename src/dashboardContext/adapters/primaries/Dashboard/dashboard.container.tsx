@@ -23,35 +23,26 @@ interface Props {
   stat: Stat | undefined;
   user: User;
   loadStat: () => void;
-  loadConnectionState: () => void;
+
   loadLocalStat: () => void;
   navigation: any;
-  connectionState: boolean | undefined;
+  connectionStatus: boolean;
 }
 
 export const DashboardContainer = (props: Props) => {
   const [mount, setMount] = useState(false);
-  const [checkConnection, setCheckConnection] = useState(false);
-  if (!mount) {
-    props.loadConnectionState();
-  }
-  const checkConnectionState = () => {
-    if (!checkConnection) {
-      if (props.connectionState === true) {
-        props.loadStat();
-        setCheckConnection(true);
-      }
-      if (props.connectionState === false) {
-        props.loadLocalStat();
-        setCheckConnection(true);
-      }
-    }
-  };
-
   const {t} = useTranslation();
 
+  if (!mount) {
+    if (props.connectionStatus === true) {
+      props.loadStat();
+    }
+    if (props.connectionStatus === false) {
+      props.loadLocalStat();
+    }
+  }
+
   useEffect(() => {
-    checkConnectionState();
     setMount(true);
   });
 

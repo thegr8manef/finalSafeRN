@@ -1,9 +1,7 @@
 import {combineReducers} from 'redux';
-import {ConnectionState} from './state';
-import {reducerLoadConnectionState} from '../useCase/listnerConnection/reducer';
-import {reducerSetConnectionState} from '../useCase/setConnection/reducer';
+import {ConnectionStatus} from './state';
+import {reducerLoadConnectionStatus} from '../useCase/loadConnectionStatus/reducer';
 
-export const reducerConnection = combineReducers<ConnectionState>({
-  loadConnectionState: reducerLoadConnectionState,
-  setConnectionState: reducerSetConnectionState,
+export const reducerConnection = combineReducers<ConnectionStatus>({
+  loadConnectionStatus: reducerLoadConnectionStatus,
 });

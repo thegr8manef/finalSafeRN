@@ -35,8 +35,10 @@ export const CommentModal = (props: Props) => {
           <View style={styles.modalView}>
             <HeaderModal
               children={t('txt.commentaires.without.start')}
-              onPressCustomizePositive={() => {setModalVisible(!modalVisible);
-              setEmpty(false)}}
+              onPressCustomizePositive={() => { props.commentaires.length !== 0 ? ([setModalVisible(!modalVisible),
+                setEmpty(false)]):(
+                  alert(t('error.point.empty'))
+                )}}
               onPressCustomizeNegative={() => {
                 setModalVisible(!modalVisible);
                 setEmpty(true);
@@ -61,7 +63,7 @@ export const CommentModal = (props: Props) => {
           { !empty ? (
         <Text style={{marginBottom: '-4%', marginLeft: '5%', fontSize: 17}}>{props.commentaires}</Text>
           ) :(
-            <Text style={{marginBottom: '-4%', marginLeft: '5%', fontSize: 17}}>{null}</Text>
+            <Text style={{marginBottom: '-4%', marginLeft: '5%', fontSize: 17}}>{[null]}</Text>
           )
           }
         <Image
