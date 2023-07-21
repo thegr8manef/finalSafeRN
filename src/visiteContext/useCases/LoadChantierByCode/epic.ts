@@ -21,7 +21,7 @@ export const LoadChantierEpic: Epic = (
     switchMap(action =>
       visitsService.LoadChantierByCode(action.payload).pipe(
         map((chantier: Chantier) => {
-          return LoadChantierByCodeSuccess(action.payload);
+          return LoadChantierByCodeSuccess(chantier);
         }),
         catchError(error => of(LoadChantierByCodeFailed(error))),
       ),

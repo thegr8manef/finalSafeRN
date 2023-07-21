@@ -1,25 +1,24 @@
 import {Flash} from './Flash';
 
 export class Chantier {
+  //pid tjrs 223
   get pid(): string {
     return this._pid;
   }
+  //piid tjrs 219
   get piid(): string {
     return this._piid;
   }
-
+  //osc tjrs true
   get osc(): string {
     return this._osc;
   }
 
-  get ol_name(): string {
+  get region_name(): string {
     return this._ol_name;
   }
-  get org(): string {
-    return this._org;
-  }
 
-  get ref(): string {
+  get refference(): string {
     return this._ref;
   }
 
@@ -27,7 +26,7 @@ export class Chantier {
     return this._remarques;
   }
 
-  get lu(): number {
+  get last_update(): number {
     return this._lu;
   }
 
@@ -35,31 +34,19 @@ export class Chantier {
     return this._st;
   }
 
-  get cd(): string {
-    return this._cd;
-  }
-
-  get sr(): number {
-    return this._sr;
-  }
-
-  get vl(): string {
+  get ville(): string {
     return this._vl;
   }
 
-  get py(): string {
+  get pays(): string {
     return this._py;
   }
 
-  get co(): string {
-    return this._co;
-  }
-
-  get cp(): string {
+  get code_postal(): string {
     return this._cp;
   }
 
-  get ac(): boolean {
+  get accepted(): boolean {
     return this._ac;
   }
 
@@ -67,11 +54,11 @@ export class Chantier {
     return this._type;
   }
 
-  get ad(): string {
+  get addresse(): string {
     return this._ad;
   }
 
-  get no(): string {
+  get nom_chantier(): string {
     return this._no;
   }
 
@@ -85,16 +72,12 @@ export class Chantier {
     private _type?: number,
     private _ac?: boolean,
     private _cp?: string,
-    private _co?: string,
     private _py?: string,
     private _vl?: string,
-    private _sr?: number,
-    private _cd?: string,
     private _st?: number,
     private _lu?: number,
     private _remarques?: Flash[],
     private _ref?: string,
-    private _org?: string,
     private _ol_name?: string,
     private _osc?: string,
     private _pid?: string,
