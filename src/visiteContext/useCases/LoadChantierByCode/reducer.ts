@@ -8,9 +8,9 @@ import {
 
 let initialState: LoadchantierByCodeState;
 initialState = {
-  errorLoadingChantier: undefined,
-  LoadingChantierSuccess: false,
-  LoadingChantier: null,
+  errorLoadingChantierByCode: undefined,
+  LoadingChantierByCodeSuccess: null,
+  LoadingChantierByCode: false,
 };
 
 export const reducerLoadChantier = (
@@ -20,23 +20,23 @@ export const reducerLoadChantier = (
   switch (action.type) {
     case LOAD_CHANTIER_BY_CODE:
       return {
-        errorLoadingChantier: undefined,
-        LoadingChantierSuccess: true,
-        LoadingChantier: action.payload,
+        errorLoadingChantierByCode: undefined,
+        LoadingChantierByCodeSuccess: null,
+        LoadingChantierByCode: true,
       };
 
     case LOAD_CHANTIER_BY_CODE_SUCCESS:
       return {
-        errorLoadingChantier: undefined,
-        LoadingChantierSuccess: action.payload,
-        LoadingChantier: action.payload,
+        errorLoadingChantierByCode: undefined,
+        LoadingChantierByCodeSuccess: action.payload,
+        LoadingChantierByCode: true,
       };
 
     case LOAD_CHANTIER_BY_CODE_FAILED:
       return {
-        errorLoadingChantier: action.payload,
-        LoadingChantierSuccess: false,
-        LoadingChantier: null,
+        errorLoadingChantierByCode: action.payload,
+        LoadingChantierByCodeSuccess: null,
+        LoadingChantierByCode: false,
       };
     default:
       return state;

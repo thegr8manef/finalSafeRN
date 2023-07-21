@@ -1,26 +1,26 @@
 import {Chantier} from '../../domain/entity/Chantier';
 import {
-  LoadChantierActionFailed,
-  LoadChantierActionSuccess,
+  LoadChantierByCodeActionFailed,
+  LoadChantierByCodeActionSuccess,
   LOAD_CHANTIER_BY_CODE,
   LOAD_CHANTIER_BY_CODE_FAILED,
   LOAD_CHANTIER_BY_CODE_SUCCESS,
-  LoadChantierAction,
+  LoadChantierByCodeAction,
 } from './actionTypes';
 
-export const LoadChantier = (chantier: Chantier): LoadChantierAction => ({
+export const LoadChantierByCode = (code: string): LoadChantierByCodeAction => ({
   type: LOAD_CHANTIER_BY_CODE,
-  payload: chantier,
+  payload: code,
 });
-export const LoadChantierFailed = (
+export const LoadChantierByCodeFailed = (
   error: string,
-): LoadChantierActionFailed => ({
+): LoadChantierByCodeActionFailed => ({
   type: LOAD_CHANTIER_BY_CODE_FAILED,
   payload: error,
 });
-export const LoadChantierSuccess = (
-  chantier: boolean,
-): LoadChantierActionSuccess => ({
+export const LoadChantierByCodeSuccess = (
+  chantier: Chantier,
+): LoadChantierByCodeActionSuccess => ({
   type: LOAD_CHANTIER_BY_CODE_SUCCESS,
   payload: chantier,
 });

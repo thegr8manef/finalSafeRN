@@ -5,22 +5,22 @@ export const LOAD_CHANTIER_BY_CODE = 'LOAD_CHANTIER_BY_CODE';
 export const LOAD_CHANTIER_BY_CODE_SUCCESS = 'LOAD_CHANTIER_BY_CODE_SUCCESS';
 export const LOAD_CHANTIER_BY_CODE_FAILED = 'LOAD_CHANTIER_BY_CODE_FAILED';
 
-export interface LoadChantierAction {
+export interface LoadChantierByCodeAction {
   type: typeof LOAD_CHANTIER_BY_CODE;
-  payload: Chantier;
+  payload: string;
 }
 
-export interface LoadChantierActionFailed {
+export interface LoadChantierByCodeActionFailed {
   type: typeof LOAD_CHANTIER_BY_CODE_FAILED;
   payload: string;
 }
 
-export interface LoadChantierActionSuccess {
+export interface LoadChantierByCodeActionSuccess {
   type: typeof LOAD_CHANTIER_BY_CODE_SUCCESS;
-  payload: boolean;
+  payload: Chantier;
 }
 
 export type LoadChantierActionTypes =
-  | LoadChantierAction
-  | LoadChantierActionSuccess
-  | LoadChantierActionFailed;
+  | LoadChantierByCodeAction
+  | LoadChantierByCodeActionSuccess
+  | LoadChantierByCodeActionFailed;

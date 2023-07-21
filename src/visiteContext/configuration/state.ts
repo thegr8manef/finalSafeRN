@@ -10,7 +10,7 @@ export interface FlashState {
   flash: Flash | undefined;
 }
 export interface LoadchantierByCodeState {
-  errorLoadingChantier: string | undefined;
-  LoadingChantierSuccess: boolean;
-  LoadingChantier: Chantier | null;
+  errorLoadingChantierByCode: string | undefined;
+  LoadingChantierByCodeSuccess: Chantier | null;
+  LoadingChantierByCode: boolean;
 }

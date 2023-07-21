@@ -3,8 +3,13 @@ import {AppState} from '../../../redux_configuration/appState';
 import {LOAD_CHANTIER_BY_CODE} from './actionTypes';
 import {catchError, map, switchMap} from 'rxjs/operators';
 import {of} from 'rxjs';
-import {LoadChantierFailed, LoadChantier, LoadChantierSuccess} from './action';
+import {
+  LoadChantierByCodeFailed,
+  LoadChantierByCode,
+  LoadChantierByCodeSuccess,
+} from './action';
 import {VisitsService} from '../../domain/gateway/visitsService';
+import {Chantier} from '../../domain/entity/Chantier';
 
 export const LoadChantierEpic: Epic = (
   action$,
@@ -14,11 +19,11 @@ export const LoadChantierEpic: Epic = (
   action$.pipe(
     ofType(LOAD_CHANTIER_BY_CODE),
     switchMap(action =>
-      visitsService.LoadChantier(action.payload).pipe(
-        map(() => {
-          return LoadChantierSuccess(action.payload);
+      visitsService.LoadChantierByCode(action.payload).pipe(
+        map((chantier: Chantier) => {
+          return LoadChantierByCodeSuccess(action.payload);
         }),
-        catchError(error => of(LoadChantierFailed(error))),
+        catchError(error => of(LoadChantierByCodeFailed(error))),
       ),
     ),
   );

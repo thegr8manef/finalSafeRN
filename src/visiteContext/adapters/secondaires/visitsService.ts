@@ -38,8 +38,8 @@ export class DbVisitsService implements VisitsService {
     return from(saveFlashtoDb);
   }
 
-  LoadChantier(chantier: Chantier): Observable<void> {
-    const LoadChantierInDb = new Promise<void>((resolve, reject) => {
+  LoadChantierByCode(code: string): Observable<Chantier> {
+    const LoadChantierInDb = new Promise<Chantier>((resolve, reject) => {
       //todo code here
     });
     return from(LoadChantierInDb);

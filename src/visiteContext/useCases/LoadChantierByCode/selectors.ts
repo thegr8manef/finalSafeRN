@@ -1,12 +1,13 @@
 import {AppState} from '../../../redux_configuration/appState';
 import {Chantier} from '../../domain/entity/Chantier';
 
-export const loadChantierErrorSelector = (
+export const loadChantierByCodeErrorSelector = (
   appState: AppState,
-): string | undefined => appState.loadChantier.errorLoadingChantier;
+): string | undefined => appState.loadChantier.errorLoadingChantierByCode;
 
-export const loadChantierSelector = (appState: AppState): Chantier | null =>
-  appState.loadChantier.LoadingChantier;
+export const loadingChantierByCodeSelector = (appState: AppState): boolean =>
+  appState.loadChantier.LoadingChantierByCode;
 
-export const loadChantierSuccessSelector = (appState: AppState): boolean =>
-  appState.loadChantier.LoadingChantierSuccess;
+export const loadChantierByCodeSuccessSelector = (
+  appState: AppState,
+): Chantier | null => appState.loadChantier.LoadingChantierByCodeSuccess;

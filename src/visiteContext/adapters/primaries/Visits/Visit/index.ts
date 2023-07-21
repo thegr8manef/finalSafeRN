@@ -3,31 +3,31 @@ import {Dispatch} from 'redux';
 import {connect} from 'react-redux';
 import {VisitsContainer} from './visits.container';
 import {
-  loadChantierErrorSelector,
-  loadChantierSelector,
-  loadChantierSuccessSelector,
+  loadChantierByCodeErrorSelector,
+  loadingChantierByCodeSelector,
+  loadChantierByCodeSuccessSelector,
 } from '../../../../useCases/LoadChantierByCode/selectors';
-import {LoadChantier} from '../../../../useCases/LoadChantierByCode/action';
+import {LoadChantierByCode} from '../../../../useCases/LoadChantierByCode/action';
 import {LoadChantierActionTypes} from '../../../../useCases/LoadChantierByCode/actionTypes';
 import {Chantier} from '../../../../domain/entity/Chantier';
 
 interface StateToPropsType {
-  errorLoadingChantier: string | undefined;
-  LoadingChantierSuccess: boolean;
-  LoadingChantier: Chantier | null;
+  errorLoadingChantierByCode: string | undefined;
+  LoadingChantierByCodeSuccess: Chantier | null;
+  LoadingChantierByCode: boolean;
 }
 interface DispatchToPropsType {
-  LoadChantier: (chantier: Chantier) => void;
+  LoadChantierByCode: (code: string) => void;
 }
 const mapStateToProps = (state: AppState): StateToPropsType => ({
-  errorLoadingChantier: loadChantierErrorSelector(state),
-  LoadingChantierSuccess: loadChantierSuccessSelector(state),
-  LoadingChantier: loadChantierSelector(state),
+  errorLoadingChantierByCode: loadChantierByCodeErrorSelector(state),
+  LoadingChantierByCodeSuccess: loadChantierByCodeSuccessSelector(state),
+  LoadingChantierByCode: loadingChantierByCodeSelector(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => ({
-  LoadChantier: (chantier: Chantier): LoadChantierActionTypes =>
-    dispatch(LoadChantier(chantier)),
+  LoadChantierByCode: (code: string): LoadChantierActionTypes =>
+    dispatch(LoadChantierByCode(code)),
 });
 
 export const VisitsFlashPage = connect(
