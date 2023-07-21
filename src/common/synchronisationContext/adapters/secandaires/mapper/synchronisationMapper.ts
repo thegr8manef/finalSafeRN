@@ -28,6 +28,37 @@ export class SynchronisationMapper {
       } as Chantier);
     });
 
+    synchronisationDto.rd.ocs.forEach(chantier => {
+      if (
+        !chanties.some(
+          _chantier => _chantier.id?.toString() == chantier.id.toString(),
+        )
+      ) {
+        console.log(chantier);
+        chanties.push({
+          id: chantier.id.toString(),
+          no: chantier.no,
+          ad: chantier.ad,
+          type: -1,
+          ac: chantier.ac,
+          cp: '',
+          co: '',
+          py: chantier.py,
+          vl: chantier.vl,
+          sr: chantier.sr,
+          cd: '',
+          lu: parseInt(synchronisationDto.rd.lus),
+          st: -1,
+          ref: chantier.ref,
+          org: chantier.org.toString(),
+          ol_name: chantier.ol_name,
+          osc: chantier.osc.toString(),
+          pid: chantier.pid.toString(),
+          piid: chantier.piid.toString(),
+        } as Chantier);
+      }
+    });
+
     return chanties;
   }
 }

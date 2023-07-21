@@ -13,6 +13,7 @@ export default colors = {
   gris300: '#656565',
   yellow: '#ffdc2e',
   yellow900: '#ffe4d1',
+  yellow800: '#fef7ca',
   green: '#49ab41',
   green200: '#90d68a',
   green300: '#dff2d6',

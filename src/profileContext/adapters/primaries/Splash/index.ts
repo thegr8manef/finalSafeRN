@@ -1,17 +1,14 @@
 import {Dispatch} from 'redux';
 import {AppState} from '../../../../redux_configuration/appState';
-import {
-  checkUserConnectedSelector,
-  checkUserConnectedSuccessSelector,
-} from '../../../useCases/CheckUserConnected/Selector';
+import {checkUserConnectedSuccessSelector} from '../../../useCases/CheckUserConnected/Selector';
 import {UserInfoActionTypes} from '../../../useCases/CheckUserConnected/actionTypes';
 import {checkUserConnected} from '../../../useCases/CheckUserConnected/actions';
 import {connect} from 'react-redux';
 import {SplashScreen} from './splash.container';
-import {LoadDataActionTypes} from '../../../../common/synchronisationContext/useCases/SynchronisationLoad/actionTypes';
-import {loadData} from '../../../../common/synchronisationContext/useCases/SynchronisationLoad/actions';
-import {loadingDataSelector} from '../../../../common/synchronisationContext/useCases/SynchronisationLoad/selectors';
-import {loadingSaveSelector} from '../../../../common/synchronisationContext/useCases/SynchronisationSave/selectors';
+import {LoadDataActionTypes} from '../../../../common/synchronisationContext/useCases/LoadData/actionTypes';
+import {loadData} from '../../../../common/synchronisationContext/useCases/LoadData/actions';
+import {loadingDataSelector} from '../../../../common/synchronisationContext/useCases/LoadData/selectors';
+import {loadingSaveSelector} from '../../../../common/synchronisationContext/useCases/SaveInLocal/selectors';
 import {loadConnectionStatusSelector} from '../../../../common/isConnected/useCase/loadConnectionStatus/selector';
 
 interface StateToPropsType {

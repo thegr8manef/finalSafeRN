@@ -5,19 +5,14 @@ import {
   StyleSheet,
   Text,
   View,
-  Platform,
-  PermissionsAndroid,
   Pressable,
   ScrollView,
   FlatList,
-  Dimensions,
-  TouchableOpacity,
   Alert,
 } from 'react-native';
 import colors from '../../../../../assets/colors';
 import {Flash} from '../../../../domain/entity/Flash';
 import {useTranslation} from 'react-i18next';
-import {HeaderVisite} from '../../components/HeaderVisite';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {StackParamList} from '../../../../../navigation/configuration/navigation.types';
 import {RadioGroup} from 'react-native-radio-buttons-group';

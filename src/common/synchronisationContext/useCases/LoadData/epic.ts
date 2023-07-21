@@ -5,7 +5,7 @@ import {LOAD_DATA} from './actionTypes';
 import {concatMap, switchMap} from 'rxjs/operators';
 import {Chantier} from '../../../adapters/secondaries/db/entity/Chantier';
 import {loadDataSuccess} from './actions';
-import {saveData} from '../SynchronisationSave/actions';
+import {saveData} from '../SaveInLocal/actions';
 
 export const loadDataEpic: Epic = (
   action$,

@@ -97,7 +97,7 @@
     "txt_person_to_contact": "Person to contact in case of accident",
     "msg.voulez.vous.quitter.modification.observation": "Are you sure you want to discard the changes?",
     "msg.voulez.vous.quitter.creation.point.ameliorer": "Do you want to cancel the creation of the point to improve?",
-    "txt.synchronise.en.cours": "Synchronisation in progress.",
+    "txt.synchronise.en.cours": "Synchronisation in progress",
     "version_number": "1012",
     "txt.ug.obs.good.app.chart": "Bonne application",
     "txt_warning_date_not_reached": "The date for completion of the training has not yet been reached!",

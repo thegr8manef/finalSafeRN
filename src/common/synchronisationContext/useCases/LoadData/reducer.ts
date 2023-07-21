@@ -14,7 +14,6 @@ export const reducerLoadData = (
   state = initailState,
   action: LoadDataActionTypes,
 ): LoadDataState => {
-  console.log(action);
   switch (action.type) {
     case LOAD_DATA:
       return {loading: true, error: undefined};

@@ -4,7 +4,7 @@ import {
   SafeAreaView,
   StatusBar,
   Image,
-  ActivityIndicator,
+  Text,
 } from 'react-native';
 import React, {useEffect, useRef, Component, useState} from 'react';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -12,6 +12,8 @@ import {StackParamList} from '../../../../navigation/configuration/navigation.ty
 import colors from '../../../../assets/colors';
 import {Profile} from '../../../domain/entity/profile';
 import * as Progress from 'react-native-progress';
+import {t} from 'i18next';
+import {useTranslation} from 'react-i18next';
 
 interface Props {
   userConncted: boolean;
@@ -25,13 +27,16 @@ export const SplashScreen: React.FC<Props> = (props: Props) => {
   const [mounted, setMounted] = useState(false);
   const [mountedSyn, setMountedSyn] = useState(false);
 
+  const {t} = useTranslation();
+
   useEffect(() => {
     setMounted(true);
+    console.log(props.userConncted);
     setTimeout(() => {
-      if (props.userConncted == true && props.userConncted != undefined) {
+      if (props.userConncted == true) {
         if (!mountedSyn) {
-          props.synchronisation(' ');
           setMountedSyn(true);
+          props.synchronisation(' ');
         }
         if (props.loading == true) {
           props.navigation.reset({
@@ -40,7 +45,7 @@ export const SplashScreen: React.FC<Props> = (props: Props) => {
           });
         }
       }
-      if (props.userConncted == false && props.userConncted != undefined) {
+      if (props.userConncted == false) {
         props.navigation.reset({
           index: 0,
           routes: [{name: 'Login'}],
@@ -63,11 +68,25 @@ export const SplashScreen: React.FC<Props> = (props: Props) => {
           source={require('../../../../assets/img/logo_splash.png')}
         />
         <View>
-          <ActivityIndicator
-            size="large"
-            color={colors.primary}
-            style={{display: props.loading ? 'none' : 'flex'}}
-          />
+          <View
+            style={{
+              marginTop: 15,
+              display: props.userConncted && props.loading ? 'flex' : 'none',
+              alignItems: 'center',
+            }}>
+            <Progress.Bar
+              color={colors.primary}
+              width={200}
+              indeterminate={true}
+              borderRadius={3}
+              height={4}
+              borderWidth={0}
+              unfilledColor={colors.yellow800}
+            />
+            <Text style={styles.txtSynchro}>
+              {t('txt.synchronise.en.cours')}
+            </Text>
+          </View>
         </View>
       </View>
 
@@ -124,5 +143,9 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
+  },
+  txtSynchro: {
+    fontSize: 13,
+    marginTop: 5,
   },
 });

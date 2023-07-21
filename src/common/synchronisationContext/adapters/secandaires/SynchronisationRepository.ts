@@ -7,20 +7,17 @@ export class SynchronisationRepository
   implements SynchronisationRepositoryIDAO
 {
   saveData(chanties: Chantier[]): Observable<void> {
-    console.log(chanties);
     const promisSaveData = new Promise<void>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
       try {
         if (chanties.length > 0) {
           db.then(realm => {
+            let updt = realm.objects('User');
             realm?.write(() => {
               chanties.forEach(chantie => {
                 realm.create('Chantier', chantie);
               });
-              let updt = realm.objects('User');
-              realm?.write(() => {
-                updt[0].lus = chanties[0].lu;
-              });
+              updt[0].lu = chanties[0].lu?.toString();
             });
             resolve();
           });
