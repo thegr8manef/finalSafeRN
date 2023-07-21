@@ -1,11 +1,10 @@
 import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
-interface Props {
-}
+interface Props {}
 
 export const DividerVisite = (props: Props) => {
   return <View style={styles.container_divider} />;
-}
+};
 
 const styles = StyleSheet.create({
   container_divider: {

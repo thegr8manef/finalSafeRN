@@ -12,7 +12,7 @@ import {
   FlatList,
   Dimensions,
   TouchableOpacity,
-  Alert
+  Alert,
 } from 'react-native';
 import colors from '../../../../../assets/colors';
 import {Flash} from '../../../../domain/entity/Flash';
@@ -28,59 +28,60 @@ import {ONON} from '../../components/ObservationNegativeON';
 import {ONOFF} from '../../components/ObservationNegativeOFF';
 import {ImageController} from '../../components/ImageController';
 
-
-
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
   loadingVisits: boolean;
   errorVisits: string | undefined;
   flash: Flash | undefined;
-  SaveFlash: (data : Flash) => void;
+  SaveFlash: (data: Flash) => void;
 }
 export const VisitFlashContainer = (props: Props) => {
   const [mount, setMount] = useState(false);
-  const [commentaires,setcommentaires] = useState('');
+  const [commentaires, setcommentaires] = useState('');
   const [levelId, setLevelId] = useState(0);
   const [btnPositive, setbtnPositive] = useState(false);
   const [btnNegative, setbtnNegative] = useState(false);
   const [images, setimages] = useState([]);
-  var test_observation = true
-  var test_commentaires = true
-  var test_dialog = true
+  var test_observation = true;
+  var test_commentaires = true;
 
   if (!mount) {
     props.loadingVisits;
   }
-  const flash = new Flash(
-    commentaires, images, levelId)
-  const createTwoButtonAlert = () => 
-  Alert.alert('', t('etes_vous_sur_de_vouloir_sauvegarder'), [
-    {
-      text: 'NON',
-      style: 'cancel',
-    },
-    {text: 'OUI', onPress: () => [props.SaveFlash(flash),console.log('oui'),props.navigation.goBack()]},
-    //props.navigation..jumpTo('visites');
-  ]);
+  const flash = new Flash(commentaires, images, levelId);
+  const createTwoButtonAlert = () =>
+    Alert.alert('', t('etes_vous_sur_de_vouloir_sauvegarder'), [
+      {
+        text: 'NON',
+        style: 'cancel',
+      },
+      {
+        text: 'OUI',
+        onPress: () => [
+          props.SaveFlash(flash),
+          console.log('oui'),
+          props.navigation.goBack(),
+        ],
+      },
+      //props.navigation.jumpTo('visites');
+    ]);
   const SaveData = () => {
-if(!btnNegative && !btnPositive){
-      Alert.alert('',t('neg_ou_pos'));
-      test_observation = true
-    }else{
-      test_observation = false
-        if(commentaires=== ''){
-          Alert.alert('',t('msg.saisr.commentaires.flash'))
-          test_commentaires = true
-        }else{
-           test_commentaires = false
-            if(!test_commentaires && !test_observation){
-              createTwoButtonAlert()
-            }
+    if (!btnNegative && !btnPositive) {
+      Alert.alert('', t('neg_ou_pos'));
+      test_observation = true;
+    } else {
+      test_observation = false;
+      if (commentaires === '') {
+        Alert.alert('', t('msg.saisr.commentaires.flash'));
+        test_commentaires = true;
+      } else {
+        test_commentaires = false;
+        if (!test_commentaires && !test_observation) {
+          createTwoButtonAlert();
         }
-}
-
-  }
-
+      }
+    }
+  };
 
   const {t} = useTranslation();
 
@@ -136,19 +137,18 @@ if(!btnNegative && !btnPositive){
     <SafeAreaView style={styles.container}>
       <HeaderVisite children={t('txt_visit_flash')} />
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
-        <View style={styles.ContainerChantier}>
-        </View>
+        <View style={styles.ContainerChantier}></View>
         <View style={styles.ContainerObservation}>
           {!btnPositive ? (
-            <OPON onPressPositive={_onPressButtonPostiveON} />
+            <OPON onPressPositive={_onPressButtonPostiveON()} />
           ) : (
-            <OPOFF onPressPositiveOFF={_onPressButtonPostiveOFF} />
+            <OPOFF onPressPositiveOFF={_onPressButtonPostiveOFF()} />
           )}
           <View style={styles.DividerObservation} />
           {!btnNegative ? (
-            <ONON onPressNegative={_onPressButtonNegativeON} />
+            <ONON onPressNegative={_onPressButtonNegativeON()} />
           ) : (
-            <ONOFF onPressNegativeOFF={_onPressButtonNegativeOFF} />
+            <ONOFF onPressNegativeOFF={_onPressButtonNegativeOFF()} />
           )}
         </View>
         {btnNegative ? (
@@ -168,7 +168,10 @@ if(!btnNegative && !btnPositive){
 
         <View style={styles.CommentairesContainer}>
           <Text>{t('txt.commentaires')}</Text>
-          <CommentModal commentaires={commentaires} setcommentaires={setcommentaires}/>
+          <CommentModal
+            commentaires={commentaires}
+            setcommentaires={setcommentaires}
+          />
         </View>
         <View style={styles.ImageContainer}>
           {Object.keys(images).length === 0 || images === null ? (
@@ -178,27 +181,31 @@ if(!btnNegative && !btnPositive){
           ) : (
             // <Image source={{uri: filePath.uri}} style={styles.imageStyle} />
             <FlatList
-            horizontal={true} 
-            showsHorizontalScrollIndicator={false} 
-            data={images}
-            renderItem={ ({ item, index }) => (
-              <Image source={{uri:item}} /* Use item to set the image source */
-                key={index} /* Important to set a key for list items,
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              data={images}
+              renderItem={({item, index}) => (
+                <Image
+                  source={{uri: item}} /* Use item to set the image source */
+                  key={index} /* Important to set a key for list items,
                                but it's wrong to use indexes as keys, see below */
-                style={styles.imageStyle}
-              />
-            )}
-          />
-)}
+                  style={styles.imageStyle}
+                />
+              )}
+            />
+          )}
         </View>
         <View style={styles.BottomNav}>
           <View style={styles.DividerTwoImageBottomNav}>
             <ImageController images={images} setimages={setimages} />
             <View style={styles.dividerBottomNav} />
             <View style={styles.dividerBottomNav}>
-              <Pressable android_ripple={{color: colors.gris300}}
-              onPress={() => SaveData()}>
-                <Text style={styles.buttonBottomnav}>{t('txt.sauvegarder.remarque')}</Text>
+              <Pressable
+                android_ripple={{color: colors.gris300}}
+                onPress={() => SaveData()}>
+                <Text style={styles.buttonBottomnav}>
+                  {t('txt.sauvegarder.remarque')}
+                </Text>
               </Pressable>
             </View>
           </View>
@@ -334,7 +341,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginVertical: 4,
     marginHorizontal: 8,
-    height: 50
+    height: 50,
   },
   title: {
     fontSize: 16,

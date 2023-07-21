@@ -45,6 +45,6 @@ const styles = StyleSheet.create({
     resizeMode: 'stretch',
   },
   container: {
-    height :50
-  }
+    height: 50,
+  },
 });
