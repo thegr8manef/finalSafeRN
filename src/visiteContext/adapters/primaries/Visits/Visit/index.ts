@@ -2,32 +2,31 @@ import {AppState} from '../../../../../redux_configuration/appState';
 import {Dispatch} from 'redux';
 import {connect} from 'react-redux';
 import {VisitsContainer} from './visits.container';
-import {Flash} from '../../../../domain/entity/Flash';
-import {flashErrorSelector} from '../../../../useCases/Flash/selectors';
-import {FlashActionTypes} from '../../../../useCases/Flash/actionTypes';
-import {SaveFlash} from '../../../../useCases/Flash/action';
 import {
-  searchChantierErrorSelector,
-  searchChantierSelector,
-} from '../../../../useCases/SearchChantierByCode/selectors';
-import {SearchChantier} from '../../../../useCases/SearchChantierByCode/action';
-import {SearchChantierActionTypes} from '../../../../useCases/SearchChantierByCode/actionTypes';
+  loadChantierErrorSelector,
+  loadChantierSelector,
+  loadChantierSuccessSelector,
+} from '../../../../useCases/LoadChantierByCode/selectors';
+import {LoadChantier} from '../../../../useCases/LoadChantierByCode/action';
+import {LoadChantierActionTypes} from '../../../../useCases/LoadChantierByCode/actionTypes';
 
 interface StateToPropsType {
-  errorSearchChantier: string | undefined;
-  SearchChantierSuccess: string | undefined;
+  errorLoadingChantier: string | undefined;
+  LoadingChantierSuccess: string | undefined;
+  LoadingChantier: string | undefined;
 }
 interface DispatchToPropsType {
-  SearchChantier: (chantier: string) => void;
+  LoadChantier: (chantier: string) => void;
 }
 const mapStateToProps = (state: AppState): StateToPropsType => ({
-  errorSearchChantier: searchChantierErrorSelector(state),
-  SearchChantierSuccess: searchChantierSelector(state),
+  errorLoadingChantier: loadChantierErrorSelector(state),
+  LoadingChantierSuccess: loadChantierSuccessSelector(state),
+  LoadingChantier: loadChantierSelector(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => ({
-  SearchChantier: (chantier: string): SearchChantierActionTypes =>
-    dispatch(SearchChantier(chantier)),
+  LoadChantier: (chantier: string): LoadChantierActionTypes =>
+    dispatch(LoadChantier(chantier)),
 });
 
 export const VisitsFlashPage = connect(

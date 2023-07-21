@@ -3,5 +3,5 @@ import {Flash} from '../entity/Flash';
 
 export interface VisitsService {
   SaveFlash(data: Flash): Observable<void>;
-  SearchChantier(chantier: string): Observable<void>;
+  LoadChantier(chantier: string): Observable<void>;
 }

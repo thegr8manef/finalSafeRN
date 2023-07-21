@@ -10,9 +10,10 @@ import {Chantier} from '../../../../../common/adapters/secondaries/db/entity/Cha
 
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
-  errorSearchChantier: string | undefined;
-  SearchChantierSuccess: string | undefined;
-  SearchChantier: (Chantier: string) => void;
+  errorLoadingChantier: string | undefined;
+  LoadingChantierSuccess: string | undefined;
+  LoadingChantier: string | undefined;
+  LoadChantier: (Chantier: string) => void;
 }
 const HorizontalLine = () => {
   return <View style={styles.horizontalLine} />;
