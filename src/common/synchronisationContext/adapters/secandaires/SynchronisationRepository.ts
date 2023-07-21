@@ -19,9 +19,9 @@ export class SynchronisationRepository
               });
               updt[0].lu = chanties[0].lu?.toString();
             });
-            resolve();
           });
         }
+        resolve();
       } catch (error) {
         reject(error);
       }

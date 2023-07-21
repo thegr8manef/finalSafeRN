@@ -35,25 +35,20 @@ export const SplashScreen: React.FC<Props> = (props: Props) => {
     setMounted(true);
     setTimeout(() => {
       if (props.userConncted == true && mountedCheck) {
-        setMountedCheck(false);
         if (!mountedSyn) {
           setMountedSyn(true);
           props.synchronisation(' ');
         }
         if (props.loading == true) {
-          props.navigation.reset({
-            index: 0,
-            routes: [{name: 'Home'}],
-          });
+          setMountedCheck(false);
+
+          props.navigation.replace('Home');
         }
       }
       if (props.userConncted == false && mountedCheck) {
         setMountedCheck(false);
 
-        props.navigation.reset({
-          index: 0,
-          routes: [{name: 'Login'}],
-        });
+        props.navigation.replace('Login');
       }
     }, 3000);
   });
