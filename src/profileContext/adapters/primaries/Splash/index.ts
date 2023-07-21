@@ -23,15 +23,15 @@ interface DispatchToPropsType {
 }
 
 const mapStateToProps = (state: AppState): StateToPropsType => ({
-  userConncted: checkUserConnectedSuccessSelector(state),
   loading: loadingDataSelector(state),
   connectionStatus: loadConnectionStatusSelector(state),
+  userConncted: checkUserConnectedSuccessSelector(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => ({
-  checkUserConnected: (): UserInfoActionTypes => dispatch(checkUserConnected()),
   synchronisation: (accessToken: string): LoadDataActionTypes =>
     dispatch(loadData(accessToken)),
+  checkUserConnected: (): UserInfoActionTypes => dispatch(checkUserConnected()),
 });
 
 export const SplashPage = connect(

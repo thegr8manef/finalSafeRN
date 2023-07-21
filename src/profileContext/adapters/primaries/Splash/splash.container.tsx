@@ -25,15 +25,17 @@ interface Props {
 
 export const SplashScreen: React.FC<Props> = (props: Props) => {
   const [mounted, setMounted] = useState(false);
+  const [mountedCheck, setMountedCheck] = useState(true);
+
   const [mountedSyn, setMountedSyn] = useState(false);
 
   const {t} = useTranslation();
 
   useEffect(() => {
     setMounted(true);
-    console.log(props.userConncted);
     setTimeout(() => {
-      if (props.userConncted == true) {
+      if (props.userConncted == true && mountedCheck) {
+        setMountedCheck(false);
         if (!mountedSyn) {
           setMountedSyn(true);
           props.synchronisation(' ');
@@ -45,7 +47,9 @@ export const SplashScreen: React.FC<Props> = (props: Props) => {
           });
         }
       }
-      if (props.userConncted == false) {
+      if (props.userConncted == false && mountedCheck) {
+        setMountedCheck(false);
+
         props.navigation.reset({
           index: 0,
           routes: [{name: 'Login'}],
@@ -71,7 +75,7 @@ export const SplashScreen: React.FC<Props> = (props: Props) => {
           <View
             style={{
               marginTop: 15,
-              display: props.userConncted && props.loading ? 'flex' : 'none',
+              display: mountedSyn ? 'flex' : 'none',
               alignItems: 'center',
             }}>
             <Progress.Bar

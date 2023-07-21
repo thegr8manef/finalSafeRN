@@ -34,7 +34,6 @@ export class SynchronisationMapper {
           _chantier => _chantier.id?.toString() == chantier.id.toString(),
         )
       ) {
-        console.log(chantier);
         chanties.push({
           id: chantier.id.toString(),
           no: chantier.no,
