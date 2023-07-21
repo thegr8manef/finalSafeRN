@@ -7,3 +7,7 @@ export interface FlashState {
   errorVisits: string | undefined;
   flash: Flash | undefined;
 }
+export interface SearchChantierState {
+  errorSearchChantier: string | undefined;
+  SearchChantierSuccess: string | undefined;
+}

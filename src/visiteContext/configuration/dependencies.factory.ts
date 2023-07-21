@@ -5,4 +5,7 @@ export class VisitsDependanciesFactory {
   static getVisitsService(): VisitsService {
     return new DbVisitsService();
   }
+  static getChantierByCodeService(): VisitsService {
+    return new DbVisitsService();
+  }
 }

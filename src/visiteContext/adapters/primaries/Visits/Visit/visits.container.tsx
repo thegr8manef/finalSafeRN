@@ -6,9 +6,13 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import {Header} from '../../../../../common/adapters/primaries/components/header';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {StackParamList} from '../../../../../navigation/configuration/navigation.types';
+import {Chantier} from '../../../../../common/adapters/secondaries/db/entity/Chantier';
 
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
+  errorSearchChantier: string | undefined;
+  SearchChantierSuccess: string | undefined;
+  SearchChantier: (Chantier: string) => void;
 }
 const HorizontalLine = () => {
   return <View style={styles.horizontalLine} />;
