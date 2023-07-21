@@ -37,4 +37,3 @@ export class DbVisitsService implements VisitsService {
     return from(saveFlashtoDb);
   }
 }
-    
