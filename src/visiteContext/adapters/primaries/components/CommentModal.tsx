@@ -13,15 +13,14 @@ import {HeaderModal} from './HeaderModal';
 import colors from '../../../../assets/colors';
 import {useTranslation} from 'react-i18next';
 interface Props {
-  commentaires : string
-  setcommentaires : (text: string)=> void
+  commentaires: string;
+  setcommentaires: (text: string) => void;
 }
 
 export const CommentModal = (props: Props) => {
-  
   const [modalVisible, setModalVisible] = useState(false);
   const [empty, setEmpty] = React.useState(true);
-   const {t} = useTranslation();
+  const {t} = useTranslation();
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -35,14 +34,15 @@ export const CommentModal = (props: Props) => {
           <View style={styles.modalView}>
             <HeaderModal
               children={t('txt.commentaires.without.start')}
-              onPressCustomizePositive={() => { props.commentaires.length !== 0 ? ([setModalVisible(!modalVisible),
-                setEmpty(false)]):(
-                  alert(t('error.point.empty'))
-                )}}
+              onPressCustomizePositive={() => {
+                props.commentaires.length !== 0
+                  ? [setModalVisible(!modalVisible), setEmpty(false)]
+                  : alert(t('error.point.empty'));
+              }}
               onPressCustomizeNegative={() => {
                 setModalVisible(!modalVisible);
                 setEmpty(true);
-                props.setcommentaires('')
+                props.setcommentaires('');
               }}
             />
             <TextInput
@@ -60,12 +60,15 @@ export const CommentModal = (props: Props) => {
         style={[styles.button, styles.buttonOpen]}
         onPress={() => setModalVisible(true)}
         android_ripple={{color: colors.gris300}}>
-          { !empty ? (
-        <Text style={{marginBottom: '-4%', marginLeft: '5%', fontSize: 17}}>{props.commentaires}</Text>
-          ) :(
-            <Text style={{marginBottom: '-4%', marginLeft: '5%', fontSize: 17}}>{[null]}</Text>
-          )
-          }
+        {!empty ? (
+          <Text style={{marginBottom: '-4%', marginLeft: '5%', fontSize: 17}}>
+            {props.commentaires}
+          </Text>
+        ) : (
+          <Text style={{marginBottom: '-4%', marginLeft: '5%', fontSize: 17}}>
+            {[null]}
+          </Text>
+        )}
         <Image
           source={require('../../../../assets/img/icn_textarea.png')}
           style={styles.logoImage3}

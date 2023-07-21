@@ -12,6 +12,7 @@ import {
   FlatList,
   Dimensions,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import colors from '../../../../../assets/colors';
 import {Flash} from '../../../../domain/entity/Flash';
@@ -43,15 +44,45 @@ export const VisitFlashContainer = (props: Props) => {
   const [levelId, setLevelId] = useState(0);
   const [btnPositive, setbtnPositive] = useState(false);
   const [btnNegative, setbtnNegative] = useState(false);
+  const [images, setimages] = useState([]);
+  var test_observation = true;
+  var test_commentaires = true;
 
   if (!mount) {
     props.loadingVisits;
   }
+  const flash = new Flash(commentaires, images, levelId);
+  const createTwoButtonAlert = () =>
+    Alert.alert('', t('etes_vous_sur_de_vouloir_sauvegarder'), [
+      {
+        text: 'NON',
+        style: 'cancel',
+      },
+      {
+        text: 'OUI',
+        onPress: () => [
+          props.SaveFlash(flash),
+          props.navigation.jumpTo('visites'),
+        ],
+      },
+    ]);
   const SaveData = () => {
-    const flash = new Flash(commentaires, images, levelId);
-    props.SaveFlash(flash);
+    if (!btnNegative && !btnPositive) {
+      Alert.alert('', t('neg_ou_pos'));
+      test_observation = true;
+    } else {
+      test_observation = false;
+      if (commentaires === '') {
+        Alert.alert('', t('msg.saisr.commentaires.flash'));
+        test_commentaires = true;
+      } else {
+        test_commentaires = false;
+        if (!test_commentaires && !test_observation) {
+          createTwoButtonAlert();
+        }
+      }
+    }
   };
-  const [images, setimages] = useState([]);
 
   const {t} = useTranslation();
 
