@@ -8,6 +8,7 @@ import {useTranslation} from 'react-i18next';
 import {MenuLeft} from './menuLeft';
 import {VisitsFlashPage} from '../../visiteContext/adapters/primaries/Visits/Flash';
 import {MenuLeftPage} from '.';
+import {VisitsContainer} from '../../visiteContext/adapters/primaries/Visits/Visit/visits.container';
 
 const Drawer = createDrawerNavigator();
 
@@ -41,7 +42,7 @@ export const HomeNavigation = () => {
       />
       <Drawer.Screen
         name={'visites'}
-        component={DashboardPage}
+        component={VisitsContainer}
         options={{
           drawerLabel: () => (
             <Text style={styles.label}>{t('txt.visites')}</Text>

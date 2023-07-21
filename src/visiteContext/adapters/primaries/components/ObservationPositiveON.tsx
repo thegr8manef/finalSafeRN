@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import colors from '../../../../assets/colors';
 import React from 'react';
-import { useTranslation } from "react-i18next";
+import {useTranslation} from 'react-i18next';
 
 interface Props {
   onPressPositive: void;
