@@ -1,15 +1,16 @@
+import {Chantier} from '../domain/entity/Chantier';
 import {Flash} from '../domain/entity/Flash';
 
 export interface VisitsState {
   flash: FlashState;
-  LoadingChantier: LoadChantierState;
+  loadChantierByCode: LoadchantierByCodeState;
 }
 export interface FlashState {
   errorVisits: string | undefined;
   flash: Flash | undefined;
 }
-export interface LoadChantierState {
+export interface LoadchantierByCodeState {
   errorLoadingChantier: string | undefined;
-  LoadingChantierSuccess: string | undefined;
-  LoadingChantier: string | undefined;
+  LoadingChantierSuccess: boolean;
+  LoadingChantier: Chantier | null;
 }

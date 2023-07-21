@@ -11,9 +11,9 @@ import {Chantier} from '../../../../../common/adapters/secondaries/db/entity/Cha
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
   errorLoadingChantier: string | undefined;
-  LoadingChantierSuccess: string | undefined;
-  LoadingChantier: string | undefined;
-  LoadChantier: (Chantier: string) => void;
+  LoadingChantierSuccess: boolean;
+  LoadingChantier: Chantier | null;
+  LoadChantier: (Chantier: Chantier) => void;
 }
 const HorizontalLine = () => {
   return <View style={styles.horizontalLine} />;

@@ -1,6 +1,6 @@
 import {Epic, ofType, StateObservable} from 'redux-observable';
 import {AppState} from '../../../redux_configuration/appState';
-import {LOAD_CHANTIER} from './actionTypes';
+import {LOAD_CHANTIER_BY_CODE} from './actionTypes';
 import {catchError, map, switchMap} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {LoadChantierFailed, LoadChantier, LoadChantierSuccess} from './action';
@@ -12,7 +12,7 @@ export const LoadChantierEpic: Epic = (
   {visitsService}: {visitsService: VisitsService},
 ) =>
   action$.pipe(
-    ofType(LOAD_CHANTIER),
+    ofType(LOAD_CHANTIER_BY_CODE),
     switchMap(action =>
       visitsService.LoadChantier(action.payload).pipe(
         map(() => {

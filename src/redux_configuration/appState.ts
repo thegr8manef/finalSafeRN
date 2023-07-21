@@ -1,7 +1,7 @@
 import {ProfileState} from '../profileContext/configuration/state';
 import {DashboardState} from '../dashboardContext/configuration/state';
 import {
-  LoadChantierState,
+  LoadchantierByCodeState,
   VisitsState,
 } from '../visiteContext/configuration/state';
 import {ConnectionStatus} from '../common/isConnected/configuration/state';
@@ -11,5 +11,5 @@ export interface AppState {
   visits: VisitsState;
   dashboard: DashboardState;
   connection: ConnectionStatus;
-  loadChantier: LoadChantierState;
+  loadChantier: LoadchantierByCodeState;
 }

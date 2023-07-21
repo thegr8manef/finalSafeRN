@@ -9,14 +9,15 @@ import {
 } from '../../../../useCases/LoadChantierByCode/selectors';
 import {LoadChantier} from '../../../../useCases/LoadChantierByCode/action';
 import {LoadChantierActionTypes} from '../../../../useCases/LoadChantierByCode/actionTypes';
+import {Chantier} from '../../../../domain/entity/Chantier';
 
 interface StateToPropsType {
   errorLoadingChantier: string | undefined;
-  LoadingChantierSuccess: string | undefined;
-  LoadingChantier: string | undefined;
+  LoadingChantierSuccess: boolean;
+  LoadingChantier: Chantier | null;
 }
 interface DispatchToPropsType {
-  LoadChantier: (chantier: string) => void;
+  LoadChantier: (chantier: Chantier) => void;
 }
 const mapStateToProps = (state: AppState): StateToPropsType => ({
   errorLoadingChantier: loadChantierErrorSelector(state),
@@ -25,7 +26,7 @@ const mapStateToProps = (state: AppState): StateToPropsType => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => ({
-  LoadChantier: (chantier: string): LoadChantierActionTypes =>
+  LoadChantier: (chantier: Chantier): LoadChantierActionTypes =>
     dispatch(LoadChantier(chantier)),
 });
 

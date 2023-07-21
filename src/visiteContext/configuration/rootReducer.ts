@@ -5,5 +5,5 @@ import {reducerLoadChantier} from '../useCases/LoadChantierByCode/reducer';
 
 export const reducerVisits = combineReducers<VisitsState>({
   flash: reducerVisitFlash,
-  LoadingChantier: reducerLoadChantier,
+  loadChantierByCode: reducerLoadChantier,
 });

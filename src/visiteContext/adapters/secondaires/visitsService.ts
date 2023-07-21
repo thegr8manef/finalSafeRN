@@ -2,6 +2,7 @@ import {VisitsService} from '../../domain/gateway/visitsService';
 import {Observable, from} from 'rxjs';
 import {Flash} from '../../domain/entity/Flash';
 import ApplicationContext from '../../../common/appConfig/ApplicationContext';
+import {Chantier} from '../../domain/entity/Chantier';
 
 export class DbVisitsService implements VisitsService {
   SaveFlash(data: Flash): Observable<void> {
@@ -37,7 +38,7 @@ export class DbVisitsService implements VisitsService {
     return from(saveFlashtoDb);
   }
 
-  LoadChantier(chantier: string): Observable<void> {
+  LoadChantier(chantier: Chantier): Observable<void> {
     const LoadChantierInDb = new Promise<void>((resolve, reject) => {
       //todo code here
     });
