@@ -60,9 +60,11 @@ export const VisitFlashContainer = (props: Props) => {
       },
       {
         text: 'OUI',
-        onPress: () => [props.SaveFlash(flash), props.navigation.goBack()],
+        onPress: () => [
+          props.SaveFlash(flash),
+          props.navigation.jumpTo('visites'),
+        ],
       },
-      //props.navigation.jumpTo('visites');
     ]);
   const SaveData = () => {
     if (!btnNegative && !btnPositive) {
