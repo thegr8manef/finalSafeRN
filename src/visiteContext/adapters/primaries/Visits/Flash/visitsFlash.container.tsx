@@ -26,6 +26,8 @@ import {OPON} from '../../components/ObservationPositiveON';
 import {OPOFF} from '../../components/ObservationPositiveOFF';
 import {ONON} from '../../components/ObservationNegativeON';
 import {ONOFF} from '../../components/ObservationNegativeOFF';
+import {Sites} from '../../components/Sites';
+import {Header} from '../../../../../common/adapters/primaries/components/header';
 import {ImageController} from '../../components/ImageController';
 
 interface Props {
@@ -34,6 +36,7 @@ interface Props {
   errorVisits: string | undefined;
   flash: Flash | undefined;
   SaveFlash: (data: Flash) => void;
+  navigationDrawer: any;
 }
 export const VisitFlashContainer = (props: Props) => {
   const [mount, setMount] = useState(false);
@@ -57,11 +60,7 @@ export const VisitFlashContainer = (props: Props) => {
       },
       {
         text: 'OUI',
-        onPress: () => [
-          props.SaveFlash(flash),
-          console.log('oui'),
-          props.navigation.goBack(),
-        ],
+        onPress: () => [props.SaveFlash(flash), props.navigation.goBack()],
       },
       //props.navigation.jumpTo('visites');
     ]);
@@ -135,20 +134,23 @@ export const VisitFlashContainer = (props: Props) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <HeaderVisite children={t('txt_visit_flash')} />
+      <Header title={t('txt_visit_flash')} navigation={props.navigation} />
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
-        <View style={styles.ContainerChantier}></View>
+        <View style={styles.ContainerChantier}>
+          <Sites></Sites>
+        </View>
+
         <View style={styles.ContainerObservation}>
           {!btnPositive ? (
-            <OPON onPressPositive={_onPressButtonPostiveON()} />
+            <OPON onPressPositive={_onPressButtonPostiveON} />
           ) : (
-            <OPOFF onPressPositiveOFF={_onPressButtonPostiveOFF()} />
+            <OPOFF onPressPositiveOFF={_onPressButtonPostiveOFF} />
           )}
           <View style={styles.DividerObservation} />
           {!btnNegative ? (
-            <ONON onPressNegative={_onPressButtonNegativeON()} />
+            <ONON onPressNegative={_onPressButtonNegativeON} />
           ) : (
-            <ONOFF onPressNegativeOFF={_onPressButtonNegativeOFF()} />
+            <ONOFF onPressNegativeOFF={_onPressButtonNegativeOFF} />
           )}
         </View>
         {btnNegative ? (
@@ -218,6 +220,7 @@ export const VisitFlashContainer = (props: Props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.white,
   },
   logoImage3: {
     width: 10,
@@ -258,17 +261,17 @@ const styles = StyleSheet.create({
     borderColor: colors.primary,
   },
   radioButton1: {
-    backgroundColor: '#47ce3d',
+    backgroundColor: colors.green300,
     width: '87%',
     fontSize: 17,
   },
   radioButton2: {
-    backgroundColor: '#ce983d',
+    backgroundColor: colors.yellow900,
     width: '87%',
     fontSize: 17,
   },
   radioButton3: {
-    backgroundColor: '#ce3d3d',
+    backgroundColor: colors.pink,
     width: '87%',
     fontSize: 17,
   },
@@ -333,7 +336,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 25,
   },
   ContainerChantier: {
-    height: 150,
+    height: 100,
+    margin: 30,
     backgroundColor: 'white',
   },
   item: {

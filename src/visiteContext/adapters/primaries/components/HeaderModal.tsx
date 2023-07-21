@@ -12,8 +12,8 @@ import {useTranslation} from 'react-i18next';
 
 interface Props {
   children: string;
-  onPressCustomizePositive: void;
-  onPressCustomizeNegative: void;
+  onPressCustomizePositive(): void;
+  onPressCustomizeNegative(): void;
 }
 export const HeaderModal = (props: Props) => {
   const {t} = useTranslation();

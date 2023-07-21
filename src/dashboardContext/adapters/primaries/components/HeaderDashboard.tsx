@@ -16,25 +16,6 @@ interface Props {
 export const HeaderDashboard = (props: Props) => {
   return (
     <SafeAreaView style={{flex: 1}}>
-      <View style={styles.rectangle}>
-        <View style={{flex: 2}}>
-          <TouchableOpacity onPress={() => props.navigation.openDrawer()}>
-            <Image
-              source={require('../../../../assets/img/sidenav.png')}
-              style={styles.logoImage1}
-            />
-          </TouchableOpacity>
-        </View>
-        <View style={{flex: 5}}>
-          <Text style={styles.textCentre}>{props.children}</Text>
-        </View>
-        <View style={{flex: 1.5}}>
-          <Image
-            source={require('../../../../assets/img/icn_visit_flash.png')}
-            style={styles.logoImage}
-          />
-        </View>
-      </View>
       <View style={styles.containerVisites}>
         <View style={styles.containerText}>
           <Text style={styles.text}>Mes visites :{props.visits}</Text>
@@ -85,10 +66,7 @@ export const HeaderDashboard = (props: Props) => {
 
 const styles = StyleSheet.create({
   rectangle: {
-    height: '30%',
-    backgroundColor: colors.primary,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flex: 1,
   },
   textCentre: {
     marginTop: 10,
@@ -112,38 +90,39 @@ const styles = StyleSheet.create({
     resizeMode: 'stretch',
   },
   containerVisites: {
-    flex: 0.8,
-    backgroundColor: colors.gris,
+    flex: 0.5,
+    backgroundColor: '#e9e9e9',
   },
   containerText: {
     backgroundColor: 'white',
     height: '60%',
-    width: '35%',
-    borderRadius: 7,
+    width: '30%',
+    borderRadius: 5,
     margin: 15,
+    justifyContent: 'center',
   },
   text: {
     textAlign: 'center',
-    marginTop: '7%',
-    fontWeight: 'bold',
+
     color: 'black',
-    fontSize: 12,
+    fontSize: 10,
   },
   containerChantier: {
-    flex: 1,
+    flex: 0.7,
+    backgroundColor: colors.white,
   },
   perimetre: {
     flexDirection: 'row',
-    height: '40%',
+    height: '50%',
   },
   statics: {
     flexDirection: 'row',
-    height: '40%',
+    height: '30%',
   },
   ImageInfo: {
     marginStart: 10,
-    flex: 0.2,
-    width: '100%',
+
+    width: '5%',
     height: '70%',
     resizeMode: 'stretch',
   },
