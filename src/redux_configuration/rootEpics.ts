@@ -7,12 +7,15 @@ import {visitsEpicsDependecies} from '../visiteContext/configuration/depnedencie
 import {visitsRootEpics} from '../visiteContext/configuration/rootEpic';
 import {connectionRootEpics} from '../common/isConnected/configuration/rootEpic';
 import {connectionEpicsDependencies} from '../common/isConnected/configuration/depnedencies.redux';
+import {synchronisationRootEpics} from '../common/synchronisationContext/configuration/rootEpic';
+import {synchronisationEpicsDependencies} from '../common/synchronisationContext/configuration/depnedencies.redux';
 
 export const rootEpics = combineEpics(
   profileRootEpics,
   dashboardRootEpics,
   visitsRootEpics,
   connectionRootEpics,
+  synchronisationRootEpics,
 );
 
 export const epicsMiddleware = createEpicMiddleware({
@@ -21,5 +24,6 @@ export const epicsMiddleware = createEpicMiddleware({
     ...visitsEpicsDependecies,
     ...dashboardEpicsDependecies,
     ...connectionEpicsDependencies,
+    ...synchronisationEpicsDependencies,
   },
 });

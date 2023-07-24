@@ -21,6 +21,7 @@ export class DBUserService implements UserService {
               connected: true,
               lr: false,
               visitCreated: 0,
+              lu: '-1',
             });
           });
           resolve(); // Emit the boolean value
