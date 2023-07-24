@@ -8,9 +8,12 @@ import {
   LoadDataSuccess,
 } from './actionTypes';
 
-export const loadData = (accessToken: string): LoadData => ({
+export const loadData = (
+  _accessToken: string,
+  _lastUpadet: string,
+): LoadData => ({
   type: LOAD_DATA,
-  payload: accessToken,
+  payload: {accessToken: _accessToken, lastUpdate: _lastUpadet},
 });
 
 export const loadDataSuccess = (): LoadDataSuccess => ({

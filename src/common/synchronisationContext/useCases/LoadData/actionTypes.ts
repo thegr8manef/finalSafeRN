@@ -6,7 +6,10 @@ export const LOAD_DATA_FAILED = 'LOAD_DATA_FAILED';
 
 export interface LoadData {
   type: typeof LOAD_DATA;
-  payload: string;
+  payload: {
+    accessToken: string;
+    lastUpdate: string;
+  };
 }
 
 export interface LoadDataSuccess {

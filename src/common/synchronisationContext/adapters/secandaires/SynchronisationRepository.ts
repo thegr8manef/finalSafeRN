@@ -30,7 +30,7 @@ export class SynchronisationRepository
     return from(promisSaveData);
   }
 
-  static loadLastUpdateDate(): Observable<string> {
+  loadLastUpdateDate(): Observable<string> {
     const promisLastUpdate = new Promise<string>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
       try {
