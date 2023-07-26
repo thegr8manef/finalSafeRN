@@ -6,7 +6,7 @@ export const SAVE_FLASH_FAILED = 'SAVE_FLASH_FAILED';
 
 export interface SaveFlashAction {
   type: typeof SAVE_FLASH;
-  payload : Flash
+  payload: Flash;
 }
 
 export interface FlashActionFailed {

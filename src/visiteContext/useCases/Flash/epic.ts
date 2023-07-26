@@ -3,7 +3,7 @@ import {AppState} from '../../../redux_configuration/appState';
 import {SAVE_FLASH} from './actionTypes';
 import {catchError, map, switchMap} from 'rxjs/operators';
 import {of} from 'rxjs';
-import {SaveFlashFailed, SaveFlash,SaveFlashSuccess} from './action';
+import {SaveFlashFailed, SaveFlash, SaveFlashSuccess} from './action';
 import {Flash} from '../../domain/entity/Flash';
 import {VisitsService} from '../../domain/gateway/visitsService';
 

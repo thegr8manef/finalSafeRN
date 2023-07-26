@@ -30,7 +30,7 @@ export const SiteWithName = (props: Props) => {
           <Text style={[styles.normalText, {fontWeight: 'bold', fontSize: 15}]}>
             {t('choisir_un_chantier')}
           </Text>
-          <Text style={styles.normalText}></Text>
+          <Text style={styles.normalText} />
         </View>
         <View style={styles.container}>
           <View style={styles.filter}>

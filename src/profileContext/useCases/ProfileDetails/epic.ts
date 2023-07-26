@@ -6,7 +6,7 @@ import {loadProfileDetailsFailed, loadProfileDetailsSuccess} from './action';
 import {User} from '../../domain/entity/user';
 import {concatMap, switchMap} from 'rxjs/operators';
 import {updateLocalProfile} from '../UpdateLocalProfile/actions';
-import {loadData} from '../../../common/synchronisationContext/useCases/LoadData/actions';
+import {loadData} from '../../../synchronisationContext/useCases/LoadData/actions';
 
 export const loadUserInfo: Epic = (
   action$,

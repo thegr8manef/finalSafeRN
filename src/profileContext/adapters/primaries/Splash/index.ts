@@ -5,10 +5,10 @@ import {UserInfoActionTypes} from '../../../useCases/CheckUserConnected/actionTy
 import {checkUserConnected} from '../../../useCases/CheckUserConnected/actions';
 import {connect} from 'react-redux';
 import {SplashScreen} from './splash.container';
-import {LoadDataActionTypes} from '../../../../common/synchronisationContext/useCases/LoadData/actionTypes';
-import {loadData} from '../../../../common/synchronisationContext/useCases/LoadData/actions';
-import {loadingDataSelector} from '../../../../common/synchronisationContext/useCases/LoadData/selectors';
-import {loadingSaveSelector} from '../../../../common/synchronisationContext/useCases/SaveInLocal/selectors';
+import {LoadDataActionTypes} from '../../../../synchronisationContext/useCases/LoadData/actionTypes';
+import {loadData} from '../../../../synchronisationContext/useCases/LoadData/actions';
+import {loadingDataSelector} from '../../../../synchronisationContext/useCases/LoadData/selectors';
+import {loadingSaveSelector} from '../../../../synchronisationContext/useCases/SaveInLocal/selectors';
 import {loadConnectionStatusSelector} from '../../../../common/isConnected/useCase/loadConnectionStatus/selector';
 
 interface StateToPropsType {

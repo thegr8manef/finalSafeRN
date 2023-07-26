@@ -7,7 +7,8 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest --config configuration/jest.config.json && open ./jest/coverage/index.html",
+    "lint:fix": "yarn eslint . --fix --ext .ts,.tsx"
   },
   "dependencies": {
     "@azure/msal-browser": "^2.37.0",
@@ -20,6 +21,7 @@
     "@react-navigation/stack": "^6.3.16",
     "@realm/react": "^0.4.3",
     "bl": "^6.0.1",
+    "deep-freeze": "^0.0.1",
     "expo-font": "^11.1.1",
     "i18next": "^22.4.15",
     "react": "18.2.0",

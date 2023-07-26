@@ -12,8 +12,8 @@ import {Dispatch} from 'redux';
 
 import {LoadProfileDetailsActionTypes} from '../../../useCases/ProfileDetails/actionType';
 import {loadProfileDetails} from '../../../useCases/ProfileDetails/action';
-import {loadingDataSelector} from '../../../../common/synchronisationContext/useCases/LoadData/selectors';
-import {loadingSaveSelector} from '../../../../common/synchronisationContext/useCases/SaveInLocal/selectors';
+import {loadingDataSelector} from '../../../../synchronisationContext/useCases/LoadData/selectors';
+import {loadingSaveSelector} from '../../../../synchronisationContext/useCases/SaveInLocal/selectors';
 
 interface StateToPropsType {
   profile: Profile | undefined;

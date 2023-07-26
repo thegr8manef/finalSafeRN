@@ -9,7 +9,7 @@ import {
 const initialState: LoginState = {
   loading: false,
   error: undefined,
-  profile : undefined,
+  profile: undefined,
 };
 
 export const reducerLogin = (

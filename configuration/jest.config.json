@@ -1,0 +1,36 @@
+{
+  "preset": "react-native",
+  "moduleFileExtensions": [
+    "ts",
+    "tsx",
+    "js",
+    "jsx",
+    "json",
+    "node"
+  ],
+  "rootDir": "..",
+  "roots": [
+    "<rootDir>"
+  ],
+  "setupFiles": [
+    "<rootDir>/configuration/jest.mock.js"
+  ],
+  "testRegex": "<rootDir>/__tests__/.*|\\.(test|spec)\\.(ts|tsx)$",
+  "testPathIgnorePatterns": [
+  ],
+  "transformIgnorePatterns": [
+    "node_modules/(?!(react-native|@react-native)/)"
+  ],
+  "collectCoverage": true,
+  "collectCoverageFrom": [
+    "<rootDir>/src/**/*.{ts,tsx}"
+  ],
+  "coveragePathIgnorePatterns": [
+    "<rootDir>/__tests__/"
+  ],
+  "coverageDirectory": "<rootDir>/jest/coverage",
+  "coverageReporters": [
+    "html"
+  ],
+  "resetMocks": true
+}

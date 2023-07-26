@@ -62,7 +62,7 @@ export const ProfileContainer: React.FC<Props> = (props: Props) => {
           </TouchableOpacity>
         </View>
         <View style={styles.text_container}>
-          <Header label_title={t('txt.profile')}></Header>
+          <Header label_title={t('txt.profile')} />
         </View>
       </View>
       <View style={{flex: 0.8}}>

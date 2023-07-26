@@ -134,7 +134,7 @@ export const VisitFlashContainer = (props: Props) => {
       <Header title={t('txt_visit_flash')} navigation={props.navigation} />
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
         <View style={styles.ContainerChantier}>
-          <Sites></Sites>
+          <Sites />
         </View>
 
         <View style={styles.ContainerObservation}>

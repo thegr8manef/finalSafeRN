@@ -37,7 +37,7 @@ export const VisitsContainer = (props: Props) => {
             <Text style={styles.txt_btn_synchro}>{t('txt.synchroniser')}</Text>
           </TouchableOpacity>
         </View>
-        <HorizontalLine></HorizontalLine>
+        <HorizontalLine />
 
         <View style={styles.list_vists}>
           <Text>{t('txt.no.visit.clotured')}</Text>

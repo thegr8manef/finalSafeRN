@@ -34,7 +34,7 @@ export const SiteWithCode = (props: Props) => {
         <View style={styles.container}>
           <Text>{t('txt.code.chantier')}</Text>
           <TextInput cursorColor={colors.primary} />
-          <View style={{height: 1, backgroundColor: colors.primary}}></View>
+          <View style={{height: 1, backgroundColor: colors.primary}} />
         </View>
       </View>
     </Modal>
