@@ -1,7 +1,6 @@
 import {DashboardService} from '../../domain/gateway/dashboardService';
-import {Observable, from} from 'rxjs';
+import {Observable} from 'rxjs';
 import {ObservableAjaxHttpClient} from '../../../common/adapters/secondaries/real/observableAjaxHttpClient';
-import {Stat} from '../../domain/entity/Stat';
 import {catchError, map} from 'rxjs/operators';
 import {StatDto} from './dto/stat.dto';
 import {StatMapper} from './mapper/stat.mapper';

@@ -1,4 +1,4 @@
-import {FlashState} from '../../configuration/state';
+import {SaveFlashState} from '../../configuration/state';
 import {
   FlashActionTypes,
   SAVE_FLASH,
@@ -6,30 +6,30 @@ import {
   SAVE_FLASH_SUCCESS,
 } from './actionTypes';
 
-let initialState: FlashState;
+let initialState: SaveFlashState;
 initialState = {
-  errorVisits: undefined,
-  flash: undefined,
+  error: undefined,
+  loading: false,
 };
 
 export const reducerVisitFlash = (
   state = initialState,
   action: FlashActionTypes,
-): FlashState => {
+): SaveFlashState => {
   switch (action.type) {
     case SAVE_FLASH:
-      return {errorVisits: undefined, flash: action.payload};
+      return {error: undefined, loading: true};
 
     case SAVE_FLASH_SUCCESS:
       return {
-        errorVisits: undefined,
-        flash: action.payload,
+        loading: false,
+        error: undefined,
       };
 
     case SAVE_FLASH_FAILED:
       return {
-        errorVisits: action.payload,
-        flash: undefined,
+        error: action.payload,
+        loading: false,
       };
     default:
       return state;

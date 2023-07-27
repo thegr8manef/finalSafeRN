@@ -36,7 +36,7 @@ describe('synchonisation data flow', () => {
         done();
       }
     });
-    store.dispatch(loadData(accessTokenFake, lastUpdateDateFake));
+    store.dispatch(loadData(accessTokenFake));
   });
 
   it('should return error when loading lastUpdateDate  failed ', done => {
@@ -48,7 +48,7 @@ describe('synchonisation data flow', () => {
         done();
       }
     });
-    store.dispatch(loadData(accessTokenFake, lastUpdateDateFake));
+    store.dispatch(loadData(accessTokenFake));
     reduxStoreWO.loadLastUpdateDateError('ERROR');
   });
 
@@ -61,7 +61,7 @@ describe('synchonisation data flow', () => {
         done();
       }
     });
-    store.dispatch(loadData(accessTokenFake, lastUpdateDateFake));
+    store.dispatch(loadData(accessTokenFake));
     reduxStoreWO.loadLastUpdateDateNext('-1');
     reduxStoreWO.loadDataError('ERROR');
   });
@@ -75,7 +75,7 @@ describe('synchonisation data flow', () => {
         done();
       }
     });
-    store.dispatch(loadData(accessTokenFake, lastUpdateDateFake));
+    store.dispatch(loadData(accessTokenFake));
     reduxStoreWO.loadLastUpdateDateNext('-1');
     reduxStoreWO.loadDataNext([
       new Chantier('1', 'name'),
@@ -93,7 +93,7 @@ describe('synchonisation data flow', () => {
         done();
       }
     });
-    store.dispatch(loadData(accessTokenFake, lastUpdateDateFake));
+    store.dispatch(loadData(accessTokenFake));
     reduxStoreWO.loadLastUpdateDateNext('-1');
     reduxStoreWO.loadDataNext([
       new Chantier('1', 'name'),

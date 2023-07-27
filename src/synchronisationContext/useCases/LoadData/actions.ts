@@ -1,26 +1,22 @@
-import {Chantier} from '../../../common/adapters/secondaries/db/entity/Chantier';
 import {
   LOAD_DATA,
   LOAD_DATA_FAILED,
   LOAD_DATA_SUCCESS,
-  LoadData,
-  LoadDataFailed,
-  LoadDataSuccess,
+  LoadDataAction,
+  LoadDataFailedAction,
+  LoadDataSuccessAction,
 } from './actionTypes';
 
-export const loadData = (
-  _accessToken: string,
-  _lastUpadet: string,
-): LoadData => ({
+export const loadData = (_accessToken: string): LoadDataAction => ({
   type: LOAD_DATA,
-  payload: {accessToken: _accessToken, lastUpdate: _lastUpadet},
+  payload: _accessToken,
 });
 
-export const loadDataSuccess = (): LoadDataSuccess => ({
+export const loadDataSuccess = (): LoadDataSuccessAction => ({
   type: LOAD_DATA_SUCCESS,
 });
 
-export const loadDataFailed = (error: string): LoadDataFailed => ({
+export const loadDataFailed = (error: string): LoadDataFailedAction => ({
   type: LOAD_DATA_FAILED,
   payload: error,
 });

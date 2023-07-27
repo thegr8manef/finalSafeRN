@@ -1,6 +1,5 @@
 import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
-import colors from '../../../../assets/colors';
 interface Props {
   textLabels: string;
   textValues: string | undefined;

@@ -1,4 +1,4 @@
-import {LoadProfileState, ProfileState} from '../../configuration/state';
+import {LoadProfileState} from '../../configuration/state';
 import {
   LOAD_PROFILE_DETAILS,
   LOAD_PROFILE_DETAILS_FAILED,

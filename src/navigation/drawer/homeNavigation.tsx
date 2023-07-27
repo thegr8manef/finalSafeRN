@@ -1,14 +1,13 @@
 import * as React from 'react';
-import {StyleSheet, View, Text, Image} from 'react-native';
+import {StyleSheet, Text, Image} from 'react-native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {DashboardPage} from '../../dashboardContext/adapters/primaries/Dashboard';
 import colors from '../../assets/colors';
 
 import {useTranslation} from 'react-i18next';
-import {MenuLeft} from './menuLeft';
-import {VisitsFlashPage} from '../../visiteContext/adapters/primaries/Visits/Flash';
+import {VisitsFlashPage} from '../../visiteContext/adapters/primaries/Flash';
 import {MenuLeftPage} from '.';
-import {VisitsContainer} from '../../visiteContext/adapters/primaries/Visits/Visit/visits.container';
+import {VisitsContainer} from '../../visiteContext/adapters/primaries/Visit/visits.container';
 
 const Drawer = createDrawerNavigator();
 

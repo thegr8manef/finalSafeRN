@@ -6,7 +6,7 @@ import {
   LoadDataActionTypes,
 } from './actionTypes';
 const initailState: LoadDataState = {
-  loading: undefined,
+  loading: false,
   error: undefined,
 };
 

@@ -1,5 +1,4 @@
 import {Profile} from '../../domain/entity/profile';
-import {User} from '../../domain/entity/user';
 
 export const LOAD_LOCAL_PROFILE = 'LOAD_LOCAL_PROFILE';
 

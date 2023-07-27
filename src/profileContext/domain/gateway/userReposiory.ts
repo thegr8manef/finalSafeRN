@@ -2,7 +2,7 @@ import {Observable} from 'rxjs';
 import {Profile} from '../entity/profile';
 import {User} from '../entity/user';
 
-export interface UserService {
+export interface UserRepository {
   setUserConnected(userConnected: Profile): Observable<void>;
   checkUserConnected(): Observable<boolean>;
   loadProfileDetails(): Observable<Profile>;

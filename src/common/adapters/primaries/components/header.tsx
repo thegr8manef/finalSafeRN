@@ -1,14 +1,6 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  Pressable,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Text, StyleSheet, Image, Pressable} from 'react-native';
 import colors from '../../../../assets/colors';
 import React from 'react';
-import {t} from 'i18next';
 
 interface Props {
   title: string;

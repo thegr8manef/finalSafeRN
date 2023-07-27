@@ -6,20 +6,20 @@ import {
   Image,
   Text,
 } from 'react-native';
-import React, {useEffect, useRef, Component, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {StackParamList} from '../../../../navigation/configuration/navigation.types';
 import colors from '../../../../assets/colors';
-import {Profile} from '../../../domain/entity/profile';
 import * as Progress from 'react-native-progress';
-import {t} from 'i18next';
 import {useTranslation} from 'react-i18next';
+import {Profile} from '../../../domain/entity/profile';
 
 interface Props {
   userConncted: boolean;
   navigation: StackNavigationProp<StackParamList>;
+  profile: Profile | null;
   checkUserConnected: () => void;
-  synchronisation: (accessToken: string) => void;
+  loadSychronisationData: (accessToken: string) => void;
   loading: boolean;
 }
 
@@ -34,10 +34,14 @@ export const SplashScreen: React.FC<Props> = (props: Props) => {
   useEffect(() => {
     setMounted(true);
     setTimeout(() => {
-      if (props.userConncted == true && mountedCheck) {
+      if (
+        props.userConncted === true &&
+        mountedCheck === true &&
+        props.profile
+      ) {
         if (!mountedSyn) {
           setMountedSyn(true);
-          props.synchronisation(' ');
+          props.loadSychronisationData(props.profile.accessToken);
         }
         if (props.loading == true) {
           setMountedCheck(false);
@@ -45,13 +49,13 @@ export const SplashScreen: React.FC<Props> = (props: Props) => {
           props.navigation.replace('Home');
         }
       }
-      if (props.userConncted == false && mountedCheck) {
+      if (props.userConncted === false && mountedCheck === true) {
         setMountedCheck(false);
 
         props.navigation.replace('Login');
       }
     }, 3000);
-  });
+  }, [mountedCheck,mountedSyn]);
 
   if (!mounted) {
     props.checkUserConnected();

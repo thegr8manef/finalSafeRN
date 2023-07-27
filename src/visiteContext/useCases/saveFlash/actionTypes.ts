@@ -16,7 +16,6 @@ export interface FlashActionFailed {
 
 export interface FlashActionSuccess {
   type: typeof SAVE_FLASH_SUCCESS;
-  payload: Flash;
 }
 
 export type FlashActionTypes =

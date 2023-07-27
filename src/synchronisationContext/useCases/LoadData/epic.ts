@@ -21,10 +21,10 @@ export const loadDataEpic: Epic = (
 ) =>
   action$.pipe(
     ofType(LOAD_DATA),
-    switchMap(() =>
+    switchMap(action =>
       synchronisationRepository.loadLastUpdateDate().pipe(
-        mergeMap((lastUpadet: string) =>
-          synchronisationService.loadData(lastUpadet).pipe(
+        mergeMap((lastUpdateDate: string) =>
+          synchronisationService.loadData(action.payload, lastUpdateDate).pipe(
             mergeMap((chanties: Chantier[]) =>
               synchronisationRepository.saveData(chanties).pipe(
                 map(() => loadDataSuccess()),

@@ -62,7 +62,7 @@ export class ReduxStoreWO {
           loginMsal: (): Subject<Profile> => this.loginMsal$,
           loadProfileDetails: (): Subject<User> => this.loadProfileDetails$,
         },
-        userService: {
+        userRepository: {
           setUserConnected: (): Subject<void> => this.setUserConnected$,
           checkUserConnected: (): Subject<boolean> => this.checkUserConnected$,
           loadProfileDetails: (): Subject<User> => this.loadProfileDetails$,

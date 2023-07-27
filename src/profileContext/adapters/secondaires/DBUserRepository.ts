@@ -1,10 +1,10 @@
 import {Observable, from} from 'rxjs';
-import {UserService} from '../../domain/gateway/userService';
+import {UserRepository} from '../../domain/gateway/userReposiory';
 import ApplicationContext from '../../../common/appConfig/ApplicationContext';
 import {Profile} from '../../domain/entity/profile';
 import {LocalProfilMapper} from './mapper/localProfile.mapper';
 import {User} from '../../domain/entity/user';
-export class DBUserService implements UserService {
+export class DBUserRepository implements UserRepository {
   setUserConnected(userConnected: Profile): Observable<void> {
     const promiSetUser = new Promise<void>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();

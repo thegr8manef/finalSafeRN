@@ -1,5 +1,5 @@
 import {View, Text, Modal, StyleSheet} from 'react-native';
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import colors from '../../../../assets/colors';
 import {useTranslation} from 'react-i18next';
 import {TextInput} from 'react-native-gesture-handler';

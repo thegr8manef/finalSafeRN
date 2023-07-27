@@ -10,30 +10,32 @@ import {
   FlatList,
   Alert,
 } from 'react-native';
-import colors from '../../../../../assets/colors';
-import {Flash} from '../../../../domain/entity/Flash';
+import colors from '../../../../assets/colors';
+import {Flash} from '../../../domain/entity/Flash';
 import {useTranslation} from 'react-i18next';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {StackParamList} from '../../../../../navigation/configuration/navigation.types';
+import {StackParamList} from '../../../../navigation/configuration/navigation.types';
 import {RadioGroup} from 'react-native-radio-buttons-group';
-import {CommentModal} from '../../components/CommentModal';
-import {OPON} from '../../components/ObservationPositiveON';
-import {OPOFF} from '../../components/ObservationPositiveOFF';
-import {ONON} from '../../components/ObservationNegativeON';
-import {ONOFF} from '../../components/ObservationNegativeOFF';
-import {Sites} from '../../components/Sites';
-import {Header} from '../../../../../common/adapters/primaries/components/header';
-import {ImageController} from '../../components/ImageController';
+import {CommentModal} from '../components/CommentModal';
+import {OPON} from '../components/ObservationPositiveON';
+import {OPOFF} from '../components/ObservationPositiveOFF';
+import {ONON} from '../components/ObservationNegativeON';
+import {ONOFF} from '../components/ObservationNegativeOFF';
+import {Sites} from '../components/Sites';
+import {Header} from '../../../../common/adapters/primaries/components/header';
+import {ImageController} from '../components/ImageController';
 
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
   loadingVisits: boolean;
   errorVisits: string | undefined;
   flash: Flash | undefined;
-  SaveFlash: (data: Flash) => void;
+  saveFlash: (data: Flash) => void;
   navigationDrawer: any;
 }
 export const VisitFlashContainer = (props: Props) => {
+  const {t} = useTranslation();
+
   const [mount, setMount] = useState(false);
   const [commentaires, setcommentaires] = useState('');
   const [levelId, setLevelId] = useState(0);
@@ -56,7 +58,7 @@ export const VisitFlashContainer = (props: Props) => {
       {
         text: 'OUI',
         onPress: () => [
-          props.SaveFlash(flash),
+          props.saveFlash(flash),
           props.navigation.jumpTo('visites'),
         ],
       },
@@ -78,8 +80,6 @@ export const VisitFlashContainer = (props: Props) => {
       }
     }
   };
-
-  const {t} = useTranslation();
 
   const OptionEcartSansRisque = useMemo(
     () => [

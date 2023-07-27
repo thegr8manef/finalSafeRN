@@ -1,16 +1,15 @@
 import {
-  Text,
   View,
   Pressable,
   Image,
   StyleSheet,
   PermissionsAndroid,
   Platform,
+  Alert,
 } from 'react-native';
-import React, {Component} from 'react';
+import React from 'react';
 import colors from '../../../../assets/colors';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import {useState} from 'react';
 
 interface Props {
   images: string;
@@ -88,16 +87,16 @@ export const ImageController = (props: Props) => {
     if (isCameraPermitted && isStoragePermitted) {
       launchCamera(options, response => {
         if (response.didCancel) {
-          alert('User cancelled camera picker');
+          Alert.alert('User cancelled camera picker');
           return;
         } else if (response.errorCode == 'camera_unavailable') {
-          alert('Camera not available on device');
+          Alert.alert('Camera not available on device');
           return;
         } else if (response.errorCode == 'permission') {
-          alert('Permission not satisfied');
+          Alert.alert('Permission not satisfied');
           return;
         } else if (response.errorCode == 'others') {
-          alert(response.errorMessage);
+          Alert.alert(response.errorMessage);
           return;
         }
         addItem(response.assets[0].uri);
@@ -114,16 +113,16 @@ export const ImageController = (props: Props) => {
     };
     launchImageLibrary(options, response => {
       if (response.didCancel) {
-        alert('User cancelled camera picker');
+        Alert.alert('User cancelled camera picker');
         return;
       } else if (response.errorCode == 'camera_unavailable') {
-        alert('Camera not available on device');
+        Alert.alert('Camera not available on device');
         return;
       } else if (response.errorCode == 'permission') {
-        alert('Permission not satisfied');
+        Alert.alert('Permission not satisfied');
         return;
       } else if (response.errorCode == 'others') {
-        alert(response.errorMessage);
+        Alert.alert(response.errorMessage);
         return;
       }
       addItem(response.assets[0].uri);

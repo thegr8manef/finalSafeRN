@@ -16,7 +16,6 @@ export const SaveFlashFailed = (error: string): FlashActionFailed => ({
   type: SAVE_FLASH_FAILED,
   payload: error,
 });
-export const SaveFlashSuccess = (flash: Flash): FlashActionSuccess => ({
+export const SaveFlashSuccess = (): FlashActionSuccess => ({
   type: SAVE_FLASH_SUCCESS,
-  payload: flash,
 });

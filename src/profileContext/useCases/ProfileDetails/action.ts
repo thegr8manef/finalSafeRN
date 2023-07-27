@@ -1,4 +1,3 @@
-import {Profile} from '../../domain/entity/profile';
 import {User} from '../../domain/entity/user';
 import {
   LOAD_PROFILE_DETAILS,

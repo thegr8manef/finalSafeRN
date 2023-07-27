@@ -4,9 +4,10 @@ import {LOAD_PROFILE_DETAILS} from './actionType';
 import {ProfileService} from '../../domain/gateway/profileService';
 import {loadProfileDetailsFailed, loadProfileDetailsSuccess} from './action';
 import {User} from '../../domain/entity/user';
-import {concatMap, switchMap} from 'rxjs/operators';
+import {concatMap, switchMap, catchError} from 'rxjs/operators';
 import {updateLocalProfile} from '../UpdateLocalProfile/actions';
 import {loadData} from '../../../synchronisationContext/useCases/LoadData/actions';
+import {of} from 'rxjs';
 
 export const loadUserInfo: Epic = (
   action$,
@@ -24,6 +25,7 @@ export const loadUserInfo: Epic = (
             loadData(action.payload),
           ];
         }),
+        catchError(error => of(loadProfileDetailsFailed(error))),
       ),
     ),
   );

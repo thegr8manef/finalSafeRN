@@ -1,19 +1,19 @@
-import {View, Text, StyleSheet, Pressable, Image, Button} from 'react-native';
+import {View, Text, StyleSheet, Image} from 'react-native';
 import React from 'react';
 import {useTranslation} from 'react-i18next';
-import colors from '../../../../../assets/colors';
+import colors from '../../../../assets/colors';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {Header} from '../../../../../common/adapters/primaries/components/header';
+import {Header} from '../../../../common/adapters/primaries/components/header';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {StackParamList} from '../../../../../navigation/configuration/navigation.types';
-import {Chantier} from '../../../../../common/adapters/secondaries/db/entity/Chantier';
+import {StackParamList} from '../../../../navigation/configuration/navigation.types';
+import {Chantier} from '../../../../common/adapters/secondaries/db/entity/Chantier';
 
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
-  errorLoadingChantierByCode: string | undefined;
-  LoadingChantierByCodeSuccess: Chantier | null;
-  LoadingChantierByCode: boolean;
-  LoadChantierByCode: (code: string) => Chantier;
+  error: string | undefined;
+  chantier: Chantier | null;
+  loading: boolean;
+  loadChantierByCode: (code: string) => Chantier;
 }
 const HorizontalLine = () => {
   return <View style={styles.horizontalLine} />;

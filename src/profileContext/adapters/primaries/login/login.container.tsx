@@ -1,11 +1,4 @@
-import {
-  View,
-  Text,
-  Button,
-  Image,
-  Pressable,
-  ActivityIndicator,
-} from 'react-native';
+import {View, Text, Image, Pressable, ActivityIndicator} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import styles from './loginStyles';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -44,7 +37,7 @@ export const LoginContainer = (props: Props) => {
     if (props.profile != undefined) {
       props.navigation.replace('Profile');
     }
-  });
+  }, []);
 
   const getData = async () => {
     try {

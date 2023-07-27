@@ -1,5 +1,4 @@
 import {Chantier} from '../../domain/entity/Chantier';
-import {Flash} from '../../domain/entity/Flash';
 
 export const LOAD_CHANTIER_BY_CODE = 'LOAD_CHANTIER_BY_CODE';
 export const LOAD_CHANTIER_BY_CODE_SUCCESS = 'LOAD_CHANTIER_BY_CODE_SUCCESS';

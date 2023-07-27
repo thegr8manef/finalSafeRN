@@ -1,26 +1,28 @@
-import {Observable, throwError, of} from 'rxjs';
+import {Observable, throwError} from 'rxjs';
 import {Chantier} from '../../../common/adapters/secondaries/db/entity/Chantier';
 import {SynchronisationService} from '../../domain/gateway/SynchronisationService';
 import ws from '../../../config/ws';
 import {ObservableAjaxHttpClient} from '../../../common/adapters/secondaries/real/observableAjaxHttpClient';
 import {SynchronisationDto} from './dto/synchronisationDto';
 import {SynchronisationMapper} from './mapper/synchronisationMapper';
-import {catchError, map, switchMap} from 'rxjs/operators';
-import constants from '../../../common/constants';
+import {catchError, map} from 'rxjs/operators';
 
 export class APISynchronisationService implements SynchronisationService {
-  loadData(lastUpadet: string): Observable<Chantier[]> {
+  loadData(
+    accessToken: string,
+    lastUpdateDate: string,
+  ): Observable<Chantier[]> {
     const _headers: Record<string, string> = {
       'Content-Type': 'application/json',
       //  'token': accessToken
       /**
        * We are using a static token because we don't have access to FinalSafe msal
        */
-      token: constants.accessToken,
+      token: accessToken,
     };
 
     const body: Record<string, string> = {
-      lu: lastUpadet,
+      lu: lastUpdateDate,
       lut: '-1',
       lur: '-1',
       luqc: '-1',

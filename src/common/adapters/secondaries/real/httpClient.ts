@@ -1,4 +1,3 @@
-import {AjaxResponse} from 'rxjs/ajax';
 import {Observable} from 'rxjs';
 
 export interface HttpClient {

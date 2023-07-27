@@ -3,11 +3,10 @@ import {Chantier} from '../../domain/entity/Chantier';
 
 export const loadChantierByCodeErrorSelector = (
   appState: AppState,
-): string | undefined => appState.loadChantier.errorLoadingChantierByCode;
+): string | undefined => appState.loadChantier.error;
 
 export const loadingChantierByCodeSelector = (appState: AppState): boolean =>
-  appState.loadChantier.LoadingChantierByCode;
+  appState.loadChantier.loading;
 
-export const loadChantierByCodeSuccessSelector = (
-  appState: AppState,
-): Chantier | null => appState.loadChantier.LoadingChantierByCodeSuccess;
+export const chantierSelector = (appState: AppState): Chantier | null =>
+  appState.loadChantier.chantier;
