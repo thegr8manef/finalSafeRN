@@ -1,4 +1,8 @@
 import {combineEpics} from 'redux-observable';
-import {VisitFlashEpic} from '../useCases/Flash/epic';
-import {LoadChantierEpic} from '../useCases/LoadChantierByCode/epic';
-export const visitsRootEpics = combineEpics(VisitFlashEpic, LoadChantierEpic);
+import {loadChantierEpic} from '../useCases/LoadChantierByCode/epic';
+import {saveVisitFlashEpic} from '../useCases/saveFlash/epic';
+
+export const visitsRootEpics = combineEpics(
+  saveVisitFlashEpic,
+  loadChantierEpic,
+);

@@ -7,8 +7,8 @@ import {visitsEpicsDependecies} from '../visiteContext/configuration/depnedencie
 import {visitsRootEpics} from '../visiteContext/configuration/rootEpic';
 import {connectionRootEpics} from '../common/isConnected/configuration/rootEpic';
 import {connectionEpicsDependencies} from '../common/isConnected/configuration/depnedencies.redux';
-import {synchronisationRootEpics} from '../common/synchronisationContext/configuration/rootEpic';
-import {synchronisationEpicsDependencies} from '../common/synchronisationContext/configuration/depnedencies.redux';
+import {synchronisationRootEpics} from '../synchronisationContext/configuration/rootEpic';
+import {synchronisationEpicsDependencies} from '../synchronisationContext/configuration/depnedencies.redux';
 
 export const rootEpics = combineEpics(
   profileRootEpics,

@@ -1,23 +1,22 @@
 import {Epic, ofType, StateObservable} from 'redux-observable';
 import {AppState} from '../../../redux_configuration/appState';
 import {map, switchMap} from 'rxjs/operators';
-import {delay} from 'rxjs';
-import {UserService} from '../../domain/gateway/userService';
+import {UserRepository} from '../../domain/gateway/userReposiory';
 import {CHECK_USER_CONNECTED} from './actionTypes';
-import {checkUserConnected, checkUserConnectedSuccess} from './actions';
+import {checkUserConnectedSuccess} from './actions';
 
 export const checkUserEpic: Epic = (
   action$,
   store: StateObservable<AppState>,
-  {userServices}: {userServices: UserService},
+  {userRepository}: {userRepository: UserRepository},
 ) =>
   action$.pipe(
     ofType(CHECK_USER_CONNECTED),
-    switchMap(action =>
-      userServices
+    switchMap(() =>
+      userRepository
         .checkUserConnected()
         .pipe(
-          map((ifConnected: boolean) => checkUserConnectedSuccess(ifConnected)),
+          map((isConnected: boolean) => checkUserConnectedSuccess(isConnected)),
         ),
     ),
   );

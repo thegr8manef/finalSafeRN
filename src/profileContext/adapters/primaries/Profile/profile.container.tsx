@@ -1,4 +1,4 @@
-import React, {PureComponent, ReactNode, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   SafeAreaView,
@@ -7,7 +7,6 @@ import {
   ActivityIndicator,
   TouchableOpacity,
 } from 'react-native';
-import {ButtonPrimary} from '../../../../assets/components/ButtonPrimary';
 import {DetailsContainer} from '../../../../assets/components/DetailsContainer';
 import {Divider} from '../../../../assets/components/Divider';
 import {Header} from '../../../../assets/components/Header';
@@ -22,9 +21,10 @@ import {useTranslation} from 'react-i18next';
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
   profile: Profile | undefined;
-  loadProfileDetails: (accessToken: string) => void;
-  user: User;
   loading: boolean;
+  error: string | undefined;
+  user: User | undefined;
+  loadProfileDetails: (accessToken: string) => void;
 }
 
 export const ProfileContainer: React.FC<Props> = (props: Props) => {
@@ -38,7 +38,7 @@ export const ProfileContainer: React.FC<Props> = (props: Props) => {
       setIsCompleted(true);
     }
     setMounted(true);
-  });
+  }, []);
 
   if (!mounted) {
     props.loadProfileDetails(props.profile?.accessToken!!);
@@ -62,7 +62,7 @@ export const ProfileContainer: React.FC<Props> = (props: Props) => {
           </TouchableOpacity>
         </View>
         <View style={styles.text_container}>
-          <Header label_title={t('txt.profile')}></Header>
+          <Header label_title={t('txt.profile')} />
         </View>
       </View>
       <View style={{flex: 0.8}}>

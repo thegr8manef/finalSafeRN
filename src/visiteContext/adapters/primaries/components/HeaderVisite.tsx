@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import colors from '../../../../assets/colors';
 import React from 'react';
-import {t} from 'i18next';
 
 interface Props {
   children: string;

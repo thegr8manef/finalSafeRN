@@ -1,4 +1,4 @@
-import {FlashState, LoadchantierByCodeState} from '../../configuration/state';
+import {LoadchantierByCodeState} from '../../configuration/state';
 import {
   LOAD_CHANTIER_BY_CODE_FAILED,
   LOAD_CHANTIER_BY_CODE_SUCCESS,
@@ -8,9 +8,9 @@ import {
 
 let initialState: LoadchantierByCodeState;
 initialState = {
-  errorLoadingChantierByCode: undefined,
-  LoadingChantierByCodeSuccess: null,
-  LoadingChantierByCode: false,
+  error: undefined,
+  chantier: null,
+  loading: false,
 };
 
 export const reducerLoadChantier = (

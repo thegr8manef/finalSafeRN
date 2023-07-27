@@ -1,0 +1,104 @@
+import {Store} from 'redux';
+
+import {ReduxStoreWO} from '../../reduxStore.wo';
+import {AppState} from '../../../src/redux_configuration/appState';
+import {
+  loadDataErrorSelector,
+  loadingDataSelector,
+} from '../../../src/synchronisationContext/useCases/LoadData/selectors';
+import {loadData} from '../../../src/synchronisationContext/useCases/LoadData/actions';
+import {Chantier} from '../../../src/visiteContext/domain/entity/Chantier';
+
+const deepFreeze = require('deep-freeze');
+
+describe('synchonisation data flow', () => {
+  let store: Store<AppState>;
+  let reduxStoreWO: ReduxStoreWO;
+  let accessTokenFake = 'ABCEJJEJEJJEJE';
+  let lastUpdateDateFake = '-1';
+  beforeEach(() => {
+    reduxStoreWO = new ReduxStoreWO();
+    store = reduxStoreWO.getStore();
+    deepFreeze(store.getState());
+  });
+
+  it('should have a initial state ', () => {
+    expect(loadingDataSelector(store.getState())).toBeFalsy();
+    expect(loadDataErrorSelector(store.getState())).toBeUndefined();
+  });
+
+  it('should start loading data', done => {
+    let eventCounter = 0;
+    store.subscribe(() => {
+      if (++eventCounter === 1) {
+        expect(loadingDataSelector(store.getState())).toBeTruthy();
+        expect(loadDataErrorSelector(store.getState())).toBeUndefined();
+        done();
+      }
+    });
+    store.dispatch(loadData(accessTokenFake));
+  });
+
+  it('should return error when loading lastUpdateDate  failed ', done => {
+    let eventCounter = 0;
+    store.subscribe(() => {
+      if (++eventCounter === 2) {
+        expect(loadingDataSelector(store.getState())).toBeFalsy();
+        expect(loadDataErrorSelector(store.getState())).toBe('ERROR');
+        done();
+      }
+    });
+    store.dispatch(loadData(accessTokenFake));
+    reduxStoreWO.loadLastUpdateDateError('ERROR');
+  });
+
+  it('should return error when loading Data failed ', done => {
+    let eventCounter = 0;
+    store.subscribe(() => {
+      if (++eventCounter === 2) {
+        expect(loadingDataSelector(store.getState())).toBeFalsy();
+        expect(loadDataErrorSelector(store.getState())).toBe('ERROR');
+        done();
+      }
+    });
+    store.dispatch(loadData(accessTokenFake));
+    reduxStoreWO.loadLastUpdateDateNext('-1');
+    reduxStoreWO.loadDataError('ERROR');
+  });
+
+  it('should return error when saving data  failed ', done => {
+    let eventCounter = 0;
+    store.subscribe(() => {
+      if (++eventCounter === 2) {
+        expect(loadingDataSelector(store.getState())).toBeFalsy();
+        expect(loadDataErrorSelector(store.getState())).toBe('ERROR');
+        done();
+      }
+    });
+    store.dispatch(loadData(accessTokenFake));
+    reduxStoreWO.loadLastUpdateDateNext('-1');
+    reduxStoreWO.loadDataNext([
+      new Chantier('1', 'name'),
+      new Chantier('2', 'name 2'),
+    ]);
+    reduxStoreWO.saveDataError('ERROR');
+  });
+
+  it('should success load data && save it in db ', done => {
+    let eventCounter = 0;
+    store.subscribe(() => {
+      if (++eventCounter === 2) {
+        expect(loadingDataSelector(store.getState())).toBeFalsy();
+        expect(loadDataErrorSelector(store.getState())).toBeUndefined();
+        done();
+      }
+    });
+    store.dispatch(loadData(accessTokenFake));
+    reduxStoreWO.loadLastUpdateDateNext('-1');
+    reduxStoreWO.loadDataNext([
+      new Chantier('1', 'name'),
+      new Chantier('2', 'name 2'),
+    ]);
+    reduxStoreWO.saveDataNext();
+  });
+});

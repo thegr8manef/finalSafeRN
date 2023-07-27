@@ -1,5 +1,5 @@
 import {View, Text, Modal, StyleSheet} from 'react-native';
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import colors from '../../../../assets/colors';
 import {useTranslation} from 'react-i18next';
 import {TextInput} from 'react-native-gesture-handler';
@@ -34,7 +34,7 @@ export const SiteWithCode = (props: Props) => {
         <View style={styles.container}>
           <Text>{t('txt.code.chantier')}</Text>
           <TextInput cursorColor={colors.primary} />
-          <View style={{height: 1, backgroundColor: colors.primary}}></View>
+          <View style={{height: 1, backgroundColor: colors.primary}} />
         </View>
       </View>
     </Modal>

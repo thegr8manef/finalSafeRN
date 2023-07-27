@@ -10,8 +10,6 @@ export const Sites = () => {
   const [withCodeVisibilty, setWithCodeVisibilty] = useState(false);
   const [withNameVisibilty, setWithNameVisibilty] = useState(false);
 
-  const [code, setCode] = useState(0);
-
   return (
     <View style={styles.container}>
       <TouchableOpacity

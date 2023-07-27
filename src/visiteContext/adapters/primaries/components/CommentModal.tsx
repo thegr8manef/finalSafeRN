@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {
-  Alert,
   Modal,
   StyleSheet,
   Text,
@@ -8,6 +7,7 @@ import {
   View,
   Image,
   TextInput,
+  Alert,
 } from 'react-native';
 import {HeaderModal} from './HeaderModal';
 import colors from '../../../../assets/colors';
@@ -37,7 +37,7 @@ export const CommentModal = (props: Props) => {
               onPressCustomizePositive={() => {
                 props.commentaires.length !== 0
                   ? [setModalVisible(!modalVisible), setEmpty(false)]
-                  : alert(t('error.point.empty'));
+                  : Alert.alert(t('error.point.empty'));
               }}
               onPressCustomizeNegative={() => {
                 setModalVisible(!modalVisible);

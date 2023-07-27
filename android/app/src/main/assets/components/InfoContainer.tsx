@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 
 interface Props {
   children_info1: string;
-  children_info2 : string
+  children_info2: string;
 }
 export const InfoContainer = (props: Props) => {
   return (
@@ -16,7 +16,7 @@ export const InfoContainer = (props: Props) => {
       </View>
     </View>
   );
-}
+};
 
 export default InfoContainer;
 

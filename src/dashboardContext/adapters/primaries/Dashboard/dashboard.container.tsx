@@ -44,7 +44,7 @@ export const DashboardContainer = (props: Props) => {
 
   useEffect(() => {
     setMount(true);
-  });
+  }, []);
 
   return (
     <SafeAreaView style={{flex: 1}}>

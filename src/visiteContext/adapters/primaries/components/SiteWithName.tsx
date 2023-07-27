@@ -1,5 +1,5 @@
 import {View, Text, Modal, StyleSheet, Image} from 'react-native';
-import React, {useState} from 'react';
+import React from 'react';
 import colors from '../../../../assets/colors';
 import {useTranslation} from 'react-i18next';
 import {TextInput} from 'react-native-gesture-handler';
@@ -30,7 +30,7 @@ export const SiteWithName = (props: Props) => {
           <Text style={[styles.normalText, {fontWeight: 'bold', fontSize: 15}]}>
             {t('choisir_un_chantier')}
           </Text>
-          <Text style={styles.normalText}></Text>
+          <Text style={styles.normalText} />
         </View>
         <View style={styles.container}>
           <View style={styles.filter}>

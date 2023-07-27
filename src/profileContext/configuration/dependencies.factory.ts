@@ -1,14 +1,14 @@
 import {APIProfileService} from '../adapters/secondaires/APIProfileService';
-import {DBUserService} from '../adapters/secondaires/DBUserService';
+import {DBUserRepository} from '../adapters/secondaires/DBUserRepository';
 import {ProfileService} from '../domain/gateway/profileService';
-import {UserService} from '../domain/gateway/userService';
+import {UserRepository} from '../domain/gateway/userReposiory';
 
 export class ProfileDependanciesFactory {
   static getProfileService(): ProfileService {
     return new APIProfileService();
   }
 
-  static DBUserService(): UserService {
-    return new DBUserService();
+  static getUserRepository(): UserRepository {
+    return new DBUserRepository();
   }
 }

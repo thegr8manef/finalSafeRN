@@ -12,9 +12,7 @@ import {Dispatch} from 'redux';
 
 import {LoadProfileDetailsActionTypes} from '../../../useCases/ProfileDetails/actionType';
 import {loadProfileDetails} from '../../../useCases/ProfileDetails/action';
-import {loadingDataSelector} from '../../../../common/synchronisationContext/useCases/LoadData/selectors';
-import {loadingSaveSelector} from '../../../../common/synchronisationContext/useCases/SaveInLocal/selectors';
-
+import {updateLocalProfileLoadingSelector} from '../../../useCases/UpdateLocalProfile/selector';
 interface StateToPropsType {
   profile: Profile | undefined;
   loading: boolean;
@@ -28,7 +26,7 @@ interface DispatchToPropsType {
 
 const mapStateToProps = (state: AppState): StateToPropsType => ({
   profile: profileSelector(state),
-  loading: loadingSaveSelector(state),
+  loading: updateLocalProfileLoadingSelector(state),
   error: loadUserInfoErrorSelector(state),
   user: loadUserInfoSuccessSelector(state),
 });

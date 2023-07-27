@@ -1,16 +1,15 @@
 import {Chantier} from '../domain/entity/Chantier';
-import {Flash} from '../domain/entity/Flash';
 
 export interface VisitsState {
-  flash: FlashState;
+  saveFlash: SaveFlashState;
   loadChantierByCode: LoadchantierByCodeState;
 }
-export interface FlashState {
-  errorVisits: string | undefined;
-  flash: Flash | undefined;
+export interface SaveFlashState {
+  error: string | undefined;
+  loading: boolean;
 }
 export interface LoadchantierByCodeState {
-  errorLoadingChantierByCode: string | undefined;
-  LoadingChantierByCodeSuccess: Chantier | null;
-  LoadingChantierByCode: boolean;
+  error: string | undefined;
+  chantier: Chantier | null;
+  loading: boolean;
 }

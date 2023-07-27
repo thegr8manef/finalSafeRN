@@ -1,7 +1,4 @@
-import {
-  LoadProfileState,
-  LoadLocalProfileState,
-} from '../../configuration/state';
+import {LoadLocalProfileState} from '../../configuration/state';
 import {
   LOAD_LOCAL_PROFILE,
   LOAD_LOCAL_PROFILE_FAILED,

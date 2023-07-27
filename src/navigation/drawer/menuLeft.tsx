@@ -8,7 +8,6 @@ import {
 } from '@react-navigation/drawer';
 import {Profile} from '../../profileContext/domain/entity/profile';
 import {useEffect, useState} from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface Props {
   profile: Profile | undefined;
@@ -20,7 +19,7 @@ export const MenuLeft = (props: Props) => {
 
   useEffect(() => {
     setMounted(true);
-  });
+  }, []);
 
   if (!mounted) {
     props.loadProfileLocal();

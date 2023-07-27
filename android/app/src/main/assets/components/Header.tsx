@@ -1,5 +1,5 @@
 import {View, Text, StyleSheet} from 'react-native';
-import colors from "../colors";
+import colors from '../colors';
 
 interface Props {
   children: string;
@@ -10,8 +10,7 @@ export const Header = (props: Props) => {
       <Text style={styles.textCentre}>{props.children}</Text>
     </View>
   );
-}
-
+};
 
 const styles = StyleSheet.create({
   rectangle: {

@@ -1,22 +1,20 @@
 import {Epic, ofType, StateObservable} from 'redux-observable';
 import {AppState} from '../../../redux_configuration/appState';
-import {ProfileService} from '../../domain/gateway/profileService';
-import {User} from '../../domain/entity/user';
 import {map, switchMap} from 'rxjs/operators';
 import {LOAD_LOCAL_PROFILE} from './actionType';
 import {loadLocalProfileSuccess} from './action';
 import {Profile} from '../../domain/entity/profile';
-import {UserService} from '../../domain/gateway/userService';
+import {UserRepository} from '../../domain/gateway/userReposiory';
 
 export const loadLocalProfile: Epic = (
   action$,
   store: StateObservable<AppState>,
-  {userServices}: {userServices: UserService},
+  {userRepository}: {userRepository: UserRepository},
 ) =>
   action$.pipe(
     ofType(LOAD_LOCAL_PROFILE),
-    switchMap(action =>
-      userServices
+    switchMap(() =>
+      userRepository
         .loadProfileDetails()
         .pipe(map((data: Profile) => loadLocalProfileSuccess(data))),
     ),

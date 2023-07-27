@@ -1,7 +1,6 @@
 import {Epic, StateObservable, ofType} from 'redux-observable';
 import {AppState} from '../../../redux_configuration/appState';
 import {SAVE_STAT} from './actionTypes';
-import {saveStatSuccess} from './actions';
 import {map, switchMap} from 'rxjs/operators';
 import {DBStatRepository} from '../../domain/gateway/DBStatRepository';
 import {loadLocalStat} from '../LoadLocalStat/actions';

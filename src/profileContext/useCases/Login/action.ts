@@ -1,4 +1,4 @@
-import { Profile } from '../../domain/entity/profile';
+import {Profile} from '../../domain/entity/profile';
 import {
   LOGIN,
   LOGIN_FAILED,

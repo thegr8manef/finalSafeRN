@@ -1,4 +1,3 @@
-import RNFS from 'react-native-fs';
 import Realm, {Configuration} from 'realm';
 import {User} from '../adapters/secondaries/db/entity/User';
 import {Chantier} from '../adapters/secondaries/db/entity/Chantier';
@@ -12,7 +11,6 @@ import {StatisticRiskObject} from '../adapters/secondaries/db/entity/StatisticRi
 import {StatisticUser} from '../adapters/secondaries/db/entity/StatisticUser';
 import {StatisticVisit} from '../adapters/secondaries/db/entity/StatisticVisit';
 import {Zone} from '../adapters/secondaries/db/entity/Zone';
-import realm_config from '../../config/realm-config';
 
 class ApplicationContext {
   private static instance: ApplicationContext;
