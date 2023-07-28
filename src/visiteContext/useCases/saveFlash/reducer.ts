@@ -6,8 +6,7 @@ import {
   SAVE_FLASH_SUCCESS,
 } from './actionTypes';
 
-let initialState: SaveFlashState;
-initialState = {
+const initialState: SaveFlashState  = {
   error: undefined,
   loading: false,
 };

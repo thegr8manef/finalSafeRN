@@ -1,5 +1,5 @@
-import {Text, View, StyleSheet} from 'react-native';
 import React from 'react';
+import {Text, View, StyleSheet} from 'react-native';
 
 interface Props {
   label_title: string;
@@ -18,7 +18,6 @@ export const InfoContainer = (props: Props): JSX.Element => {
   );
 };
 
-export default InfoContainer;
 
 const styles = StyleSheet.create({
   container_info: {

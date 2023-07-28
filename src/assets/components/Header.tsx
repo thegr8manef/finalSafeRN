@@ -1,6 +1,6 @@
 import {View, Text, StyleSheet} from 'react-native';
 import colors from '../colors';
-
+import React from 'react'
 interface Props {
   label_title: string;
 }

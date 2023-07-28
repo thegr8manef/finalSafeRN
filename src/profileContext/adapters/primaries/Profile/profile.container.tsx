@@ -38,10 +38,11 @@ export const ProfileContainer: React.FC<Props> = (props: Props) => {
       setIsCompleted(true);
     }
     setMounted(true);
-  }, []);
+  });
 
   if (!mounted) {
-    props.loadProfileDetails(props.profile?.accessToken!!);
+    console.log(props.profile?.accessToken);
+    props.loadProfileDetails(props.profile?.accessToken!);
   }
   const handlNavigation = () => {
     if (isCompleted) {

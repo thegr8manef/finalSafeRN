@@ -73,7 +73,7 @@ export const ImageController = (props: Props) => {
   };
 
   const captureImage = async () => {
-    let options = {
+    const options = {
       mediaType: 'photo',
       maxWidth: 300,
       maxHeight: 550,
@@ -82,8 +82,8 @@ export const ImageController = (props: Props) => {
       durationLimit: 30, //Video max duration in seconds
       saveToPhotos: true,
     };
-    let isCameraPermitted = await requestCameraPermission();
-    let isStoragePermitted = await requestExternalWritePermission();
+    const isCameraPermitted = await requestCameraPermission();
+    const isStoragePermitted = await requestExternalWritePermission();
     if (isCameraPermitted && isStoragePermitted) {
       launchCamera(options, response => {
         if (response.didCancel) {
@@ -105,7 +105,7 @@ export const ImageController = (props: Props) => {
   };
 
   const chooseFile = () => {
-    let options = {
+    const options = {
       mediaType: 'photo',
       maxWidth: 300,
       maxHeight: 550,

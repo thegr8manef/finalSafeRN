@@ -3,7 +3,7 @@ import {Profile} from '../../profileContext/domain/entity/profile';
 import {
   loadLocalProfileSelector,
   loadLocalProfileErrorSelector,
-  loadLocalProfileSuccessSelector,
+  localProfileSelector,
 } from '../../profileContext/useCases/LoadLocalProfile/selectors';
 import {AppState} from '../../redux_configuration/appState';
 import {LoadLoacalProfileActionDbTypes} from '../../profileContext/useCases/LoadLocalProfile/actionType';
@@ -22,7 +22,7 @@ interface DispatchToPropsType {
 }
 
 const mapStateToProps = (state: AppState): StateToPropsType => ({
-  profile: loadLocalProfileSuccessSelector(state),
+  profile: localProfileSelector(state),
   loading: loadLocalProfileSelector(state),
   error: loadLocalProfileErrorSelector(state),
 });

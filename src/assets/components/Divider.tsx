@@ -1,8 +1,7 @@
-import {View, Text, StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import React from 'react';
-interface Props {}
 
-export const Divider = (props: Props) => {
+export const Divider = () => {
   return <View style={styles.container_divider} />;
 };
 

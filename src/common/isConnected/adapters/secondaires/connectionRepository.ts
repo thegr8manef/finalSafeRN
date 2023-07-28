@@ -8,7 +8,7 @@ export class connectionRepository implements ConnectionRepository {
       try {
         NetInfo.fetch()
           .then(state => {
-            resolve(state.isConnected!!);
+            resolve(state.isConnected!);
           })
           .catch(error => {
             reject(error);

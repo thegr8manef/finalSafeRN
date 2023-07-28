@@ -27,17 +27,17 @@ export const CommentModal = (props: Props) => {
         animationType="slide"
         transparent={true}
         visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
-        }}>
+        >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <HeaderModal
               children={t('txt.commentaires.without.start')}
               onPressCustomizePositive={() => {
-                props.commentaires.length !== 0
-                  ? [setModalVisible(!modalVisible), setEmpty(false)]
-                  : Alert.alert(t('error.point.empty'));
+                if(props.commentaires.length !== 0){
+                  setModalVisible(!modalVisible)
+                  setEmpty(false)
+                }else
+                 Alert.alert(t('error.point.empty'));
               }}
               onPressCustomizeNegative={() => {
                 setModalVisible(!modalVisible);

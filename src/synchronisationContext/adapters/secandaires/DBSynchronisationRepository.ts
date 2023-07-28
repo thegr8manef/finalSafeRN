@@ -10,7 +10,7 @@ export class DBSynchronisationRepository implements SynchronisationRepository {
       try {
         if (chanties.length > 0) {
           db.then(realm => {
-            let updt = realm.objects('User');
+            const updt = realm.objects('User');
             realm?.write(() => {
               chanties.forEach(chantie => {
                 realm.create('Chantier', chantie);

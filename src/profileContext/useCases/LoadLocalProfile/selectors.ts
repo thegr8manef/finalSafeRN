@@ -8,6 +8,5 @@ export const loadLocalProfileErrorSelector = (
   appState: AppState,
 ): string | undefined => appState.profile.loadLocalProfile.error;
 
-export const loadLocalProfileSuccessSelector = (
-  appState: AppState,
-): Profile | undefined => appState.profile.loadLocalProfile.profile;
+export const localProfileSelector = (appState: AppState): Profile | undefined =>
+  appState.profile.loadLocalProfile.profile;
