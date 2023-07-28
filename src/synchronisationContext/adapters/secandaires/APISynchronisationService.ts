@@ -6,6 +6,7 @@ import {ObservableAjaxHttpClient} from '../../../common/adapters/secondaries/rea
 import {SynchronisationDto} from './dto/synchronisationDto';
 import {SynchronisationMapper} from './mapper/synchronisationMapper';
 import {catchError, map} from 'rxjs/operators';
+import constants from '../../../common/constants';
 
 export class APISynchronisationService implements SynchronisationService {
   loadData(
@@ -18,7 +19,7 @@ export class APISynchronisationService implements SynchronisationService {
       /**
        * We are using a static token because we don't have access to FinalSafe msal
        */
-      token: accessToken,
+      token: constants.accessToken,
     };
 
     const body: Record<string, string> = {

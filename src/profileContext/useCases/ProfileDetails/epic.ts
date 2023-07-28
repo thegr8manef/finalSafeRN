@@ -9,7 +9,7 @@ import {updateLocalProfile} from '../UpdateLocalProfile/actions';
 import {loadData} from '../../../synchronisationContext/useCases/LoadData/actions';
 import {of} from 'rxjs';
 
-export const loadUserInfo: Epic = (
+export const loadProfileDetailsEpic: Epic = (
   action$,
   store: StateObservable<AppState>,
   {profileService}: {profileService: ProfileService},

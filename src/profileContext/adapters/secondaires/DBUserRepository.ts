@@ -80,7 +80,7 @@ export class DBUserRepository implements UserRepository {
       const db = ApplicationContext.getInstance().db();
       try {
         db.then(realm => {
-          let updt = realm.objects('User');
+          const updt = realm.objects('User');
           realm?.write(() => {
             updt[0].rg = user.region;
           });

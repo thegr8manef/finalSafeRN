@@ -4,7 +4,6 @@ import {User} from '../domain/entity/user';
 export interface ProfileState {
   login: LoginState;
   loadProfileDetails: LoadProfileState;
-  checkUserConnected: CheckUserConnectedState;
   setUserConnected: SetUserConnectedState;
   loadLocalProfile: LoadLocalProfileState;
   updateLocalProfile: UpdateLocalProfileState;
@@ -33,10 +32,6 @@ export interface LoadLocalProfileState {
   loading: boolean;
   error: string | undefined;
   profile: Profile | undefined;
-}
-
-export interface CheckUserConnectedState {
-  userConnected: boolean;
 }
 
 export interface SetUserConnectedState {

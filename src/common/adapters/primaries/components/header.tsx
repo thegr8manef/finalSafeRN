@@ -6,7 +6,7 @@ interface Props {
   title: string;
   navigation: any;
 }
-export const Header = (props: Props) => {
+export const Header = (props: Props):JSX.Element => {
   return (
     <View style={styles.header}>
       <View style={styles.header_title}>

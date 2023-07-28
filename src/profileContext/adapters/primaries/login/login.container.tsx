@@ -37,7 +37,7 @@ export const LoginContainer = (props: Props) => {
     if (props.profile != undefined) {
       props.navigation.replace('Profile');
     }
-  }, []);
+  });
 
   const getData = async () => {
     try {

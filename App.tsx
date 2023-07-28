@@ -24,7 +24,7 @@ export default function App() {
 
   useEffect(() => {
     NetInfo.addEventListener(state => {
-      store.dispatch(setConnectionStatus(state.isConnected!!));
+      store.dispatch(setConnectionStatus(state.isConnected!));
     });
     setMount(true);
   });

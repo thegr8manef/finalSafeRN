@@ -13,7 +13,7 @@ interface Props {
   children: string;
   navigation: any;
 }
-export const HeaderVisite = (props: Props) => {
+export const HeaderVisite = (props: Props): JSX.Element => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.rectangle}>

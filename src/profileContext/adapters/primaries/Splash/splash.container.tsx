@@ -15,15 +15,15 @@ import {useTranslation} from 'react-i18next';
 import {Profile} from '../../../domain/entity/profile';
 
 interface Props {
-  userConncted: boolean;
   navigation: StackNavigationProp<StackParamList>;
-  profile: Profile | null;
-  checkUserConnected: () => void;
-  loadSychronisationData: (accessToken: string) => void;
   loading: boolean;
+  connectionStatus: boolean | undefined;
+  profile: Profile | undefined;
+  loadLocalProfile: () => void;
+  loadSychronisationData: (accessToken: string) => void;
 }
 
-export const SplashScreen: React.FC<Props> = (props: Props) => {
+export const SplashScreen = (props: Props): React.FC<Props> => {
   const [mounted, setMounted] = useState(false);
   const [mountedCheck, setMountedCheck] = useState(true);
 
@@ -34,11 +34,7 @@ export const SplashScreen: React.FC<Props> = (props: Props) => {
   useEffect(() => {
     setMounted(true);
     setTimeout(() => {
-      if (
-        props.userConncted === true &&
-        mountedCheck === true &&
-        props.profile
-      ) {
+      if (props.profile !== undefined && mountedCheck === true) {
         if (!mountedSyn) {
           setMountedSyn(true);
           props.loadSychronisationData(props.profile.accessToken);
@@ -49,16 +45,11 @@ export const SplashScreen: React.FC<Props> = (props: Props) => {
           props.navigation.replace('Home');
         }
       }
-      if (props.userConncted === false && mountedCheck === true) {
-        setMountedCheck(false);
-
-        props.navigation.replace('Login');
-      }
-    }, 3000);
-  }, [mountedCheck,mountedSyn]);
+    }, 7000);
+  });
 
   if (!mounted) {
-    props.checkUserConnected();
+    props.loadLocalProfile();
   }
 
   return (

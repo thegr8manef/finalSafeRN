@@ -235,9 +235,7 @@
 <a name='L170'></a><a href='#L170'>170</a>
 <a name='L171'></a><a href='#L171'>171</a>
 <a name='L172'></a><a href='#L172'>172</a>
-<a name='L173'></a><a href='#L173'>173</a>
-<a name='L174'></a><a href='#L174'>174</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L173'></a><a href='#L173'>173</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -410,18 +408,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {
-  Text,
   View,
   Pressable,
   Image,
   StyleSheet,
   PermissionsAndroid,
   Platform,
+  Alert,
 } from 'react-native';
-import React, {Component} from 'react';
+import React from 'react';
 import colors from '../../../../assets/colors';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import {useState} from 'react';
 &nbsp;
 interface Props {
   images: string;
@@ -485,7 +482,7 @@ export const ImageController = <span class="cstat-no" title="statement not cover
   };
 &nbsp;
   const captureImage = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >as</span>ync () =&gt; {</span>
-    let options = <span class="cstat-no" title="statement not covered" >{</span>
+    const options = <span class="cstat-no" title="statement not covered" >{</span>
       mediaType: 'photo',
       maxWidth: 300,
       maxHeight: 550,
@@ -494,21 +491,21 @@ export const ImageController = <span class="cstat-no" title="statement not cover
       durationLimit: 30, //Video max duration in seconds
       saveToPhotos: true,
     };
-    let isCameraPermitted = <span class="cstat-no" title="statement not covered" >await requestCameraPermission();</span>
-    let isStoragePermitted = <span class="cstat-no" title="statement not covered" >await requestExternalWritePermission();</span>
+    const isCameraPermitted = <span class="cstat-no" title="statement not covered" >await requestCameraPermission();</span>
+    const isStoragePermitted = <span class="cstat-no" title="statement not covered" >await requestExternalWritePermission();</span>
 <span class="cstat-no" title="statement not covered" >    if (isCameraPermitted &amp;&amp; isStoragePermitted) {</span>
 <span class="cstat-no" title="statement not covered" >      launchCamera(options, <span class="fstat-no" title="function not covered" >re</span>sponse =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >        if (response.didCancel) {</span>
-<span class="cstat-no" title="statement not covered" >          alert('User cancelled camera picker');</span>
+<span class="cstat-no" title="statement not covered" >          Alert.alert('User cancelled camera picker');</span>
 <span class="cstat-no" title="statement not covered" >          return;</span>
         } else <span class="cstat-no" title="statement not covered" >if (response.errorCode == 'camera_unavailable') {</span>
-<span class="cstat-no" title="statement not covered" >          alert('Camera not available on device');</span>
+<span class="cstat-no" title="statement not covered" >          Alert.alert('Camera not available on device');</span>
 <span class="cstat-no" title="statement not covered" >          return;</span>
         } else <span class="cstat-no" title="statement not covered" >if (response.errorCode == 'permission') {</span>
-<span class="cstat-no" title="statement not covered" >          alert('Permission not satisfied');</span>
+<span class="cstat-no" title="statement not covered" >          Alert.alert('Permission not satisfied');</span>
 <span class="cstat-no" title="statement not covered" >          return;</span>
         } else <span class="cstat-no" title="statement not covered" >if (response.errorCode == 'others') {</span>
-<span class="cstat-no" title="statement not covered" >          alert(response.errorMessage);</span>
+<span class="cstat-no" title="statement not covered" >          Alert.alert(response.errorMessage);</span>
 <span class="cstat-no" title="statement not covered" >          return;</span>
         }
 <span class="cstat-no" title="statement not covered" >        addItem(response.assets[0].uri);</span>
@@ -517,7 +514,7 @@ export const ImageController = <span class="cstat-no" title="statement not cover
   };
 &nbsp;
   const chooseFile = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-    let options = <span class="cstat-no" title="statement not covered" >{</span>
+    const options = <span class="cstat-no" title="statement not covered" >{</span>
       mediaType: 'photo',
       maxWidth: 300,
       maxHeight: 550,
@@ -525,16 +522,16 @@ export const ImageController = <span class="cstat-no" title="statement not cover
     };
 <span class="cstat-no" title="statement not covered" >    launchImageLibrary(options, <span class="fstat-no" title="function not covered" >re</span>sponse =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >      if (response.didCancel) {</span>
-<span class="cstat-no" title="statement not covered" >        alert('User cancelled camera picker');</span>
+<span class="cstat-no" title="statement not covered" >        Alert.alert('User cancelled camera picker');</span>
 <span class="cstat-no" title="statement not covered" >        return;</span>
       } else <span class="cstat-no" title="statement not covered" >if (response.errorCode == 'camera_unavailable') {</span>
-<span class="cstat-no" title="statement not covered" >        alert('Camera not available on device');</span>
+<span class="cstat-no" title="statement not covered" >        Alert.alert('Camera not available on device');</span>
 <span class="cstat-no" title="statement not covered" >        return;</span>
       } else <span class="cstat-no" title="statement not covered" >if (response.errorCode == 'permission') {</span>
-<span class="cstat-no" title="statement not covered" >        alert('Permission not satisfied');</span>
+<span class="cstat-no" title="statement not covered" >        Alert.alert('Permission not satisfied');</span>
 <span class="cstat-no" title="statement not covered" >        return;</span>
       } else <span class="cstat-no" title="statement not covered" >if (response.errorCode == 'others') {</span>
-<span class="cstat-no" title="statement not covered" >        alert(response.errorMessage);</span>
+<span class="cstat-no" title="statement not covered" >        Alert.alert(response.errorMessage);</span>
 <span class="cstat-no" title="statement not covered" >        return;</span>
       }
 <span class="cstat-no" title="statement not covered" >      addItem(response.assets[0].uri);</span>
@@ -589,7 +586,7 @@ export default ImageController;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-07-27T08:54:53.208Z
+                at 2023-07-28T11:23:30.275Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

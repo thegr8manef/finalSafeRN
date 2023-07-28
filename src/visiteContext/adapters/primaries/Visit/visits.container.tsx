@@ -15,11 +15,11 @@ interface Props {
   loading: boolean;
   loadChantierByCode: (code: string) => Chantier;
 }
-const HorizontalLine = () => {
+const HorizontalLine = (): JSX.Element => {
   return <View style={styles.horizontalLine} />;
 };
 
-export const VisitsContainer = (props: Props) => {
+export const VisitsContainer = (props: Props): JSX.Element => {
   const {t} = useTranslation();
 
   return (
@@ -50,7 +50,7 @@ export const VisitsContainer = (props: Props) => {
         <View style={styles.visits_type}>
           <View style={styles.type_container}>
             <Image
-              source={require('../../../../../assets/img/icn_add_prevention.png')}
+              source={require('../../../../assets/img/icn_add_prevention.png')}
               style={styles.type_image}
             />
             <Text style={styles.type_title}>{t('txt.prevention')}</Text>
@@ -58,7 +58,7 @@ export const VisitsContainer = (props: Props) => {
 
           <View style={styles.type_container}>
             <Image
-              source={require('../../../../../assets/img/icn_add_conformite.png')}
+              source={require('../../../../assets/img/icn_add_conformite.png')}
               style={styles.type_image}
             />
             <Text style={styles.type_title}>{t('txt.conformite')}</Text>
@@ -66,7 +66,7 @@ export const VisitsContainer = (props: Props) => {
 
           <View style={styles.type_container}>
             <Image
-              source={require('../../../../../assets/img/icn_add_hierarchique.png')}
+              source={require('../../../../assets/img/icn_add_hierarchique.png')}
               style={styles.type_image}
             />
             <Text style={styles.type_title}>{t('txt.hierarchique')}</Text>

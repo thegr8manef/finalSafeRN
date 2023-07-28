@@ -6,8 +6,7 @@ import {
   LoadChantierActionTypes,
 } from './actionTypes';
 
-let initialState: LoadchantierByCodeState;
-initialState = {
+const initialState: LoadchantierByCodeState= {
   error: undefined,
   chantier: null,
   loading: false,
@@ -20,23 +19,23 @@ export const reducerLoadChantier = (
   switch (action.type) {
     case LOAD_CHANTIER_BY_CODE:
       return {
-        errorLoadingChantierByCode: undefined,
-        LoadingChantierByCodeSuccess: null,
-        LoadingChantierByCode: true,
+        error: undefined,
+        chantier: null,
+        loading: true,
       };
 
     case LOAD_CHANTIER_BY_CODE_SUCCESS:
       return {
-        errorLoadingChantierByCode: undefined,
-        LoadingChantierByCodeSuccess: action.payload,
-        LoadingChantierByCode: true,
+        error: undefined,
+        chantier: action.payload,
+        loading: true,
       };
 
     case LOAD_CHANTIER_BY_CODE_FAILED:
       return {
-        errorLoadingChantierByCode: action.payload,
-        LoadingChantierByCodeSuccess: null,
-        LoadingChantierByCode: false,
+        error: action.payload,
+        chantier: null,
+        loading: false,
       };
     default:
       return state;

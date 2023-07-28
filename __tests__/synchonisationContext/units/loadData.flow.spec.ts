@@ -14,8 +14,8 @@ const deepFreeze = require('deep-freeze');
 describe('synchonisation data flow', () => {
   let store: Store<AppState>;
   let reduxStoreWO: ReduxStoreWO;
-  let accessTokenFake = 'ABCEJJEJEJJEJE';
-  let lastUpdateDateFake = '-1';
+  const accessTokenFake = 'ABCEJJEJEJJEJE';
+  const lastUpdateDateFake = '-1';
   beforeEach(() => {
     reduxStoreWO = new ReduxStoreWO();
     store = reduxStoreWO.getStore();

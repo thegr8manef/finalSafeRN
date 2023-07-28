@@ -53,7 +53,7 @@ export const SiteWithName = (props: Props) => {
           />
           <TextInput
             style={styles.input}
-            placeholder={t('txt.filter')!!}
+            placeholder={t('txt.filter')}
             cursorColor={colors.primary}
           />
         </View>

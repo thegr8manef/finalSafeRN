@@ -3,6 +3,6 @@ import {Profile} from '../../../domain/entity/profile';
 
 export class LocalProfilMapper {
   static mapUserDbToProfile(user: User): Profile {
-    return new Profile('', user.fn + ' ' + user.ln, '', user.em!!);
+    return new Profile('', user.fn + ' ' + user.ln, '', user.em ? user.em : '');
   }
 }

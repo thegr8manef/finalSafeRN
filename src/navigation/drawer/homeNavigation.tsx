@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {StyleSheet, Text, Image} from 'react-native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import {DashboardPage} from '../../dashboardContext/adapters/primaries/Dashboard';
+import {DashboardPage} from '../../statisticContext/adapters/primaries/Dashboard';
 import colors from '../../assets/colors';
 
 import {useTranslation} from 'react-i18next';

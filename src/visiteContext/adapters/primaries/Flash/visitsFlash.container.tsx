@@ -33,7 +33,7 @@ interface Props {
   saveFlash: (data: Flash) => void;
   navigationDrawer: any;
 }
-export const VisitFlashContainer = (props: Props) => {
+export const VisitFlashContainer = (props: Props): React.FC<Props> => {
   const {t} = useTranslation();
 
   const [mount, setMount] = useState(false);
@@ -42,8 +42,8 @@ export const VisitFlashContainer = (props: Props) => {
   const [btnPositive, setbtnPositive] = useState(false);
   const [btnNegative, setbtnNegative] = useState(false);
   const [images, setimages] = useState([]);
-  var test_observation = true;
-  var test_commentaires = true;
+  let test_observation = true;
+  let test_commentaires = true;
 
   if (!mount) {
     props.loadingVisits;
