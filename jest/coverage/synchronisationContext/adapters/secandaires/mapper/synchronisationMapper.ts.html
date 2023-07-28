@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">62.5% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>5/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">25% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>5/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>2/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">62.5% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>5/8</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -121,20 +121,15 @@
 <a name='L56'></a><a href='#L56'>56</a>
 <a name='L57'></a><a href='#L57'>57</a>
 <a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L59'></a><a href='#L59'>59</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -154,9 +149,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -183,73 +176,65 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {Chantier} from '../../../../common/adapters/secondaries/db/entity/Chantier';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&nbsp;
+import { Chantier } from '../../../../visiteContext/domain/entity/Chantier';
 import {SynchronisationDto} from '../dto/synchronisationDto';
 &nbsp;
 export class SynchronisationMapper {
-<span class="fstat-no" title="function not covered" >  st</span>atic mapperToChanties(synchronisationDto: SynchronisationDto): Chantier[] {
-    const chanties: Chantier[] = <span class="cstat-no" title="statement not covered" >[];</span>
-<span class="cstat-no" title="statement not covered" >    synchronisationDto.rd.cs.forEach(<span class="fstat-no" title="function not covered" >ch</span>antier =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      chanties.push({</span>
-        id: chantier.id.toString(),
-        no: chantier.no,
-        ad: chantier.ad,
-        type: -1,
-        ac: chantier.ac,
-        cp: chantier.cp.toString(),
-        co: '',
-        py: chantier.py,
-        vl: chantier.vl,
-        sr: chantier.sr,
-        cd: '',
-        lu: parseInt(synchronisationDto.rd.lus),
-        st: chantier.st,
-        ref: chantier.ref,
-        org: chantier.org.toString(),
-        ol_name: chantier.ol_name,
-        osc: chantier.osc,
-        pid: chantier.pid.toString(),
-        piid: chantier.piid.toString(),
-      } as Chantier);
+  static mapperToChanties(synchronisationDto: SynchronisationDto): Chantier[] {
+    const chanties: Chantier[] = [];
+    synchronisationDto.rd.cs.forEach(chantier =&gt; {
+      chanties.push(new Chantier(
+       chantier.id.toString(),
+      chantier.no,
+       chantier.ad ? <span class="branch-0 cbranch-no" title="branch not covered" >chantier.ad </span>: '',
+      -1,
+       chantier.ac,
+       chantier.cp ? <span class="branch-0 cbranch-no" title="branch not covered" >chantier.cp.toString():</span> '',
+        chantier.py ? <span class="branch-0 cbranch-no" title="branch not covered" >chantier.py </span>: '',
+        chantier.vl ? <span class="branch-0 cbranch-no" title="branch not covered" >chantier.vl </span>: '',
+       chantier.sr,
+       synchronisationDto.rd.lus ? <span class="branch-0 cbranch-no" title="branch not covered" >parseInt(synchronisationDto.rd.lus) </span>: -1,
+      [],
+       chantier.ref,
+         chantier.ol_name,
+       chantier.osc,
+        chantier.pid.toString(),
+      chantier.piid.toString(),
+     ))
     });
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    synchronisationDto.rd.ocs.forEach(<span class="fstat-no" title="function not covered" >ch</span>antier =&gt; {</span>
+    synchronisationDto.rd.ocs.forEach(<span class="fstat-no" title="function not covered" >ch</span>antier =&gt; {
 <span class="cstat-no" title="statement not covered" >      if (</span>
         !chanties.some(
 <span class="fstat-no" title="function not covered" >          _c</span>hantier =&gt; <span class="cstat-no" title="statement not covered" >_chantier.id?.toString() == chantier.id.toString(),</span>
         )
       ) {
-<span class="cstat-no" title="statement not covered" >        chanties.push({</span>
-          id: chantier.id.toString(),
-          no: chantier.no,
-          ad: chantier.ad,
-          type: -1,
-          ac: chantier.ac,
-          cp: '',
-          co: '',
-          py: chantier.py,
-          vl: chantier.vl,
-          sr: chantier.sr,
-          cd: '',
-          lu: parseInt(synchronisationDto.rd.lus),
-          st: -1,
-          ref: chantier.ref,
-          org: chantier.org.toString(),
-          ol_name: chantier.ol_name,
-          osc: chantier.osc.toString(),
-          pid: chantier.pid.toString(),
-          piid: chantier.piid.toString(),
-        } as Chantier);
+<span class="cstat-no" title="statement not covered" >        chanties.push(new Chantier(</span>
+          chantier.id.toString(),
+         chantier.no,
+          chantier.ad ? chantier.ad : '',
+         -1,
+          chantier.ac,
+          '',
+           chantier.py ? chantier.py : '',
+           chantier.vl ? chantier.vl: '',
+          chantier.sr,
+          synchronisationDto.rd.lus ? parseInt(synchronisationDto.rd.lus): -1,
+         [],
+          chantier.ref,
+            chantier.ol_name,
+            chantier.osc.toString(),
+           chantier.pid.toString(),
+         chantier.piid.toString(),
+        ));
       }
     });
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    return chanties;</span>
+    return chanties;
   }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -259,7 +244,7 @@ export class SynchronisationMapper {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-07-28T11:23:30.275Z
+                at 2023-07-28T16:13:42.210Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

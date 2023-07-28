@@ -41,7 +41,6 @@ export const ProfileContainer: React.FC<Props> = (props: Props) => {
   });
 
   if (!mounted) {
-    console.log(props.profile?.accessToken);
     props.loadProfileDetails(props.profile?.accessToken!);
   }
   const handlNavigation = () => {

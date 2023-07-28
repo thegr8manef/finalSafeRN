@@ -1,8 +1,27 @@
 import {Flash} from './Flash';
 
 export class Chantier {
-  //pid tjrs 223
-  get pid(): string {
+ 
+  constructor(
+    private _id: string,
+    private _name: string,
+    private _address: string,
+    private _type: number,
+    private _accepted: boolean,
+    private _codePostal: string,
+    private _pays: string,
+    private _ville: string,
+    private _st: number,
+    private _lastUpdateDate: number,
+    private _remarques: Flash[],
+    private _reference: string,
+    private _regionName: string,
+    private _osc: string,
+    private _pid: string,
+    private _piid: string,
+  ) {}
+   //pid tjrs 223
+   get pid(): string {
     return this._pid;
   }
   //piid tjrs 219
@@ -15,11 +34,11 @@ export class Chantier {
   }
 
   get region_name(): string {
-    return this._ol_name;
+    return this._regionName;
   }
 
-  get refference(): string {
-    return this._ref;
+  get reference(): string {
+    return this._reference;
   }
 
   get remaques(): Flash[] {
@@ -27,7 +46,7 @@ export class Chantier {
   }
 
   get last_update(): number {
-    return this._lu;
+    return this._lastUpdateDate;
   }
 
   get st(): number {
@@ -35,52 +54,34 @@ export class Chantier {
   }
 
   get ville(): string {
-    return this._vl;
+    return this._ville;
   }
 
   get pays(): string {
-    return this._py;
+    return this._pays;
   }
 
   get code_postal(): string {
-    return this._cp;
+    return this._codePostal;
   }
 
   get accepted(): boolean {
-    return this._ac;
+    return this._accepted;
   }
 
   get type(): number {
     return this._type;
   }
 
-  get addresse(): string {
-    return this._ad;
+  get address(): string {
+    return this._address;
   }
 
-  get nom_chantier(): string {
-    return this._no;
+  get name(): string {
+    return this._name;
   }
 
   get id(): string {
     return this._id;
   }
-  constructor(
-    private _id?: string,
-    private _no?: string,
-    private _ad?: string,
-    private _type?: number,
-    private _ac?: boolean,
-    private _cp?: string,
-    private _py?: string,
-    private _vl?: string,
-    private _st?: number,
-    private _lu?: number,
-    private _remarques?: Flash[],
-    private _ref?: string,
-    private _ol_name?: string,
-    private _osc?: string,
-    private _pid?: string,
-    private _piid?: string,
-  ) {}
 }
