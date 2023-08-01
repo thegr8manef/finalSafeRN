@@ -26,7 +26,7 @@ interface Props {
   loadLocalStats: () => void;
 }
 
-export const DashboardContainer = (props: Props): React.FC<Props> => {
+export const DashboardContainer = (props: Props) => {
   const [mount, setMount] = useState(false);
   const {t} = useTranslation();
 
