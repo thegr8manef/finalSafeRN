@@ -10,10 +10,7 @@ import {Chantier} from '../../../../common/adapters/secondaries/db/entity/Chanti
 
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
-  error: string | undefined;
-  chantier: Chantier | null;
-  loading: boolean;
-  loadChantierByCode: (code: string) => Chantier;
+
 }
 const HorizontalLine = (): JSX.Element => {
   return <View style={styles.horizontalLine} />;

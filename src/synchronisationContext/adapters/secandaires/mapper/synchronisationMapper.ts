@@ -1,5 +1,5 @@
 
-import { Chantier } from '../../../../visiteContext/domain/entity/Chantier';
+import { Chantier } from '../../../../visiteContext/domain/entity/Site';
 import {SynchronisationDto} from '../dto/synchronisationDto';
 
 export class SynchronisationMapper {

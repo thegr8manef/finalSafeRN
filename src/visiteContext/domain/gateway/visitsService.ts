@@ -1,8 +1,8 @@
 import {Observable} from 'rxjs';
 import {Flash} from '../entity/Flash';
-import {Chantier} from '../entity/Chantier';
+import {Site} from '../entity/Site';
 
 export interface VisitsService {
   SaveFlash(data: Flash): Observable<void>;
-  LoadChantierByCode(code: string): Observable<Chantier>;
+  LoadSiteByCode(code: string): Observable<Site>;
 }

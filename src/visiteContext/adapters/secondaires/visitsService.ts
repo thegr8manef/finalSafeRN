@@ -2,7 +2,8 @@ import {VisitsService} from '../../domain/gateway/visitsService';
 import {Observable, from, of} from 'rxjs';
 import {Flash} from '../../domain/entity/Flash';
 import ApplicationContext from '../../../common/appConfig/ApplicationContext';
-import {Chantier} from '../../domain/entity/Chantier';
+import {Chantier, Site} from '../../domain/entity/Site';
+import { ChantierMapper, SiteMapper } from './mapper/site.mapper';
 
 export class DbVisitsService implements VisitsService {
   SaveFlash(data: Flash): Observable<void> {
@@ -38,7 +39,21 @@ export class DbVisitsService implements VisitsService {
     return from(saveFlashtoDb);
   }
 
-  LoadChantierByCode(code: string): Observable<Chantier> {
-    return of(new Chantier())
+  LoadSiteByCode(code: string): Observable<Site> {
+    const LoadChantierInDb = new Promise<Site>((resolve, reject) => {
+      const db = ApplicationContext.getInstance().db();
+
+      try {
+        db.then(realm => {
+          const objects = realm.objects('Chantier').filtered('ref == $0', code);
+          resolve(SiteMapper.maptoSite(objects[0]));
+          console.log('object', objects);
+        });
+      } catch (error) {
+        console.log('error', error);
+        reject(error);
+      }
+    });
+    return from(LoadChantierInDb);
   }
 }
