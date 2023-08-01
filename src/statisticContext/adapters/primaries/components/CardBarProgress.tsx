@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet, Dimensions} from 'react-native';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import React from 'react';
 import * as Progress from 'react-native-progress';
 import colors from '../../../../assets/colors';
@@ -19,12 +19,13 @@ export const CardBarProgress = (props: Props) => {
   return (
     <View style={styles.OuterContainer}>
       <View style={styles.Container}>
-        <Text style={styles.textLabel}>{props.textLabels}</Text>
+        <Text testID='Label' style={styles.textLabel}>{props.textLabels}</Text>
       </View>
       <View style={styles.ContainerStat}>
-        <View style={{flex: 1}}>
+        <View style={{ flex: 1 }}>
           <Text>{props.textHint1}</Text>
           <Progress.Bar
+            testID='Progress.Bar_1'
             progress={props.valueHint1}
             width={widthPregress}
             borderWidth={0}
@@ -34,9 +35,10 @@ export const CardBarProgress = (props: Props) => {
             color={colors.red200}
           />
         </View>
-        <View style={{flex: 1}}>
+        <View style={{ flex: 1 }}>
           <Text>{props.textHint2}</Text>
           <Progress.Bar
+            testID='Progress.Bar_2'
             progress={props.valueHint2}
             width={widthPregress}
             borderWidth={0}
@@ -46,9 +48,10 @@ export const CardBarProgress = (props: Props) => {
             color={colors.blue200}
           />
         </View>
-        <View style={{flex: 1}}>
+        <View style={{ flex: 1 }}>
           <Text>{props.textHint3}</Text>
           <Progress.Bar
+            testID='Progress.Bar_3'
             progress={props.valueHint3}
             width={widthPregress}
             borderWidth={0}
@@ -58,9 +61,10 @@ export const CardBarProgress = (props: Props) => {
             color={colors.orange}
           />
         </View>
-        <View style={{flex: 1}}>
+        <View style={{ flex: 1 }}>
           <Text>{props.textHint4}</Text>
           <Progress.Bar
+            testID='Progress.Bar_4'
             progress={props.valueHint4}
             width={widthPregress}
             borderWidth={0}
