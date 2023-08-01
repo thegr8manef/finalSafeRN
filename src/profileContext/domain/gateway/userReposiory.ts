@@ -7,4 +7,5 @@ export interface UserRepository {
   checkUserConnected(): Observable<boolean>;
   loadProfileDetails(): Observable<Profile>;
   updateLocalProfile(user: User): Observable<void>;
+  loadLocalProfile(profile: Profile): Observable<void>
 }

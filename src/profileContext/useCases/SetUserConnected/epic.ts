@@ -1,9 +1,10 @@
 import {Epic, ofType, StateObservable} from 'redux-observable';
 import {AppState} from '../../../redux_configuration/appState';
-import {map, switchMap} from 'rxjs/operators';
+import {map, switchMap,catchError} from 'rxjs/operators';
 import {UserRepository} from '../../domain/gateway/userReposiory';
 import {SET_USER_CONNECTED} from './actionTypes';
-import {setUserConnectedSuccess} from './actions';
+import {setUserConnectedError, setUserConnectedSuccess} from './actions';
+import {of} from 'rxjs';
 
 export const setUserEpic: Epic = (
   action$,
@@ -15,6 +16,8 @@ export const setUserEpic: Epic = (
     switchMap(action =>
       userRepository
         .setUserConnected(action.payload)
-        .pipe(map(() => setUserConnectedSuccess())),
-    ),
+        .pipe(map(() => setUserConnectedSuccess()),
+        catchError(error => of(setUserConnectedError(error)))
+        ),
+    ),   
   );

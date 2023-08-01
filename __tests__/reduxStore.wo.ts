@@ -32,14 +32,15 @@ export class ReduxStoreWO {
   private loadStatFomLocal$: Subject<Stat> = new Subject();
   private saveStatInLocal$: Subject<void> = new Subject();
   private loginMsal$: Subject<Profile> = new Subject();
-  private setUserConnected$: Subject<void> = new Subject();
+  private setUserConnected$: Subject<Profile> = new Subject();
   private checkUserConnected$: Subject<boolean> = new Subject();
   private loadProfileDetails$: Subject<User> = new Subject();
-  private updateLocalProfile$: Subject<void> = new Subject();
+  private updateLocalProfile$: Subject<User> = new Subject();
   private SaveFlash$: Subject<void> = new Subject();
   private LoadData$: Subject<Chantier[]> = new Subject();
   private saveData$: Subject<void> = new Subject();
   private loadLastUpdateDate$: Subject<string> = new Subject();
+  private loadLocalProfile$: Subject<Profile> = new Subject();
 
   constructor() {
     this.rootEpics = combineEpics<Action>(
@@ -63,10 +64,11 @@ export class ReduxStoreWO {
           loadProfileDetails: (): Subject<User> => this.loadProfileDetails$,
         },
         userRepository: {
-          setUserConnected: (): Subject<void> => this.setUserConnected$,
+          setUserConnected: (): Subject<Profile> => this.setUserConnected$,
           checkUserConnected: (): Subject<boolean> => this.checkUserConnected$,
           loadProfileDetails: (): Subject<User> => this.loadProfileDetails$,
-          updateLocalProfile: (): Subject<void> => this.updateLocalProfile$,
+          updateLocalProfile: (): Subject<User> => this.updateLocalProfile$,
+          loadLocalProfile: (): Subject<Profile> => this.loadLocalProfile$
         },
         visiteService: {
           SaveFlash: (): Subject<void> => this.SaveFlash$,
@@ -113,4 +115,19 @@ export class ReduxStoreWO {
     this.loadLastUpdateDate$.next(lastUpdateDate);
   loadLastUpdateDateError = (error: string): void =>
     this.loadLastUpdateDate$.error(error);
+
+  loginMsalNext = (profile: Profile):void => this.loginMsal$.next(profile)
+  loginMsalError = (error: string):void => this.loginMsal$.error(error)
+
+  loadProfileDetailsNext = (user: User): void => this.loadProfileDetails$.next(user)
+  loadProfileDetailsError = (error: string): void => this.loadProfileDetails$.error(error)
+
+  setUserConnectedNext = (profile: Profile):void => this.setUserConnected$.next(profile)
+  setUserConnectedError = (error: string): void => this.setUserConnected$.error(error)
+
+  updateLocalProfileNext = (user:User): void => this.updateLocalProfile$.next(user)
+  updateLocalProfileError = (error: string): void => this.updateLocalProfile$.error(error)
+
+  loadLocalProfileNext = (profile: Profile):void => this.loadLocalProfile$.next(profile)
+  loadLocalProfileError = (error: string): void => this.loadLocalProfile$.error(error)
 }
