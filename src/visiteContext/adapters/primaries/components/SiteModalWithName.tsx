@@ -9,10 +9,12 @@ interface Props {
   modalVisible: boolean;
   setWithNameVisibilty(visibilty: boolean): void;
 }
-
 export const SiteModalWithName = (props: Props) => {
   const {t} = useTranslation();
 
+  const Setvisibilty = (visibilty : boolean) => {
+    props.setWithNameVisibilty(visibilty)
+      }
   return (
     <Modal
       animationType="slide"
@@ -23,7 +25,7 @@ export const SiteModalWithName = (props: Props) => {
           <Text
             style={styles.normalText}
             onPress={() => {
-              props.setWithNameVisibilty(false);
+              Setvisibilty(false);
             }}>
             {t('txt_cancel')}
           </Text>
