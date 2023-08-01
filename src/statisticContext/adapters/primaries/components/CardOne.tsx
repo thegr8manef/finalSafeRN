@@ -11,17 +11,17 @@ export const CardOne = (props: Props) => {
   return (
     <View style={styles.OuterContainer}>
       <View style={styles.Container}>
-        <Text style={[styles.textLabel, {color: props.colorText}]}>
+        <Text testID='text-labels' style={StyleSheet.flatten([styles.textLabel, {color: props.colorText}])}>
           {props.textLabels}
         </Text>
       </View>
       <View style={styles.Container}>
-        <Text style={[styles.textValue, {color: props.colorText}]}>
+        <Text testID='text-values' style={StyleSheet.flatten([styles.textValue, {color: props.colorText}])}>
           {props.textValues}
         </Text>
       </View>
       <View style={styles.Container}>
-        <Text style={styles.textHint}>{props.textHints}</Text>
+        <Text testID='text-hint' style={styles.textHint}>{props.textHints}</Text>
       </View>
     </View>
   );
