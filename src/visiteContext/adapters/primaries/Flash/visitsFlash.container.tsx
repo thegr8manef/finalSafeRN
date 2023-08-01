@@ -39,7 +39,6 @@ interface Props {
   navigationDrawer: any;
 }
 export const VisitFlashContainer = (props: Props) => {
-export const VisitFlashContainer = (props: Props) => {
   const [mount, setMount] = useState(false);
   const [commentaires, setcommentaires] = useState('');
   const [levelId, setLevelId] = useState(0);
