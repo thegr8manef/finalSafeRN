@@ -23,7 +23,7 @@ import {ONON} from '../components/ObservationNegativeON';
 import {ONOFF} from '../components/ObservationNegativeOFF';
 import {Header} from '../../../../common/adapters/primaries/components/header';
 import {ImageController} from '../components/ImageController';
-import {Site} from '../../../domain/entity/Site';
+import {Chantier} from '../../../domain/entity/Chantier';
 import { SitesList } from '../components/SitesList';
 
 interface Props {
@@ -31,13 +31,14 @@ interface Props {
   loadingVisits: boolean;
   errorVisits: string | undefined;
   flash: Flash | undefined;
-  saveFlash: (data: Flash) => void;
+  SaveFlash: (data: Flash) => void;
   error: string | undefined;
-  site: Site | null;
+  chantier: Chantier | null;
   loading: boolean;
-  loadSiteByCode: (code: string) => void;
+  loadChantierByCode: (code: string) => void;
   navigationDrawer: any;
 }
+export const VisitFlashContainer = (props: Props) => {
 export const VisitFlashContainer = (props: Props) => {
   const [mount, setMount] = useState(false);
   const [commentaires, setcommentaires] = useState('');
@@ -45,6 +46,11 @@ export const VisitFlashContainer = (props: Props) => {
   const [btnPositive, setbtnPositive] = useState(false);
   const [btnNegative, setbtnNegative] = useState(false);
   const [images, setimages] = useState([]);
+  const [code, setCode] = useState('');
+  const [clicked, setclicked] = useState(false);
+  const [loadingData, setloadingData] = useState(false);
+  var test_observation = true;
+  var test_commentaires = true;
   const [code, setCode] = useState('');
   const [clicked, setclicked] = useState(false);
   const [loadingData, setloadingData] = useState(false);
@@ -64,7 +70,7 @@ export const VisitFlashContainer = (props: Props) => {
       {
         text: 'OUI',
         onPress: () => [
-          props.saveFlash(flash),
+          props.SaveFlash(flash),
           props.navigation.jumpTo('visites'),
         ],
       },
@@ -87,7 +93,7 @@ export const VisitFlashContainer = (props: Props) => {
     }
   };
   if (clicked) {
-    props.loadSiteByCode(code)
+    props.loadChantierByCode(code)
 
     setclicked(false);
     if (props.loading) {
@@ -96,6 +102,8 @@ export const VisitFlashContainer = (props: Props) => {
       setloadingData(true);
     }
   }
+
+  const {t} = useTranslation();
 
   const {t} = useTranslation();
 console.log("props.chantier?.reference",props.site)
@@ -158,9 +166,9 @@ console.log("props.chantier?.reference",props.site)
             codeByChantier={code}
             setclicked={setclicked}
             clicked={clicked}
-            codeExist={props.site?.reference}
+            codeExist={props.chantier?.reference}
             nom_chantier={
-              props.site?.name
+              props.chantier?.name
             }></SitesList>
         </View>
 
@@ -360,6 +368,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 25,
   },
   ContainerChantier: {
+    height: 130,
     height: 130,
     margin: 30,
     backgroundColor: 'white',
