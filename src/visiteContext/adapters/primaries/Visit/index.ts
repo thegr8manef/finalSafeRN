@@ -12,22 +12,14 @@ import {LoadChantierActionTypes} from '../../../useCases/LoadSiteByCode/actionTy
 import {Chantier} from '../../../domain/entity/Site';
 
 interface StateToPropsType {
-  // error: string | undefined;
-  // chantier: Chantier | null;
-  // loading: boolean;
 }
 interface DispatchToPropsType {
-  // loadChantierByCode: (code: string) => void;
 }
 const mapStateToProps = (state: AppState): StateToPropsType => ({
-  // error: loadChantierByCodeErrorSelector(state),
-  // chantier: chantierSelector(state),
-  // loading: loadingChantierByCodeSelector(state),
+
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => ({
-  // loadChantierByCode: (code: string): LoadChantierActionTypes =>
-  //   dispatch(LoadChantierByCode(code)),
 });
 
 export const VisitsFlashPage = connect(

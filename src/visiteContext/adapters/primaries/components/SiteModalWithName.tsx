@@ -32,7 +32,6 @@ export const SiteModalWithName = (props: Props) => {
           <Text style={[styles.normalText, {fontWeight: 'bold', fontSize: 15,flex:1.5}]}>
             {t('choisir_un_chantier')}
           </Text>
-          <Text style={styles.normalText}></Text>
         </View>
         <View style={styles.container}>
           <View style={styles.filter}>
@@ -55,7 +54,7 @@ export const SiteModalWithName = (props: Props) => {
           />
           <TextInput
             style={styles.input}
-            placeholder={t('txt.filter')!!}
+            placeholder={t('txt.filter')}
             cursorColor={colors.primary}
           />
         </View>
