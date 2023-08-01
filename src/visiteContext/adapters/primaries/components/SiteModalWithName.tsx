@@ -1,5 +1,5 @@
 import {View, Text, Modal, StyleSheet, Image} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import colors from '../../../../assets/colors';
 import {useTranslation} from 'react-i18next';
 import {TextInput} from 'react-native-gesture-handler';
@@ -10,7 +10,7 @@ interface Props {
   setWithNameVisibilty(visibilty: boolean): void;
 }
 
-export const SiteWithName = (props: Props) => {
+export const SiteModalWithName = (props: Props) => {
   const {t} = useTranslation();
 
   return (
@@ -30,7 +30,7 @@ export const SiteWithName = (props: Props) => {
           <Text style={[styles.normalText, {fontWeight: 'bold', fontSize: 15}]}>
             {t('choisir_un_chantier')}
           </Text>
-          <Text style={styles.normalText} />
+          <Text style={styles.normalText}></Text>
         </View>
         <View style={styles.container}>
           <View style={styles.filter}>
@@ -53,7 +53,7 @@ export const SiteWithName = (props: Props) => {
           />
           <TextInput
             style={styles.input}
-            placeholder={t('txt.filter')}
+            placeholder={t('txt.filter')!!}
             cursorColor={colors.primary}
           />
         </View>

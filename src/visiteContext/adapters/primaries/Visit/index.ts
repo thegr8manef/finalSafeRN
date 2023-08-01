@@ -12,22 +12,22 @@ import {LoadChantierActionTypes} from '../../../useCases/LoadChantierByCode/acti
 import {Chantier} from '../../../domain/entity/Chantier';
 
 interface StateToPropsType {
-  error: string | undefined;
-  chantier: Chantier | null;
-  loading: boolean;
+  // error: string | undefined;
+  // chantier: Chantier | null;
+  // loading: boolean;
 }
 interface DispatchToPropsType {
-  loadChantierByCode: (code: string) => void;
+  // loadChantierByCode: (code: string) => void;
 }
 const mapStateToProps = (state: AppState): StateToPropsType => ({
-  error: loadChantierByCodeErrorSelector(state),
-  chantier: chantierSelector(state),
-  loading: loadingChantierByCodeSelector(state),
+  // error: loadChantierByCodeErrorSelector(state),
+  // chantier: chantierSelector(state),
+  // loading: loadingChantierByCodeSelector(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => ({
-  loadChantierByCode: (code: string): LoadChantierActionTypes =>
-    dispatch(LoadChantierByCode(code)),
+  // loadChantierByCode: (code: string): LoadChantierActionTypes =>
+  //   dispatch(LoadChantierByCode(code)),
 });
 
 export const VisitsFlashPage = connect(

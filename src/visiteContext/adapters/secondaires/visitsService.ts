@@ -3,6 +3,7 @@ import {Observable, from, of} from 'rxjs';
 import {Flash} from '../../domain/entity/Flash';
 import ApplicationContext from '../../../common/appConfig/ApplicationContext';
 import {Chantier} from '../../domain/entity/Chantier';
+import { ChantierMapper } from './mapper/chantier.mapper';
 
 export class DbVisitsService implements VisitsService {
   SaveFlash(data: Flash): Observable<void> {
@@ -39,6 +40,20 @@ export class DbVisitsService implements VisitsService {
   }
 
   LoadChantierByCode(code: string): Observable<Chantier> {
-    return of(new Chantier())
+    const LoadChantierInDb = new Promise<Chantier>((resolve, reject) => {
+      const db = ApplicationContext.getInstance().db();
+
+      try {
+        db.then(realm => {
+          const objects = realm.objects('Chantier').filtered('ref == $0', code);
+          resolve(ChantierMapper.maptoChantier(objects[0]));
+          console.log('object', objects);
+        });
+      } catch (error) {
+        console.log('error', error);
+        reject(error);
+      }
+    });
+    return from(LoadChantierInDb);
   }
 }

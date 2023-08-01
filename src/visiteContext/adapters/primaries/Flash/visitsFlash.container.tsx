@@ -21,29 +21,35 @@ import {OPON} from '../components/ObservationPositiveON';
 import {OPOFF} from '../components/ObservationPositiveOFF';
 import {ONON} from '../components/ObservationNegativeON';
 import {ONOFF} from '../components/ObservationNegativeOFF';
-import {Sites} from '../components/Sites';
 import {Header} from '../../../../common/adapters/primaries/components/header';
 import {ImageController} from '../components/ImageController';
+import {Chantier} from '../../../domain/entity/Chantier';
+import { SitesList } from '../components/SitesList';
 
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
   loadingVisits: boolean;
   errorVisits: string | undefined;
   flash: Flash | undefined;
-  saveFlash: (data: Flash) => void;
+  SaveFlash: (data: Flash) => void;
+  error: string | undefined;
+  chantier: Chantier | null;
+  loading: boolean;
+  loadChantierByCode: (code: string) => void;
   navigationDrawer: any;
 }
-export const VisitFlashContainer = (props: Props): React.FC<Props> => {
-  const {t} = useTranslation();
-
+export const VisitFlashContainer = (props: Props) => {
   const [mount, setMount] = useState(false);
   const [commentaires, setcommentaires] = useState('');
   const [levelId, setLevelId] = useState(0);
   const [btnPositive, setbtnPositive] = useState(false);
   const [btnNegative, setbtnNegative] = useState(false);
   const [images, setimages] = useState([]);
-  let test_observation = true;
-  let test_commentaires = true;
+  const [code, setCode] = useState('');
+  const [clicked, setclicked] = useState(false);
+  const [loadingData, setloadingData] = useState(false);
+  var test_observation = true;
+  var test_commentaires = true;
 
   if (!mount) {
     props.loadingVisits;
@@ -58,7 +64,7 @@ export const VisitFlashContainer = (props: Props): React.FC<Props> => {
       {
         text: 'OUI',
         onPress: () => [
-          props.saveFlash(flash),
+          props.SaveFlash(flash),
           props.navigation.jumpTo('visites'),
         ],
       },
@@ -80,6 +86,18 @@ export const VisitFlashContainer = (props: Props): React.FC<Props> => {
       }
     }
   };
+  if (clicked) {
+    props.loadChantierByCode(code)
+
+    setclicked(false);
+    if (props.loading) {
+      setloadingData(false);
+    } else {
+      setloadingData(true);
+    }
+  }
+
+  const {t} = useTranslation();
 
   const OptionEcartSansRisque = useMemo(
     () => [
@@ -134,7 +152,16 @@ export const VisitFlashContainer = (props: Props): React.FC<Props> => {
       <Header title={t('txt_visit_flash')} navigation={props.navigation} />
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
         <View style={styles.ContainerChantier}>
-          <Sites />
+          <SitesList
+            loading={props.loading}
+            setcodeByChantier={setCode}
+            codeByChantier={code}
+            setclicked={setclicked}
+            clicked={clicked}
+            codeExist={props.chantier?.reference}
+            nom_chantier={
+              props.chantier?.name
+            }></SitesList>
         </View>
 
         <View style={styles.ContainerObservation}>
@@ -333,7 +360,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 25,
   },
   ContainerChantier: {
-    height: 100,
+    height: 130,
     margin: 30,
     backgroundColor: 'white',
   },
