@@ -17,6 +17,9 @@ interface Props {
 
 export const SiteModalWithCode = (props: Props) => {
   const {t} = useTranslation();
+  const Setvisibilty = (visibilty : boolean) => {
+props.setWithCodeVisibilty(visibilty)
+  }
   return (
     <Modal
       animationType="slide"
@@ -27,7 +30,7 @@ export const SiteModalWithCode = (props: Props) => {
           <Text
             style={styles.normalText}
             onPress={() => {
-              [props.setWithCodeVisibilty(false)];
+              [Setvisibilty(false)];
             }}>
             {t('txt_cancel')}
           </Text>
@@ -46,7 +49,7 @@ export const SiteModalWithCode = (props: Props) => {
                 if (props.codeExist === undefined) {
                   alert(t('no_cs_by_ref'));
                 } else {
-                  props.setWithCodeVisibilty(false);
+                  Setvisibilty(false);
                 }
               } else {
                 alert(t('error.point.empty'));
