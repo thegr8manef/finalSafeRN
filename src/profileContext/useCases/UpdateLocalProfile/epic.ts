@@ -2,8 +2,9 @@ import {AppState} from 'react-native';
 import {Epic, ofType, StateObservable} from 'redux-observable';
 import {UPDATE_LOCAL_PROFILE} from './actionsTypes';
 import {UserRepository} from '../../domain/gateway/userReposiory';
-import {updateLocalProfileSuccess} from './actions';
-import {map, switchMap} from 'rxjs/operators';
+import {UpdateLocalProfileFailed, updateLocalProfileSuccess} from './actions';
+import {map, switchMap, catchError} from 'rxjs/operators';
+import {of} from 'rxjs';
 
 export const updateLocalProfile: Epic = (
   action$,
@@ -15,6 +16,8 @@ export const updateLocalProfile: Epic = (
     switchMap(action =>
       userRepository
         .updateLocalProfile(action.payload)
-        .pipe(map(() => updateLocalProfileSuccess())),
+        .pipe(map(() => updateLocalProfileSuccess()),
+        catchError(error => of(UpdateLocalProfileFailed(error)))
+        )
     ),
   );

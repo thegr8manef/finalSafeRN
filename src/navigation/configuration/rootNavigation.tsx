@@ -4,7 +4,7 @@ import {
   createStackNavigator,
 } from '@react-navigation/stack';
 import {StackParamList} from './navigation.types';
-import {LoginPage} from '../../profileContext/adapters/primaries/Login';
+import {LoginPage} from '../../profileContext/adapters/primaries/login';
 import {ProfilePage} from '../../profileContext/adapters/primaries/Profile';
 import {HomeNavigation} from '../drawer/homeNavigation';
 import {SplashPage} from '../../profileContext/adapters/primaries/Splash';

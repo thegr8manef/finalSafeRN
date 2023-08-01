@@ -6,3 +6,6 @@ export const setUserConnectedSelector = (
 ): Profile | undefined => {
   return appState.profile.setUserConnected.profile;
 };
+
+export const setUserConnectedErrorSelector = (appState: AppState) : string | undefined =>
+  appState.profile.setUserConnected.error
