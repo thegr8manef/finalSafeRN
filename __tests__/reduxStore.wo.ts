@@ -20,7 +20,7 @@ import {Profile} from '../src/profileContext/domain/entity/profile';
 import {User} from '../src/profileContext/domain/entity/user';
 import {visitsRootEpics} from '../src/visiteContext/configuration/rootEpic';
 import {reduxReducer} from '../src/redux_configuration/rootReducers';
-import {Chantier} from '../src/visiteContext/domain/entity/Chantier';
+import {Chantier} from '../src/visiteContext/domain/entity/Site';
 import {synchronisationRootEpics} from '../src/synchronisationContext/configuration/rootEpic';
 import { statisticRootEpics } from '../src/statisticContext/configuration/rootEpic';
 

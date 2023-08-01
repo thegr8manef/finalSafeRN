@@ -1,15 +1,15 @@
-import {Chantier} from '../domain/entity/Chantier';
+import {Site} from '../domain/entity/Site';
 
 export interface VisitsState {
   saveFlash: SaveFlashState;
-  loadChantierByCode: LoadchantierByCodeState;
+  loadSiteByCode: LoadSiteByCodeState;
 }
 export interface SaveFlashState {
   error: string | undefined;
   loading: boolean;
 }
-export interface LoadchantierByCodeState {
+export interface LoadSiteByCodeState {
   error: string | undefined;
-  chantier: Chantier | null;
+  site: Site | null;
   loading: boolean;
 }

@@ -23,7 +23,7 @@ import {ONON} from '../components/ObservationNegativeON';
 import {ONOFF} from '../components/ObservationNegativeOFF';
 import {Header} from '../../../../common/adapters/primaries/components/header';
 import {ImageController} from '../components/ImageController';
-import {Chantier} from '../../../domain/entity/Chantier';
+import {Site} from '../../../domain/entity/Site';
 import { SitesList } from '../components/SitesList';
 
 interface Props {
@@ -31,11 +31,11 @@ interface Props {
   loadingVisits: boolean;
   errorVisits: string | undefined;
   flash: Flash | undefined;
-  SaveFlash: (data: Flash) => void;
+  saveFlash: (data: Flash) => void;
   error: string | undefined;
-  chantier: Chantier | null;
+  site: Site | null;
   loading: boolean;
-  loadChantierByCode: (code: string) => void;
+  loadSiteByCode: (code: string) => void;
   navigationDrawer: any;
 }
 export const VisitFlashContainer = (props: Props) => {
@@ -64,7 +64,7 @@ export const VisitFlashContainer = (props: Props) => {
       {
         text: 'OUI',
         onPress: () => [
-          props.SaveFlash(flash),
+          props.saveFlash(flash),
           props.navigation.jumpTo('visites'),
         ],
       },
@@ -87,7 +87,7 @@ export const VisitFlashContainer = (props: Props) => {
     }
   };
   if (clicked) {
-    props.loadChantierByCode(code)
+    props.loadSiteByCode(code)
 
     setclicked(false);
     if (props.loading) {
@@ -98,7 +98,7 @@ export const VisitFlashContainer = (props: Props) => {
   }
 
   const {t} = useTranslation();
-
+console.log("props.chantier?.reference",props.site)
   const OptionEcartSansRisque = useMemo(
     () => [
       {
@@ -158,9 +158,9 @@ export const VisitFlashContainer = (props: Props) => {
             codeByChantier={code}
             setclicked={setclicked}
             clicked={clicked}
-            codeExist={props.chantier?.reference}
+            codeExist={props.site?.reference}
             nom_chantier={
-              props.chantier?.name
+              props.site?.name
             }></SitesList>
         </View>
 

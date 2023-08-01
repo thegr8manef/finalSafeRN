@@ -1,6 +1,6 @@
 import {Flash} from './Flash';
 
-export class Chantier {
+export class Site {
  
   constructor(
     private _id: string,

@@ -7,7 +7,7 @@ import {
   loadingDataSelector,
 } from '../../../src/synchronisationContext/useCases/LoadData/selectors';
 import {loadData} from '../../../src/synchronisationContext/useCases/LoadData/actions';
-import {Chantier} from '../../../src/visiteContext/domain/entity/Chantier';
+import {Chantier} from '../../../src/visiteContext/domain/entity/Site';
 
 const deepFreeze = require('deep-freeze');
 

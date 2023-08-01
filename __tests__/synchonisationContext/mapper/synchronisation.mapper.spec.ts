@@ -1,6 +1,6 @@
 import { SynchronisationDto } from "../../../src/synchronisationContext/adapters/secandaires/dto/synchronisationDto";
 import { SynchronisationMapper } from "../../../src/synchronisationContext/adapters/secandaires/mapper/synchronisationMapper";
-import { Chantier } from "../../../src/visiteContext/domain/entity/Chantier"
+import { Chantier } from "../../../src/visiteContext/domain/entity/Site"
 
 describe('Integration synchronisation Mapper', () =>{
     let chantierList: Chantier[];
