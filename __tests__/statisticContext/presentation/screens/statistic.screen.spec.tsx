@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
-import { DashboardContainer } from '../../../../../src/statisticContext/adapters/primaries/Dashboard/dashboard.container';
-import { Stat } from '../../../../../src/statisticContext/domain/entity/Stat';
+import { DashboardContainer } from '../../../../src/statisticContext/adapters/primaries/Dashboard/dashboard.container';
+import { Stat } from '../../../../src/statisticContext/domain/entity/Stat';
 
 interface Props {
     navigation: any;

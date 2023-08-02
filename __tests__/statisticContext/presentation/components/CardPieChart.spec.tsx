@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react-native';
-import { CardPieChart } from '../../../../../src/statisticContext/adapters/primaries/components/CardPieChart';
+import {View} from 'react-native'
+import { CardPieChart } from '../../../../src/statisticContext/adapters/primaries/components/CardPieChart';
 
 describe('CardPieChart', () => {
   it('should render the component with the correct text labels', () => {

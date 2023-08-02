@@ -1,11 +1,11 @@
-import { AppState } from '../../../../src/redux_configuration/appState';
-import { Stat } from '../../../../src/statisticContext/domain/entity/Stat';
-import { StatObservation } from '../../../../src/statisticContext/domain/entity/statObservation';
-import { StatRisk } from '../../../../src/statisticContext/domain/entity/statRisk';
-import { StatVisit } from '../../../../src/statisticContext/domain/entity/statVisit';
-import { saveStats, saveStatsFailed, saveStatsSuccess } from '../../../../src/statisticContext/useCases/saveStats/actions';
-import { saveStatsErrorSelector, saveStatsLoadingSelector } from '../../../../src/statisticContext/useCases/saveStats/selectors';
-import { ReduxStoreWO } from '../../../reduxStore.wo';
+import { AppState } from '../../../src/redux_configuration/appState';
+import { Stat } from '../../../src/statisticContext/domain/entity/Stat';
+import { StatObservation } from '../../../src/statisticContext/domain/entity/statObservation';
+import { StatRisk } from '../../../src/statisticContext/domain/entity/statRisk';
+import { StatVisit } from '../../../src/statisticContext/domain/entity/statVisit';
+import { saveStats, saveStatsFailed, saveStatsSuccess } from '../../../src/statisticContext/useCases/saveStats/actions';
+import { saveStatsErrorSelector, saveStatsLoadingSelector } from '../../../src/statisticContext/useCases/saveStats/selectors';
+import { ReduxStoreWO } from '../../reduxStore.wo';
 import { Store } from 'redux';
 
 const deepFreeze = require('deep-freeze');

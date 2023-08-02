@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
-import { CardBarProgress } from '../../../../../src/statisticContext/adapters/primaries/components/CardBarProgress';
+import { CardBarProgress } from '../../../../src/statisticContext/adapters/primaries/components/CardBarProgress';
 
 describe('CardBarProgress', () => {
   it('should render the component with the correct props', () => {
@@ -15,7 +15,7 @@ describe('CardBarProgress', () => {
       textHint4: 'Progress 4',
       valueHint4: 1,
     };
-    const { getByTestId } = render(<CardBarProgress  {...props} />);
+  const { getByTestId } = render(<CardBarProgress  {...props} />);
     expect(getByTestId('Label').children[0]).toBe(props.textLabels);
     expect(getByTestId('Progress.Bar_1').props.progress).toBe(props.valueHint1);
     expect(getByTestId('Progress.Bar_2').props.progress).toBe(props.valueHint2);

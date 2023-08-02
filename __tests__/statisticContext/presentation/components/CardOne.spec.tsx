@@ -1,9 +1,9 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
-import { CardOne } from '../../../../../src/statisticContext/adapters/primaries/components/CardOne';
+import { CardOne } from '../../../../src/statisticContext/adapters/primaries/components/CardOne';
 
 describe('CardOne', () => {
-    const props = {
+   const props = {
         textLabels: 'My Card',
         textValues: 'This is my value',
         textHints: 'This is my hint',
@@ -23,5 +23,5 @@ describe('CardOne', () => {
 
         expect(getByTestId('text-labels').props.style.color).toBe(props.colorText);
         expect(getByTestId('text-values').props.style.color).toBe(props.colorText);
-    });
+    }); 
 });

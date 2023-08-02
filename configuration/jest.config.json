@@ -19,8 +19,7 @@
   "testPathIgnorePatterns": [
   ],
   "transformIgnorePatterns": [
-    "node_modules/(?!(react-native|@react-native|)/)",
-    "<rootDir>/node_modules/"
+    "node_modules/(?!(react-native|@react-native)/)"
   ],
   "collectCoverage": true,
   "collectCoverageFrom": [
