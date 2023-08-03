@@ -103,8 +103,6 @@ export const VisitFlashContainer = (props: Props) => {
   }
 
   const {t} = useTranslation();
-
-  const {t} = useTranslation();
 console.log("props.chantier?.reference",props.site)
   const OptionEcartSansRisque = useMemo(
     () => [
@@ -367,7 +365,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 25,
   },
   ContainerChantier: {
-    height: 130,
     height: 130,
     margin: 30,
     backgroundColor: 'white',

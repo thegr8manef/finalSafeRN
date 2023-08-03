@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   SafeAreaView,
@@ -7,17 +7,20 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import colors from '../../../../assets/colors';
-import {CardPieChart} from '../components/CardPieChart';
-import {CardOne} from '../components/CardOne';
-import {CardBarProgress} from '../components/CardBarProgress';
-import {CardBarProgressVisites} from '../components/CardBarProgressVisites';
-import {Stat} from '../../../domain/entity/Stat';
-import {HeaderDashboard} from '../components/HeaderDashboard';
-import {useTranslation} from 'react-i18next';
-import {Header} from '../../../../common/adapters/primaries/components/header';
+import { ProgressVisitsStats } from './Components/ProgressVisitsStats';
+import { Stat } from '../../../domain/entity/Stat';
+import { useTranslation } from 'react-i18next';
+import { Header } from '../../../../common/adapters/primaries/components/header';
+import { GeneralStats } from './Components/generalStats';
+import { PieChartObservationStats } from './Components/PieChartObservationStats';
+import { ProgressRisksStats } from './Components/ProgressRisksStats';
+import { DashboardHeader } from '../components/DashboardHeader';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { StackParamList } from '../../../../navigation/configuration/navigation.types';
+
 
 interface Props {
-  navigation: any;
+  navigation: StackNavigationProp<StackParamList>;
   loading: boolean;
   error: string | undefined;
   stat: Stat | undefined;
@@ -28,7 +31,7 @@ interface Props {
 
 export const DashboardContainer = (props: Props) => {
   const [mount, setMount] = useState(false);
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   if (!mount) {
     if (props.connectionStatus === true) {
@@ -44,103 +47,30 @@ export const DashboardContainer = (props: Props) => {
   }, []);
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={styles.f1}>
       <Header navigation={props.navigation} title={t('txt.dashboard')} />
-      <View style={styles.header_container}>
-        <HeaderDashboard
-          navigation={props.navigation}
+      <View style={styles.header}>
+        <DashboardHeader
           visits={165}
           dateDebut={'01/01/2023'}
           dateFinale={'30/05/2023'}
           labelPerimetre={''}
-          numberChantier={17}>
-          Tableau de bord
-        </HeaderDashboard>
+          numberChantier={17} />
       </View>
       {props.stat ? (
-        <ScrollView style={{flex: 1}}>
-          <View
-            style={{flex: 1, backgroundColor: '#eaeaea', flexDirection: 'row'}}>
-            <CardOne
-              textLabels={t('txt.visites')}
-              textValues={props.stat?.statVisit.visitNumber.toString()}
-              textHints={''}
-              colorText={'black'}
-            />
-            <CardOne
-              textLabels={t('txt.observations')}
-              textValues={props.stat?.statObservation.observationNumber.toString()}
-              textHints={
-                t('txt.conform.positive') + props.stat?.statObservation.hintObservation
-              }
-              colorText={'black'}
-            />
-            <CardOne
-              textLabels={t('txt.raised.reserve')}
-              textValues={props.stat?.statObservation.leveeDesReservesNumber + '%'}
-              textHints={t('txt.not.conform.negative') + props.stat?.statObservation.hintLevee}
-              colorText={'green'}
-            />
-          </View>
-          <View
-            style={{
-              flex: 3,
-              backgroundColor: '#eaeaea',
-              flexDirection: 'column',
-            }}>
-            <CardBarProgressVisites
-              textHint1={t('txt.prevention')}
-              textHint2={t('txt.conformité')}
-              textHint3={t('txt.hierarchique')}
-              textHint4={t('txt.flash')}
-              textLabels={t('txt.type.visits')}
-              valeurPrevention={props.stat?.statVisit.visitPrevention * 0.01}
-              valeurConformite={props.stat?.statVisit.visitConformity * 0.01}
-              valeurHierarchique={props.stat?.statVisit.visitHierarchical * 0.01}
-              valeurFlash={props.stat?.statVisit.visitFlash * 0.01}
-            />
-            <CardPieChart
-              textLabels={t('txt.conform.positive.not.conform.negative')}
-              accessor={'total'}
-              PieChartAmeliorerTotal={
-                props.stat?.statObservation.observationAmeliorer === undefined
-                  ? 0
-                  : props.stat.statObservation.observationAmeliorer
-              }
-              PieChartConformeTotal={
-                props.stat?.statObservation.observationConforme === undefined
-                  ? 0
-                  : props.stat.statObservation.observationConforme
-              }
-              PieChartNonConformeTotal={
-                props.stat?.statObservation.observationNomConforme === undefined
-                  ? 0
-                  : props.stat.statObservation.observationNomConforme
-              }
-              PieChartPositivesTotal={
-                props.stat?.statObservation.observationPositive === undefined
-                  ? 0
-                  : props.stat.statObservation.observationPositive
-              }
-            />
-            <CardBarProgress
-              textLabels={t('txt.top.risks')}
-              textHint1={'1-Vie du chantier'}
-              textHint2={'2-' + t('txt.risks')}
-              textHint3={'3-CHUTE DE HAUTEUR'}
-              textHint4={t('txt.others')}
-              valueHint1={props.stat?.statRisk.risk0.value  ? props.stat?.statRisk.risk0.value* 0.01 : 0}
-              valueHint2={props.stat?.statRisk.risk1.value ?  props.stat?.statRisk.risk1.value * 0.01 : 0}
-              valueHint3={props.stat?.statRisk.risk2.value ? props.stat?.statRisk.risk2.value* 0.01 : 0}
-              valueHint4={props.stat?.statRisk.risk3.value ?  props.stat?.statRisk.risk3.value* 0.01 : 0}
-            />
+        <ScrollView style={styles.f1}>
+          <GeneralStats stat={props.stat} />
+          <View style={styles.visitContentStats}>
+            <ProgressVisitsStats title={t('txt.type.visits')} statsVisit={props.stat.statVisit} />
+            <PieChartObservationStats observationStats={props.stat.statObservation} title={t('txt.conform.positive.not.conform.negative')} accessor={'total'} />
+            <ProgressRisksStats statsRisk={props.stat.statRisk} title={t('txt.top.risks')} />
           </View>
         </ScrollView>
       ) : (
         <ActivityIndicator
           size="large"
           color={colors.primary}
-          style={{display: props.loading ? 'flex' : 'none'}}
+          style={{ display: props.loading ? 'flex' : 'none' }}
         />
       )}
     </SafeAreaView>
@@ -148,9 +78,17 @@ export const DashboardContainer = (props: Props) => {
 };
 
 const styles = StyleSheet.create({
-  header_container: {
+  f1: {
+    flex: 1
+  },
+  header: {
     flexDirection: 'row-reverse',
     height: '20%',
+  },
+  visitContentStats: {
+    flex: 3,
+    backgroundColor: '#eaeaea',
+    flexDirection: 'column',
   },
   button_container: {
     backgroundColor: colors.primary,

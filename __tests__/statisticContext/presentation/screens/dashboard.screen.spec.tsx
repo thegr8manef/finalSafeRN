@@ -2,9 +2,11 @@ import React from 'react';
 import { render } from '@testing-library/react-native';
 import { DashboardContainer } from '../../../../src/statisticContext/adapters/primaries/Dashboard/dashboard.container';
 import { Stat } from '../../../../src/statisticContext/domain/entity/Stat';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { StackParamList } from '../../../../src/navigation/configuration/navigation.types';
 
 interface Props {
-    navigation: any;
+    navigation: StackNavigationProp<StackParamList>;
     loading: boolean;
     error: string | undefined;
     stat: Stat | undefined;
@@ -15,25 +17,21 @@ interface Props {
 
 describe('statistic screen flow', () => {
 
-
-    const props: Props = {
-        loading: false,
+    let props: Props
+    beforeEach(()=>{
+        props= {
+            loading: false,
         error: undefined,
         stat: undefined,
         connectionStatus: undefined,
-        navigation: undefined,
+        navigation: {navigate: jest.fn(), goBack: jest.fn()},
         loadRemoteStats: jest.fn(),
         loadLocalStats: jest.fn(),
-    }
-
+        }
+    })
     it('should render the component with the correct text', () => {
         const { getByText } = render(<DashboardContainer {...props} />);
-        expect(getByText('Tableau de bord')).toBeTruthy();
-        expect(getByText('165')).toBeTruthy();
+        expect(getByText('Mes visites :165')).toBeTruthy();
     });
 
 })
-
-function deepFreeze(arg0: any) {
-    throw new Error('Function not implemented.');
-}

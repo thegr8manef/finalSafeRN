@@ -1,12 +1,12 @@
 
-import { Chantier } from '../../../../visiteContext/domain/entity/Site';
+import { Site } from '../../../../visiteContext/domain/entity/Site';
 import {SynchronisationDto} from '../dto/synchronisationDto';
 
 export class SynchronisationMapper {
-  static mapperToChanties(synchronisationDto: SynchronisationDto): Chantier[] {
-    const chanties: Chantier[] = [];
+  static mapperToChanties(synchronisationDto: SynchronisationDto): Site[] {
+    const chanties: Site[] = [];
     synchronisationDto.rd.cs.forEach(chantier => {
-      chanties.push(new Chantier(
+      chanties.push(new Site(
        chantier.id.toString(),
       chantier.no,
        chantier.ad ? chantier.ad : '',
@@ -32,7 +32,7 @@ export class SynchronisationMapper {
           _chantier => _chantier.id?.toString() == chantier.id.toString(),
         )
       ) {
-        chanties.push(new Chantier(
+        chanties.push(new Site(
           chantier.id.toString(),
          chantier.no,
           chantier.ad ? chantier.ad : '',
