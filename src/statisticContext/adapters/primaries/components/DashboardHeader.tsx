@@ -2,19 +2,15 @@ import { View, Text, StyleSheet, Image, SafeAreaView } from 'react-native';
 import colors from '../../../../assets/colors';
 import React from 'react';
 import { t } from 'i18next';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { StackParamList } from '../../../../navigation/configuration/navigation.types';
 
 interface Props {
-  children: string;
   visits: number;
   dateDebut: string;
   dateFinale: string;
   labelPerimetre: string;
   numberChantier: number;
-  navigation: StackNavigationProp<StackParamList>;
 }
-export const HeaderDashboard = (props: Props): JSX.Element => {
+export const DashboardHeader = (props: Props): JSX.Element => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.containerVisites}>

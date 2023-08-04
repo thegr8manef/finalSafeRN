@@ -1,48 +1,48 @@
 import { SynchronisationDto } from "../../../src/synchronisationContext/adapters/secandaires/dto/synchronisationDto";
 import { SynchronisationMapper } from "../../../src/synchronisationContext/adapters/secandaires/mapper/synchronisationMapper";
-import { Chantier } from "../../../src/visiteContext/domain/entity/Site"
+import { Site } from "../../../src/visiteContext/domain/entity/Site"
 
 describe('Integration synchronisation Mapper', () =>{
-    let chantierList: Chantier[];
+    let chantierList: Site[];
     let synchronisationData : SynchronisationDto
     beforeEach(() =>{
         synchronisationData ={rc:'',
             rm:'',
             rd: {
-              cs: [{id:666,
+              cs: [{id:'666',
             no:"Chantier de test Mobelite (B-B1) (Titre très long)",
             ac:true,
             co:"",
             sr:1,
             ad:"",
             ref:"744DF9D7",
-            org:224,
+            org:'224',
             ol_name:"ETS EIC TEST B 1",
             org_lft:342,
             org_rgt:343,
             osc:"true",
-            pid:223,
-            piid:219
+            pid:'223',
+            piid:'219'
         },
-        {id:1870,
+        {id:'1870',
             no:"Chantier de test YBS",
             ac:true,
             co:"",
             sr:0,
             ad:"",
             ref:"B76F57B6",
-            org:225,
+            org:'225',
             ol_name:"ETS EIC TEST B 2",
             org_lft:344,
             org_rgt:345,
             osc:"true",
-            pid:223,
-            piid:219}],
+            pid: '223',
+            piid:'219'}],
         ocs:[]}}
-        chantierList = [new Chantier('666',
+        chantierList = [new Site('666',
          "Chantier de test Mobelite (B-B1) (Titre très long)",
          '', -1,true,'','','',1,-1,[],"744DF9D7","ETS EIC TEST B 1", "true",'223','219'),
-         new Chantier('1870',
+         new Site('1870',
          "Chantier de test YBS",
          '', -1,true,'','','',0,-1,[],"B76F57B6","ETS EIC TEST B 2", "true",'223','219')
         ]

@@ -50,6 +50,11 @@ export const VisitFlashContainer = (props: Props) => {
   const [loadingData, setloadingData] = useState(false);
   var test_observation = true;
   var test_commentaires = true;
+  const [code, setCode] = useState('');
+  const [clicked, setclicked] = useState(false);
+  const [loadingData, setloadingData] = useState(false);
+  var test_observation = true;
+  var test_commentaires = true;
 
   if (!mount) {
     props.loadingVisits;

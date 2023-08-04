@@ -7,7 +7,7 @@ import {
   loadingDataSelector,
 } from '../../../src/synchronisationContext/useCases/LoadData/selectors';
 import {loadData} from '../../../src/synchronisationContext/useCases/LoadData/actions';
-import {Chantier} from '../../../src/visiteContext/domain/entity/Site';
+import {Site} from '../../../src/visiteContext/domain/entity/Site';
 
 const deepFreeze = require('deep-freeze');
 
@@ -78,8 +78,8 @@ describe('synchonisation data flow', () => {
     store.dispatch(loadData(accessTokenFake));
     reduxStoreWO.loadLastUpdateDateNext('-1');
     reduxStoreWO.loadDataNext([
-      new Chantier('1', 'name'),
-      new Chantier('2', 'name 2'),
+      new Site('1', 'name','', 1,true,'','','', 1,-1,[], 'ref', 'RDK','', '1', 'dd'),
+      new Site('2', 'name 2','', 1,true,'','','', 1,-1,[], 'ref', 'RDK','', '2', 'dd'),
     ]);
     reduxStoreWO.saveDataError('ERROR');
   });
@@ -96,8 +96,8 @@ describe('synchonisation data flow', () => {
     store.dispatch(loadData(accessTokenFake));
     reduxStoreWO.loadLastUpdateDateNext('-1');
     reduxStoreWO.loadDataNext([
-      new Chantier('1', 'name'),
-      new Chantier('2', 'name 2'),
+      new Site('1', 'name','', 1,true,'','','', 1,-1,[], 'ref', 'RDK','', '1', 'dd'),
+      new Site('2', 'name 2','', 1,true,'','','', 1,-1,[], 'ref', 'RDK','', '2', 'dd'),
     ]);
     reduxStoreWO.saveDataNext();
   });

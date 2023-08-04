@@ -23,7 +23,7 @@ interface Props {
   loadSychronisationData: (accessToken: string) => void;
 }
 
-export const SplashScreen = (props: Props): React.FC<Props> => {
+export const SplashScreen = (props: Props) => {
   const [mounted, setMounted] = useState(false);
   const [mountedCheck, setMountedCheck] = useState(true);
 
