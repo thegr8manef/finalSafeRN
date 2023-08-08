@@ -36,7 +36,7 @@ export class APISynchronisationService implements SynchronisationService {
       .post<SynchronisationDto>(URL, body, _headers)
       .pipe(
         map(response =>
-          SynchronisationMapper.mapperToChanties(response.response),
+          SynchronisationMapper.mapperToDBChanties(response.response),
         ),
         catchError(err => throwError(err)),
       );

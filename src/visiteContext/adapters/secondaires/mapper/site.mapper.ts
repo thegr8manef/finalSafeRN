@@ -1,4 +1,4 @@
-import { Chantier } from '../../../../common/adapters/secondaries/db/entity/Chantier';
+import {Chantier} from '../../../../common/adapters/secondaries/db/entity/Chantier';
 import {Site} from '../../../domain/entity/Site';
 
 export class SiteMapper {

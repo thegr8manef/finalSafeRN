@@ -34,18 +34,29 @@ export const SplashScreen = (props: Props) => {
   useEffect(() => {
     setMounted(true);
     setTimeout(() => {
-      if (props.profile !== undefined && mountedCheck === true) {
-        if (!mountedSyn) {
-          setMountedSyn(true);
-          props.loadSychronisationData(props.profile.accessToken);
+      if (props.profile !== undefined) {
+        if (props.profile?.email != '' && mountedCheck) {
+          if (props.connectionStatus) {
+            if (!mountedSyn) {
+              setMountedSyn(true);
+              props.loadSychronisationData(props.profile?.accessToken!!);
+            }
+            if (props.loading == true) {
+              setMountedCheck(false);
+
+              props.navigation.replace('Home');
+            }
+          } else {
+            props.navigation.replace('Home');
+          }
         }
-        if (props.loading == true) {
+        if (props.profile?.email == '' && mountedCheck) {
           setMountedCheck(false);
 
-          props.navigation.replace('Home');
+          props.navigation.navigate('Login');
         }
       }
-    }, 7000);
+    }, 3000);
   });
 
   if (!mounted) {

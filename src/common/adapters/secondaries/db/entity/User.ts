@@ -10,6 +10,7 @@ export class User extends Realm.Object<User> {
   rg?: string;
   ss?: string;
   es?: string;
+  token?: string;
   connected?: boolean;
   lu?: string;
   luPut?: string;
@@ -39,6 +40,7 @@ export class User extends Realm.Object<User> {
       vpc: 'string?',
       vh: 'string?',
       lr: 'bool',
+      token: 'string?',
       visitCreated: 'int',
       listChantier: 'Chantier[]',
       listOthersChantier: 'Chantier[]',
