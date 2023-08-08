@@ -41,7 +41,7 @@ export const SplashScreen = (props: Props) => {
               setMountedSyn(true);
               props.loadSychronisationData(props.profile?.accessToken!!);
             }
-            if (props.loading == true) {
+            if (props.loading == false && mountedSyn) {
               setMountedCheck(false);
 
               props.navigation.replace('Home');
