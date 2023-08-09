@@ -100,7 +100,6 @@ export const VisitFlashContainer = (props: Props) => {
   }
 
   const {t} = useTranslation();
-  console.log('props.chantier?.reference', props.site);
   const OptionEcartSansRisque = useMemo(
     () => [
       {
