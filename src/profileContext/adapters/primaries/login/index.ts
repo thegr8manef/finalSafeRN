@@ -1,16 +1,14 @@
+import {Dispatch} from 'redux';
+import {connect} from 'react-redux';
 import {AppState} from '../../../../redux_configuration/appState';
+import {LoginContainer} from './login.container';
+import {login} from '../../../useCases/Login/action';
+import {Profile} from '../../../domain/entity/profile';
 import {
   loginErrorSelector,
   loginLoadingSelector,
   profileSelector,
 } from '../../../useCases/Login/selectors';
-import {Dispatch} from 'redux';
-import {LoginActionTypes} from '../../../useCases/Login/actionTypes';
-import {connect} from 'react-redux';
-import {LoginContainer} from './login.container';
-import {login} from '../../../useCases/Login/action';
-import {Profile} from '../../../domain/entity/profile';
-
 interface StateToPropsType {
   loading: boolean;
   error: string | undefined;
@@ -28,10 +26,12 @@ const mapStateToProps = (state: AppState): StateToPropsType => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => ({
-  login: (): LoginActionTypes => dispatch(login()),
+  login: () => dispatch(login()),
 });
 
-export const LoginPage = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(LoginContainer);
+const connector = connect(mapStateToProps, mapDispatchToProps);
+type PropsFromRedux = ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps>;
+export type LoginPageProps = PropsFromRedux;
+
+export const LoginPage = connector(LoginContainer);

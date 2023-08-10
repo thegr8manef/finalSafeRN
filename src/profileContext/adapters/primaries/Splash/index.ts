@@ -1,6 +1,6 @@
 import {Dispatch} from 'redux';
 import {AppState} from '../../../../redux_configuration/appState';
-import {SplashScreen} from './splash.container';
+import {SplashContainer} from './splash.container';
 import {LoadDataActionTypes} from '../../../../synchronisationContext/useCases/LoadData/actionTypes';
 import {loadData} from '../../../../synchronisationContext/useCases/LoadData/actions';
 import {loadingDataSelector} from '../../../../synchronisationContext/useCases/LoadData/selectors';
@@ -34,7 +34,9 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => ({
   loadLocalProfile: (): LoadLocalProfileAction => dispatch(loadLocalProfile()),
 });
 
-export const SplashPage = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(SplashScreen);
+const connector = connect(mapStateToProps, mapDispatchToProps);
+type PropsFromRedux = ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps>;
+export type SplashPageProps = PropsFromRedux;
+
+export const SplashPage = connector(SplashContainer);
