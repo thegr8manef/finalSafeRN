@@ -16,8 +16,8 @@ i18next.use(initReactI18next).init({
     bl: bl,
     pl: pl,
   },
-  lng: 'en', // Set the default language
-  fallbackLng: 'en', // Set the fallback language
+  lng: 'fr', // Set the default language
+  fallbackLng: 'fr', // Set the fallback language
 });
 
 export default i18next;

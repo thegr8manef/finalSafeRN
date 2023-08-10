@@ -31,7 +31,7 @@ export interface SynchronisationDto {
       vl: string; //ville
       sr: number;
       ref: string;
-      org: number;
+      org: string;
       ol_name: string;
       org_lft: number;
       org_rgt: number;

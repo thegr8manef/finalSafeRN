@@ -1,29 +1,34 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   SafeAreaView,
   StyleSheet,
   ScrollView,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
 import colors from '../../../../assets/colors';
-import { ProgressVisitsStats } from './Components/ProgressVisitsStats';
-import { Stat } from '../../../domain/entity/Stat';
-import { useTranslation } from 'react-i18next';
-import { Header } from '../../../../common/adapters/primaries/components/header';
-import { GeneralStats } from './Components/generalStats';
-import { PieChartObservationStats } from './Components/PieChartObservationStats';
-import { ProgressRisksStats } from './Components/ProgressRisksStats';
-import { DashboardHeader } from '../components/DashboardHeader';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { StackParamList } from '../../../../navigation/configuration/navigation.types';
-
+import {ProgressVisitsStats} from './Components/ProgressVisitsStats';
+import {Stat} from '../../../domain/entity/Stat';
+import {useTranslation} from 'react-i18next';
+import {Header} from '../../../../common/adapters/primaries/components/header';
+import {GeneralStats} from './Components/generalStats';
+import {PieChartObservationStats} from './Components/PieChartObservationStats';
+import {ProgressRisksStats} from './Components/ProgressRisksStats';
+import {DashboardHeader} from '../components/DashboardHeader';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {StackParamList} from '../../../../navigation/configuration/navigation.types';
+import {StatVisit} from '../../../domain/entity/statVisit';
+import {StatObservation} from '../../../domain/entity/statObservation';
+import {StatRisk} from '../../../domain/entity/statRisk';
+import {Profile} from '../../../../profileContext/domain/entity/profile';
 
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
   loading: boolean;
-  error: string | undefined;
+  error: string;
   stat: Stat | undefined;
+  profile: Profile | undefined;
   connectionStatus: boolean | undefined;
   loadRemoteStats: () => void;
   loadLocalStats: () => void;
@@ -31,7 +36,7 @@ interface Props {
 
 export const DashboardContainer = (props: Props) => {
   const [mount, setMount] = useState(false);
-  const { t } = useTranslation();
+  const {t} = useTranslation();
 
   if (!mount) {
     if (props.connectionStatus === true) {
@@ -44,46 +49,82 @@ export const DashboardContainer = (props: Props) => {
 
   useEffect(() => {
     setMount(true);
-  }, []);
+
+    if (props.error != undefined) {
+      console.log(props.error);
+      Alert.alert(t('txt.msg.connection.failed'));
+    }
+  }, [props.error]);
 
   return (
-    <SafeAreaView style={styles.f1}>
+    <View style={styles.f1}>
       <Header navigation={props.navigation} title={t('txt.dashboard')} />
       <View style={styles.header}>
         <DashboardHeader
           visits={165}
           dateDebut={'01/01/2023'}
           dateFinale={'30/05/2023'}
-          labelPerimetre={''}
-          numberChantier={17} />
-      </View>
-      {props.stat ? (
-        <ScrollView style={styles.f1}>
-          <GeneralStats stat={props.stat} />
-          <View style={styles.visitContentStats}>
-            <ProgressVisitsStats title={t('txt.type.visits')} statsVisit={props.stat.statVisit} />
-            <PieChartObservationStats observationStats={props.stat.statObservation} title={t('txt.conform.positive.not.conform.negative')} accessor={'total'} />
-            <ProgressRisksStats statsRisk={props.stat.statRisk} title={t('txt.top.risks')} />
-          </View>
-        </ScrollView>
-      ) : (
-        <ActivityIndicator
-          size="large"
-          color={colors.primary}
-          style={{ display: props.loading ? 'flex' : 'none' }}
+          labelPerimetre={props.profile?.region}
+          numberChantier={17}
         />
-      )}
-    </SafeAreaView>
+      </View>
+
+      <ScrollView style={styles.f1}>
+        <GeneralStats stat={props.stat} />
+        <View style={styles.visitContentStats}>
+          <ProgressVisitsStats
+            title={t('txt.type.visits')}
+            statsVisit={
+              props === undefined
+                ? props.stat.statVisit
+                : new StatVisit(0, 0, 0, 0, 0)
+            }
+          />
+          <PieChartObservationStats
+            observationStats={
+              props === undefined
+                ? props.stat.statObservation
+                : new StatObservation(0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+            }
+            title={t('txt.conform.positive.not.conform.negative')}
+            accessor={'total'}
+          />
+          <ProgressRisksStats
+            statsRisk={
+              props === undefined
+                ? props.stat.statRisk
+                : new StatRisk(
+                    {label: '', value: 0},
+                    {label: '', value: 0},
+                    {label: '', value: 0},
+                    {label: '', value: 0},
+                  )
+            }
+            title={t('txt.top.risks')}
+          />
+        </View>
+      </ScrollView>
+
+      <ActivityIndicator
+        size="large"
+        color={colors.primary}
+        style={[
+          {
+            display: props.loading ? 'flex' : 'none',
+          },
+          styles.indicator,
+        ]}
+      />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   f1: {
-    flex: 1
+    flex: 1,
   },
   header: {
     flexDirection: 'row-reverse',
-    height: '20%',
   },
   visitContentStats: {
     flex: 3,
@@ -103,5 +144,10 @@ const styles = StyleSheet.create({
     width: '20%',
     height: '60%',
     resizeMode: 'stretch',
+  },
+  indicator: {
+    position: 'absolute',
+    margin: '50%',
+    top: 180,
   },
 });

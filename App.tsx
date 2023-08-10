@@ -12,14 +12,29 @@ import {
   setConnectionStatus,
 } from './src/common/isConnected/useCase/loadConnectionStatus/actions';
 import NetInfo from '@react-native-community/netinfo';
+import i18n from './src/assets/languages/i18n';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const store = reduxStore();
 
 export default function App() {
   const [mount, setMount] = useState(false);
 
+  const getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('language');
+
+      if (value !== null) {
+        i18n.changeLanguage(value);
+      } else {
+        i18n.changeLanguage('fr');
+      }
+    } catch (e) {}
+  };
+
   if (!mount) {
     store.dispatch(loadConnectionStatus());
+    getData();
   }
 
   useEffect(() => {
@@ -28,6 +43,7 @@ export default function App() {
     });
     setMount(true);
   });
+
   return (
     <Provider store={store}>
       <StatusBar backgroundColor={colors.primary} />

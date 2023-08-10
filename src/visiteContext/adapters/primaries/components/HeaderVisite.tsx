@@ -15,7 +15,7 @@ interface Props {
 }
 export const HeaderVisite = (props: Props): JSX.Element => {
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.rectangle}>
         <View style={{height: 70}}>
           <TouchableOpacity onPress={() => props.navigation.openDrawer()}>
@@ -29,7 +29,7 @@ export const HeaderVisite = (props: Props): JSX.Element => {
           <Text style={styles.textCentre}>{props.children}</Text>
         </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

@@ -4,6 +4,8 @@ export class Profile {
     private _name: string,
     private _accessToken: string,
     private _email: string,
+    private _region: string,
+    private _lastUpdate: string,
   ) {}
 
   get id(): string {
@@ -20,5 +22,12 @@ export class Profile {
 
   get email(): string {
     return this._email;
+  }
+  get region(): string {
+    return this._region;
+  }
+
+  get lastUpdate(): string {
+    return this._lastUpdate;
   }
 }

@@ -7,12 +7,10 @@ import {SynchronisationDto} from './dto/synchronisationDto';
 import {SynchronisationMapper} from './mapper/synchronisationMapper';
 import {catchError, map} from 'rxjs/operators';
 import constants from '../../../common/constants';
+import {Site} from '../../../visiteContext/domain/entity/Site';
 
 export class APISynchronisationService implements SynchronisationService {
-  loadData(
-    accessToken: string,
-    lastUpdateDate: string,
-  ): Observable<Chantier[]> {
+  loadData(accessToken: string, lastUpdateDate: string): Observable<Site[]> {
     const _headers: Record<string, string> = {
       'Content-Type': 'application/json',
       //  'token': accessToken
@@ -36,7 +34,7 @@ export class APISynchronisationService implements SynchronisationService {
       .post<SynchronisationDto>(URL, body, _headers)
       .pipe(
         map(response =>
-          SynchronisationMapper.mapperToDBChanties(response.response),
+          SynchronisationMapper.mapperToChanties(response.response),
         ),
         catchError(err => throwError(err)),
       );

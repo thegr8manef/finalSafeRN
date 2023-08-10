@@ -9,10 +9,12 @@ export class ProfileMapper {
       profile.account.claims.name,
       profile.accessToken,
       profile.account.username,
+      '',
+      '-1',
     );
   }
 
   static mapToProfileDetails(userDetails: userDto): User {
-    return new User('', userDetails.rd.or.rg);
+    return new User('', userDetails.rd.or.rg, '-1');
   }
 }

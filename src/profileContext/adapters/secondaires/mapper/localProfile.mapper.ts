@@ -8,6 +8,8 @@ export class LocalProfilMapper {
       user?.fn + '' + user?.ln,
       user?.token ?? '',
       user?.em ?? '',
+      user?.rg ?? '',
+      '-1',
     );
   }
 }

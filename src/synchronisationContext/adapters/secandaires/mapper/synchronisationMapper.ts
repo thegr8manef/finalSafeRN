@@ -16,7 +16,7 @@ export class SynchronisationMapper {
           chantier.cp ? chantier.cp.toString() : '',
           chantier.py ? chantier.py : '',
           chantier.vl ? chantier.vl : '',
-          chantier.sr,
+          chantier.st,
           synchronisationDto.rd.lus ? parseInt(synchronisationDto.rd.lus) : -1,
           [],
           chantier.ref,
@@ -24,6 +24,8 @@ export class SynchronisationMapper {
           chantier.osc,
           chantier.pid.toString(),
           chantier.piid.toString(),
+          chantier.sr,
+          chantier.org,
         ),
       );
     });
@@ -44,7 +46,7 @@ export class SynchronisationMapper {
             '',
             chantier.py ? chantier.py : '',
             chantier.vl ? chantier.vl : '',
-            chantier.sr,
+            chantier.st,
             synchronisationDto.rd.lus
               ? parseInt(synchronisationDto.rd.lus)
               : -1,
@@ -54,6 +56,8 @@ export class SynchronisationMapper {
             chantier.osc.toString(),
             chantier.pid.toString(),
             chantier.piid.toString(),
+            chantier.sr,
+            chantier.org,
           ),
         );
       }
@@ -62,64 +66,27 @@ export class SynchronisationMapper {
     return chanties;
   }
 
-  static mapperToDBChanties(
-    synchronisationDto: SynchronisationDto,
-  ): Chantier[] {
-    const chanties: Chantier[] = [];
-    synchronisationDto.rd.cs.forEach(chantier => {
-      chanties.push({
-        id: chantier.id.toString(),
-        no: chantier.no,
-        ad: chantier.ad,
-        type: -1,
-        ac: chantier.ac,
-        cp: chantier.cp.toString(),
-        co: '',
-        py: chantier.py,
-        vl: chantier.vl,
-        sr: chantier.sr,
-        cd: '',
-        lu: parseInt(synchronisationDto.rd.lus),
-        st: chantier.st,
-        ref: chantier.ref,
-        org: chantier.org.toString(),
-        ol_name: chantier.ol_name,
-        osc: chantier.osc,
-        pid: chantier.pid.toString(),
-        piid: chantier.piid.toString(),
-      } as Chantier);
-    });
-
-    synchronisationDto.rd.ocs.forEach(chantier => {
-      if (
-        !chanties.some(
-          _chantier => _chantier.id?.toString() == chantier.id.toString(),
-        )
-      ) {
-        chanties.push({
-          id: chantier.id.toString(),
-          no: chantier.no,
-          ad: chantier.ad,
-          type: -1,
-          ac: chantier.ac,
-          cp: '',
-          co: '',
-          py: chantier.py,
-          vl: chantier.vl,
-          sr: chantier.sr,
-          cd: '',
-          lu: parseInt(synchronisationDto.rd.lus),
-          st: -1,
-          ref: chantier.ref,
-          org: chantier.org.toString(),
-          ol_name: chantier.ol_name,
-          osc: chantier.osc.toString(),
-          pid: chantier.pid.toString(),
-          piid: chantier.piid.toString(),
-        } as Chantier);
-      }
-    });
-
-    return chanties;
+  static mapSiteToChantier(site: Site): Chantier {
+    return {
+      id: site.id,
+      no: site.name,
+      ad: site.address,
+      type: -1,
+      ac: site.accepted,
+      cp: site.code_postal,
+      co: '',
+      py: site.pays,
+      vl: site.ville,
+      sr: site.sr,
+      cd: '',
+      lu: site.last_update,
+      st: site.st,
+      ref: site.reference,
+      org: site.org,
+      ol_name: site.region_name,
+      osc: site.osc,
+      pid: site.pid,
+      piid: site.piid,
+    } as Chantier;
   }
 }

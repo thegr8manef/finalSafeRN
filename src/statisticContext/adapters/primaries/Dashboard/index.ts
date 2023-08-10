@@ -17,11 +17,14 @@ import {
   loadRemoteStatsErrorSelector,
   loadRemoteStatsLoadingSelector,
 } from '../../../useCases/LoadRemoteStats/selectors';
+import {Profile} from '../../../../profileContext/domain/entity/profile';
+import {localProfileSelector} from '../../../../profileContext/useCases/LoadLocalProfile/selectors';
 
 interface StateToPropsType {
   loading: boolean;
   error: string | undefined;
   stat: Stat | undefined;
+  profile: Profile | undefined;
   connectionStatus: boolean | undefined;
 }
 interface DispatchToPropsType {
@@ -36,6 +39,7 @@ const mapStateToProps = (state: AppState): StateToPropsType => ({
     loadLocalStatErrorSelector(state) || loadRemoteStatsErrorSelector(state),
   stat: localStatsSelector(state),
   connectionStatus: connectionStatusSelector(state),
+  profile: localProfileSelector(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => ({

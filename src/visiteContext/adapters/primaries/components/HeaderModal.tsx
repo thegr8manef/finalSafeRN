@@ -11,7 +11,7 @@ interface Props {
 export const HeaderModal = (props: Props) => {
   const {t} = useTranslation();
   return (
-    <SafeAreaView>
+    <View>
       <View style={styles.rectangle}>
         <View style={styles.containerButtonRight}>
           <Pressable
@@ -31,7 +31,7 @@ export const HeaderModal = (props: Props) => {
           </Pressable>
         </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

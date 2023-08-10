@@ -20,6 +20,7 @@ export const HomeNavigation = () => {
       drawerContent={props => <MenuLeftPage {...props} />}
       screenOptions={{
         headerShown: false,
+
         drawerActiveBackgroundColor: colors.griy500,
         drawerInactiveTintColor: '#333',
         drawerItemStyle: {width: '100%', marginLeft: 0, marginTop: -4},

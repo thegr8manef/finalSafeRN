@@ -7,6 +7,7 @@ import {Chantier} from '../../../common/adapters/secondaries/db/entity/Chantier'
 import {loadDataFailed, loadDataSuccess} from './actions';
 import {of} from 'rxjs';
 import {SynchronisationRepository} from '../../domain/gateway/SynchronisationRepository';
+import {Site} from '../../../visiteContext/domain/entity/Site';
 
 export const loadDataEpic: Epic = (
   action$,
@@ -25,8 +26,8 @@ export const loadDataEpic: Epic = (
       synchronisationRepository.loadLastUpdateDate().pipe(
         mergeMap((lastUpdateDate: string) =>
           synchronisationService.loadData(action.payload, lastUpdateDate).pipe(
-            mergeMap((chanties: Chantier[]) =>
-              synchronisationRepository.saveData(chanties).pipe(
+            mergeMap((sites: Site[]) =>
+              synchronisationRepository.saveData(sites).pipe(
                 map(() => loadDataSuccess()),
                 catchError(error => of(loadDataFailed(error))),
               ),

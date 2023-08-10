@@ -1,18 +1,18 @@
-import { View, Text, StyleSheet, Image, SafeAreaView } from 'react-native';
+import {View, Text, StyleSheet, Image, SafeAreaView} from 'react-native';
 import colors from '../../../../assets/colors';
 import React from 'react';
-import { t } from 'i18next';
+import {t} from 'i18next';
 
 interface Props {
   visits: number;
   dateDebut: string;
   dateFinale: string;
-  labelPerimetre: string;
+  labelPerimetre: string | undefined;
   numberChantier: number;
 }
 export const DashboardHeader = (props: Props): JSX.Element => {
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <View style={styles.container}>
       <View style={styles.containerVisites}>
         <View style={styles.containerText}>
           <Text style={styles.text}>Mes visites :{props.visits}</Text>
@@ -27,13 +27,13 @@ export const DashboardHeader = (props: Props): JSX.Element => {
             />
           </View>
           <View style={styles.containerPerimetre}>
-            <Text style={styles.text1}>{t('txt.primetre')}</Text>
-            <Text style={styles.text2}>{props.labelPerimetre}</Text>
+            <Text style={styles.textArea}>{t('txt.primetre')}</Text>
+            <Text style={styles.textDetails}>{props.labelPerimetre}</Text>
           </View>
           <View style={styles.containerVide} />
           <View style={styles.containerPerimetre}>
-            <Text style={styles.text1}>{t('txt.chantiers')}</Text>
-            <Text style={styles.text2}>
+            <Text style={styles.textArea}>{t('txt.chantiers')}</Text>
+            <Text style={styles.textDetails}>
               {props.numberChantier}
               {t('txt.selections')}
             </Text>
@@ -51,51 +51,31 @@ export const DashboardHeader = (props: Props): JSX.Element => {
             source={require('../../../../assets/img/icn_info.png')}
             style={styles.ImageInfo}
           />
-          <Text style={[styles.textStat, { fontSize: 12 }]}>
+          <Text style={[styles.textStat, {fontSize: 12}]}>
             {t('txt.dashboard.message')} {props.dateDebut} {t('au')}
             {props.dateFinale}
           </Text>
         </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  rectangle: {
-    flex: 1,
-  },
-  textCentre: {
-    marginTop: 10,
-    fontSize: 19,
-    fontWeight: 'bold',
-    color: 'black',
-  },
-  logoImage: {
-    margin: '15%',
-    top: 2,
-    width: '45%',
-    height: '50%',
-    resizeMode: 'stretch',
-    tintColor: colors.black,
-  },
-  logoImage1: {
-    width: '25%',
-    marginTop: '17%',
-    marginLeft: '20%',
-    height: '55%',
-    resizeMode: 'stretch',
-  },
+  container: {flex: 1},
+
   containerVisites: {
-    flex: 0.5,
+    height: 50,
     backgroundColor: '#e9e9e9',
   },
   containerText: {
     backgroundColor: 'white',
-    height: '60%',
+    height: '70%',
     width: '30%',
-    borderRadius: 5,
-    margin: 15,
+    marginTop: 7,
+    marginLeft: 15,
+    borderRadius: 3,
+
     justifyContent: 'center',
   },
   text: {
@@ -105,7 +85,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
   },
   containerChantier: {
-    flex: 0.7,
+    height: 70,
     backgroundColor: colors.white,
   },
   perimetre: {
@@ -121,7 +101,7 @@ const styles = StyleSheet.create({
 
     width: '5%',
     height: '70%',
-    resizeMode: 'stretch',
+    resizeMode: 'contain',
   },
   textStat: {
     flex: 3,
@@ -135,41 +115,37 @@ const styles = StyleSheet.create({
     backgroundColor: '#eaeaea',
   },
   containerPerimetre: {
-    flex: 2,
+    flex: 1,
+
     flexDirection: 'column',
   },
   imagePerimetre: {
     alignSelf: 'center',
     flex: 0.5,
-    width: '98%',
   },
   ImagePerimeter: {
-    alignSelf: 'center',
-    width: '45%',
-    height: '45%',
-    resizeMode: 'stretch',
+    width: '55%',
+    height: '55%',
+    resizeMode: 'contain',
+    marginLeft: 15,
+    marginTop: 10,
   },
   ImagePerimeterArrow: {
-    alignSelf: 'center',
     width: '50%',
     height: '25%',
-    resizeMode: 'stretch',
+    resizeMode: 'contain',
+    marginTop: 10,
   },
-  text1: {
+  textArea: {
     color: colors.gris200,
     textAlign: 'justify',
+
     width: '100%',
-    height: '50%',
-    flex: 1,
   },
-  text2: {
-    color: 'black',
-    textAlign: 'justify',
-    flex: 1,
-    width: '100%',
-    height: '50%',
+  textDetails: {
+    color: colors.textColor,
   },
   containerVide: {
-    flex: 2,
+    flex: 1,
   },
 });

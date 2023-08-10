@@ -3,20 +3,24 @@ import {SynchronisationRepository} from '../../domain/gateway/SynchronisationRep
 import ApplicationContext from '../../../common/appConfig/ApplicationContext';
 import {Chantier} from '../../../common/adapters/secondaries/db/entity/Chantier';
 import {SynchronisationMapper} from './mapper/synchronisationMapper';
+import {Site} from '../../../visiteContext/domain/entity/Site';
 
 export class DBSynchronisationRepository implements SynchronisationRepository {
-  saveData(chanties: Chantier[]): Observable<void> {
+  saveData(sites: Site[]): Observable<void> {
     const promisSaveData = new Promise<void>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
       try {
-        if (chanties.length > 0) {
+        if (sites.length > 0) {
           db.then(realm => {
             const updt = realm.objects('User');
             realm?.write(() => {
-              chanties.forEach(chantie => {
-                realm.create('Chantier', chantie);
+              sites.forEach(site => {
+                realm.create(
+                  'Chantier',
+                  SynchronisationMapper.mapSiteToChantier(site),
+                );
               });
-              updt[0].lu = chanties[0].lu?.toString();
+              updt[0].lu = sites[0].last_update?.toString();
             });
           });
         }

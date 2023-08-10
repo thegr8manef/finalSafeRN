@@ -1,4 +1,11 @@
-import {View, Text, StyleSheet, Image, Pressable} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Pressable,
+  Dimensions,
+} from 'react-native';
 import colors from '../../../../assets/colors';
 import React from 'react';
 
@@ -6,7 +13,7 @@ interface Props {
   title: string;
   navigation: any;
 }
-export const Header = (props: Props):JSX.Element => {
+export const Header = (props: Props): JSX.Element => {
   return (
     <View style={styles.header}>
       <View style={styles.header_title}>
@@ -32,9 +39,10 @@ export const Header = (props: Props):JSX.Element => {
   );
 };
 
+const dimensions = Dimensions.get('screen');
 const styles = StyleSheet.create({
   header: {
-    height: '8%',
+    height: dimensions.height / 15,
     backgroundColor: colors.primary,
     flexDirection: 'row',
     alignItems: 'center',
@@ -76,7 +84,7 @@ const styles = StyleSheet.create({
   flash_icn: {
     width: '30%',
     height: '70%',
-    resizeMode: 'stretch',
+    resizeMode: 'contain',
     marginRight: 25,
   },
 });
