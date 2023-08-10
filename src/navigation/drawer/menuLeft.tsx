@@ -11,19 +11,9 @@ import {useEffect, useState} from 'react';
 
 interface Props {
   profile: Profile | undefined;
-  loadProfileLocal: () => void;
 }
 
 export const MenuLeft = (props: Props) => {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    props.loadProfileLocal();
-  }
   return (
     <View style={styles.container}>
       <View style={styles.header}>

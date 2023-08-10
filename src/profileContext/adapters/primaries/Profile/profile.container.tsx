@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {PureComponent, ReactNode, useEffect, useState} from 'react';
 import {
   View,
   SafeAreaView,
@@ -10,7 +10,7 @@ import {
 import {DetailsContainer} from '../../../../assets/components/DetailsContainer';
 import {Divider} from '../../../../assets/components/Divider';
 import {Header} from '../../../../assets/components/Header';
-import InfoContainer from '../../../../assets/components/InfoContainer';
+import {InfoContainer} from '../../../../assets/components/InfoContainer';
 import colors from '../../../../assets/colors';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {StackParamList} from '../../../../navigation/configuration/navigation.types';
@@ -21,10 +21,9 @@ import {useTranslation} from 'react-i18next';
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
   profile: Profile | undefined;
-  loading: boolean;
-  error: string | undefined;
-  user: User | undefined;
   loadProfileDetails: (accessToken: string) => void;
+  user: User;
+  loading: boolean;
 }
 
 export const ProfileContainer: React.FC<Props> = (props: Props) => {
@@ -41,7 +40,7 @@ export const ProfileContainer: React.FC<Props> = (props: Props) => {
   });
 
   if (!mounted) {
-    props.loadProfileDetails(props.profile?.accessToken!);
+    props.loadProfileDetails(props.profile?.accessToken!!);
   }
   const handlNavigation = () => {
     if (isCompleted) {
@@ -50,11 +49,7 @@ export const ProfileContainer: React.FC<Props> = (props: Props) => {
   };
 
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        backgroundColor: !isCompleted ? colors.gray90 : colors.white,
-      }}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.header_container}>
         <View style={styles.button_container}>
           <TouchableOpacity onPress={handlNavigation}>
@@ -62,10 +57,10 @@ export const ProfileContainer: React.FC<Props> = (props: Props) => {
           </TouchableOpacity>
         </View>
         <View style={styles.text_container}>
-          <Header label_title={t('txt.profile')} />
+          <Header label_title={t('txt.profile')}></Header>
         </View>
       </View>
-      <View style={{flex: 0.8}}>
+      <View style={styles.detailsContainer}>
         {props.profile ? (
           <DetailsContainer
             name_label={props.profile?.name}
@@ -74,14 +69,14 @@ export const ProfileContainer: React.FC<Props> = (props: Props) => {
         ) : null}
       </View>
       <Divider />
-      <View style={{flex: 0.8}}>
+      <View style={styles.detailsContainer}>
         <InfoContainer
           label_title={t('txt.region')}
           label_subtitle={props.user == undefined ? '' : props.user.region}
         />
       </View>
       <Divider />
-      <View style={{flex: 0.8}}>
+      <View style={styles.detailsContainer}>
         <InfoContainer
           label_title={t('txt.filiale')}
           label_subtitle={props.user == undefined ? '' : props.user.function}
@@ -93,44 +88,47 @@ export const ProfileContainer: React.FC<Props> = (props: Props) => {
         />
       </View>
       <Divider />
-      <View style={{flex: 0.8}}>
+      <View style={styles.detailsContainer}>
         <InfoContainer
           label_title={t('txt.etablissement')}
           label_subtitle={' '}
         />
       </View>
-      <View
-        style={{
-          flex: 2,
-          backgroundColor: isCompleted ? colors.gray90 : colors.default,
-        }}
-      />
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: '10%',
+  },
   header_container: {
-    flex: 0.5,
     flexDirection: 'row-reverse',
-    height: 1,
+    height: 60,
   },
   button_container: {
     backgroundColor: colors.primary,
     flex: 1,
-    height: 50,
+    height: '100%',
     justifyContent: 'center',
     alignItems: 'flex-end',
   },
   text_container: {
     flex: 3,
     backgroundColor: colors.primary,
-    height: 50,
+    justifyContent: 'center',
+
+    height: '100%',
   },
   txtNext: {
     marginRight: 15,
     fontSize: 15,
     color: colors.textColor,
     fontWeight: '600',
+  },
+  detailsContainer: {
+    height: '15%',
+    backgroundColor: colors.white,
   },
 });

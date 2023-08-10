@@ -8,6 +8,7 @@ export class DBUserRepository implements UserRepository {
   setUserConnected(userConnected: Profile): Observable<void> {
     const promiSetUser = new Promise<void>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
+
       try {
         db.then(realm => {
           realm?.write(() => {
@@ -22,6 +23,7 @@ export class DBUserRepository implements UserRepository {
               lr: false,
               visitCreated: 0,
               lu: '-1',
+              token: userConnected.accessToken,
             });
           });
           resolve(); // Emit the boolean value

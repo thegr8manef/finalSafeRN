@@ -29,19 +29,20 @@ export default styles = StyleSheet.create({
   },
 
   dropDownPicker: {
-    backgroundColor: colors.default,
+    backgroundColor: colors.white,
     borderWidth: 0,
   },
 
   dropDownPickerContainer: {
     width: 125,
+    marginTop: 35,
     borderColor: colors.default,
     border: 0,
     backgroundColor: colors.default,
   },
 
   logoImage: {
-    width: '30%',
+    width: '33%',
     height: '30%',
     resizeMode: 'stretch',
   },
