@@ -20,9 +20,10 @@ import {Profile} from '../src/profileContext/domain/entity/profile';
 import {User} from '../src/profileContext/domain/entity/user';
 import {visitsRootEpics} from '../src/visiteContext/configuration/rootEpic';
 import {reduxReducer} from '../src/redux_configuration/rootReducers';
-import {Chantier} from '../src/visiteContext/domain/entity/Site';
+import {Chantier, Site} from '../src/visiteContext/domain/entity/Site';
 import {synchronisationRootEpics} from '../src/synchronisationContext/configuration/rootEpic';
 import { statisticRootEpics } from '../src/statisticContext/configuration/rootEpic';
+import { Flash } from '../src/visiteContext/domain/entity/Flash';
 
 export class ReduxStoreWO {
   private static instance: ReduxStoreWO;
@@ -36,11 +37,13 @@ export class ReduxStoreWO {
   private checkUserConnected$: Subject<boolean> = new Subject();
   private loadProfileDetails$: Subject<User> = new Subject();
   private updateLocalProfile$: Subject<User> = new Subject();
-  private SaveFlash$: Subject<void> = new Subject();
   private LoadData$: Subject<Chantier[]> = new Subject();
   private saveData$: Subject<void> = new Subject();
   private loadLastUpdateDate$: Subject<string> = new Subject();
   private loadLocalProfile$: Subject<Profile> = new Subject();
+  // Visite Services
+  private loadSiteByCode$: Subject<Site> = new Subject();
+  private SaveFlash$: Subject<Flash> = new Subject();
 
   constructor() {
     this.rootEpics = combineEpics<Action>(
@@ -70,8 +73,9 @@ export class ReduxStoreWO {
           updateLocalProfile: (): Subject<User> => this.updateLocalProfile$,
           loadLocalProfile: (): Subject<Profile> => this.loadLocalProfile$
         },
-        visiteService: {
-          SaveFlash: (): Subject<void> => this.SaveFlash$,
+        visitsService: {
+          SaveFlash: (): Subject<Flash> => this.SaveFlash$,
+          LoadSiteByCode: (): Subject<Site> => this.loadSiteByCode$
         },
         synchronisationService: {
           loadData: (): Subject<Chantier[]> => this.LoadData$,
@@ -130,4 +134,13 @@ export class ReduxStoreWO {
 
   loadLocalProfileNext = (profile: Profile):void => this.loadLocalProfile$.next(profile)
   loadLocalProfileError = (error: string): void => this.loadLocalProfile$.error(error)
+
+  // Visite actions
+  loadSiteByCodeNext = (site: Site): void => this.loadSiteByCode$.next(site)
+  loadSiteByCodeError = (error: string): void => this.loadSiteByCode$.error(error)
+
+   // Save Flash actions
+   saveFlashNext = (flash: Flash): void => this.SaveFlash$.next(flash)
+   saveFlashError = (error: string): void => this.SaveFlash$.error(error)
+ 
 }
