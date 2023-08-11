@@ -1,13 +1,11 @@
 import * as React from 'react';
 import {StyleSheet, View, Text, Image} from 'react-native';
-import colors from '../../assets/colors';
-
 import {
   DrawerContentScrollView,
   DrawerItemList,
 } from '@react-navigation/drawer';
 import {Profile} from '../../profileContext/domain/entity/profile';
-import {useEffect, useState} from 'react';
+import * as utils from '../../utils';
 
 interface Props {
   profile: Profile | undefined;
@@ -40,12 +38,12 @@ export const MenuLeft = (props: Props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.white,
+    backgroundColor: utils.colors.white,
   },
 
   header: {
     flex: 0.2,
-    backgroundColor: colors.primary,
+    backgroundColor: utils.colors.primary,
   },
   headerContainer: {
     flex: 1,

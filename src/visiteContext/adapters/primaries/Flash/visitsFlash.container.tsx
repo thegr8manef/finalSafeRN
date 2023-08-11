@@ -21,10 +21,10 @@ import {OPON} from '../components/ObservationPositiveON';
 import {OPOFF} from '../components/ObservationPositiveOFF';
 import {ONON} from '../components/ObservationNegativeON';
 import {ONOFF} from '../components/ObservationNegativeOFF';
-import {Header} from '../../../../common/adapters/primaries/components/header';
 import {ImageController} from '../components/ImageController';
 import {Site} from '../../../domain/entity/Site';
 import {SitesList} from '../components/SitesList';
+import { Header } from '../../../../common/adapters/primaries/components/Header';
 
 interface Props {
   navigation: StackNavigationProp<StackParamList>;

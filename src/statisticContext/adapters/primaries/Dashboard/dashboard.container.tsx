@@ -10,13 +10,13 @@ import colors from '../../../../assets/colors';
 import { ProgressVisitsStats } from './Components/ProgressVisitsStats';
 import { Stat } from '../../../domain/entity/Stat';
 import { useTranslation } from 'react-i18next';
-import { Header } from '../../../../common/adapters/primaries/components/header';
 import { GeneralStats } from './Components/generalStats';
 import { PieChartObservationStats } from './Components/PieChartObservationStats';
 import { ProgressRisksStats } from './Components/ProgressRisksStats';
 import { DashboardHeader } from '../components/DashboardHeader';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { StackParamList } from '../../../../navigation/configuration/navigation.types';
+import { Header } from '../../../../common/adapters/primaries/components/Header';
 
 
 interface Props {

@@ -1,6 +1,6 @@
 import {View, Text, Pressable, StyleSheet} from 'react-native';
 import React from 'react';
-import colors from '../colors';
+import colors from '../../../../assets/colors';
 interface Props {
   textButton: string;
   OnPressCustomized: () => void;
