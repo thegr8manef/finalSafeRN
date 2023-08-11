@@ -4,15 +4,18 @@ import React from 'react';
 import {useTranslation} from 'react-i18next';
 
 interface Props {
-  onPressNegativeOFF: void;
+  onPressNegativeOFF:()=> void;
 }
 
 export const ONOFF = (props: Props) => {
   const {t} = useTranslation();
   return (
-    <TouchableOpacity onPress={props.onPressNegativeOFF} style={{flex: 1}}>
+    <TouchableOpacity 
+    testID='up-thumb-btn'
+    onPress={props.onPressNegativeOFF} style={{flex: 1}}>
       <View style={{flex: 2}}>
         <Image
+        testID='img'
           source={require('../../../../assets/img/icn_negative_disabled.png')}
           style={styles.logoImage2}
         />

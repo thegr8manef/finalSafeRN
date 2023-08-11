@@ -1,22 +1,25 @@
-import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import colors from '../../../../assets/colors';
 import React from 'react';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
-  onPressNegative: void;
+  onPressNegative: () => void;
 }
 export const ONON = (props: Props) => {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   return (
-    <TouchableOpacity onPress={props.onPressNegative} style={{flex: 1}}>
-      <View style={{flex: 2}}>
+    <TouchableOpacity 
+    testID='up-thumb-btn'
+    onPress={props.onPressNegative} style={{ flex: 1 }}>
+      <View style={{ flex: 2 }}>
         <Image
+          testID='img'
           source={require('../../../../assets/img/icn_negative_disabled.png')}
           style={styles.logoImage2}
         />
       </View>
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <Text style={styles.TextObservation}>{t('observation_negative')}</Text>
       </View>
     </TouchableOpacity>
