@@ -129,12 +129,13 @@ export const ImageController = (props: Props) => {
     });
   };
   return (
-    <View style={styles.DividerTwoImageBottomNav}>
+    <View testID='img-container' style={styles.DividerTwoImageBottomNav}>
       <View style={{flex: 1}}>
         <Pressable
           onPress={() => captureImage()}
           android_ripple={{color: colors.gris300}}>
           <Image
+            testID='capture-img'
             style={styles.logoImage5}
             source={require('../../../../assets/img/icn_prendre_photo.png')}
           />
@@ -145,6 +146,7 @@ export const ImageController = (props: Props) => {
           onPress={() => chooseFile()}
           android_ripple={{color: colors.gris300}}>
           <Image
+                      testID='choose-img'
             style={styles.logoImage5}
             source={require('../../../../assets/img/icn_file.png')}
           />
