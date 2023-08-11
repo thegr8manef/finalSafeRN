@@ -1,14 +1,11 @@
 import {Dispatch} from 'redux';
 import {connect} from 'react-redux';
-import {AppState} from '../../../../redux_configuration/appState';
 import {LoginContainer} from './login.container';
-import {login} from '../../../useCases/Login/action';
-import {Profile} from '../../../domain/entity/profile';
-import {
-  loginErrorSelector,
-  loginLoadingSelector,
-  profileSelector,
-} from '../../../useCases/Login/selectors';
+import {Profile} from '@profileContext/domain/entity/profile';
+import {login} from '@profileContext/useCases/Login/action';
+import {AppState} from '@redux/appState';
+import { loginErrorSelector, loginLoadingSelector, profileSelector } from '@profileContext/useCases/Login/selectors';
+
 interface StateToPropsType {
   loading: boolean;
   error: string | undefined;

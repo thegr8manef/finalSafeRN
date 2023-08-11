@@ -4,11 +4,11 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useTranslation} from 'react-i18next';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {StackParamList} from '../../../../navigation/configuration/navigation.types';
-import {Profile} from '../../../domain/entity/profile';
-import * as utils from '../../../../utils';
-import {LANGUAGE_CONSTANTS} from '../../../../common/constants';
+import {StackParamList} from '@navigConfig/navigation.types';
+import * as utils from '@utils/index';
+import {Profile} from '@profileContext/domain/entity/profile';
 import styles from './login.style';
+import {LANGUAGE_CONSTANTS} from '@common/constants';
 
 interface Props {
   loading: boolean;
@@ -71,10 +71,8 @@ export const LoginContainer = (props: Props) => {
           dropDownContainerStyle={styles.dropDownPicker}
         />
       </View>
-
       <View style={styles.mainContainer}>
         <Image source={utils.images.splashSLogo} style={styles.logoImage} />
-
         <Text style={styles.description}>{t('sso_description')}</Text>
       </View>
       <ActivityIndicator
@@ -83,14 +81,15 @@ export const LoginContainer = (props: Props) => {
         style={{display: props.loading ? 'flex' : 'none'}}
       />
       <View style={styles.bottomContainer}>
-        <Pressable
-          onPress={() => {
-            props.login();
-          }}
-          style={[styles.button, {display: props.loading ? 'none' : 'flex'}]}>
-          <Text style={styles.btnText}>{t('action_sign_in')}</Text>
-        </Pressable>
-
+        {!props.loading && (
+          <Pressable
+            onPress={() => {
+              props.login();
+            }}
+            style={[styles.button]}>
+            <Text style={styles.btnText}>{t('action_sign_in')}</Text>
+          </Pressable>
+        )}
         <Image source={utils.images.eiffageLogo} style={styles.eiffageLogo} />
       </View>
     </View>

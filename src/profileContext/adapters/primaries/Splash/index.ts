@@ -1,15 +1,16 @@
 import {Dispatch} from 'redux';
-import {AppState} from '../../../../redux_configuration/appState';
 import {SplashContainer} from './splash.container';
+import {connect} from 'react-redux';
+import {AppState} from '@redux/appState';
+import {localProfileSelector} from '@profileContext/useCases/LoadLocalProfile/selectors';
+import {Profile} from '@profileContext/domain/entity/profile';
+import {connectionStatusSelector} from '@common/isConnected/useCase/loadConnectionStatus/selector';
+import {loadLocalProfile} from '@profileContext/useCases/LoadLocalProfile/action';
+import {LoadLocalProfileAction} from '@profileContext/useCases/LoadLocalProfile/actionType';
 import {LoadDataActionTypes} from '../../../../synchronisationContext/useCases/LoadData/actionTypes';
 import {loadData} from '../../../../synchronisationContext/useCases/LoadData/actions';
 import {loadingDataSelector} from '../../../../synchronisationContext/useCases/LoadData/selectors';
-import {LoadLocalProfileAction} from '../../../useCases/LoadLocalProfile/actionType';
-import {loadLocalProfile} from '../../../useCases/LoadLocalProfile/action';
-import {Profile} from '../../../domain/entity/profile';
-import {connect} from 'react-redux';
-import {connectionStatusSelector} from '../../../../common/isConnected/useCase/loadConnectionStatus/selector';
-import {localProfileSelector} from '../../../useCases/LoadLocalProfile/selectors';
+
 
 interface StateToPropsType {
   loading: boolean;

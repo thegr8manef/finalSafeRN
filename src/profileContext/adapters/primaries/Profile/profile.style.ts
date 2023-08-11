@@ -1,5 +1,5 @@
+import * as utils from '@utils/index';
 import {StyleSheet} from 'react-native';
-import colors from '../../../../assets/colors';
 
 const styles = StyleSheet.create({
   container: {
@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     height: 60,
   },
   button_container: {
-    backgroundColor: colors.primary,
+    backgroundColor: utils.colors.primary,
     flex: 1,
     height: '100%',
     justifyContent: 'center',
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   },
   text_container: {
     flex: 3,
-    backgroundColor: colors.primary,
+    backgroundColor: utils.colors.primary,
     justifyContent: 'center',
 
     height: '100%',
@@ -27,12 +27,12 @@ const styles = StyleSheet.create({
   txtNext: {
     marginRight: 15,
     fontSize: 15,
-    color: colors.textColor,
+    color: utils.colors.textColor,
     fontWeight: '600',
   },
   detailsContainer: {
     height: '15%',
-    backgroundColor: colors.white,
+    backgroundColor: utils.colors.white,
   },
 });
 

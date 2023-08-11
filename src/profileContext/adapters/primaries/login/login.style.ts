@@ -1,5 +1,5 @@
+import * as utils from '@utils/index';
 import {StyleSheet} from 'react-native';
-import * as utils from '../../../../utils';
 
 const styles = StyleSheet.create({
   container: {
@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: '600',
   },
+  
   eiffageLogo: {
     width: 130,
     resizeMode: 'stretch',

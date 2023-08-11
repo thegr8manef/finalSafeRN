@@ -1,4 +1,15 @@
 import React, {useEffect, useState} from 'react';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {useTranslation} from 'react-i18next';
+import styles from './profile.style';
+import * as utils from '@utils/index';
+import {StackParamList} from '@navigConfig/navigation.types';
+import {Profile} from '@profileContext/domain/entity/profile';
+import {User} from '@profileContext/domain/entity/user';
+import {DetailsContainer} from '@common/adapters/primaries/components/DetailsContainer';
+import {SimpleHeader} from '@common/adapters/primaries/components/SimpleHeader';
+import {InfoContainer} from '@common/adapters/primaries/components/InfoContainer';
+import {Divider} from '@common/adapters/primaries/components/Divider';
 import {
   View,
   SafeAreaView,
@@ -6,17 +17,6 @@ import {
   ActivityIndicator,
   TouchableOpacity,
 } from 'react-native';
-import colors from '../../../../assets/colors';
-import {StackNavigationProp} from '@react-navigation/stack';
-import {StackParamList} from '../../../../navigation/configuration/navigation.types';
-import {Profile} from '../../../domain/entity/profile';
-import {User} from '../../../domain/entity/user';
-import {useTranslation} from 'react-i18next';
-import styles from './profile.style';
-import { SimpleHeader } from '../../../../common/adapters/primaries/components/SimpleHeader';
-import { DetailsContainer } from '../../../../common/adapters/primaries/components/DetailsContainer';
-import { Divider } from '../../../../common/adapters/primaries/components/Divider';
-import { InfoContainer } from '../../../../common/adapters/primaries/components/InfoContainer';
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
   profile: Profile | undefined;
@@ -70,20 +70,18 @@ export const ProfileContainer = (props: Props) => {
       <View style={styles.detailsContainer}>
         <InfoContainer
           label_title={t('txt.region')}
-          label_subtitle={props.user == undefined ? '' : props.user.region}
+          label_subtitle={props.user?.region ?? ''}
         />
       </View>
       <Divider />
       <View style={styles.detailsContainer}>
         <InfoContainer
           label_title={t('txt.filiale')}
-          label_subtitle={props.user == undefined ? '' : props.user.function}
+          label_subtitle={props.user?.function ?? ''}
         />
-        <ActivityIndicator
-          size="large"
-          color={colors.primary}
-          style={{display: !isCompleted ? 'flex' : 'none'}}
-        />
+        {!isCompleted && (
+          <ActivityIndicator size="large" color={utils.colors.primary} />
+        )}
       </View>
       <Divider />
       <View style={styles.detailsContainer}>

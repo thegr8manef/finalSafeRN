@@ -1,17 +1,17 @@
 import {connect} from 'react-redux';
-import {Profile} from '../../../domain/entity/profile';
-import {profileSelector} from '../../../useCases/Login/selectors';
-import {AppState} from '../../../../redux_configuration/appState';
-import {User} from '../../../domain/entity/user';
 import {Dispatch} from 'redux';
-import {LoadProfileDetailsActionTypes} from '../../../useCases/ProfileDetails/actionType';
-import {loadProfileDetails} from '../../../useCases/ProfileDetails/action';
-import {updateLocalProfileLoadingSelector} from '../../../useCases/UpdateLocalProfile/selector';
+import {AppState} from '@redux/appState';
+import {User} from '@profileContext/domain/entity/user';
+import {Profile} from '@profileContext/domain/entity/profile';
+import {updateLocalProfileLoadingSelector} from '@profileContext/useCases/UpdateLocalProfile/selector';
+import {loadProfileDetails} from '@profileContext/useCases/ProfileDetails/action';
+import {LoadProfileDetailsActionTypes} from '@profileContext/useCases/ProfileDetails/actionType';
+import {ProfileContainer} from './profile.container';
 import {
-  loadUserInfoSuccessSelector,
   loadUserInfoErrorSelector,
-} from '../../../useCases/ProfileDetails/selectors';
-import { ProfileContainer } from './profile.container';
+  loadUserInfoSuccessSelector,
+} from '@profileContext/useCases/ProfileDetails/selectors';
+import { profileSelector } from '@profileContext/useCases/Login/selectors';
 interface StateToPropsType {
   profile: Profile | undefined;
   loading: boolean;

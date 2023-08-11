@@ -1,13 +1,12 @@
 import {View, Image, Text} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {StackParamList} from '../../../../navigation/configuration/navigation.types';
-import colors from '../../../../assets/colors';
-import {Profile} from '../../../domain/entity/profile';
 import styles from './splash.style';
-import * as utils from '../../../../utils';
-import {ProgressBarCard} from '../../../../statisticContext/adapters/primaries/components/ProgressBarCard';
 import {t} from 'i18next';
+import {StackParamList} from '@navigConfig/navigation.types';
+import {Profile} from '@profileContext/domain/entity/profile';
+import * as utils from '@utils/index';
+import { ProgressBarCard } from '../../../../statisticContext/adapters/primaries/components/ProgressBarCard';
 
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
@@ -56,12 +55,12 @@ export const SplashContainer = (props: Props) => {
             {mountedSyn && (
               <>
                 <ProgressBarCard
-                  color={colors.primary}
+                  color={utils.colors.primary}
                   width={200}
                   indeterminate={true}
                   borderRadius={3}
                   height={4}
-                  unfilledColor={colors.yellow800}
+                  unfilledColor={utils.colors.yellow800}
                 />
                 <Text style={styles.txtSynchro}>
                   {t('txt.synchronise.en.cours')}
