@@ -2,7 +2,7 @@ import {View, StyleSheet} from 'react-native';
 import React from 'react';
 
 export const DividerVisite = (): JSX.Element => {
-  return <View style={styles.container_divider} />;
+  return <View testID='divider' style={styles.container_divider} />;
 };
 
 const styles = StyleSheet.create({
