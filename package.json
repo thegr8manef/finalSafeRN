@@ -8,6 +8,7 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest --config configuration/jest.config.json && open ./jest/coverage/index.html",
+    "test:win": "jest --config configuration/jest.config.json && ./jest/coverage/index.html",
     "lint:fix": "yarn eslint . --fix --ext .ts,.tsx"
   },
   "dependencies": {
@@ -49,10 +50,10 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
-    "@babel/preset-env": "^7.20.0",
+        "@babel/preset-env": "^7.20.0",
     "@babel/runtime": "^7.20.0",
     "@react-native-community/eslint-config": "^3.2.0",
-    "@testing-library/react-native": "^12.1.3",
+    "@testing-library/react-native": "^12.2.0",
     "@tsconfig/react-native": "^2.0.2",
     "@types/jest": "^29.2.1",
     "@types/react": "^18.0.24",
