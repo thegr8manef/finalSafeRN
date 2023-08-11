@@ -1,20 +1,19 @@
-import {View, Text, Modal, StyleSheet, Image} from 'react-native';
-import React, {useState} from 'react';
+import { View, Text, Modal, StyleSheet, Image, TextInput } from 'react-native';
+import React from 'react';
 import colors from '../../../../assets/colors';
-import {useTranslation} from 'react-i18next';
-import {TextInput} from 'react-native-gesture-handler';
-import {Divider} from '../../../../assets/components/Divider';
+import { useTranslation } from 'react-i18next';
+import { Divider } from '../../../../assets/components/Divider';
 
 interface Props {
   modalVisible: boolean;
   setWithNameVisibilty(visibilty: boolean): void;
 }
 export const SiteModalWithName = (props: Props) => {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
-  const SetVisibilty = (visibilty : boolean) => {
+  const SetVisibilty = (visibilty: boolean) => {
     props.setWithNameVisibilty(visibilty)
-      }
+  }
   return (
     <Modal
       animationType="slide"
@@ -23,13 +22,14 @@ export const SiteModalWithName = (props: Props) => {
       <View style={styles.centeredView}>
         <View style={styles.header}>
           <Text
-            style={[styles.normalText,{flex:1}]}
+            testID='cancel-modal-btn'
+            style={[styles.normalText, { flex: 1 }]}
             onPress={() => {
               SetVisibilty(false);
             }}>
             {t('txt_cancel')}
           </Text>
-          <Text style={[styles.normalText, {fontWeight: 'bold', fontSize: 15,flex:1.5}]}>
+          <Text style={[styles.normalText, { fontWeight: 'bold', fontSize: 15, flex: 1.5 }]}>
             {t('choisir_un_chantier')}
           </Text>
         </View>
@@ -53,6 +53,7 @@ export const SiteModalWithName = (props: Props) => {
             style={styles.searchIcon}
           />
           <TextInput
+            testID='filter-input'
             style={styles.input}
             placeholder={t('txt.filter')}
             cursorColor={colors.primary}
