@@ -1,5 +1,4 @@
 import {Observable} from 'rxjs';
-import {Chantier} from '@common/adapters/secondaries/db/entity/Chantier';
 import {Site} from '@contexts/visiteContext/domain/entity/Site';
 
 export interface SynchronisationRepository {

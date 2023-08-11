@@ -4,8 +4,7 @@ import {useTranslation} from 'react-i18next';
 import * as utils from '@utils/index';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {StackParamList} from '../../../../navigation/configuration/navigation.types';
-import {Chantier} from '@common/adapters/secondaries/db/entity/Chantier';
+import {StackParamList} from '@navigConfig/navigation.types';
 import {Header} from '@common/adapters/primaries/components/Header';
 
 interface Props {

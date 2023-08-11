@@ -1,5 +1,5 @@
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
-import * as utils from '@utils/index';
+import * as utils from '@utils/index'; 
 import React from 'react';
 
 interface Props {

@@ -1,5 +1,4 @@
 import React from 'react';
-import * as utils from '@utils/index';
 import * as Progress from 'react-native-progress';
 
 interface Props {

@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet, Dimensions} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
 import * as utils from '@utils/index';
 import {ProgressBarCard} from '../../components/ProgressBarCard';

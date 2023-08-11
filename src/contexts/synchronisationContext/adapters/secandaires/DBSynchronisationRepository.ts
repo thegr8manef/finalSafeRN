@@ -1,7 +1,6 @@
 import {Observable, from} from 'rxjs';
 import {SynchronisationRepository} from '../../domain/gateway/SynchronisationRepository';
 import ApplicationContext from '@common/appConfig/ApplicationContext';
-import {Chantier} from '@common/adapters/secondaries/db/entity/Chantier';
 import {SynchronisationMapper} from './mapper/synchronisationMapper';
 import {Site} from '@contexts/visiteContext/domain/entity/Site';
 

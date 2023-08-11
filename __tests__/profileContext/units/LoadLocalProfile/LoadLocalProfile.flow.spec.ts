@@ -1,8 +1,8 @@
 import { Store } from "redux"
-import { User } from "../../../../src/profileContext/domain/entity/user"
-import { loadLocalProfile } from "../../../../src/profileContext/useCases/LoadLocalProfile/action"
-import { loadLocalProfileErrorSelector, loadLocalProfileSelector, localProfileSelector } from "../../../../src/profileContext/useCases/LoadLocalProfile/selectors"
-import { loadProfileDetails } from "../../../../src/profileContext/useCases/ProfileDetails/action"
+import { User } from "@contexts/profileContext/domain/entity/user"
+import { loadLocalProfile } from "@contexts/profileContext/useCases/LoadLocalProfile/action"
+import { loadLocalProfileErrorSelector, loadLocalProfileSelector, localProfileSelector } from "@contexts/profileContext/useCases/LoadLocalProfile/selectors"
+import { loadProfileDetails } from "@contexts/profileContext/useCases/ProfileDetails/action"
 import { AppState } from "../../../../src/redux_configuration/appState"
 import { ReduxStoreWO } from "../../../reduxStore.wo"
 

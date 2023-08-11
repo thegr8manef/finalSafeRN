@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet, Image, SafeAreaView} from 'react-native';
+import {View, Text, StyleSheet, Image} from 'react-native';
 import * as utils from '@utils/index';
 import React from 'react';
 import {t} from 'i18next';

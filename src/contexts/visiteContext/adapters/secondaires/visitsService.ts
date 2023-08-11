@@ -1,9 +1,9 @@
 import {VisitsService} from '../../domain/gateway/visitsService';
-import {Observable, from, of} from 'rxjs';
+import {Observable, from} from 'rxjs';
 import {Flash} from '../../domain/entity/Flash';
 import ApplicationContext from '@common/appConfig/ApplicationContext';
-import {Chantier, Site} from '../../domain/entity/Site';
-import {ChantierMapper, SiteMapper} from './mapper/site.mapper';
+import {Site} from '../../domain/entity/Site';
+import { SiteMapper} from './mapper/site.mapper';
 
 export class DbVisitsService implements VisitsService {
   SaveFlash(data: Flash): Observable<void> {

@@ -6,10 +6,10 @@ interface Props {
   label?: string;
   value?: number;
   color: string;
-  indeterminate: boolean;
-  height: number;
-  borderRadius: number;
-  width: number;
+  indeterminate?: boolean;
+  height?: number;
+  borderRadius?: number;
+  width?: number;
   unfilledColor?: string | undefined;
 }
 

@@ -34,7 +34,7 @@ export const SplashContainer = (props: Props) => {
         if (props.connectionStatus) {
           if (!mountedSyn) {
             setMountedSyn(true);
-            props.loadSychronisationData(props.profile?.accessToken!!);
+            props.loadSychronisationData(props.profile?.accessToken!);
           }
           if (props.loading == false && mountedSyn) {
             props.navigation.replace('Home');

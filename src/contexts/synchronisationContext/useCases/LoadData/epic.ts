@@ -1,9 +1,8 @@
 import {Epic, StateObservable, ofType} from 'redux-observable';
-import {AppState} from '../../../redux_configuration/appState';
+import {AppState} from '@redux/appState';
 import {SynchronisationService} from '../../domain/gateway/SynchronisationService';
 import {LOAD_DATA} from './actionTypes';
 import {map, switchMap, mergeMap, catchError} from 'rxjs/operators';
-import {Chantier} from '@common/adapters/secondaries/db/entity/Chantier';
 import {loadDataFailed, loadDataSuccess} from './actions';
 import {of} from 'rxjs';
 import {SynchronisationRepository} from '../../domain/gateway/SynchronisationRepository';

@@ -1,7 +1,6 @@
 import React, {useEffect, useState, useMemo} from 'react';
 import {
   Image,
-  SafeAreaView,
   StyleSheet,
   Text,
   View,
@@ -49,7 +48,6 @@ export const VisitFlashContainer = (props: Props) => {
   var test_commentaires = true;
   const [code, setCode] = useState('');
   const [clicked, setclicked] = useState(false);
-  const [loadingData, setloadingData] = useState(false);
   var test_observation = true;
   var test_commentaires = true;
 
@@ -92,11 +90,7 @@ export const VisitFlashContainer = (props: Props) => {
     props.loadSiteByCode(code);
 
     setclicked(false);
-    if (props.loading) {
-      setloadingData(false);
-    } else {
-      setloadingData(true);
-    }
+    
   }
 
   const {t} = useTranslation();

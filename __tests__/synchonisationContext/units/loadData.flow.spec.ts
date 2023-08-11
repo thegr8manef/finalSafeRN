@@ -15,7 +15,6 @@ describe('synchonisation data flow', () => {
   let store: Store<AppState>;
   let reduxStoreWO: ReduxStoreWO;
   const accessTokenFake = 'ABCEJJEJEJJEJE';
-  const lastUpdateDateFake = '-1';
   beforeEach(() => {
     reduxStoreWO = new ReduxStoreWO();
     store = reduxStoreWO.getStore();

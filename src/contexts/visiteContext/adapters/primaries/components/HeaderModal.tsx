@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet, SafeAreaView, Pressable} from 'react-native';
+import {View, Text, StyleSheet, Pressable} from 'react-native';
 import * as utils from '@utils/index';
 import React from 'react';
 import {useTranslation} from 'react-i18next';

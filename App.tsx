@@ -1,4 +1,4 @@
-import {StyleSheet, StatusBar} from 'react-native';
+import {StatusBar} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import 'react-native-gesture-handler';
 import {reduxStore} from './src/redux_configuration/store.redux';

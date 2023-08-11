@@ -38,7 +38,7 @@ export const ProfileContainer = (props: Props) => {
   });
 
   if (!mounted) {
-    props.loadProfileDetails(props.profile?.accessToken!!);
+    props.loadProfileDetails(props.profile?.accessToken!);
   }
   const handlNavigation = () => {
     if (isCompleted) {

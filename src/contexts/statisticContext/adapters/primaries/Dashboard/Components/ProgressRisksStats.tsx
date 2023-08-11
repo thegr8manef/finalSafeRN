@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet, Dimensions} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
 import * as utils from '@utils/index';
 import {ProgressBarCard} from '../../components/ProgressBarCard';
@@ -25,25 +25,25 @@ export const ProgressRisksStats = (props: Props) => {
         <View style={styles.content}>
           <ProgressBarCard
             label={'1-Vie du chantier'}
-            value={props.statsRisk!!.risk0.value!! * 0.01}
+            value={props.statsRisk!.risk0.value! * 0.01}
             color={utils.colors.yellow}
           />
 
           <ProgressBarCard
             label={'2-' + t('txt.risks')}
-            value={props.statsRisk!!.risk1.value!! * 0.01}
+            value={props.statsRisk!.risk1.value! * 0.01}
             color={utils.colors.green}
           />
 
           <ProgressBarCard
             label={'3-CHUTE DE HAUTEUR'}
-            value={props.statsRisk!!.risk2.value!! * 0.01}
+            value={props.statsRisk!.risk2.value! * 0.01}
             color={utils.colors.blue}
           />
 
           <ProgressBarCard
-            label={t('txt.others')}
-            value={props.statsRisk!!.risk3.value!! * 0.01}
+            label={t('txt.others')!}
+            value={props.statsRisk!.risk3.value! * 0.01}
             color={utils.colors.red}
           />
         </View>
