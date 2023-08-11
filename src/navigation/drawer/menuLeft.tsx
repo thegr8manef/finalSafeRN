@@ -4,7 +4,7 @@ import {
   DrawerContentScrollView,
   DrawerItemList,
 } from '@react-navigation/drawer';
-import {Profile} from '../../profileContext/domain/entity/profile';
+import {Profile} from '@contexts/profileContext/domain/entity/profile';
 import * as utils from '@utils/index';
 
 interface Props {

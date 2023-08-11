@@ -47,10 +47,8 @@ export class DbVisitsService implements VisitsService {
         db.then(realm => {
           const objects = realm.objects('Chantier').filtered('ref == $0', code);
           resolve(SiteMapper.maptoSite(objects[0]));
-          console.log('object', objects);
         });
       } catch (error) {
-        console.log('error', error);
         reject(error);
       }
     });

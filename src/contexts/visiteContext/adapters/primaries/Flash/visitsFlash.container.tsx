@@ -14,7 +14,7 @@ import * as utils from '@utils/index';
 import {Flash} from '../../../domain/entity/Flash';
 import {useTranslation} from 'react-i18next';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {StackParamList} from '../../../../navigation/configuration/navigation.types';
+import {StackParamList} from '@navigConfig/navigation.types';
 import {RadioGroup} from 'react-native-radio-buttons-group';
 import {CommentModal} from '../components/CommentModal';
 import {OPON} from '../components/ObservationPositiveON';

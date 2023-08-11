@@ -34,8 +34,6 @@ export const SplashContainer = (props: Props) => {
         if (props.connectionStatus) {
           if (!mountedSyn) {
             setMountedSyn(true);
-            console.log('mount syncro');
-
             props.loadSychronisationData(props.profile?.accessToken!!);
           }
           if (props.loading == false && mountedSyn) {

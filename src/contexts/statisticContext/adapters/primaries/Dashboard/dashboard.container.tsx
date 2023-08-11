@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {
   View,
-  SafeAreaView,
   StyleSheet,
   ScrollView,
   ActivityIndicator,
@@ -49,7 +48,6 @@ export const DashboardContainer = (props: Props) => {
     setMount(true);
 
     if (props.error != undefined) {
-      console.log(props.error);
       Alert.alert(t('txt.msg.connection.failed'));
     }
   }, [props.error]);
