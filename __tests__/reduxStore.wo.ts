@@ -22,6 +22,7 @@ import { Profile } from "@contexts/profileContext/domain/entity/profile";
 import { User } from "@contexts/profileContext/domain/entity/user";
 import { profileRootEpics } from "@contexts/profileContext/configuration/rootEpic";
 import { statisticRootEpics } from "@contexts/statisticContext/configuration/rootEpic";
+import { Flash } from '@contexts/visiteContext/domain/entity/Flash';
 
 export class ReduxStoreWO {
   private static instance: ReduxStoreWO;
@@ -147,4 +148,9 @@ export class ReduxStoreWO {
 
   loadLocalStatsError = (error: string): void => this.loadLocalStats$.error(error)
   loadLocalStatsNext = (stat: Stat): void => this.loadLocalStats$.next(stat)
+  
+   // Save Flash actions
+   saveFlashNext = (flash: Flash): void => this.SaveFlash$.next(flash)
+   saveFlashError = (error: string): void => this.SaveFlash$.error(error)
+ 
 }
