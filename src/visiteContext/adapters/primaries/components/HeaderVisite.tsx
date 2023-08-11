@@ -18,8 +18,9 @@ export const HeaderVisite = (props: Props): JSX.Element => {
     <SafeAreaView style={styles.container}>
       <View style={styles.rectangle}>
         <View style={{height: 70}}>
-          <TouchableOpacity onPress={() => props.navigation.openDrawer()}>
+          <TouchableOpacity testID='sidenav' onPress={() => props.navigation.openDrawer()}>
             <Image
+            testID='logo-img'
               source={require('../../../../assets/img/sidenav.png')}
               style={styles.logoImage1}
             />
