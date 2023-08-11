@@ -6,7 +6,7 @@ import {Provider} from 'react-redux';
 import {NavigationContainer} from '@react-navigation/native';
 import RootNavigation from './src/navigation/configuration/rootNavigation';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import colors from './src/assets/colors';
+import * as utils from '@utils/index';
 import {
   loadConnectionStatus,
   setConnectionStatus,
@@ -46,7 +46,7 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <StatusBar backgroundColor={colors.primary} />
+      <StatusBar translucent={true} backgroundColor={utils.colors.primary} />
       <SafeAreaProvider style={{flex: 1}}>
         <NavigationContainer>
           <RootNavigation />

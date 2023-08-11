@@ -6,7 +6,7 @@ import {
   Pressable,
   Dimensions,
 } from 'react-native';
-import colors from '../../../../assets/colors';
+import * as utils from '@utils/index';
 import React from 'react';
 
 interface Props {
@@ -20,10 +20,7 @@ export const Header = (props: Props): JSX.Element => {
         <Pressable
           style={styles.pressable_sidbar}
           onPress={() => props.navigation.openDrawer()}>
-          <Image
-            style={styles.sidbar_icn}
-            source={require('../../../../assets/img/sidenav.png')}
-          />
+          <Image style={styles.sidbar_icn} source={utils.images.sidenavIcon} />
         </Pressable>
         <Text style={styles.page_title}>{props.title}</Text>
       </View>
@@ -31,7 +28,7 @@ export const Header = (props: Props): JSX.Element => {
         <Pressable style={styles.pressable_flash}>
           <Image
             style={styles.flash_icn}
-            source={require('../../../../assets/img/icon_flash_dashboard.png')}
+            source={utils.images.dashboardFlashIcon}
           />
         </Pressable>
       </View>
@@ -43,7 +40,7 @@ const dimensions = Dimensions.get('screen');
 const styles = StyleSheet.create({
   header: {
     height: dimensions.height / 14,
-    backgroundColor: colors.primary,
+    backgroundColor: utils.colors.primary,
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -59,7 +56,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   page_title: {
-    color: colors.textColor,
+    color: utils.colors.textColor,
     fontSize: 20,
     textAlign: 'center',
     fontWeight: '500',

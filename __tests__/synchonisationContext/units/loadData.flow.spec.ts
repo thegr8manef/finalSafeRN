@@ -5,9 +5,9 @@ import {AppState} from '../../../src/redux_configuration/appState';
 import {
   loadDataErrorSelector,
   loadingDataSelector,
-} from '../../../src/synchronisationContext/useCases/LoadData/selectors';
-import {loadData} from '../../../src/synchronisationContext/useCases/LoadData/actions';
-import {Site} from '../../../src/visiteContext/domain/entity/Site';
+} from '@contexts/synchronisationContext/useCases/LoadData/selectors';
+import {loadData} from '@contexts/synchronisationContext/useCases/LoadData/actions';
+import {Site} from '@contexts/visiteContext/domain/entity/Site';
 
 const deepFreeze = require('deep-freeze');
 
@@ -78,8 +78,42 @@ describe('synchonisation data flow', () => {
     store.dispatch(loadData(accessTokenFake));
     reduxStoreWO.loadLastUpdateDateNext('-1');
     reduxStoreWO.loadDataNext([
-      new Site('1', 'name','', 1,true,'','','', 1,-1,[], 'ref', 'RDK','', '1', 'dd'),
-      new Site('2', 'name 2','', 1,true,'','','', 1,-1,[], 'ref', 'RDK','', '2', 'dd'),
+      new Site(
+        '1',
+        'name',
+        '',
+        1,
+        true,
+        '',
+        '',
+        '',
+        1,
+        -1,
+        [],
+        'ref',
+        'RDK',
+        '',
+        '1',
+        'dd',
+      ),
+      new Site(
+        '2',
+        'name 2',
+        '',
+        1,
+        true,
+        '',
+        '',
+        '',
+        1,
+        -1,
+        [],
+        'ref',
+        'RDK',
+        '',
+        '2',
+        'dd',
+      ),
     ]);
     reduxStoreWO.saveDataError('ERROR');
   });
@@ -96,8 +130,42 @@ describe('synchonisation data flow', () => {
     store.dispatch(loadData(accessTokenFake));
     reduxStoreWO.loadLastUpdateDateNext('-1');
     reduxStoreWO.loadDataNext([
-      new Site('1', 'name','', 1,true,'','','', 1,-1,[], 'ref', 'RDK','', '1', 'dd'),
-      new Site('2', 'name 2','', 1,true,'','','', 1,-1,[], 'ref', 'RDK','', '2', 'dd'),
+      new Site(
+        '1',
+        'name',
+        '',
+        1,
+        true,
+        '',
+        '',
+        '',
+        1,
+        -1,
+        [],
+        'ref',
+        'RDK',
+        '',
+        '1',
+        'dd',
+      ),
+      new Site(
+        '2',
+        'name 2',
+        '',
+        1,
+        true,
+        '',
+        '',
+        '',
+        1,
+        -1,
+        [],
+        'ref',
+        'RDK',
+        '',
+        '2',
+        'dd',
+      ),
     ]);
     reduxStoreWO.saveDataNext();
   });

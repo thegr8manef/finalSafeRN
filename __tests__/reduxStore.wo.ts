@@ -17,11 +17,11 @@ import {Stat} from '../src/statisticContext/domain/entity/Stat';
 import {profileRootEpics} from '../src/profileContext/configuration/rootEpic';
 import {Profile} from '../src/profileContext/domain/entity/profile';
 import {User} from '../src/profileContext/domain/entity/user';
-import {visitsRootEpics} from '../src/visiteContext/configuration/rootEpic';
+import {visitsRootEpics} from '@contexts/visiteContext/configuration/rootEpic';
 import {reduxReducer} from '../src/redux_configuration/rootReducers';
-import {Site} from '../src/visiteContext/domain/entity/Site';
-import {synchronisationRootEpics} from '../src/synchronisationContext/configuration/rootEpic';
-import { statisticRootEpics } from '../src/statisticContext/configuration/rootEpic';
+import {Site} from '@contexts/visiteContext/domain/entity/Site';
+import {synchronisationRootEpics} from '@contexts/synchronisationContext/configuration/rootEpic';
+import {statisticRootEpics} from '../src/statisticContext/configuration/rootEpic';
 
 export class ReduxStoreWO {
   private static instance: ReduxStoreWO;
@@ -67,7 +67,7 @@ export class ReduxStoreWO {
           checkUserConnected: (): Subject<boolean> => this.checkUserConnected$,
           loadProfileDetails: (): Subject<User> => this.loadProfileDetails$,
           updateLocalProfile: (): Subject<User> => this.updateLocalProfile$,
-          loadLocalProfile: (): Subject<Profile> => this.loadLocalProfile$
+          loadLocalProfile: (): Subject<Profile> => this.loadLocalProfile$,
         },
         visiteService: {
           SaveFlash: (): Subject<void> => this.SaveFlash$,
@@ -100,9 +100,9 @@ export class ReduxStoreWO {
     return store;
   }
 
-  loadStatisticNext = (stats: Stat): void =>
-    this.loadStatistic$.next(stats);
-    loadStatisticError = (error: string): void => this.loadStatistic$.error(error);
+  loadStatisticNext = (stats: Stat): void => this.loadStatistic$.next(stats);
+  loadStatisticError = (error: string): void =>
+    this.loadStatistic$.error(error);
 
   loadDataNext = (data: Site[]): void => this.LoadData$.next(data);
   loadDataError = (error: string): void => this.LoadData$.error(error);
@@ -115,18 +115,26 @@ export class ReduxStoreWO {
   loadLastUpdateDateError = (error: string): void =>
     this.loadLastUpdateDate$.error(error);
 
-  loginMsalNext = (profile: Profile):void => this.loginMsal$.next(profile)
-  loginMsalError = (error: string):void => this.loginMsal$.error(error)
+  loginMsalNext = (profile: Profile): void => this.loginMsal$.next(profile);
+  loginMsalError = (error: string): void => this.loginMsal$.error(error);
 
-  loadProfileDetailsNext = (user: User): void => this.loadProfileDetails$.next(user)
-  loadProfileDetailsError = (error: string): void => this.loadProfileDetails$.error(error)
+  loadProfileDetailsNext = (user: User): void =>
+    this.loadProfileDetails$.next(user);
+  loadProfileDetailsError = (error: string): void =>
+    this.loadProfileDetails$.error(error);
 
-  setUserConnectedNext = (profile: Profile):void => this.setUserConnected$.next(profile)
-  setUserConnectedError = (error: string): void => this.setUserConnected$.error(error)
+  setUserConnectedNext = (profile: Profile): void =>
+    this.setUserConnected$.next(profile);
+  setUserConnectedError = (error: string): void =>
+    this.setUserConnected$.error(error);
 
-  updateLocalProfileNext = (user:User): void => this.updateLocalProfile$.next(user)
-  updateLocalProfileError = (error: string): void => this.updateLocalProfile$.error(error)
+  updateLocalProfileNext = (user: User): void =>
+    this.updateLocalProfile$.next(user);
+  updateLocalProfileError = (error: string): void =>
+    this.updateLocalProfile$.error(error);
 
-  loadLocalProfileNext = (profile: Profile):void => this.loadLocalProfile$.next(profile)
-  loadLocalProfileError = (error: string): void => this.loadLocalProfile$.error(error)
+  loadLocalProfileNext = (profile: Profile): void =>
+    this.loadLocalProfile$.next(profile);
+  loadLocalProfileError = (error: string): void =>
+    this.loadLocalProfile$.error(error);
 }

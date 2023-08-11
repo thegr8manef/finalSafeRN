@@ -1,13 +1,13 @@
 import * as React from 'react';
 import {StyleSheet, Text, Image} from 'react-native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import {DashboardPage} from '../../statisticContext/adapters/primaries/Dashboard';
-import colors from '../../assets/colors';
+import {DashboardPage} from '@contexts/statisticContext/adapters/primaries/Dashboard';
+import * as utils from '@utils/index';
 
 import {useTranslation} from 'react-i18next';
-import {VisitsFlashPage} from '../../visiteContext/adapters/primaries/Flash';
+import {VisitsFlashPage} from '@contexts/visiteContext/adapters/primaries/Flash';
 import {MenuLeftPage} from '.';
-import {VisitsContainer} from '../../visiteContext/adapters/primaries/Visit/visits.container';
+import {VisitsContainer} from '@contexts/visiteContext/adapters/primaries/Visit/visits.container';
 
 const Drawer = createDrawerNavigator();
 
@@ -21,7 +21,7 @@ export const HomeNavigation = () => {
       screenOptions={{
         headerShown: false,
 
-        drawerActiveBackgroundColor: colors.griy500,
+        drawerActiveBackgroundColor: utils.colors.griy500,
         drawerInactiveTintColor: '#333',
         drawerItemStyle: {width: '100%', marginLeft: 0, marginTop: -4},
       }}>
@@ -34,7 +34,7 @@ export const HomeNavigation = () => {
           ),
           drawerIcon: () => (
             <Image
-              source={require('../../assets/img/icn_dashboard.png')}
+              source={utils.images.dashboardIcon}
               style={[styles.icon, {height: 20, width: 24}]}
             />
           ),
@@ -48,10 +48,7 @@ export const HomeNavigation = () => {
             <Text style={styles.label}>{t('txt.visites')}</Text>
           ),
           drawerIcon: () => (
-            <Image
-              source={require('../../assets/img/icn_visit.png')}
-              style={styles.icon}
-            />
+            <Image source={utils.images.visitIcon} style={styles.icon} />
           ),
         }}
       />
@@ -63,10 +60,7 @@ export const HomeNavigation = () => {
             <Text style={styles.label}>{t('txt.new.visit.flash')}</Text>
           ),
           drawerIcon: () => (
-            <Image
-              source={require('../../assets/img/icn_visit_flash.png')}
-              style={styles.icon}
-            />
+            <Image source={utils.images.visitflashIcon} style={styles.icon} />
           ),
         }}
       />
@@ -80,7 +74,7 @@ export const HomeNavigation = () => {
 
           drawerIcon: () => (
             <Image
-              source={require('../../assets/img/icn_my_remarks.png')}
+              source={utils.images.remarksIcon}
               style={[styles.icon, {height: 28}]}
             />
           ),
@@ -95,10 +89,7 @@ export const HomeNavigation = () => {
           ),
 
           drawerIcon: () => (
-            <Image
-              source={require('../../assets/img/icn_profile.png')}
-              style={styles.icon}
-            />
+            <Image source={utils.images.profileIcon} style={styles.icon} />
           ),
         }}
       />
@@ -111,10 +102,7 @@ export const HomeNavigation = () => {
           ),
 
           drawerIcon: () => (
-            <Image
-              source={require('../../assets/img/icn_settings.png')}
-              style={styles.icon}
-            />
+            <Image source={utils.images.settingsIcon} style={styles.icon} />
           ),
         }}
       />
@@ -135,6 +123,6 @@ const styles = StyleSheet.create({
     height: 30,
     marginLeft: -15,
     top: 5,
-    color: colors.textColor,
+    color: utils.colors.textColor,
   },
 });
