@@ -106,7 +106,7 @@ export const VisitFlashContainer = (props: Props) => {
         id: '1', // acts as primary key, should be unique and non-empty string
         label: t('txt_i_know_i_can_i_act'),
         value: '1',
-        color: colors.primary,
+        color: colors.gray90,
         labelStyle: styles.radioButton1,
       },
       {
@@ -153,14 +153,19 @@ export const VisitFlashContainer = (props: Props) => {
       <Header title={t('txt_visit_flash')} navigation={props.navigation} />
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
         <View style={styles.ContainerChantier}>
-          <SitesList
-            loading={props.loading}
-            setcodeByChantier={setCode}
-            codeByChantier={code}
-            setclicked={setclicked}
-            clicked={clicked}
-            codeExist={props.site?.reference}
-            nom_chantier={props.site?.name}></SitesList>
+          <Text style={styles.selectionnerText}>
+            {t('selectionner_le_chantier_par')} :
+          </Text>
+          <View style={styles.sitesListContainer}>
+            <SitesList
+              loading={props.loading}
+              setcodeByChantier={setCode}
+              codeByChantier={code}
+              setclicked={setclicked}
+              clicked={clicked}
+              codeExist={props.site?.reference}
+              nom_chantier={props.site?.name}></SitesList>
+          </View>
         </View>
 
         <View style={styles.ContainerObservation}>
@@ -178,7 +183,9 @@ export const VisitFlashContainer = (props: Props) => {
         </View>
         {btnNegative ? (
           <View style={styles.RadioContainer}>
-            <Text>{t('txt_evaluation_visit_flash')}</Text>
+            <Text style={[styles.selectionnerText, styles.toCorroctText]}>
+              {t('txt_evaluation_visit_flash')}
+            </Text>
             <RadioGroup
               radioButtons={OptionEcartSansRisque}
               onPress={setLevelId}
@@ -220,22 +227,22 @@ export const VisitFlashContainer = (props: Props) => {
             />
           )}
         </View>
-        <View style={styles.BottomNav}>
-          <View style={styles.DividerTwoImageBottomNav}>
-            <ImageController images={images} setimages={setimages} />
-            <View style={styles.dividerBottomNav} />
-            <View style={styles.dividerBottomNav}>
-              <Pressable
-                android_ripple={{color: colors.gris300}}
-                onPress={() => SaveData()}>
-                <Text style={styles.buttonBottomnav}>
-                  {t('txt.sauvegarder.remarque')}
-                </Text>
-              </Pressable>
-            </View>
+      </ScrollView>
+      <View style={styles.BottomNav}>
+        <View style={styles.DividerTwoImageBottomNav}>
+          <ImageController images={images} setimages={setimages} />
+          <View style={styles.dividerBottomNav} />
+          <View style={styles.dividerBottomNav}>
+            <Pressable
+              android_ripple={{color: colors.gris300}}
+              onPress={() => SaveData()}>
+              <Text style={styles.buttonBottomnav}>
+                {t('txt.sauvegarder.remarque')}
+              </Text>
+            </Pressable>
           </View>
         </View>
-      </ScrollView>
+      </View>
     </View>
   );
 };
@@ -347,11 +354,11 @@ const styles = StyleSheet.create({
   },
   DividerObservation: {
     flex: 0.01,
-    backgroundColor: colors.gris300,
+    backgroundColor: colors.gris200,
     marginVertical: 10,
   },
   ContainerObservation: {
-    height: 100,
+    height: 85,
     borderTopColor: colors.primary,
     borderTopWidth: 3,
     backgroundColor: colors.gris100,
@@ -359,7 +366,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 25,
   },
   ContainerChantier: {
-    height: 130,
+    height: 220,
     margin: 30,
     backgroundColor: 'white',
   },
@@ -372,5 +379,18 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 16,
+  },
+  selectionnerText: {
+    color: colors.gris200,
+    fontWeight: '700',
+    fontSize: 14,
+  },
+  sitesListContainer: {
+    flex: 1,
+    marginTop: 20,
+  },
+  toCorroctText: {
+    marginTop: 30,
+    marginBottom: 15,
   },
 });

@@ -42,7 +42,7 @@ export const Header = (props: Props): JSX.Element => {
 const dimensions = Dimensions.get('screen');
 const styles = StyleSheet.create({
   header: {
-    height: dimensions.height / 15,
+    height: dimensions.height / 14,
     backgroundColor: colors.primary,
     flexDirection: 'row',
     alignItems: 'center',
@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
     width: '30%',
     height: '40%',
     marginStart: 15,
+    resizeMode: 'contain',
   },
   pressable_sidbar: {
     width: '30%',
@@ -78,12 +79,13 @@ const styles = StyleSheet.create({
   },
   header_icn_flash: {
     flex: 1,
+    height: '100%',
     flexDirection: 'row',
     justifyContent: 'flex-end',
   },
   flash_icn: {
-    width: '30%',
-    height: '70%',
+    width: '40%',
+    height: '60%',
     resizeMode: 'contain',
     marginRight: 25,
   },

@@ -9,7 +9,9 @@ interface Props {
 export const OPOFF = (props: Props) => {
   const {t} = useTranslation();
   return (
-    <TouchableOpacity onPress={props.onPressPositiveOFF} style={{flex: 1}}>
+    <TouchableOpacity
+      onPress={props.onPressPositiveOFF}
+      style={styles.container}>
       <View style={{flex: 2}}>
         <Image
           source={require('../../../../assets/img/icn_positive_disabled_blocked.png')}
@@ -25,15 +27,16 @@ export const OPOFF = (props: Props) => {
 
 const styles = StyleSheet.create({
   TextObservation: {
-    color: colors.gris300,
+    color: colors.textColor,
     textAlign: 'center',
+    fontWeight: '500',
   },
   logoImage1: {
-    width: 30,
-    height: '50%',
-    resizeMode: 'stretch',
+    height: '40%',
+    resizeMode: 'contain',
     marginTop: '10%',
     alignSelf: 'center',
-    tintColor: 'green',
+    tintColor: colors.green,
   },
+  container: {flex: 1, backgroundColor: colors.griy500},
 });

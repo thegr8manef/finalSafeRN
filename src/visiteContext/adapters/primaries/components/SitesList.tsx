@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     width: '18%',
     height: '30%',
 
-    resizeMode: 'stretch',
+    resizeMode: 'contain',
   },
   label: {
     color: colors.textColor,

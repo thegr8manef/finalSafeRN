@@ -9,7 +9,7 @@ interface Props {
 export const OPON = (props: Props) => {
   const {t} = useTranslation();
   return (
-    <TouchableOpacity onPress={props.onPressPositive} style={{flex: 1}}>
+    <TouchableOpacity onPress={props.onPressPositive} style={styles.container}>
       <View style={{flex: 2}}>
         <Image
           source={require('../../../../assets/img/icn_positive_disabled_blocked.png')}
@@ -24,14 +24,14 @@ export const OPON = (props: Props) => {
 };
 
 const styles = StyleSheet.create({
+  container: {flex: 1, backgroundColor: colors.griy500},
   TextObservation: {
     color: colors.gris300,
     textAlign: 'center',
   },
   logoImage1: {
-    width: 30,
-    height: '50%',
-    resizeMode: 'stretch',
+    height: '40%',
+    resizeMode: 'contain',
     marginTop: '10%',
     alignSelf: 'center',
     tintColor: colors.gris200,

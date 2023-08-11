@@ -9,7 +9,7 @@ interface Props {
 export const ONON = (props: Props) => {
   const {t} = useTranslation();
   return (
-    <TouchableOpacity onPress={props.onPressNegative} style={{flex: 1}}>
+    <TouchableOpacity onPress={props.onPressNegative} style={styles.container}>
       <View style={{flex: 2}}>
         <Image
           source={require('../../../../assets/img/icn_negative_disabled.png')}
@@ -25,9 +25,8 @@ export const ONON = (props: Props) => {
 
 const styles = StyleSheet.create({
   logoImage2: {
-    width: 30,
-    height: '50%',
-    resizeMode: 'stretch',
+    height: '40%',
+    resizeMode: 'contain',
     marginTop: '16%',
     alignSelf: 'center',
     tintColor: colors.gris200,
@@ -36,4 +35,5 @@ const styles = StyleSheet.create({
     color: colors.gris300,
     textAlign: 'center',
   },
+  container: {flex: 1, backgroundColor: colors.griy500},
 });
