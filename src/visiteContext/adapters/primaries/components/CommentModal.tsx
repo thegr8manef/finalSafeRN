@@ -57,6 +57,7 @@ export const CommentModal = (props: Props) => {
         </View>
       </Modal>
       <Pressable
+        testID='modal-btn'
         style={[styles.button, styles.buttonOpen]}
         onPress={() => setModalVisible(true)}
         android_ripple={{color: colors.gris300}}>
