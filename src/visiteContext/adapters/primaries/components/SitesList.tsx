@@ -6,7 +6,7 @@ import {SiteModalWithCode} from './SiteModalWithCode';
 import {SiteModalWithName} from './SiteModalWithName';
 interface Props {
   setcodeByChantier: (CodeChantier: string) => void;
-  codeByChantier: string;
+  codeByChantier: string | undefined;
   setclicked: (clicked: boolean) => void;
   clicked: boolean;
   codeExist: string | undefined;
@@ -31,7 +31,7 @@ export const SitesList = (props: Props) => {
               source={require('../../../../assets/img/icon_saisie.png')}
               style={styles.img}
             />
-            <Text style={styles.label}>{t('code_chantier_btn')}</Text>
+            <Text testID='code_chantier_btn' style={styles.label}>{t('code_chantier_btn')}</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity
@@ -44,7 +44,7 @@ export const SitesList = (props: Props) => {
               source={require('../../../../assets/img/icon_chantier.png')}
               style={styles.img}
             />
-            <Text style={styles.label}>{t('chantier_de_mon_perimetre')}</Text>
+            <Text testID='chantier_de_mon_perimetre' style={styles.label}>{t('chantier_de_mon_perimetre')}</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.touchableContainer}>
@@ -53,7 +53,7 @@ export const SitesList = (props: Props) => {
               source={require('../../../../assets/img/icon_qr_code.png')}
               style={[styles.img, {width: '25%'}]}
             />
-            <Text style={styles.label}>{t('qr_code')}</Text>
+            <Text testID='qr_code' style={styles.label}>{t('qr_code')}</Text>
           </View>
         </TouchableOpacity>
 
