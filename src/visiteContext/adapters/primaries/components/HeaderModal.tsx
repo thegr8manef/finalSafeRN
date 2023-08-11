@@ -17,14 +17,15 @@ export const HeaderModal = (props: Props) => {
           <Pressable
             onPress={props.onPressCustomizeNegative}
             android_ripple={{color: colors.gris300}}>
-            <Text style={styles.textExtremetyLeft}>{t('txt.annuler')}</Text>
+            <Text testID='cancel-btn' style={styles.textExtremetyLeft}>{t('txt.annuler')}</Text>
           </Pressable>
         </View>
         <View style={styles.containerButtonCenter}>
-          <Text style={styles.textCentre}>{props.children}</Text>
+          <Text testID='header' style={styles.textCentre}>{props.children}</Text>
         </View>
         <View style={styles.containerButtonLeft}>
           <Pressable
+            testID='confirm-btn'
             onPress={props.onPressCustomizePositive}
             android_ripple={{color: colors.gris300}}>
             <Text style={styles.textExtremetyRight}>{t('txt.valider')}</Text>
