@@ -74,32 +74,15 @@ export const DashboardContainer = (props: Props) => {
         <View style={styles.visitContentStats}>
           <ProgressVisitsStats
             title={t('txt.type.visits')}
-            statsVisit={
-              props === undefined
-                ? props.stat.statVisit
-                : new StatVisit(0, 0, 0, 0, 0)
-            }
+            statsVisit={props.stat?.statVisit}
           />
           <PieChartObservationStats
-            observationStats={
-              props === undefined
-                ? props.stat.statObservation
-                : new StatObservation(0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-            }
+            observationStats={props.stat?.statObservation}
             title={t('txt.conform.positive.not.conform.negative')}
             accessor={'total'}
           />
           <ProgressRisksStats
-            statsRisk={
-              props === undefined
-                ? props.stat.statRisk
-                : new StatRisk(
-                    {label: '', value: 0},
-                    {label: '', value: 0},
-                    {label: '', value: 0},
-                    {label: '', value: 0},
-                  )
-            }
+            statsRisk={props.stat?.statRisk}
             title={t('txt.top.risks')}
           />
         </View>
