@@ -24,6 +24,7 @@ import {ImageController} from '../components/ImageController';
 import {Site} from '../../../domain/entity/Site';
 import {SitesList} from '../components/SitesList';
 import {Header} from '@common/adapters/primaries/components/Header';
+import colors from '@assets/colors';
 
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
@@ -65,7 +66,7 @@ export const VisitFlashContainer = (props: Props) => {
         text: 'OUI',
         onPress: () => [
           props.saveFlash(flash),
-          props.navigation.jumpTo('visites'),
+          props.navigation.jumpTo(t('txt.visites')),
         ],
       },
     ]);
@@ -107,14 +108,14 @@ export const VisitFlashContainer = (props: Props) => {
         id: '2',
         label: t('txt_i_know_i_can_not_i_report'),
         value: '2',
-        color: utils.colors.primary,
+        color: utils.colors.gray90,
         labelStyle: styles.radioButton2,
       },
       {
         id: '3',
         label: t('txt_i_do_not_know_i_report'),
         value: '3',
-        color: utils.colors.primary,
+        color: utils.colors.gray90,
         labelStyle: styles.radioButton3,
       },
     ],
@@ -144,7 +145,7 @@ export const VisitFlashContainer = (props: Props) => {
 
   return (
     <View style={styles.container}>
-      <Header title={t('txt_visit_flash')} navigation={props.navigation} />
+      {/* <Header title={t('txt_visit_flash')} navigation={props.navigation} /> */}
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
         <View style={styles.ContainerChantier}>
           <Text style={styles.selectionnerText}>
@@ -288,16 +289,31 @@ const styles = StyleSheet.create({
     backgroundColor: utils.colors.green300,
     width: '87%',
     fontSize: 17,
+    color : colors.textColor,
+    paddingLeft : 10,
+    paddingRight : 10,
+    paddingTop :5,
+    paddingBottom : 5
   },
   radioButton2: {
     backgroundColor: utils.colors.yellow900,
     width: '87%',
     fontSize: 17,
+    color : colors.textColor,
+    paddingLeft : 10,
+    paddingRight : 10,
+    paddingTop :5,
+    paddingBottom : 5
   },
   radioButton3: {
     backgroundColor: utils.colors.pink,
     width: '87%',
     fontSize: 17,
+    color : colors.textColor,
+    paddingLeft : 10,
+    paddingRight : 10,
+    paddingTop :5,
+    paddingBottom : 5
   },
   buttonBottomnav: {
     textAlign: 'center',
@@ -320,6 +336,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
+    
   },
   DividerTwoImageBottomNav: {
     flex: 1,
@@ -334,12 +351,14 @@ const styles = StyleSheet.create({
   ImageContainer: {
     height: 160,
     backgroundColor: utils.colors.gris100,
+
+    marginBottom : 80
   },
   CommentairesContainer: {
     height: 70,
     flexDirection: 'column',
     marginStart: 25,
-    marginTop: 30,
+    marginTop: 70,
   },
   RadioContainer: {
     height: 130,

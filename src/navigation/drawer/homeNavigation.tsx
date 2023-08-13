@@ -6,8 +6,9 @@ import * as utils from '@utils/index';
 
 import {useTranslation} from 'react-i18next';
 import {VisitsFlashPage} from '@contexts/visiteContext/adapters/primaries/Flash';
-import {MenuLeftPage} from '.';
+import {MenuLeftPage} from './index';
 import {VisitsContainer} from '@contexts/visiteContext/adapters/primaries/Visit/visits.container';
+import colors from '@assets/colors';
 
 const Drawer = createDrawerNavigator();
 
@@ -19,14 +20,16 @@ export const HomeNavigation = () => {
       initialRouteName="Dashboard"
       drawerContent={props => <MenuLeftPage {...props} />}
       screenOptions={{
-        headerShown: false,
-
+        headerShown: true,
+        headerStyle : {
+            backgroundColor : colors.primary
+        },
         drawerActiveBackgroundColor: utils.colors.griy500,
         drawerInactiveTintColor: '#333',
-        drawerItemStyle: {width: '100%', marginLeft: 0, marginTop: -4},
+        drawerItemStyle: {width: '100%',   marginLeft: 0, marginTop: -4},
       }}>
       <Drawer.Screen
-        name={'dashboard'}
+        name={t('txt.dashboard')}
         component={DashboardPage}
         options={{
           drawerLabel: () => (
@@ -41,7 +44,7 @@ export const HomeNavigation = () => {
         }}
       />
       <Drawer.Screen
-        name={'visites'}
+        name={t('txt.visites')}
         component={VisitsContainer}
         options={{
           drawerLabel: () => (
@@ -53,7 +56,7 @@ export const HomeNavigation = () => {
         }}
       />
       <Drawer.Screen
-        name={'visit.flash'}
+        name={t('txt.new.visit.flash')}
         component={VisitsFlashPage}
         options={{
           drawerLabel: () => (
@@ -65,7 +68,7 @@ export const HomeNavigation = () => {
         }}
       />
       <Drawer.Screen
-        name={'my.remarks'}
+        name={t('txt.my.remarks')}
         component={DashboardPage}
         options={{
           drawerLabel: () => (
@@ -81,7 +84,7 @@ export const HomeNavigation = () => {
         }}
       />
       <Drawer.Screen
-        name={'profile'}
+        name={t('txt.profile')}
         component={DashboardPage}
         options={{
           drawerLabel: () => (
@@ -94,7 +97,7 @@ export const HomeNavigation = () => {
         }}
       />
       <Drawer.Screen
-        name={'settings'}
+        name={t('txt.settings')}
         component={DashboardPage}
         options={{
           drawerLabel: () => (

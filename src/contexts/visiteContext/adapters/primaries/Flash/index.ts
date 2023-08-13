@@ -1,4 +1,4 @@
-import {AppState} from '../../../../redux_configuration/appState';
+import {AppState} from '@redux/appState';
 import {Dispatch} from 'redux';
 import {connect} from 'react-redux';
 import {VisitFlashContainer} from './visitsFlash.container';
