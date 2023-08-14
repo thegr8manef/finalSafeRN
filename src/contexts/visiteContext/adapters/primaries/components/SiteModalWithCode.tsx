@@ -34,15 +34,12 @@ export const SiteModalWithCode = (props: Props) => {
             }}>
             {t('txt_cancel')}
           </Text>
-          <Text style={[styles.normalText, {fontWeight: 'bold', fontSize: 15}]}>
+          <Text style={styles.centeredText}>
             {t('txt.code.chantier.no.star')}
           </Text>
           <Text
             style={styles.normalText}
             onPress={() => {
-              // props.code.length !== 0
-              //   ? [props.setclicked(true), (props.clicked = true),{props.loading === false ? alert(t('this code isn't exist')) : [props.setWithCodeVisibilty(false)] }]
-              //   : alert(t('error.point.empty'));
               if (props.code.length !== 0) {
                 props.setclicked(true);
                 props.clicked = true;
@@ -66,12 +63,12 @@ export const SiteModalWithCode = (props: Props) => {
             onChangeText={CodeChantier => props.setCode(CodeChantier)}
           />
           <View
-            style={{height: 1, backgroundColor: utils.colors.primary}}></View>
+            style={styles.textInputBorder}></View>
         </View>
         <ActivityIndicator
           size="large"
           color={utils.colors.black}
-          style={{display: !props.loading ? 'flex' : 'none'}}
+          style={{display: props.loading ? 'flex' : 'none'}}
         />
       </View>
     </Modal>
@@ -79,6 +76,18 @@ export const SiteModalWithCode = (props: Props) => {
 };
 
 const styles = StyleSheet.create({
+  textInputBorder: {
+    height: 1, 
+    backgroundColor: utils.colors.primary
+  },
+  centeredText:{
+    fontWeight: 'bold', 
+    fontSize: 15,
+    color: utils.colors.textColor,
+    height: '90%',
+    marginTop: '10%',
+    alignItems: 'center',
+  },
   centeredView: {
     flex: 1,
   },
