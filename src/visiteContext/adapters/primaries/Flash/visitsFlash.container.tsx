@@ -21,10 +21,10 @@ import {OPON} from '../components/ObservationPositiveON';
 import {OPOFF} from '../components/ObservationPositiveOFF';
 import {ONON} from '../components/ObservationNegativeON';
 import {ONOFF} from '../components/ObservationNegativeOFF';
-import {Header} from '../../../../common/adapters/primaries/components/header';
 import {ImageController} from '../components/ImageController';
 import {Site} from '../../../domain/entity/Site';
-import { SitesList } from '../components/SitesList';
+import {SitesList} from '../components/SitesList';
+import { Header } from '../../../../common/adapters/primaries/components/Header';
 
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
@@ -45,6 +45,8 @@ export const VisitFlashContainer = (props: Props) => {
   const [btnPositive, setbtnPositive] = useState(false);
   const [btnNegative, setbtnNegative] = useState(false);
   const [images, setimages] = useState([]);
+  var test_observation = true;
+  var test_commentaires = true;
   const [code, setCode] = useState('');
   const [clicked, setclicked] = useState(false);
   const [loadingData, setloadingData] = useState(false);
@@ -87,7 +89,7 @@ export const VisitFlashContainer = (props: Props) => {
     }
   };
   if (clicked) {
-    props.loadSiteByCode(code)
+    props.loadSiteByCode(code);
 
     setclicked(false);
     if (props.loading) {
@@ -98,7 +100,6 @@ export const VisitFlashContainer = (props: Props) => {
   }
 
   const {t} = useTranslation();
-console.log("props.chantier?.reference",props.site)
   const OptionEcartSansRisque = useMemo(
     () => [
       {
@@ -159,9 +160,7 @@ console.log("props.chantier?.reference",props.site)
             setclicked={setclicked}
             clicked={clicked}
             codeExist={props.site?.reference}
-            nom_chantier={
-              props.site?.name
-            }></SitesList>
+            nom_chantier={props.site?.name}></SitesList>
         </View>
 
         <View style={styles.ContainerObservation}>

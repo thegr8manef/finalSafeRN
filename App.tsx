@@ -1,4 +1,4 @@
-import {View, StyleSheet, SafeAreaView, StatusBar} from 'react-native';
+import {StyleSheet, StatusBar} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import 'react-native-gesture-handler';
 import {reduxStore} from './src/redux_configuration/store.redux';
@@ -30,7 +30,7 @@ export default function App() {
   });
   return (
     <Provider store={store}>
-      <StatusBar backgroundColor={colors.primary} />
+      <StatusBar translucent={true} backgroundColor={colors.primary} />
       <SafeAreaProvider style={{flex: 1}}>
         <NavigationContainer>
           <RootNavigation />
@@ -39,9 +39,3 @@ export default function App() {
     </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});

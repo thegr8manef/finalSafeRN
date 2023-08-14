@@ -1,10 +1,11 @@
 import {View, Text, StyleSheet} from 'react-native';
-import colors from '../colors';
-import React from 'react'
+import React from 'react';
+import * as utils from '../../../../utils';
+
 interface Props {
   label_title: string;
 }
-export const Header = (props: Props): JSX.Element => {
+export const SimpleHeader = (props: Props): JSX.Element => {
   return (
     <View style={styles.rectangle}>
       <Text style={styles.textCentre}>{props.label_title}</Text>
@@ -14,7 +15,7 @@ export const Header = (props: Props): JSX.Element => {
 
 const styles = StyleSheet.create({
   rectangle: {
-    backgroundColor: colors.primary,
+    backgroundColor: utils.colors.primary,
     height: 50,
     alignItems: 'center',
     marginStart: 50,

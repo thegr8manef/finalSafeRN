@@ -1,33 +1,33 @@
 import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
 interface Props {
-  textLabels: string;
-  textValues: string | undefined;
-  textHints: string;
+  label: string;
+  value: string | undefined;
+  descriptipn: string;
   colorText: string;
 }
 
-export const CardOne = (props: Props) => {
+export const NumberCard = (props: Props) => {
   return (
-    <View style={styles.OuterContainer}>
-      <View style={styles.Container}>
-        <Text style={[styles.textLabel, {color: props.colorText}]}>
-          {props.textLabels}
+    <View style={styles.container}>
+      <View style={styles.item}>
+        <Text testID='label' style={StyleSheet.flatten([styles.label, {color: props.colorText}])}>
+          {props.label}
         </Text>
       </View>
-      <View style={styles.Container}>
-        <Text style={[styles.textValue, {color: props.colorText}]}>
-          {props.textValues}
+      <View style={styles.item}>
+        <Text testID='value' style={StyleSheet.flatten([styles.value, {color: props.colorText}])}>
+          {props.value}
         </Text>
       </View>
-      <View style={styles.Container}>
-        <Text style={styles.textHint}>{props.textHints}</Text>
+      <View style={styles.item}>
+        <Text testID='description' style={styles.description}>{props.descriptipn}</Text>
       </View>
     </View>
   );
 };
 const styles = StyleSheet.create({
-  OuterContainer: {
+  container: {
     borderRadius: 5,
     flex: 1,
     margin: 10,
@@ -35,22 +35,22 @@ const styles = StyleSheet.create({
     height: '90%',
     backgroundColor: 'white',
   },
-  Container: {
+  item: {
     flex: 1,
     margin: 10,
   },
-  textLabel: {
+  label: {
     textAlign: 'left',
     color: 'black',
     fontSize: 12,
   },
-  textValue: {
+  value: {
     textAlign: 'justify',
     fontWeight: 'bold',
     color: 'black',
     fontSize: 25,
   },
-  textHint: {
+  description: {
     textAlign: 'left',
     color: 'grey',
     fontSize: 10,

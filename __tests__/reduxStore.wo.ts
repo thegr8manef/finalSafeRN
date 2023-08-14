@@ -12,7 +12,6 @@ import {
 } from 'redux-observable';
 import {Subject} from 'rxjs';
 import {AppState} from '../src/redux_configuration/appState';
-import {Statistic} from '../src/common/adapters/secondaries/db/entity/Statistic';
 import {connectionRootEpics} from '../src/common/isConnected/configuration/rootEpic';
 import {Stat} from '../src/statisticContext/domain/entity/Stat';
 import {profileRootEpics} from '../src/profileContext/configuration/rootEpic';
@@ -20,7 +19,7 @@ import {Profile} from '../src/profileContext/domain/entity/profile';
 import {User} from '../src/profileContext/domain/entity/user';
 import {visitsRootEpics} from '../src/visiteContext/configuration/rootEpic';
 import {reduxReducer} from '../src/redux_configuration/rootReducers';
-import {Chantier, Site} from '../src/visiteContext/domain/entity/Site';
+import { Site} from '../src/visiteContext/domain/entity/Site';
 import {synchronisationRootEpics} from '../src/synchronisationContext/configuration/rootEpic';
 import { statisticRootEpics } from '../src/statisticContext/configuration/rootEpic';
 import { Flash } from '../src/visiteContext/domain/entity/Flash';
@@ -37,7 +36,8 @@ export class ReduxStoreWO {
   private checkUserConnected$: Subject<boolean> = new Subject();
   private loadProfileDetails$: Subject<User> = new Subject();
   private updateLocalProfile$: Subject<User> = new Subject();
-  private LoadData$: Subject<Chantier[]> = new Subject();
+  private SaveFlash$: Subject<void> = new Subject();
+  private LoadData$: Subject<Site[]> = new Subject();
   private saveData$: Subject<void> = new Subject();
   private loadLastUpdateDate$: Subject<string> = new Subject();
   private loadLocalProfile$: Subject<Profile> = new Subject();
@@ -78,7 +78,7 @@ export class ReduxStoreWO {
           LoadSiteByCode: (): Subject<Site> => this.loadSiteByCode$
         },
         synchronisationService: {
-          loadData: (): Subject<Chantier[]> => this.LoadData$,
+          loadData: (): Subject<Site[]> => this.LoadData$,
         },
         synchronisationRepository: {
           saveData: (): Subject<void> => this.saveData$,
@@ -109,7 +109,7 @@ export class ReduxStoreWO {
     this.loadStatistic$.next(stats);
     loadStatisticError = (error: string): void => this.loadStatistic$.error(error);
 
-  loadDataNext = (data: Chantier[]): void => this.LoadData$.next(data);
+  loadDataNext = (data: Site[]): void => this.LoadData$.next(data);
   loadDataError = (error: string): void => this.LoadData$.error(error);
 
   saveDataNext = (): void => this.saveData$.next();

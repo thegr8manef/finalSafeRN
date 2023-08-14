@@ -2,7 +2,7 @@ import { View, Text, Modal, StyleSheet, Image, TextInput } from 'react-native';
 import React from 'react';
 import colors from '../../../../assets/colors';
 import { useTranslation } from 'react-i18next';
-import { Divider } from '../../../../assets/components/Divider';
+import {  Divider  } from '../../../../common/adapters/primaries/components/Divider';
 
 interface Props {
   modalVisible: boolean;
@@ -13,7 +13,8 @@ export const SiteModalWithName = (props: Props) => {
 
   const SetVisibilty = (visibilty: boolean) => {
     props.setWithNameVisibilty(visibilty)
-  }
+      }
+      
   return (
     <Modal
       animationType="slide"

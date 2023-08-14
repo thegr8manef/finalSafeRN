@@ -20,3 +20,8 @@ jest.mock('react-i18next', () => ({
 jest.mock('react-native-radio-buttons-group', () => ({
   RadioGroup: () => ({default: jest.fn()}),
 }));
+
+
+jest.mock('react-native-chart-kit', () => ({
+  PieChart: jest.fn(),
+}));

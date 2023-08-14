@@ -1,36 +1,33 @@
 import React, {useEffect, useState} from 'react';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {useTranslation} from 'react-i18next';
+import styles from './profile.style';
+import * as utils from '@utils/index';
+import {StackParamList} from '@navigConfig/navigation.types';
+import {Profile} from '@profileContext/domain/entity/profile';
+import {User} from '@profileContext/domain/entity/user';
+import {DetailsContainer} from '@common/adapters/primaries/components/DetailsContainer';
+import {SimpleHeader} from '@common/adapters/primaries/components/SimpleHeader';
+import {InfoContainer} from '@common/adapters/primaries/components/InfoContainer';
+import {Divider} from '@common/adapters/primaries/components/Divider';
 import {
   View,
   SafeAreaView,
-  StyleSheet,
   Text,
   ActivityIndicator,
   TouchableOpacity,
 } from 'react-native';
-import {DetailsContainer} from '../../../../assets/components/DetailsContainer';
-import {Divider} from '../../../../assets/components/Divider';
-import {Header} from '../../../../assets/components/Header';
-import InfoContainer from '../../../../assets/components/InfoContainer';
-import colors from '../../../../assets/colors';
-import {StackNavigationProp} from '@react-navigation/stack';
-import {StackParamList} from '../../../../navigation/configuration/navigation.types';
-import {Profile} from '../../../domain/entity/profile';
-import {User} from '../../../domain/entity/user';
-import {useTranslation} from 'react-i18next';
-
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
   profile: Profile | undefined;
+  user: User;
   loading: boolean;
-  error: string | undefined;
-  user: User | undefined;
   loadProfileDetails: (accessToken: string) => void;
 }
 
-export const ProfileContainer: React.FC<Props> = (props: Props) => {
+export const ProfileContainer = (props: Props) => {
   const [mounted, setMounted] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
-
   const {t} = useTranslation();
 
   useEffect(() => {
@@ -41,7 +38,7 @@ export const ProfileContainer: React.FC<Props> = (props: Props) => {
   });
 
   if (!mounted) {
-    props.loadProfileDetails(props.profile?.accessToken!);
+    props.loadProfileDetails(props.profile?.accessToken!!);
   }
   const handlNavigation = () => {
     if (isCompleted) {
@@ -50,11 +47,7 @@ export const ProfileContainer: React.FC<Props> = (props: Props) => {
   };
 
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        backgroundColor: !isCompleted ? colors.gray90 : colors.white,
-      }}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.header_container}>
         <View style={styles.button_container}>
           <TouchableOpacity onPress={handlNavigation}>
@@ -62,10 +55,10 @@ export const ProfileContainer: React.FC<Props> = (props: Props) => {
           </TouchableOpacity>
         </View>
         <View style={styles.text_container}>
-          <Header label_title={t('txt.profile')} />
+          <SimpleHeader label_title={t('txt.profile')}></SimpleHeader>
         </View>
       </View>
-      <View style={{flex: 0.8}}>
+      <View style={styles.detailsContainer}>
         {props.profile ? (
           <DetailsContainer
             name_label={props.profile?.name}
@@ -74,63 +67,29 @@ export const ProfileContainer: React.FC<Props> = (props: Props) => {
         ) : null}
       </View>
       <Divider />
-      <View style={{flex: 0.8}}>
+      <View style={styles.detailsContainer}>
         <InfoContainer
           label_title={t('txt.region')}
-          label_subtitle={props.user == undefined ? '' : props.user.region}
+          label_subtitle={props.user?.region ?? ''}
         />
       </View>
       <Divider />
-      <View style={{flex: 0.8}}>
+      <View style={styles.detailsContainer}>
         <InfoContainer
           label_title={t('txt.filiale')}
-          label_subtitle={props.user == undefined ? '' : props.user.function}
+          label_subtitle={props.user?.function ?? ''}
         />
-        <ActivityIndicator
-          size="large"
-          color={colors.primary}
-          style={{display: !isCompleted ? 'flex' : 'none'}}
-        />
+        {!isCompleted && (
+          <ActivityIndicator size="large" color={utils.colors.primary} />
+        )}
       </View>
       <Divider />
-      <View style={{flex: 0.8}}>
+      <View style={styles.detailsContainer}>
         <InfoContainer
           label_title={t('txt.etablissement')}
           label_subtitle={' '}
         />
       </View>
-      <View
-        style={{
-          flex: 2,
-          backgroundColor: isCompleted ? colors.gray90 : colors.default,
-        }}
-      />
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  header_container: {
-    flex: 0.5,
-    flexDirection: 'row-reverse',
-    height: 1,
-  },
-  button_container: {
-    backgroundColor: colors.primary,
-    flex: 1,
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'flex-end',
-  },
-  text_container: {
-    flex: 3,
-    backgroundColor: colors.primary,
-    height: 50,
-  },
-  txtNext: {
-    marginRight: 15,
-    fontSize: 15,
-    color: colors.textColor,
-    fontWeight: '600',
-  },
-});
