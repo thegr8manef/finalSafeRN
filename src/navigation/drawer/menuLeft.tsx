@@ -8,13 +8,10 @@ import {Profile} from '@contexts/profileContext/domain/entity/profile';
 import * as utils from '@utils/index';
 import {useEffect} from 'react';
 
-
-
 interface Props {
   profile: Profile | undefined;
   loadProfileLocal: () => void;
 }
-
 
 export const MenuLeft = (props: Props) => {
 

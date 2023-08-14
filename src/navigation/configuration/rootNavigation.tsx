@@ -13,6 +13,7 @@ import {
   ProfilePage,
   SplashPage,
 } from '@contexts/profileContext/adapters/primaries';
+import { HeaderOption } from '@common/adapters/primaries/components/HeaderOption';
 
 const Stack = createStackNavigator<StackParamList>();
 
@@ -31,13 +32,17 @@ const RootNavigation = () => {
     </TouchableOpacity>
   );
 
-  const CustomScreenOptions = ({ titleKey, buttonText }: ScreenOptionsProps) => ({
-    title: t(titleKey)!!,
-    headerShown: true,
-    headerStyle: styles.headerBarStyle,
-    headerTitleAlign: 'center',
-    headerRight: () => <CustomHeaderButton onPress={handleNavigation} buttonText={buttonText} />,
+  // Function to create customized screen options
+  const createScreenOptions = ({
+    titleKey,
+    buttonText,
+  }: ScreenOptionsProps) => ({
+    ...HeaderOption({
+      titleKey,
+      renderRight: <CustomHeaderButton onPress={handleNavigation} buttonText={buttonText} />,
+    }),
   });
+
 
   const handleNavigation = () => {
     if (!(dataState?.loading)) {
@@ -56,7 +61,7 @@ const RootNavigation = () => {
       <Stack.Screen
         name="Profile"
         component={ProfilePage}
-        options={CustomScreenOptions({
+        options={createScreenOptions({
           titleKey: 'txt.profile',
           buttonText: 'txt.next',
         })}

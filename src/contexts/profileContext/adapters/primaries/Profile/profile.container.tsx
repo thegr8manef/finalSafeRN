@@ -4,16 +4,17 @@ import {useTranslation} from 'react-i18next';
 import styles from './profile.style';
 import * as utils from '@utils/index';
 import {StackParamList} from '@navigConfig/navigation.types';
-import {Profile} from '@profileContext/domain/entity/profile';
-import {User} from '@profileContext/domain/entity/user';
 import {DetailsContainer} from '@common/adapters/primaries/components/DetailsContainer';
 import {InfoContainer} from '@common/adapters/primaries/components/InfoContainer';
 import {Divider} from '@common/adapters/primaries/components/Divider';
+import { User } from '@contexts/profileContext/domain/entity/user';
+import { Profile } from '@contexts/profileContext/domain/entity/profile';
 import {
   View,
   SafeAreaView,
   ActivityIndicator,
 } from 'react-native';
+
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
   profile: Profile | undefined;

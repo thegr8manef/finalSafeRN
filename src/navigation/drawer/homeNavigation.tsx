@@ -6,11 +6,11 @@ import { MenuLeftPage } from './index';
 import { VisitsContainer } from '@contexts/visiteContext/adapters/primaries/Visit/visits.container';
 import * as utils from '@utils/index';
 import { t } from 'i18next';
+import { HeaderOption } from '@common/adapters/primaries/components/HeaderOption';
 import {
   StyleSheet,
   Text,
   Image,
-  View,
   ImageSourcePropType,
   TouchableOpacity,
   Dimensions,
@@ -26,33 +26,29 @@ export const HomeNavigation = () => {
     drawerIconPath: ImageSourcePropType;
   };
 
-  // Custom header component
-  const CustomHeader: React.FC<{ title: string }> = ({ title }) => (
-    <Text style={styles.page_title}>{title}</Text>
-  );
-
   // Function to create customized screen options
   const createScreenOptions = ({
     titleKey,
     drawerIconPath,
   }: ScreenOptionsProps) => ({
-    headerTitle: () => <CustomHeader title={t(titleKey)} />,
-    headerTitleAlign: 'center',
-    headerBackground: () => <View style={styles.backgroundHeader} />,
-    headerRight: () => (
-      <TouchableOpacity>
-        <Image
-          style={styles.flash_icn}
-          source={utils.images.dashboardFlashIcon}
-        />
-      </TouchableOpacity>
-    ),
+    ...HeaderOption({
+      titleKey,
+      renderRight: headerRightContent,
+    }),
     drawerLabel: () => <Text style={styles.label}>{t(titleKey)}</Text>,
     drawerIcon: () => (
       <Image source={drawerIconPath} style={styles.iconStyle} />
     ),
   });
 
+  const headerRightContent = (
+    <TouchableOpacity>
+      <Image
+        style={styles.flashIcon}
+        source={utils.images.dashboardFlashIcon}
+      />
+    </TouchableOpacity>
+  );
   // Return the Drawer Navigator
   return (
     <Drawer.Navigator
@@ -120,10 +116,6 @@ const styles = StyleSheet.create({
       marginTop: -4,
     },
   },
-  backgroundHeader: {
-    backgroundColor: utils.colors.primary,
-    flex: 1,
-  },
   iconStyle: {
     width: 24,
     height: 24,
@@ -138,15 +130,10 @@ const styles = StyleSheet.create({
     top: 5,
     color: utils.colors.textColor,
   },
-  flash_icn: {
+  flashIcon: {
     width: Dimensions.get('screen').width / 12,
     height: 50,
     resizeMode: 'contain',
     marginRight: 25,
-  },
-  page_title: {
-    color: utils.colors.textColor,
-    fontSize: 20,
-    fontWeight: '500',
   },
 });
