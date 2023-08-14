@@ -39,7 +39,7 @@ export class DbVisitsService implements VisitsService {
     return from(saveFlashtoDb);
   }
 
-  LoadSiteByCode(code: string): Observable<Site> {
+  LoadAllSites(code: string): Observable<Site> {
     const LoadChantierInDb = new Promise<Site>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
 

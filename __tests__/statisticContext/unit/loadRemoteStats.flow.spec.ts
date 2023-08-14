@@ -1,11 +1,12 @@
-import { AppState } from '../../../src/redux_configuration/appState';
-import { Stat } from '../../../src/statisticContext/domain/entity/Stat';
-import { StatObservation } from '../../../src/statisticContext/domain/entity/statObservation';
-import { StatRisk } from '../../../src/statisticContext/domain/entity/statRisk';
-import { StatVisit } from '../../../src/statisticContext/domain/entity/statVisit';
-import { loadRemoteStats, loadRemoteStatsFailed, loadRemoteStatsSuccess } from '../../../src/statisticContext/useCases/LoadRemoteStats/action';
-import { loadRemoteStatsErrorSelector, loadRemoteStatsLoadingSelector, remoteStatsSelector } from '../../../src/statisticContext/useCases/LoadRemoteStats/selectors';
-import { saveStats } from '../../../src/statisticContext/useCases/saveStats/actions';
+
+import { Stat } from '@contexts/statisticContext/domain/entity/Stat';
+import { StatObservation } from '@contexts/statisticContext/domain/entity/statObservation';
+import { StatRisk } from '@contexts/statisticContext/domain/entity/statRisk';
+import { StatVisit } from '@contexts/statisticContext/domain/entity/statVisit';
+import { loadRemoteStats, loadRemoteStatsFailed, loadRemoteStatsSuccess } from '@contexts/statisticContext/useCases/LoadRemoteStats/action';
+import { loadRemoteStatsLoadingSelector, remoteStatsSelector, loadRemoteStatsErrorSelector } from '@contexts/statisticContext/useCases/LoadRemoteStats/selectors';
+import { saveStats } from '@contexts/statisticContext/useCases/saveStats/actions';
+import { AppState } from 'react-native';
 import { ReduxStoreWO } from '../../reduxStore.wo';
 import { Store } from 'redux';
 

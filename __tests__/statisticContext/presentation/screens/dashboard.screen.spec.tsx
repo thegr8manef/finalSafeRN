@@ -1,9 +1,9 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
-import { DashboardContainer } from '../../../../src/statisticContext/adapters/primaries/Dashboard/dashboard.container';
-import { Stat } from '../../../../src/statisticContext/domain/entity/Stat';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { StackParamList } from '../../../../src/navigation/configuration/navigation.types';
+import { DashboardContainer } from '@contexts/statisticContext/adapters/primaries/Dashboard/dashboard.container';
+import { Stat } from '@contexts/statisticContext/domain/entity/Stat';
 
 interface Props {
     navigation: StackNavigationProp<StackParamList>;

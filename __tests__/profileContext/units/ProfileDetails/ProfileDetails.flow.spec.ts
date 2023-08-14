@@ -1,9 +1,10 @@
 import { Store } from "redux"
-import { User } from "../../../../src/profileContext/domain/entity/user"
-import { loadProfileDetails } from "../../../../src/profileContext/useCases/ProfileDetails/action"
-import { loadUserInfoErrorSelector, loadUserInfoSelector, loadUserInfoSuccessSelector } from "../../../../src/profileContext/useCases/ProfileDetails/selectors"
-import { AppState } from "../../../../src/redux_configuration/appState"
+
 import { ReduxStoreWO } from "../../../reduxStore.wo"
+import { loadProfileDetails } from "@contexts/profileContext/useCases/ProfileDetails/action"
+import { loadUserInfoSelector, loadUserInfoErrorSelector, loadUserInfoSuccessSelector } from "@contexts/profileContext/useCases/ProfileDetails/selectors"
+import { AppState } from "react-native"
+import { User } from "@contexts/profileContext/domain/entity/user"
 
 
 const deepFreeze = require('deep-freeze')

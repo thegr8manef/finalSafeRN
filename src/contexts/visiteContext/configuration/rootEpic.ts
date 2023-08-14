@@ -1,8 +1,8 @@
 import {combineEpics} from 'redux-observable';
-import {loadSiteEpic} from '../useCases/LoadSiteByCode/epic';
+import {loadSitesEpic} from '@contexts/visiteContext/useCases/LoadSites/epic';
 import {saveVisitFlashEpic} from '../useCases/saveFlash/epic';
 
 export const visitsRootEpics = combineEpics(
   saveVisitFlashEpic,
-  loadSiteEpic,
+  loadSitesEpic,
 );

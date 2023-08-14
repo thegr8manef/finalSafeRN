@@ -59,12 +59,13 @@ describe('Integration synchronisation Mapper', () => {
         '',
         1,
         -1,
-        [],
         '744DF9D7',
         'ETS EIC TEST B 1',
         'true',
         '223',
         '219',
+        1,
+        ''
       ),
       new Site(
         '1870',
@@ -77,12 +78,11 @@ describe('Integration synchronisation Mapper', () => {
         '',
         0,
         -1,
-        [],
         'B76F57B6',
         'ETS EIC TEST B 2',
         'true',
         '223',
-        '219',
+        '219',1,''
       ),
     ];
   });
@@ -101,7 +101,6 @@ describe('Integration synchronisation Mapper', () => {
     expect(chantier1.code_postal).toEqual(chantierList[0].code_postal);
     expect(chantier1.pays).toEqual(chantierList[0].pays);
     expect(chantier1.ville).toEqual(chantierList[0].ville);
-    expect(chantier1.st).toEqual(chantierList[0].st);
     expect(chantier1.last_update).toEqual(chantierList[0].last_update);
     expect(chantier1.reference).toEqual(chantierList[0].reference);
     expect(chantier1.region_name).toEqual(chantierList[0].region_name);

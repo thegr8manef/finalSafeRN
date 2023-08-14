@@ -1,10 +1,11 @@
-import { AppState } from '../../../src/redux_configuration/appState';
-import { Stat } from '../../../src/statisticContext/domain/entity/Stat';
-import { StatObservation } from '../../../src/statisticContext/domain/entity/statObservation';
-import { StatRisk } from '../../../src/statisticContext/domain/entity/statRisk';
-import { StatVisit } from '../../../src/statisticContext/domain/entity/statVisit';
-import { loadLocalStats, loadLocalStatsFailed, loadLocalStatsSuccess } from '../../../src/statisticContext/useCases/LoadLocalStats/actions';
-import { loadLocalStatErrorSelector, loadLocalStatLoadingSelector, localStatsSelector } from '../../../src/statisticContext/useCases/LoadLocalStats/selectors';
+
+import { Stat } from '@contexts/statisticContext/domain/entity/Stat';
+import { StatObservation } from '@contexts/statisticContext/domain/entity/statObservation';
+import { StatRisk } from '@contexts/statisticContext/domain/entity/statRisk';
+import { StatVisit } from '@contexts/statisticContext/domain/entity/statVisit';
+import { loadLocalStats, loadLocalStatsFailed, loadLocalStatsSuccess } from '@contexts/statisticContext/useCases/LoadLocalStats/actions';
+import { loadLocalStatLoadingSelector, localStatsSelector, loadLocalStatErrorSelector } from '@contexts/statisticContext/useCases/LoadLocalStats/selectors';
+import { AppState } from 'react-native';
 import { ReduxStoreWO } from '../../reduxStore.wo';
 import { Store } from 'redux';
 

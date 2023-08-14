@@ -1,10 +1,12 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
-import { GeneralStats } from '../../../../src/statisticContext/adapters/primaries/Dashboard/Components/generalStats';
-import { Stat } from '../../../../src/statisticContext/domain/entity/Stat';
-import { StatObservation } from '../../../../src/statisticContext/domain/entity/statObservation';
-import { StatVisit } from '../../../../src/statisticContext/domain/entity/statVisit';
-import { StatRisk } from '../../../../src/statisticContext/domain/entity/statRisk';
+import { GeneralStats } from '@contexts/statisticContext/adapters/primaries/Dashboard/Components/generalStats';
+import { Stat } from '@contexts/statisticContext/domain/entity/Stat';
+import { StatObservation } from '@contexts/statisticContext/domain/entity/statObservation';
+import { StatRisk } from '@contexts/statisticContext/domain/entity/statRisk';
+import { StatVisit } from '@contexts/statisticContext/domain/entity/statVisit';
+
+
 interface Props {
     stat: Stat
 }
