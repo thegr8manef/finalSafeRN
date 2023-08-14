@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import React from 'react';
 import colors from '../../../../assets/colors';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
 interface Props {
   images: string;
@@ -82,8 +82,10 @@ export const ImageController = (props: Props) => {
       durationLimit: 30, //Video max duration in seconds
       saveToPhotos: true,
     };
+    
     const isCameraPermitted = await requestCameraPermission();
     const isStoragePermitted = await requestExternalWritePermission();
+    
     if (isCameraPermitted && isStoragePermitted) {
       launchCamera(options, response => {
         if (response.didCancel) {
@@ -130,23 +132,23 @@ export const ImageController = (props: Props) => {
   };
   return (
     <View testID='img-container' style={styles.DividerTwoImageBottomNav}>
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <Pressable
+          testID='capture-img'
           onPress={() => captureImage()}
-          android_ripple={{color: colors.gris300}}>
+          android_ripple={{ color: colors.gris300 }}>
           <Image
-            testID='capture-img'
             style={styles.logoImage5}
             source={require('../../../../assets/img/icn_prendre_photo.png')}
           />
         </Pressable>
       </View>
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <Pressable
+          testID='choose-img'
           onPress={() => chooseFile()}
-          android_ripple={{color: colors.gris300}}>
+          android_ripple={{ color: colors.gris300 }}>
           <Image
-                      testID='choose-img'
             style={styles.logoImage5}
             source={require('../../../../assets/img/icn_file.png')}
           />
