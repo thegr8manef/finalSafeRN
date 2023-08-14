@@ -6,12 +6,21 @@ import {
 } from '@react-navigation/drawer';
 import {Profile} from '@contexts/profileContext/domain/entity/profile';
 import * as utils from '@utils/index';
+import {useEffect} from 'react';
+
+
 
 interface Props {
   profile: Profile | undefined;
+  loadProfileLocal: () => void;
 }
 
+
 export const MenuLeft = (props: Props) => {
+
+  useEffect(()=>{
+    props.loadProfileLocal();
+  }, [])
   return (
     <View style={styles.container}>
       <View style={styles.header}>
