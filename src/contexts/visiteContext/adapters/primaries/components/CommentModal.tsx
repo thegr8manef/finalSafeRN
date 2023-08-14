@@ -45,7 +45,7 @@ export const CommentModal = (props: Props) => {
               onChangeText={text => props.setcommentaires(text)}
               value={props.commentaires}
               cursorColor={utils.colors.primary}
-              placeholder={t('txt.commentaires')}
+              placeholder={t('txt.commentaires')!!}
               keyboardType="web-search"
             />
           </View>
@@ -54,13 +54,13 @@ export const CommentModal = (props: Props) => {
       <Pressable
         style={[styles.button, styles.buttonOpen]}
         onPress={() => setModalVisible(true)}
-        android_ripple={{color: utils.colors.gris300}}>
+        android_ripple={styles.androidRipple}>
         {!empty ? (
-          <Text style={{marginBottom: '-4%', marginLeft: '5%', fontSize: 17}}>
+          <Text style={styles.commentDivider}>
             {props.commentaires}
           </Text>
         ) : (
-          <Text style={{marginBottom: '-4%', marginLeft: '5%', fontSize: 17}}>
+          <Text style={styles.commentDivider}>
             {[null]}
           </Text>
         )}
@@ -72,6 +72,14 @@ export const CommentModal = (props: Props) => {
 };
 
 const styles = StyleSheet.create({
+  androidRipple:{
+    color: utils.colors.gris300
+  },
+  commentDivider: {
+    marginBottom: '-4%', 
+    marginLeft: '5%', 
+    fontSize: 17
+  },
   centeredView: {
     flex: 1,
     width: '100%',

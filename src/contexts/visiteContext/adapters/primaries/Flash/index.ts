@@ -7,34 +7,34 @@ import {FlashActionTypes} from '../../../useCases/saveFlash/actionTypes';
 import {SaveFlash} from '../../../useCases/saveFlash/action';
 import {saveFashErrorSelector} from '../../../useCases/saveFlash/selectors';
 import {
-  siteSelector,
-  loadSiteByCodeErrorSelector,
-  loadingSiteByCodeSelector,
+  sitesSelector,
+  loadSitesErrorSelector,
+  loadingSitesSelector,
 } from '@contexts/visiteContext/useCases/LoadSites/selectors';
-import {LoadSiteByCode} from '@contexts/visiteContext/useCases/LoadSites/action';
+import {LoadSites} from '@contexts/visiteContext/useCases/LoadSites/action';
 import {LoadSitesActionTypes} from '@contexts/visiteContext/useCases/LoadSites/actionTypes';
 import {Site} from '../../../domain/entity/Site';
 
 interface StateToPropsType {
   errorVisits: string | undefined;
   error: string | undefined;
-  site: Site | null;
+  sites: Site[] | null;
   loading: boolean;
 }
 interface DispatchToPropsType {
   saveFlash: (data: Flash) => void;
-  loadSiteByCode: (code: string) => void;
+  LoadSites: () => void;
 }
 const mapStateToProps = (state: AppState): StateToPropsType => ({
   errorVisits: saveFashErrorSelector(state),
-  error: loadSiteByCodeErrorSelector(state),
-  site: siteSelector(state),
-  loading: loadingSiteByCodeSelector(state),
+  error: loadSitesErrorSelector(state),
+  sites: sitesSelector(state),
+  loading: loadingSitesSelector(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => ({
   saveFlash: (data: Flash): FlashActionTypes => dispatch(SaveFlash(data)),
-  loadSiteByCode: (code: string): LoadSitesActionTypes => dispatch(LoadSiteByCode(code)),
+  LoadSites: (): LoadSitesActionTypes => dispatch(LoadSites()),
 });
 
 export const VisitsFlashPage = connect(

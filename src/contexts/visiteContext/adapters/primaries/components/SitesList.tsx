@@ -45,7 +45,7 @@ export const SitesList = (props: Props) => {
           <View style={styles.siteContainer}>
             <Image
               source={utils.images.qrCodeIcon}
-              style={[styles.img, {width: '25%'}]}
+              style={styles.img_qr}
             />
             <Text style={styles.label}>{t('qr_code')}</Text>
           </View>
@@ -110,11 +110,16 @@ const styles = StyleSheet.create({
   touchableContainer: {
     flex: 1,
   },
+  img_qr :{
+    marginTop: 20,
+    width: '25%',
+    height: '30%',
+    resizeMode: 'contain',
+  },
   img: {
     marginTop: 20,
     width: '18%',
     height: '30%',
-
     resizeMode: 'contain',
   },
   label: {

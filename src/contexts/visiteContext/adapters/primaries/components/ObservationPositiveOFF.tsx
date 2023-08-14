@@ -12,13 +12,13 @@ export const OPOFF = (props: Props) => {
     <TouchableOpacity
       onPress={props.onPressPositiveOFF}
       style={styles.container}>
-      <View style={{flex: 2}}>
+      <View style={styles.imageConatiner}>
         <Image
           source={utils.images.PositDisabledIcon}
           style={styles.logoImage1}
         />
       </View>
-      <View style={{flex: 1}}>
+      <View style={styles.textContainer}>
         <Text style={styles.TextObservation}>{t('observation_positive')}</Text>
       </View>
     </TouchableOpacity>
@@ -26,6 +26,12 @@ export const OPOFF = (props: Props) => {
 };
 
 const styles = StyleSheet.create({
+  imageConatiner: {
+    flex: 2
+  },
+  textContainer: {
+    flex: 1
+  },
   TextObservation: {
     color: utils.colors.textColor,
     textAlign: 'center',
