@@ -16,6 +16,7 @@ jest.mock('react-i18next', () => ({
   },
 }));
 
+
 jest.mock('react-native-radio-buttons-group', () => ({
   RadioGroup: () => ({default: jest.fn()}),
 }));
