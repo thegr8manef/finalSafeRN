@@ -14,7 +14,7 @@ interface Props {
   }
 
   
-export const LocalProfile = (props: Props) =>  {
+export const LocalProfileScreen  = (props: Props) =>  {
     const {t} = useTranslation();
 
   return (
