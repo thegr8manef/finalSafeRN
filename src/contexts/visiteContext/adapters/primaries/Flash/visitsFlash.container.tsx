@@ -145,7 +145,6 @@ export const VisitFlashContainer = (props: Props) => {
 
   return (
     <View style={styles.container}>
-      {/* <Header title={t('txt_visit_flash')} navigation={props.navigation} /> */}
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
         <View style={styles.ContainerChantier}>
           <Text style={styles.selectionnerText}>
