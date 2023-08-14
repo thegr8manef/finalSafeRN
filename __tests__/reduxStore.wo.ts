@@ -13,15 +13,15 @@ import {
 import {Subject} from 'rxjs';
 import {AppState} from '../src/redux_configuration/appState';
 import {connectionRootEpics} from '../src/common/isConnected/configuration/rootEpic';
-import {Stat} from '../src/statisticContext/domain/entity/Stat';
-import {profileRootEpics} from '../src/profileContext/configuration/rootEpic';
-import {Profile} from '../src/profileContext/domain/entity/profile';
-import {User} from '../src/profileContext/domain/entity/user';
 import {visitsRootEpics} from '@contexts/visiteContext/configuration/rootEpic';
 import {reduxReducer} from '../src/redux_configuration/rootReducers';
 import {Site} from '@contexts/visiteContext/domain/entity/Site';
 import {synchronisationRootEpics} from '@contexts/synchronisationContext/configuration/rootEpic';
-import {statisticRootEpics} from '../src/statisticContext/configuration/rootEpic';
+import {Stat} from "@contexts/statisticContext/domain/entity/Stat";
+import {Profile} from "@contexts/profileContext/domain/entity/profile";
+import {User} from "@contexts/profileContext/domain/entity/user";
+import {profileRootEpics} from "@contexts/profileContext/configuration/rootEpic";
+import {statisticRootEpics} from "@contexts/statisticContext/configuration/rootEpic";
 
 export class ReduxStoreWO {
   private static instance: ReduxStoreWO;
@@ -40,6 +40,8 @@ export class ReduxStoreWO {
   private saveData$: Subject<void> = new Subject();
   private loadLastUpdateDate$: Subject<string> = new Subject();
   private loadLocalProfile$: Subject<Profile> = new Subject();
+
+  private loadAllSites$: Subject<Site[]> = new Subject();
 
   constructor() {
     this.rootEpics = combineEpics<Action>(
@@ -64,13 +66,13 @@ export class ReduxStoreWO {
         },
         userRepository: {
           setUserConnected: (): Subject<Profile> => this.setUserConnected$,
-          checkUserConnected: (): Subject<boolean> => this.checkUserConnected$,
           loadProfileDetails: (): Subject<User> => this.loadProfileDetails$,
           updateLocalProfile: (): Subject<User> => this.updateLocalProfile$,
           loadLocalProfile: (): Subject<Profile> => this.loadLocalProfile$,
         },
-        visiteService: {
+        visitsService: {
           SaveFlash: (): Subject<void> => this.SaveFlash$,
+          LoadAllSites: (): Subject<Site[]> => this.loadAllSites$
         },
         synchronisationService: {
           loadData: (): Subject<Site[]> => this.LoadData$,
@@ -137,4 +139,7 @@ export class ReduxStoreWO {
     this.loadLocalProfile$.next(profile);
   loadLocalProfileError = (error: string): void =>
     this.loadLocalProfile$.error(error);
+
+  loadAllSitesError= (error: string): void => this.loadAllSites$.error(error)
+  loadAllSitesNext= (sites: Site[]): void => this.loadAllSites$.next(sites)
 }

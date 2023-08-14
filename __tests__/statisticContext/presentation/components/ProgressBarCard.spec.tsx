@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
-import { ProgressBarCard } from '../../../../src/statisticContext/adapters/primaries/components/ProgressBarCard';
+import { ProgressBarCard } from '@contexts/statisticContext/adapters/primaries/components/ProgressBarCard';
 interface Props {
     label:string
     value: number

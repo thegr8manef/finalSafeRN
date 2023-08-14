@@ -11,9 +11,7 @@ export class Site {
     private _pays: string,
     private _ville: string,
     private _st: number,
-
     private _lastUpdateDate: number,
-    private _remarques: Flash[],
     private _reference: string,
     private _regionName: string,
     private _osc: string,
@@ -43,10 +41,6 @@ export class Site {
 
   get reference(): string {
     return this._reference;
-  }
-
-  get remaques(): Flash[] {
-    return this._remarques;
   }
 
   get last_update(): number {

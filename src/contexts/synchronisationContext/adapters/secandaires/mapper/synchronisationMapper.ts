@@ -18,7 +18,6 @@ export class SynchronisationMapper {
           chantier.vl ? chantier.vl : '',
           chantier.st,
           synchronisationDto.rd.lus ? parseInt(synchronisationDto.rd.lus) : -1,
-          [],
           chantier.ref,
           chantier.ol_name,
           chantier.osc,
@@ -50,7 +49,6 @@ export class SynchronisationMapper {
             synchronisationDto.rd.lus
               ? parseInt(synchronisationDto.rd.lus)
               : -1,
-            [],
             chantier.ref,
             chantier.ol_name,
             chantier.osc.toString(),

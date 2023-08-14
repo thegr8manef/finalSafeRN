@@ -10,9 +10,9 @@ import {
   siteSelector,
   loadSiteByCodeErrorSelector,
   loadingSiteByCodeSelector,
-} from '../../../useCases/LoadSiteByCode/selectors';
-import {LoadSiteByCode} from '../../../useCases/LoadSiteByCode/action';
-import {LoadSiteActionTypes} from '../../../useCases/LoadSiteByCode/actionTypes';
+} from '@contexts/visiteContext/useCases/LoadSites/selectors';
+import {LoadSiteByCode} from '@contexts/visiteContext/useCases/LoadSites/action';
+import {LoadSitesActionTypes} from '@contexts/visiteContext/useCases/LoadSites/actionTypes';
 import {Site} from '../../../domain/entity/Site';
 
 interface StateToPropsType {
@@ -34,7 +34,7 @@ const mapStateToProps = (state: AppState): StateToPropsType => ({
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => ({
   saveFlash: (data: Flash): FlashActionTypes => dispatch(SaveFlash(data)),
-  loadSiteByCode: (code: string): LoadSiteActionTypes => dispatch(LoadSiteByCode(code)),
+  loadSiteByCode: (code: string): LoadSitesActionTypes => dispatch(LoadSiteByCode(code)),
 });
 
 export const VisitsFlashPage = connect(
