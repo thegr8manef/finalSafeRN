@@ -1,8 +1,8 @@
 import React from 'react'
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
-import { CommentModal } from '../../../../src/visiteContext/adapters/primaries/components/CommentModal';
 import { act } from 'react-test-renderer';
 import i18n from '../../../../src/assets/languages/i18n';
+import { CommentModal } from '@contexts/visiteContext/adapters/primaries/components/CommentModal';
 
 describe('CommentModal', () => {
     beforeEach(() => {

@@ -1,14 +1,14 @@
 import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
-import * as utils from '../../../../utils';
+import * as utils from '@utils/index';
 
 interface Props {
-  label_title: string;
+  title: string;
 }
 export const SimpleHeader = (props: Props): JSX.Element => {
   return (
     <View style={styles.rectangle}>
-      <Text style={styles.textCentre}>{props.label_title}</Text>
+      <Text style={styles.textCentre}>{props.title}</Text>
     </View>
   );
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
-import ImageController from '../../../../src/visiteContext/adapters/primaries/components/ImageController';
+import ImageController from '@contexts/visiteContext/adapters/primaries/components/ImageController';
 
 describe('ImageController', () => {
     it('captures an image', async () => {

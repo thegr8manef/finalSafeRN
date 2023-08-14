@@ -1,11 +1,10 @@
 import React from 'react';
-import * as utils from '../../../../utils';
 import * as Progress from 'react-native-progress';
 
 interface Props {
   color: string;
-  value : any;
-  barWidth : any
+  value: any;
+  barWidth: any;
 }
 
 const ProgressBar: React.FC<Props> = (props: Props) => {

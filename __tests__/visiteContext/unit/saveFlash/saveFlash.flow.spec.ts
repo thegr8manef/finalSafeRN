@@ -1,10 +1,10 @@
 import { Store } from "redux"
 import { ReduxStoreWO } from "../../../reduxStore.wo"
 import { AppState } from "../../../../src/redux_configuration/appState"
-import { Flash } from "../../../../src/visiteContext/domain/entity/Flash"
-import { Photo } from "../../../../src/visiteContext/domain/entity/Photo"
-import { saveFashErrorSelector, saveFlashLoadingSelector } from "../../../../src/visiteContext/useCases/saveFlash/selectors"
-import { SaveFlash, SaveFlashFailed, SaveFlashSuccess } from "../../../../src/visiteContext/useCases/saveFlash/action"
+import { saveFashErrorSelector, saveFlashLoadingSelector } from "@contexts/visiteContext/useCases/saveFlash/selectors"
+import { Flash } from "@contexts/visiteContext/domain/entity/Flash"
+import { Photo } from "@contexts/visiteContext/domain/entity/Photo"
+import { SaveFlash, SaveFlashFailed, SaveFlashSuccess } from "@contexts/visiteContext/useCases/saveFlash/action"
 
 const deepFreeze = require('deep-freeze')
 

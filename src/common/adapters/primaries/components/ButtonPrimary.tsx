@@ -1,6 +1,6 @@
 import {View, Text, Pressable, StyleSheet} from 'react-native';
 import React from 'react';
-import colors from '../../../../assets/colors';
+import * as utils from '@utils/index';
 interface Props {
   textButton: string;
   OnPressCustomized: () => void;
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   buttonInnerContainer: {
-    backgroundColor: colors.primary,
+    backgroundColor: utils.colors.primary,
     paddingVertical: 8,
     paddingHorizontal: 16,
   },

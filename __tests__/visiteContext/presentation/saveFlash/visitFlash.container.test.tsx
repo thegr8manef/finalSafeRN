@@ -1,9 +1,9 @@
 
 import React from 'react'
 import { render } from '@testing-library/react-native';
-import { Flash } from '../../../../src/visiteContext/domain/entity/Flash';
-import { Site } from '../../../../src/visiteContext/domain/entity/Site';
-import { VisitFlashContainer } from '../../../../src/visiteContext/adapters/primaries/Flash/visitsFlash.container';
+import { Site } from '@contexts/visiteContext/domain/entity/Site';
+import { Flash } from '@contexts/visiteContext/domain/entity/Flash';
+import { VisitFlashContainer } from '@contexts/visiteContext/adapters/primaries/Flash/visitsFlash.container';
 
 interface Props {
     navigation: any;

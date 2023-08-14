@@ -1,15 +1,16 @@
 import {Dispatch} from 'redux';
-import {Profile} from '../../profileContext/domain/entity/profile';
-import {
-  loadLocalProfileSelector,
-  loadLocalProfileErrorSelector,
-  localProfileSelector,
-} from '../../profileContext/useCases/LoadLocalProfile/selectors';
+
 import {AppState} from '../../redux_configuration/appState';
-import {LoadLoacalProfileActionDbTypes} from '../../profileContext/useCases/LoadLocalProfile/actionType';
 import {MenuLeft} from './menuLeft';
-import {loadLocalProfile} from '../../profileContext/useCases/LoadLocalProfile/action';
 import {connect} from 'react-redux';
+import {Profile} from '@contexts/profileContext/domain/entity/profile';
+import {
+  loadLocalProfileErrorSelector,
+  loadLocalProfileSelector,
+  localProfileSelector,
+} from '@contexts/profileContext/useCases/LoadLocalProfile/selectors';
+import {LoadLoacalProfileActionDbTypes} from '@contexts/profileContext/useCases/LoadLocalProfile/actionType';
+import {loadLocalProfile} from '@contexts/profileContext/useCases/LoadLocalProfile/action';
 
 interface StateToPropsType {
   profile: Profile | undefined;

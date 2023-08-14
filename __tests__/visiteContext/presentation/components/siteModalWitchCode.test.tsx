@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
-import { SiteModalWithCode } from '../../../../src/visiteContext/adapters/primaries/components/SiteModalWithCode';
 import { act } from 'react-test-renderer';
 import i18n from '../../../../src/assets/languages/i18n';
+import { SiteModalWithCode } from '@contexts/visiteContext/adapters/primaries/components/SiteModalWithCode';
 
 describe('SiteModalWithCode', () => {
     const mockSetWithCodeVisibilty = jest.fn();

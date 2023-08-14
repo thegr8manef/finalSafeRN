@@ -9,7 +9,7 @@ module.exports = {
         extensions: ['.ts', '.tsx', 'js', 'jsx', '.json'],
         alias: {
           tests: ['./__tests__/'],
-          '@profileContext': './src/profileContext',
+          '@contexts': './src/contexts',
           '@common': './src/common',
           '@commonAdapter': './src/common/adapter',
           '@commonIsConnected': './src/common/appConfig',
@@ -19,6 +19,7 @@ module.exports = {
           '@styles': './src/styles',
           '@utils': './src/utils/',
           '@assets': './src/assets/',
+          '@config': './src/config/',
         },
       },
     ],

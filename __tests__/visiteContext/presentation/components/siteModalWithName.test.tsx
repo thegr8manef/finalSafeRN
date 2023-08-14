@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
-import { SiteModalWithName } from '../../../../src/visiteContext/adapters/primaries/components/SiteModalWithName';
 import i18n from '../../../../src/assets/languages/i18n';
+import { SiteModalWithName } from '@contexts/visiteContext/adapters/primaries/components/SiteModalWithName';
 
 describe('SiteModalWithName', () => {
     const mockSetWithNameVisibilty = jest.fn();

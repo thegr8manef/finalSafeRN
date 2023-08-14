@@ -1,7 +1,9 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
-import { ProgressVisitsStats } from '../../../../src/statisticContext/adapters/primaries/Dashboard/Components/ProgressVisitsStats';
-import { StatVisit } from '../../../../src/statisticContext/domain/entity/statVisit';
+import { StatVisit } from '@contexts/statisticContext/domain/entity/statVisit';
+import { ProgressVisitsStats } from '@contexts/statisticContext/adapters/primaries/Dashboard/Components/ProgressVisitsStats';
+
+
 interface Props {
   title: string;
   statsVisit: StatVisit

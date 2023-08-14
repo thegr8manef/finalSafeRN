@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
-import { HeaderVisite } from '../../../../src/visiteContext/adapters/primaries/components/HeaderVisite';
 import { act } from 'react-test-renderer';
+import { HeaderVisite } from '@contexts/visiteContext/adapters/primaries/components/HeaderVisite';
 
 describe('HeaderVisite', () => {
     const navigation = {

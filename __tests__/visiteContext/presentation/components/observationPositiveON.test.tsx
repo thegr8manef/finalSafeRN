@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
-import { OPON } from '../../../../src/visiteContext/adapters/primaries/components/ObservationPositiveON';
 import i18n from '../../../../src/assets/languages/i18n';
+import { OPON } from '@contexts/visiteContext/adapters/primaries/components/ObservationPositiveON';
 
 describe('ObservationPositiveON test', () => {
     const mockOnPressPositive = jest.fn();

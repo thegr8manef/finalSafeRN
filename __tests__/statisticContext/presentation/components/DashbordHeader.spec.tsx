@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
-import { DashboardHeader } from '../../../../src/statisticContext/adapters/primaries/components/DashboardHeader';
+import { DashboardHeader } from '@contexts/statisticContext/adapters/primaries/components/DashboardHeader';
 
 describe('HeaderDashboard', () => {
     it('should render the component with the correct text', () => {
