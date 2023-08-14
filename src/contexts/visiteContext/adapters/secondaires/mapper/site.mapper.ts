@@ -41,6 +41,8 @@ export class SiteMapper {
       chantier.osc,
       chantier.pid,
       chantier.piid,
+      chantier.sr,
+      chantier.org
     );
   }
 }

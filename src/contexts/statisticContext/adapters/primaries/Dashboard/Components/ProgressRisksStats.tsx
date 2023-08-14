@@ -23,29 +23,34 @@ export const ProgressRisksStats = (props: Props) => {
       </View>
       {props.statsRisk !== undefined ? (
         <View style={styles.content}>
+          <View style={styles.item}>  
           <ProgressBarCard
             label={'1-Vie du chantier'}
             value={props.statsRisk!.risk0.value! * 0.01}
             color={utils.colors.yellow}
           />
-
+          </View>
+          <View style={styles.item}>  
           <ProgressBarCard
             label={'2-' + t('txt.risks')}
             value={props.statsRisk!.risk1.value! * 0.01}
             color={utils.colors.green}
           />
-
+          </View>
+          <View style={styles.item}>  
           <ProgressBarCard
             label={'3-CHUTE DE HAUTEUR'}
             value={props.statsRisk!.risk2.value! * 0.01}
             color={utils.colors.blue}
           />
-
+          </View>
+          <View style={styles.item}>  
           <ProgressBarCard
             label={t('txt.others')!}
             value={props.statsRisk!.risk3.value! * 0.01}
             color={utils.colors.red}
           />
+          </View>
         </View>
       ) : (
         <View style={styles.contentUndefined}>
@@ -88,4 +93,5 @@ const styles = StyleSheet.create({
   textNoData: {
     color: utils.colors.gray700,
   },
+  item: {marginTop : 10}
 });

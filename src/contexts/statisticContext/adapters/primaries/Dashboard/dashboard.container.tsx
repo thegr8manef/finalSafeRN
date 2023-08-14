@@ -54,7 +54,6 @@ export const DashboardContainer = (props: Props) => {
 
   return (
     <View style={styles.f1}>
-      {/* <Header navigation={props.navigation} title={t('txt.dashboard')} /> */}
       <View style={styles.header}>
         <DashboardHeader
           visits={165}
