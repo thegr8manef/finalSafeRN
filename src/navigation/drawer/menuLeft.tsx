@@ -4,8 +4,8 @@ import {
   DrawerContentScrollView,
   DrawerItemList,
 } from '@react-navigation/drawer';
-import {Profile} from '../../profileContext/domain/entity/profile';
-import * as utils from '../../utils';
+import {Profile} from '@contexts/profileContext/domain/entity/profile';
+import * as utils from '@utils/index';
 
 interface Props {
   profile: Profile | undefined;
@@ -21,10 +21,7 @@ export const MenuLeft = (props: Props) => {
             <Text style={styles.email}>{props.profile?.email}</Text>
           </View>
           <View style={styles.logoutBtn}>
-            <Image
-              source={require('../../assets/img/icn_logout.png')}
-              style={styles.icn_logout}
-            />
+            <Image source={utils.images.logoutIcon} style={styles.icn_logout} />
           </View>
         </View>
       </View>
@@ -61,13 +58,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     fontFamily: 'AvenirLTStdHeavy',
-    color: colors.textColor,
+    color: utils.colors.textColor,
   },
   email: {
     top: 5,
     fontSize: 16,
     fontWeight: '500',
-    color: colors.textColor,
+    color: utils.colors.textColor,
   },
   icn_logout: {
     width: 35,

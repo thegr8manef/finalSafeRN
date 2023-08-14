@@ -1,5 +1,5 @@
 import React from 'react';
-import * as utils from '../../../../utils';
+import * as utils from '@utils/index';
 import {ActivityIndicator} from 'react-native';
 
 interface Props {

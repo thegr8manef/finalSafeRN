@@ -1,22 +1,26 @@
-import {View, Text, StyleSheet, Image, Pressable} from 'react-native';
-import colors from '../../../../assets/colors';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Pressable,
+  Dimensions,
+} from 'react-native';
+import * as utils from '@utils/index';
 import React from 'react';
 
 interface Props {
   title: string;
   navigation: any;
 }
-export const Header = (props: Props):JSX.Element => {
+export const Header = (props: Props): JSX.Element => {
   return (
     <View style={styles.header}>
       <View style={styles.header_title}>
         <Pressable
           style={styles.pressable_sidbar}
           onPress={() => props.navigation.openDrawer()}>
-          <Image
-            style={styles.sidbar_icn}
-            source={require('../../../../assets/img/sidenav.png')}
-          />
+          <Image style={styles.sidbar_icn} source={utils.images.sidenavIcon} />
         </Pressable>
         <Text style={styles.page_title}>{props.title}</Text>
       </View>
@@ -24,7 +28,7 @@ export const Header = (props: Props):JSX.Element => {
         <Pressable style={styles.pressable_flash}>
           <Image
             style={styles.flash_icn}
-            source={require('../../../../assets/img/icon_flash_dashboard.png')}
+            source={utils.images.dashboardFlashIcon}
           />
         </Pressable>
       </View>
@@ -32,10 +36,11 @@ export const Header = (props: Props):JSX.Element => {
   );
 };
 
+const dimensions = Dimensions.get('screen');
 const styles = StyleSheet.create({
   header: {
-    height: '8%',
-    backgroundColor: colors.primary,
+    height: dimensions.height / 14,
+    backgroundColor: utils.colors.primary,
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -43,6 +48,7 @@ const styles = StyleSheet.create({
     width: '30%',
     height: '40%',
     marginStart: 15,
+    resizeMode: 'contain',
   },
   pressable_sidbar: {
     width: '30%',
@@ -50,7 +56,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   page_title: {
-    color: colors.textColor,
+    color: utils.colors.textColor,
     fontSize: 20,
     textAlign: 'center',
     fontWeight: '500',
@@ -70,13 +76,14 @@ const styles = StyleSheet.create({
   },
   header_icn_flash: {
     flex: 1,
+    height: '100%',
     flexDirection: 'row',
     justifyContent: 'flex-end',
   },
   flash_icn: {
-    width: '30%',
-    height: '70%',
-    resizeMode: 'stretch',
+    width: '40%',
+    height: '60%',
+    resizeMode: 'contain',
     marginRight: 25,
   },
 });
