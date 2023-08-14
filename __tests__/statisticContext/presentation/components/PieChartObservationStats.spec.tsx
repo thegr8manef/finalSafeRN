@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
-import { StatObservation } from '../../../../src/statisticContext/domain/entity/statObservation';
-import { PieChartObservationStats } from '../../../../src/statisticContext/adapters/primaries/Dashboard/Components/PieChartObservationStats';
+import { StatObservation } from '@contexts/statisticContext/domain/entity/statObservation';
+import { PieChartObservationStats } from '@contexts/statisticContext/adapters/primaries/Dashboard/Components/PieChartObservationStats';
 
 describe('PieChartObservationStats', () => {
   

@@ -2,14 +2,14 @@ import {Site} from '../domain/entity/Site';
 
 export interface VisitsState {
   saveFlash: SaveFlashState;
-  loadSiteByCode: LoadSiteByCodeState;
+  loadSites: LoadSitesState;
 }
 export interface SaveFlashState {
   error: string | undefined;
   loading: boolean;
 }
-export interface LoadSiteByCodeState {
+export interface LoadSitesState {
   error: string | undefined;
-  site: Site | null;
+  sites: Site[] | null;
   loading: boolean;
 }

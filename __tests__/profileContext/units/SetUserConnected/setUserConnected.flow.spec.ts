@@ -1,13 +1,11 @@
 import {Store} from 'redux';
-import {Profile} from '../../../../src/profileContext/domain/entity/profile';
-import {login} from '../../../../src/profileContext/useCases/Login/action';
-import {setUserConnected} from '../../../../src/profileContext/useCases/SetUserConnected/actions';
-import {
-  setUserConnectedErrorSelector,
-  setUserConnectedSelector,
-} from '../../../../src/profileContext/useCases/SetUserConnected/Selector';
-import {AppState} from '../../../../src/redux_configuration/appState';
+
 import {ReduxStoreWO} from '../../../reduxStore.wo';
+import { Profile } from '@contexts/profileContext/domain/entity/profile';
+import { login } from '@contexts/profileContext/useCases/Login/action';
+import { setUserConnectedSelector, setUserConnectedErrorSelector } from '@contexts/profileContext/useCases/SetUserConnected/Selector';
+import { setUserConnected } from '@contexts/profileContext/useCases/SetUserConnected/actions';
+import { AppState } from 'react-native';
 
 const deepFreeze = require('deep-freeze');
 

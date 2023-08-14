@@ -18,7 +18,6 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {StackParamList} from '@navigConfig/navigation.types';
 
 import {Profile} from '../../../../profileContext/domain/entity/profile';
-import {Header} from '@common/adapters/primaries/components/Header';
 
 interface Props {
   navigation: StackNavigationProp<StackParamList>;

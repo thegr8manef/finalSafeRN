@@ -4,5 +4,5 @@ import {Site} from '../entity/Site';
 
 export interface VisitsService {
   SaveFlash(data: Flash): Observable<void>;
-  LoadSiteByCode(code: string): Observable<Site>;
+  LoadAllSites(): Observable<Site[]>;
 }
