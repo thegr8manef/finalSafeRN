@@ -4,7 +4,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import styles from './splash.style';
 import {t} from 'i18next';
 import {StackParamList} from '@navigConfig/navigation.types';
-import {Profile} from '@profileContext/domain/entity/profile';
+import {Profile} from '@contexts/profileContext/domain/entity/profile';
 import * as utils from '@utils/index';
 import {ProgressBarCard} from '@contexts/statisticContext/adapters/primaries/components/ProgressBarCard';
 
@@ -21,12 +21,12 @@ export const SplashContainer = (props: Props) => {
   const [mountedSyn, setMountedSyn] = useState(false);
 
   useEffect(() => {
-    setTimeout(handleNavigation, 3000);
-  }, [props.profile, props.loading]);
-
-  useEffect(() => {
     props.loadLocalProfile();
   }, []);
+
+  useEffect(() => {
+    setTimeout(handleNavigation, 3000);
+  }, [props.profile, props.loading]);
 
   const handleNavigation = () => {
     if (props.profile) {
@@ -37,13 +37,23 @@ export const SplashContainer = (props: Props) => {
             props.loadSychronisationData(props.profile?.accessToken!);
           }
           if (props.loading == false && mountedSyn) {
-            props.navigation.replace('Home');
+            props.navigation.reset({
+              index: 0,
+              routes: [{name: 'Home'}],
+            });
           }
         } else {
-          props.navigation.replace('Home');
+          props.navigation.reset({
+            index: 0,
+            routes: [{name: 'Home'}],
+          });
         }
       } else {
-        props.navigation.navigate('Login');
+
+        props.navigation.reset({
+          index: 0,
+          routes: [{name: 'Login'}],
+        });
       }
     }
   };

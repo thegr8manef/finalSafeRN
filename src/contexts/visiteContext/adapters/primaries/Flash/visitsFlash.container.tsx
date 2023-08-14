@@ -149,7 +149,7 @@ export const VisitFlashContainer = (props: Props) => {
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
         <View style={styles.ContainerChantier}>
           <Text style={styles.selectionnerText}>
-            {t('selectionner_le_chantier_par')} :
+            {t('selectionner_le_chantier_par')} 
           </Text>
           <View style={styles.sitesListContainer}>
             <SitesList
@@ -194,7 +194,7 @@ export const VisitFlashContainer = (props: Props) => {
         ) : null}
 
         <View style={styles.CommentairesContainer}>
-          <Text>{t('txt.commentaires')}</Text>
+          <Text>{t('txt.commentaires')} :</Text>
           <CommentModal
             commentaires={commentaires}
             setcommentaires={setcommentaires}
@@ -287,8 +287,8 @@ const styles = StyleSheet.create({
   },
   radioButton1: {
     backgroundColor: utils.colors.green300,
-    width: '87%',
-    fontSize: 17,
+    width: '85%',
+    fontSize: 15,
     color : colors.textColor,
     paddingLeft : 10,
     paddingRight : 10,
@@ -297,8 +297,8 @@ const styles = StyleSheet.create({
   },
   radioButton2: {
     backgroundColor: utils.colors.yellow900,
-    width: '87%',
-    fontSize: 17,
+    width: '85%',
+    fontSize: 15,
     color : colors.textColor,
     paddingLeft : 10,
     paddingRight : 10,
@@ -307,8 +307,8 @@ const styles = StyleSheet.create({
   },
   radioButton3: {
     backgroundColor: utils.colors.pink,
-    width: '87%',
-    fontSize: 17,
+    width: '85%',
+    fontSize: 15,
     color : colors.textColor,
     paddingLeft : 10,
     paddingRight : 10,
