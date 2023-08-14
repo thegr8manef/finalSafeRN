@@ -46,7 +46,7 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <StatusBar translucent={true} backgroundColor={utils.colors.primary} />
+      <StatusBar translucent={true} backgroundColor={utils.colors.statusBar} />
       <SafeAreaProvider style={{flex: 1}}>
         <NavigationContainer>
           <RootNavigation />
