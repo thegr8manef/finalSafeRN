@@ -21,6 +21,7 @@ import {Site} from '../../../domain/entity/Site';
 import {SitesList} from '../components/SitesList';
 import colors from '@assets/colors';
 import { Observation } from '../components/ObservationView';
+import { onChange } from 'react-native-reanimated';
 
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
@@ -43,6 +44,7 @@ export const VisitFlashContainer = (props: Props) => {
   const [images, setimages] = useState([]);
   const [code, setCode] = useState('');
   const [clicked, setclicked] = useState(false);
+  const [onChangeText, setonChangeText] = useState(false);
   const [sitesList, setSitesList] = useState(props.sites)
   const [selectedSite, setSelectedSite]= useState(null)
 
@@ -124,8 +126,17 @@ Alert.alert('', t('etes_vous_sur_de_vouloir_sauvegarder')!!, [
       setSelectedSite(site)
    }  
     setclicked(false);
-    
   }
+  if (onChangeText) {
+    const listSites = sitesList?.some(listSites => listSites.name)
+    console.log("site",site)
+    if(site)
+    {
+       setSelectedSite(site)
+    }  
+     setclicked(false);
+   }
+ 
 
   return (
     <View style={styles.container}>
