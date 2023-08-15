@@ -4,8 +4,8 @@ import {useTranslation} from 'react-i18next';
 import styles from './profile.style';
 import * as utils from '@utils/index';
 import {StackParamList} from '@navigConfig/navigation.types';
-import {Profile} from '@profileContext/domain/entity/profile';
-import {User} from '@profileContext/domain/entity/user';
+import {Profile} from '@contexts/profileContext/domain/entity/profile';
+import {User} from '@contexts/profileContext/domain/entity/user';
 import {DetailsContainer} from '@common/adapters/primaries/components/DetailsContainer';
 import {SimpleHeader} from '@common/adapters/primaries/components/SimpleHeader';
 import {InfoContainer} from '@common/adapters/primaries/components/InfoContainer';
@@ -47,7 +47,7 @@ export const ProfileContainer = (props: Props) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.header_container}>
         <View style={styles.button_container}>
           <TouchableOpacity onPress={handlNavigation}>
@@ -87,6 +87,6 @@ export const ProfileContainer = (props: Props) => {
       <View style={styles.detailsContainer}>
         <InfoContainer title={t('txt.etablissement')} subtitle={' '} />
       </View>
-    </SafeAreaView>
+    </View>
   );
 };

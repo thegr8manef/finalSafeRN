@@ -8,7 +8,7 @@ import {useTranslation} from 'react-i18next';
 import {VisitsFlashPage} from '@contexts/visiteContext/adapters/primaries/Flash';
 import {MenuLeftPage} from './index';
 import {VisitsContainer} from '@contexts/visiteContext/adapters/primaries/Visit/visits.container';
-import colors from '@assets/colors';
+import { LocalProfilePage } from '@contexts/profileContext/adapters/primaries/LocalProfile';
 
 const Drawer = createDrawerNavigator();
 
@@ -17,12 +17,14 @@ export const HomeNavigation = () => {
 
   return (
     <Drawer.Navigator
+    
       initialRouteName="Dashboard"
       drawerContent={props => <MenuLeftPage {...props} />}
+    
       screenOptions={{
         headerShown: true,
         headerStyle : {
-            backgroundColor : colors.primary
+            backgroundColor : utils.colors.primary
         },
         drawerActiveBackgroundColor: utils.colors.griy500,
         drawerInactiveTintColor: '#333',
@@ -38,7 +40,7 @@ export const HomeNavigation = () => {
           drawerIcon: () => (
             <Image
               source={utils.images.dashboardIcon}
-              style={[styles.icon, {height: 20, width: 24}]}
+              style={[styles.icon]}
             />
           ),
         }}
@@ -78,14 +80,14 @@ export const HomeNavigation = () => {
           drawerIcon: () => (
             <Image
               source={utils.images.remarksIcon}
-              style={[styles.icon, {height: 28}]}
+              style={[styles.icon]}
             />
           ),
         }}
       />
       <Drawer.Screen
         name={t('txt.profile')}
-        component={DashboardPage}
+        component={LocalProfilePage}
         options={{
           drawerLabel: () => (
             <Text style={styles.label}>{t('txt.profile')}</Text>
@@ -117,7 +119,7 @@ const styles = StyleSheet.create({
   icon: {
     width: 24,
     height: 24,
-    resizeMode: 'stretch',
+    resizeMode :"contain",
     marginLeft: 15,
   },
   label: {
