@@ -37,25 +37,22 @@ export const SplashContainer = (props: Props) => {
             props.loadSychronisationData(props.profile?.accessToken!);
           }
           if (props.loading == false && mountedSyn) {
-            props.navigation.reset({
-              index: 0,
-              routes: [{name: 'Home'}],
-            });
+            resetNavigation('Home');
           }
         } else {
-          props.navigation.reset({
-            index: 0,
-            routes: [{name: 'Home'}],
-          });
+          resetNavigation('Home');
         }
       } else {
-
-        props.navigation.reset({
-          index: 0,
-          routes: [{name: 'Login'}],
-        });
+        resetNavigation('Login');
       }
     }
+  };
+
+  const resetNavigation = (componentName: keyof StackParamList) => {
+    props.navigation.reset({
+      index: 0,
+      routes: [{name: componentName}],
+    });
   };
 
   return (

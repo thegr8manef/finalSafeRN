@@ -19,8 +19,6 @@ export const VisitsContainer = (props: Props): JSX.Element => {
 
   return (
     <View style={styles.container}>
-      {/* <Header title={t('txt.visites')} navigation={props.navigation} /> */}
-
       <View style={styles.main}>
         <Text style={styles.txt_synchro}>{t('txt.aucune.synchro')}</Text>
 

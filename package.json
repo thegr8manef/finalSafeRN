@@ -8,7 +8,7 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest --config configuration/jest.config.json && open ./jest/coverage/index.html",
-    "lint:fix": "yarn eslint . --fix --ext .ts,.tsx"
+    "lint:fix": "npm eslint . --fix --ext .ts,.tsx"
   },
   "dependencies": {
     "@azure/msal-browser": "^2.37.0",

@@ -10,13 +10,10 @@ import {useEffect} from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import colors from '@assets/colors';
 
-
-
 interface Props {
   profile: Profile | undefined;
   loadProfileLocal: () => void;
 }
-
 
 export const MenuLeft = (props: Props) => {
 
