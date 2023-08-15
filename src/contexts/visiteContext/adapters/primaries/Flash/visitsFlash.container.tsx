@@ -79,6 +79,26 @@ export const VisitFlashContainer = (props: Props) => {
     }
   };
 
+  if (clicked) {
+   const site = sitesList?.find(site => site.reference === code)
+   console.log("site",site)
+   if(site)
+   {
+      setSelectedSite(site)
+   }  
+    setclicked(false);
+  }
+  if (onChangeText) {
+    const listSites = sitesList?.some(listSites => listSites.name)
+    console.log("site",site)
+    if(site)
+    {
+       setSelectedSite(site)
+    }  
+     setclicked(false);
+   }
+ 
+
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollViewContainer}>
