@@ -7,8 +7,7 @@ import { t } from 'i18next';
 // Define types for screen options
 type Props = {
     titleKey: string;
-    renderRight?: React.ReactNode; // Allow passing custom content to headerRight
-
+    renderHeaderRight?: React.ReactNode; // Allow passing custom content to headerRight
 };
 // Custom header component
 const CustomHeader: React.FC<{ title: string }> = ({ title }) => (
@@ -17,12 +16,13 @@ const CustomHeader: React.FC<{ title: string }> = ({ title }) => (
 
 // Function to create customized screen options
 export const HeaderOption = (props: Props) => ({
+    headerShown: true,
     headerTitle: () => <CustomHeader title={t(props.titleKey)} />,
     headerTitleAlign: 'center',
     headerBackground: () => <View style={styles.backgroundHeader} />,
     headerRight: () => (
         <>
-            {props.renderRight}
+            {props.renderHeaderRight}
         </>
     ),
 });

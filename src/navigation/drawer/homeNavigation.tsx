@@ -33,7 +33,7 @@ export const HomeNavigation = () => {
   }: ScreenOptionsProps) => ({
     ...HeaderOption({
       titleKey,
-      renderRight: headerRightContent,
+      renderHeaderRight: headerRightContent,
     }),
     drawerLabel: () => <Text style={styles.label}>{t(titleKey)}</Text>,
     drawerIcon: () => (

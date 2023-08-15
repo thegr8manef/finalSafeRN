@@ -45,7 +45,7 @@ export const ProfileContainer = (props: Props) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <>
       <View style={styles.detailsContainer}>
         {props.profile ? (
           <DetailsContainer
@@ -75,6 +75,6 @@ export const ProfileContainer = (props: Props) => {
       <View style={styles.detailsContainer}>
         <InfoContainer title={t('txt.etablissement')} subtitle={' '} />
       </View>
-    </SafeAreaView>
+      </>
   );
 };
