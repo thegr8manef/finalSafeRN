@@ -2,21 +2,21 @@
 
 import { ReduxStoreWO } from '../../reduxStore.wo';
 import { Store } from 'redux';
-import {AppState} from "@redux/appState";
+import { AppState } from "@redux/appState";
 import {
     loadingSitesSelector,
     loadSitesErrorSelector,
     sitesSelector
 } from "@contexts/visiteContext/useCases/LoadSites/selectors";
-import {Site} from "@contexts/visiteContext/domain/entity/Site";
-import {LoadSites} from "@contexts/visiteContext/useCases/LoadSites/action";
+import { Site } from "@contexts/visiteContext/domain/entity/Site";
+import { LoadSites } from "@contexts/visiteContext/useCases/LoadSites/action";
 const deepFreeze = require('deep-freeze');
 
 describe('Load Sites flow', () => {
     let store: Store<AppState>;
     let reduxStoreWO: ReduxStoreWO;
-const mockedSites = [new Site( '1','name','rue',1,false,'1235','FR','Paris',-1,-1,'ref','NR','r','11','gg',1,''),
-    new Site( '12','name 11','rue',1,false,'1235','FR','Paris',-1,-1,'ref','NR','r','11','gg',1, '')]
+    const mockedSites = [new Site('1', 'name', 'rue', 1, false, '1235', 'FR', 'Paris', -1, -1, 'ref', 'NR', 'r', '11', 'gg', 1, ''),
+    new Site('12', 'name 11', 'rue', 1, false, '1235', 'FR', 'Paris', -1, -1, 'ref', 'NR', 'r', '11', 'gg', 1, '')]
 
     beforeEach(() => {
         reduxStoreWO = new ReduxStoreWO();
