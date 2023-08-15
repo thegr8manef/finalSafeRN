@@ -1,7 +1,7 @@
 const fonts = {
-  AvenirHeavy: 'AvenirHeavy',
-  AvenirLight: 'AvenirLight',
-  AvenirMedium: 'AvenirMedium',
-  AvenirRoman: 'AvenirRoman',
+  AvenirHeavy: 'AvenirLTStdHeavy',
+  AvenirLight: 'AvenirLTStdLight',
+  AvenirMedium: 'AvenirLTStdMedium',
+  AvenirRoman: 'AvenirLTStdRoman',
 };
 export default fonts;

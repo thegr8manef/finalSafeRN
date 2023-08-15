@@ -1,69 +1,66 @@
-import {View, Text, StyleSheet, Image} from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import React from 'react';
-import {useTranslation} from 'react-i18next';
 import * as utils from '@utils/index';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import {StackNavigationProp} from '@react-navigation/stack';
-import {StackParamList} from '@navigConfig/navigation.types';
-import {Header} from '@common/adapters/primaries/components/Header';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { StackParamList } from '@navigConfig/navigation.types';
+import { t } from 'i18next';
+import globalStyle from '@styles/globalStyle';
+import ButtonComponent from '@common/adapters/primaries/components/ButtonPrimary';
+import { Divider } from '@common/adapters/primaries/components/Divider';
+import { Chantier } from '@common/adapters/secondaries/db/entity/Chantier';
 
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
 }
-const HorizontalLine = (): JSX.Element => {
-  return <View style={styles.horizontalLine} />;
-};
+
+interface CustomAddNewVisitProps {
+  title: string;
+  icon: any; // You might need to specify the correct type for the icon
+}
+
 
 export const VisitsContainer = (props: Props): JSX.Element => {
-  const {t} = useTranslation();
+
+  const CustomAddNewVisit: React.FC<CustomAddNewVisitProps> = ({ title, icon }) => {
+    return (
+      <View style={styles.visitContatiner}>
+        <Image source={icon} style={styles.visitImageStyle} />
+        <Text style={globalStyle.fontMediumDark15Style}>{title}</Text>
+      </View>
+    );
+  };
+
+  const CustomVisitList: React.FC<CustomAddNewVisitProps> = (Chantier : Chantier) => {
+    return (
+      <View></View>
+    );
+  };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.main}>
-        <Text style={styles.txt_synchro}>{t('txt.aucune.synchro')}</Text>
-
-        <View style={styles.synchroContainer}>
-          <Text style={styles.visites_cloturees}>
+    <View style={globalStyle.containerStyle}>
+      <View style={styles.mainStyle}>
+        <Text style={globalStyle.fontMedium15Style}>{t('txt.aucune.synchro')}</Text>
+        <View style={[globalStyle.rowContainerStyle, styles.synchroContainerStyle]}>
+          <Text style={globalStyle.fontMediumDark17Style}>
             {t('txt.visites.cloturees')}
           </Text>
-          <TouchableOpacity style={styles.btn_synchro}>
-            <Text style={styles.txt_btn_synchro}>{t('txt.synchroniser')}</Text>
-          </TouchableOpacity>
+          <ButtonComponent
+            buttonColor={utils.colors.primary}
+            width={'30%'}
+            textButton={t('txt.synchroniser')} />
         </View>
-        <HorizontalLine />
-
-        <View style={styles.list_vists}>
-          <Text>{t('txt.no.visit.clotured')}</Text>
+        <Divider />
+        <View style={globalStyle.centerContainerStyle}>
+          <Text style={globalStyle.fontMedium15Style}>{t('txt.no.visit.clotured')}</Text>
         </View>
       </View>
-      <HorizontalLine />
-      <View style={styles.footer}>
-        <Text style={styles.txt_new_visit}>{t('txt.creez.new.visite')}</Text>
-
-        <View style={styles.visits_type}>
-          <View style={styles.type_container}>
-            <Image
-              source={utils.images.addPrevenationIcon}
-              style={styles.type_image}
-            />
-            <Text style={styles.type_title}>{t('txt.prevention')}</Text>
-          </View>
-
-          <View style={styles.type_container}>
-            <Image
-              source={utils.images.addConformite}
-              style={styles.type_image}
-            />
-            <Text style={styles.type_title}>{t('txt.conformite')}</Text>
-          </View>
-
-          <View style={styles.type_container}>
-            <Image
-              source={utils.images.addhierarchicalIcon}
-              style={styles.type_image}
-            />
-            <Text style={styles.type_title}>{t('txt.hierarchique')}</Text>
-          </View>
+      <Divider />
+      <View style={globalStyle.containerStyle}>
+        <Text style={[globalStyle.fontBoldDark15Style, globalStyle.fontCenterStyle]}>{t('txt.creez.new.visite')}</Text>
+        <View style={styles.visitTypesStyle}>
+          <CustomAddNewVisit title={t('txt.prevention')} icon={utils.images.addPrevenationIcon} />
+          <CustomAddNewVisit title={t('txt.conformite')} icon={utils.images.addConformite} />
+          <CustomAddNewVisit title={t('txt.hierarchique')} icon={utils.images.addhierarchicalIcon} />
         </View>
       </View>
     </View>
@@ -71,128 +68,33 @@ export const VisitsContainer = (props: Props): JSX.Element => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  header: {
-    height: '8%',
-    backgroundColor: utils.colors.primary,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  sidbar_icn: {
-    width: '100%',
-    height: '30%',
-    marginLeft: 30,
-  },
-  pressable_sidbar: {
-    width: '12%',
-  },
-  page_title: {
-    color: utils.colors.textColor,
-    fontSize: 25,
-    marginLeft: '40%',
-    fontWeight: '500',
-  },
-  pressable_flash: {
-    width: '100%',
-    alignItems: 'flex-end',
-    justifyContent: 'center',
-  },
-  header_title: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  header_icn_flash: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-  },
-  flash_icn: {
-    width: '16%',
-    height: '70%',
-    resizeMode: 'stretch',
-    marginRight: 25,
-  },
-
-  main: {
+  mainStyle: {
     flex: 5,
     backgroundColor: utils.colors.white,
   },
-  txt_synchro: {
-    paddingLeft: 20,
-    paddingTop: 5,
-    paddingBottom: 5,
-    backgroundColor: utils.colors.default,
-  },
-
-  footer: {
-    flex: 1,
-  },
-  synchroContainer: {
-    height: 50,
+  synchroContainerStyle: {
+    margin: 10,
     backgroundColor: utils.colors.white,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+
   },
 
-  visites_cloturees: {
-    marginLeft: 20,
-    fontSize: 15,
-    color: utils.colors.textColor,
-  },
-
-  txt_btn_synchro: {
-    fontSize: 13,
-    color: utils.colors.textColor,
-  },
-
-  btn_synchro: {
-    marginRight: 20,
-    backgroundColor: utils.colors.gris200,
-    paddingLeft: 25,
-    paddingRight: 25,
-    paddingTop: 7,
-    paddingBottom: 7,
-    borderRadius: 3,
-  },
-
-  horizontalLine: {
-    borderBottomColor: utils.colors.gris100,
-    borderBottomWidth: 1,
-  },
-  list_vists: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  txt_new_visit: {
-    color: utils.colors.textColor,
-    fontSize: 13,
-    textAlign: 'center',
-    marginTop: 10,
-    fontWeight: 'bold',
-  },
-  visits_type: {
+  visitTypesStyle: {
     flex: 1,
     flexDirection: 'row',
   },
 
-  type_container: {
+  visitContatiner: {
     flex: 1,
     marginTop: 10,
     alignItems: 'center',
     marginBottom: 10,
   },
-  type_image: {
+  visitImageStyle: {
     width: '65%',
     height: '65%',
     resizeMode: 'contain',
   },
-
-  type_title: {
+  visitTitle: {
     textAlign: 'center',
     color: utils.colors.textColor,
     fontSize: 12,

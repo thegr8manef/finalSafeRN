@@ -1,12 +1,12 @@
 import {VisitsService} from '../../domain/gateway/visitsService';
 import {Observable, from} from 'rxjs';
-import {Flash} from '../../domain/entity/Flash';
 import ApplicationContext from '@common/appConfig/ApplicationContext';
 import {Site} from '../../domain/entity/Site';
 import { SiteMapper} from './mapper/site.mapper';
+import { VisitFlash } from '@contexts/visiteContext/domain/entity/VisitFlash';
 
 export class DbVisitsService implements VisitsService {
-  SaveFlash(data: Flash): Observable<void> {
+  SaveFlash(data: VisitFlash): Observable<void> {
     const saveFlashtoDb = new Promise<void>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
       try {

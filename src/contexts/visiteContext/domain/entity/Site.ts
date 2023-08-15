@@ -1,4 +1,3 @@
-import {Flash} from './Flash';
 
 export class Site {
   constructor(

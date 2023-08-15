@@ -1,6 +1,6 @@
 import {Photo} from './Photo';
 
-export class Flash {
+export class VisitFlash {
   constructor(
     private _commentaire: string,
     private _images: Photo[],

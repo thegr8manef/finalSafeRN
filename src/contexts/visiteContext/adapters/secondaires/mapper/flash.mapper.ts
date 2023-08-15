@@ -1,8 +1,8 @@
-import {Flash} from '../../../domain/entity/Flash';
+import { VisitFlash } from '@contexts/visiteContext/domain/entity/VisitFlash';
 import {FlashDto} from '../dto/flash.dto';
 
 export class FlashMapper {
-  static mapTodb(item: Flash): FlashDto {
+  static mapTodb(item: VisitFlash): FlashDto {
     const flash = new FlashDto(
       item.tk,
       item.idt,

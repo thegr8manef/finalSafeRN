@@ -10,32 +10,28 @@ import {
   Alert,
 } from 'react-native';
 import * as utils from '@utils/index';
-import {Flash} from '../../../domain/entity/Flash';
 import {useTranslation} from 'react-i18next';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {StackParamList} from '@navigConfig/navigation.types';
 import {RadioGroup} from 'react-native-radio-buttons-group';
 import {CommentModal} from '../components/CommentModal';
-import {OPON} from '../components/ObservationPositiveON';
-import {OPOFF} from '../components/ObservationPositiveOFF';
-import {ONON} from '../components/ObservationNegativeON';
-import {ONOFF} from '../components/ObservationNegativeOFF';
 import {ImageController} from '../components/ImageController';
 import {Site} from '../../../domain/entity/Site';
 import {SitesList} from '../components/SitesList';
-import {Header} from '@common/adapters/primaries/components/Header';
 import colors from '@assets/colors';
+import { Observation } from '../components/ObservationView';
+import { VisitFlash } from '@contexts/visiteContext/domain/entity/VisitFlash';
 
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
   loadingVisits: boolean;
   errorVisits: string | undefined;
-  flash: Flash | undefined;
-  saveFlash: (data: Flash) => void;
+  flash: VisitFlash | undefined;
+  saveFlash: (data: VisitFlash) => void;
   error: string | undefined;
-  site: Site | null;
+  sites: Site[] | null;
   loading: boolean;
-  loadSiteByCode: (code: string) => void;
+  LoadSites: () => void;
   navigationDrawer: any;
 }
 export const VisitFlashContainer = (props: Props) => {
@@ -45,60 +41,17 @@ export const VisitFlashContainer = (props: Props) => {
   const [btnPositive, setbtnPositive] = useState(false);
   const [btnNegative, setbtnNegative] = useState(false);
   const [images, setimages] = useState([]);
-  var test_observation = true;
-  var test_commentaires = true;
   const [code, setCode] = useState('');
   const [clicked, setclicked] = useState(false);
-  var test_observation = true;
-  var test_commentaires = true;
-
-  if (!mount) {
-    props.loadingVisits;
-  }
-  const flash = new Flash(commentaires, images, levelId);
-  const createTwoButtonAlert = () =>
-    Alert.alert('', t('etes_vous_sur_de_vouloir_sauvegarder'), [
-      {
-        text: 'NON',
-        style: 'cancel',
-      },
-      {
-        text: 'OUI',
-        onPress: () => [
-          props.saveFlash(flash),
-          props.navigation.jumpTo(t('txt.visites')),
-        ],
-      },
-    ]);
-  const SaveData = () => {
-    if (!btnNegative && !btnPositive) {
-      Alert.alert('', t('neg_ou_pos'));
-      test_observation = true;
-    } else {
-      test_observation = false;
-      if (commentaires === '') {
-        Alert.alert('', t('msg.saisr.commentaires.flash'));
-        test_commentaires = true;
-      } else {
-        test_commentaires = false;
-        if (!test_commentaires && !test_observation) {
-          createTwoButtonAlert();
-        }
-      }
-    }
-  };
-  if (clicked) {
-    props.loadSiteByCode(code);
-
-    setclicked(false);
-    
-  }
+  const [onChangeText, setonChangeText] = useState(false);
+  const [sitesList, setSitesList] = useState(props.sites)
+  const [selectedSite, setSelectedSite]= useState(null)
 
   const {t} = useTranslation();
   const OptionEcartSansRisque = useMemo(
     () => [
       {
-        id: '1', // acts as primary key, should be unique and non-empty string
+        id: '1',
         label: t('txt_i_know_i_can_i_act'),
         value: '1',
         color: utils.colors.gray90,
@@ -123,29 +76,70 @@ export const VisitFlashContainer = (props: Props) => {
   );
   useEffect(() => {
     setMount(true);
-  }, []);
-  const _onPressButtonPostiveON = () => {
-    setbtnPositive(true);
-    setbtnNegative(false);
+  }, []);  
+
+useEffect(()=>{
+  props.LoadSites()
+},[])
+ 
+useEffect(() =>{
+  if(props.sites != null)
+  setSitesList(props.sites)
+},[props.sites])
+
+const createTwoButtonAlert = () =>
+Alert.alert('', t('etes_vous_sur_de_vouloir_sauvegarder')!!, [
+  {
+    text: 'NON',
+    style: 'cancel',
+  },
+  {
+    text: 'OUI',
+    onPress: () => [
+      props.saveFlash(flash),
+      props.navigation.jumpTo(t('txt.visites')),
+    ],
+  },
+]);
+
+  const flash = new VisitFlash(commentaires, images, levelId);
+
+
+  const SaveData = () => {
+    if (!btnNegative && !btnPositive) {
+      Alert.alert('', t('neg_ou_pos')!!);
+    } else {
+      if (commentaires === '') {
+        Alert.alert('', t('msg.saisr.commentaires.flash')!!);
+      } else {
+          createTwoButtonAlert();
+      }
+    }
   };
 
-  const _onPressButtonNegativeON = () => {
-    setbtnNegative(true);
-    setbtnPositive(false);
-  };
-  const _onPressButtonPostiveOFF = () => {
-    setbtnPositive(false);
-    setbtnNegative(true);
-  };
-
-  const _onPressButtonNegativeOFF = () => {
-    setbtnPositive(true);
-    setbtnNegative(false);
-  };
+  if (clicked) {
+   const site = sitesList?.find(site => site.reference === code)
+   console.log("site",site)
+   if(site)
+   {
+      setSelectedSite(site)
+   }  
+    setclicked(false);
+  }
+  if (onChangeText) {
+    const listSites = sitesList?.some(listSites => listSites.name)
+    console.log("site",site)
+    if(site)
+    {
+       setSelectedSite(site)
+    }  
+     setclicked(false);
+   }
+ 
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={{flexGrow: 1}}>
+      <ScrollView contentContainerStyle={styles.scrollViewContainer}>
         <View style={styles.ContainerChantier}>
           <Text style={styles.selectionnerText}>
             {t('selectionner_le_chantier_par')} 
@@ -157,24 +151,17 @@ export const VisitFlashContainer = (props: Props) => {
               codeByChantier={code}
               setclicked={setclicked}
               clicked={clicked}
-              codeExist={props.site?.reference}
-              nom_chantier={props.site?.name}></SitesList>
+              codeExist={selectedSite?.reference}
+              nom_chantier={setclicked?.name}></SitesList>
           </View>
         </View>
 
-        <View style={styles.ContainerObservation}>
-          {!btnPositive ? (
-            <OPON onPressPositive={_onPressButtonPostiveON} />
-          ) : (
-            <OPOFF onPressPositiveOFF={_onPressButtonPostiveOFF} />
-          )}
-          <View style={styles.DividerObservation} />
-          {!btnNegative ? (
-            <ONON onPressNegative={_onPressButtonNegativeON} />
-          ) : (
-            <ONOFF onPressNegativeOFF={_onPressButtonNegativeOFF} />
-          )}
-        </View>
+      <Observation 
+        setbtnPositive={setbtnPositive} 
+        setbtnNegative={setbtnNegative} 
+        btnPositive={btnPositive} 
+        btnNegative={btnNegative}/>
+
         {btnNegative ? (
           <View style={styles.RadioContainer}>
             <Text style={[styles.selectionnerText, styles.toCorroctText]}>
@@ -185,7 +172,7 @@ export const VisitFlashContainer = (props: Props) => {
               onPress={setLevelId}
               selectedId={levelId}
               layout="column"
-              containerStyle={{alignItems: 'flex-start'}}
+              containerStyle={styles.radioGroupContainer}
               buttonColor={'#2196f3'}
               labelColor={'#000'}
             />
@@ -199,36 +186,37 @@ export const VisitFlashContainer = (props: Props) => {
             setcommentaires={setcommentaires}
           />
         </View>
+
         <View style={styles.ImageContainer}>
           {Object.keys(images).length === 0 || images === null ? (
             <Text style={styles.ImageContainerText}>
               {t('txt.aucune.image')}
             </Text>
           ) : (
-            // <Image source={{uri: filePath.uri}} style={styles.imageStyle} />
             <FlatList
               horizontal={true}
               showsHorizontalScrollIndicator={false}
               data={images}
               renderItem={({item, index}) => (
                 <Image
-                  source={{uri: item}} /* Use item to set the image source */
-                  key={index} /* Important to set a key for list items,
-                               but it's wrong to use indexes as keys, see below */
+                  source={{uri: item}}
+                  key={index}
                   style={styles.imageStyle}
                 />
               )}
             />
           )}
         </View>
+
       </ScrollView>
+
       <View style={styles.BottomNav}>
         <View style={styles.DividerTwoImageBottomNav}>
           <ImageController images={images} setimages={setimages} />
           <View style={styles.dividerBottomNav} />
           <View style={styles.dividerBottomNav}>
             <Pressable
-              android_ripple={{color: utils.colors.gris300}}
+              android_ripple={styles.androidRipple}
               onPress={() => SaveData()}>
               <Text style={styles.buttonBottomnav}>
                 {t('txt.sauvegarder.remarque')}
@@ -237,11 +225,21 @@ export const VisitFlashContainer = (props: Props) => {
           </View>
         </View>
       </View>
+      
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  scrollViewContainer:{
+    flexGrow: 1
+  },
+  radioGroupContainer:{
+    alignItems: 'flex-start'
+  },
+  androidRipple:{
+    color: utils.colors.gris300
+  },
   container: {
     flex: 1,
     backgroundColor: utils.colors.white,
