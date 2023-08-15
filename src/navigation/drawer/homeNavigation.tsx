@@ -1,123 +1,126 @@
 import * as React from 'react';
-import {StyleSheet, Text, Image} from 'react-native';
-import {createDrawerNavigator} from '@react-navigation/drawer';
-import {DashboardPage} from '@contexts/statisticContext/adapters/primaries/Dashboard';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { DashboardPage } from '@contexts/statisticContext/adapters/primaries/Dashboard';
+import { VisitsFlashPage } from '@contexts/visiteContext/adapters/primaries/Flash';
+import { MenuLeftPage } from './index';
+import { VisitsContainer } from '@contexts/visiteContext/adapters/primaries/Visit/visits.container';
 import * as utils from '@utils/index';
+import { t } from 'i18next';
+import { HeaderOption } from '@common/adapters/primaries/components/HeaderOption';
+import {
+  StyleSheet,
+  Text,
+  Image,
+  ImageSourcePropType,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
 
-import {useTranslation} from 'react-i18next';
-import {VisitsFlashPage} from '@contexts/visiteContext/adapters/primaries/Flash';
-import {MenuLeftPage} from './index';
-import {VisitsContainer} from '@contexts/visiteContext/adapters/primaries/Visit/visits.container';
-import colors from '@assets/colors';
-
+// Create a Drawer navigator
 const Drawer = createDrawerNavigator();
 
 export const HomeNavigation = () => {
-  const {t} = useTranslation();
+  // Define types for screen options
+  type ScreenOptionsProps = {
+    titleKey: string;
+    drawerIconPath: ImageSourcePropType;
+  };
 
+  // Function to create customized screen options
+  const createScreenOptions = ({
+    titleKey,
+    drawerIconPath,
+  }: ScreenOptionsProps) => ({
+    ...HeaderOption({
+      titleKey,
+      renderHeaderRight: headerRightContent,
+    }),
+    drawerLabel: () => <Text style={styles.label}>{t(titleKey)}</Text>,
+    drawerIcon: () => (
+      <Image source={drawerIconPath} style={styles.iconStyle} />
+    ),
+  });
+
+  const headerRightContent = (
+    <TouchableOpacity>
+      <Image
+        style={styles.flashIcon}
+        source={utils.images.dashboardFlashIcon}
+      />
+    </TouchableOpacity>
+  );
+  // Return the Drawer Navigator
   return (
     <Drawer.Navigator
+    
       initialRouteName="Dashboard"
       drawerContent={props => <MenuLeftPage {...props} />}
-      screenOptions={{
-        headerShown: true,
-        headerStyle : {
-            backgroundColor : colors.primary
-        },
-        drawerActiveBackgroundColor: utils.colors.griy500,
-        drawerInactiveTintColor: '#333',
-        drawerItemStyle: {width: '100%',   marginLeft: 0, marginTop: -4},
-      }}>
+      screenOptions={styles.drawerStyle}>
       <Drawer.Screen
-        name={t('txt.dashboard')}
+        name={'dashboard'}
         component={DashboardPage}
-        options={{
-          drawerLabel: () => (
-            <Text style={styles.label}>{t('txt.dashboard')}</Text>
-          ),
-          drawerIcon: () => (
-            <Image
-              source={utils.images.dashboardIcon}
-              style={[styles.icon, {height: 20, width: 24}]}
-            />
-          ),
-        }}
+        options={createScreenOptions({
+          titleKey: 'txt.dashboard',
+          drawerIconPath: utils.images.dashboardIcon,
+        })}
       />
       <Drawer.Screen
-        name={t('txt.visites')}
+        name={'visites'}
         component={VisitsContainer}
-        options={{
-          drawerLabel: () => (
-            <Text style={styles.label}>{t('txt.visites')}</Text>
-          ),
-          drawerIcon: () => (
-            <Image source={utils.images.visitIcon} style={styles.icon} />
-          ),
-        }}
+        options={createScreenOptions({
+          titleKey: 'txt.visites',
+          drawerIconPath: utils.images.visitIcon,
+        })}
       />
       <Drawer.Screen
-        name={t('txt.new.visit.flash')}
+        name={'visit.flash'}
         component={VisitsFlashPage}
-        options={{
-          drawerLabel: () => (
-            <Text style={styles.label}>{t('txt.new.visit.flash')}</Text>
-          ),
-          drawerIcon: () => (
-            <Image source={utils.images.visitflashIcon} style={styles.icon} />
-          ),
-        }}
+        options={createScreenOptions({
+          titleKey: 'txt.new.visit.flash',
+          drawerIconPath: utils.images.visitflashIcon,
+        })}
       />
       <Drawer.Screen
-        name={t('txt.my.remarks')}
+        name={'my.remarks'}
         component={DashboardPage}
-        options={{
-          drawerLabel: () => (
-            <Text style={styles.label}>{t('txt.my.remarks')}</Text>
-          ),
-
-          drawerIcon: () => (
-            <Image
-              source={utils.images.remarksIcon}
-              style={[styles.icon, {height: 28}]}
-            />
-          ),
-        }}
+        options={createScreenOptions({
+          titleKey: 'txt.my.remarks',
+          drawerIconPath: utils.images.remarksIcon,
+        })}
       />
       <Drawer.Screen
-        name={t('txt.profile')}
+        name={'profile'}
         component={DashboardPage}
-        options={{
-          drawerLabel: () => (
-            <Text style={styles.label}>{t('txt.profile')}</Text>
-          ),
-
-          drawerIcon: () => (
-            <Image source={utils.images.profileIcon} style={styles.icon} />
-          ),
-        }}
+        options={createScreenOptions({
+          titleKey: 'txt.profile',
+          drawerIconPath: utils.images.profileIcon,
+        })}
       />
       <Drawer.Screen
-        name={t('txt.settings')}
+        name={'settings'}
         component={DashboardPage}
-        options={{
-          drawerLabel: () => (
-            <Text style={styles.label}>{t('txt.settings')}</Text>
-          ),
-
-          drawerIcon: () => (
-            <Image source={utils.images.settingsIcon} style={styles.icon} />
-          ),
-        }}
+        options={createScreenOptions({
+          titleKey: 'txt.settings',
+          drawerIconPath: utils.images.settingsIcon,
+        })}
       />
     </Drawer.Navigator>
   );
 };
 
 const styles = StyleSheet.create({
-  icon: {
+  drawerStyle: {
+    drawerActiveBackgroundColor: utils.colors.griy500,
+    drawerItemStyle: {
+      width: '100%',
+      marginLeft: 0,
+      marginTop: -4,
+    },
+  },
+  iconStyle: {
     width: 24,
     height: 24,
-    resizeMode: 'stretch',
+    resizeMode: 'contain',
     marginLeft: 15,
   },
   label: {
@@ -127,5 +130,11 @@ const styles = StyleSheet.create({
     marginLeft: -15,
     top: 5,
     color: utils.colors.textColor,
+  },
+  flashIcon: {
+    width: Dimensions.get('screen').width / 12,
+    height: 50,
+    resizeMode: 'contain',
+    marginRight: 25,
   },
 });

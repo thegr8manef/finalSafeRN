@@ -88,12 +88,11 @@ describe('synchonisation data flow', () => {
         '',
         1,
         -1,
-        [],
         'ref',
         'RDK',
         '',
         '1',
-        'dd',
+        'dd', 11, ''
       ),
       new Site(
         '2',
@@ -106,12 +105,11 @@ describe('synchonisation data flow', () => {
         '',
         1,
         -1,
-        [],
         'ref',
         'RDK',
         '',
         '2',
-        'dd',
+        'dd', 1, ''
       ),
     ]);
     reduxStoreWO.saveDataError('ERROR');
@@ -140,12 +138,11 @@ describe('synchonisation data flow', () => {
         '',
         1,
         -1,
-        [],
         'ref',
         'RDK',
         '',
         '1',
-        'dd',
+        'dd',1, ''
       ),
       new Site(
         '2',
@@ -158,12 +155,11 @@ describe('synchonisation data flow', () => {
         '',
         1,
         -1,
-        [],
         'ref',
         'RDK',
         '',
         '2',
-        'dd',
+        'dd', 11, ''
       ),
     ]);
     reduxStoreWO.saveDataNext();

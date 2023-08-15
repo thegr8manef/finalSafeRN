@@ -10,11 +10,11 @@ import {
   siteSelector,
   loadSiteByCodeErrorSelector,
   loadingSiteByCodeSelector,
-} from '@contexts/visiteContext/useCases/LoadSites/selectors';
-import {LoadSiteByCode} from '@contexts/visiteContext/useCases/LoadSites/action';
+} from '../../../../visiteContext/useCases/LoadSites/selectors';
+import {LoadSiteByCode} from '../../../../visiteContext/useCases/LoadSites/action';
 import {LoadSitesActionTypes} from '@contexts/visiteContext/useCases/LoadSites/actionTypes';
 import {Site} from '../../../domain/entity/Site';
-
+//TODO:FIX relative path aren't work well for selectors and actions
 interface StateToPropsType {
   errorVisits: string | undefined;
   error: string | undefined;
