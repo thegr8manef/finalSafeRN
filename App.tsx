@@ -4,7 +4,6 @@ import 'react-native-gesture-handler';
 import {reduxStore} from './src/redux_configuration/store.redux';
 import {Provider} from 'react-redux';
 import {NavigationContainer} from '@react-navigation/native';
-import RootNavigation from './src/navigation/configuration/rootNavigation';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import * as utils from '@utils/index';
 import {
@@ -14,6 +13,7 @@ import {
 import NetInfo from '@react-native-community/netinfo';
 import i18n from './src/assets/languages/i18n';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { RootNavigation } from '@navigConfig/rootNavigation';
 
 const store = reduxStore();
 
@@ -46,12 +46,12 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <StatusBar translucent={true} backgroundColor={utils.colors.primary} />
-      <SafeAreaProvider style={{flex: 1}}>
+      <StatusBar translucent={true} backgroundColor={utils.colors.statusBar} />
         <NavigationContainer>
+        <SafeAreaProvider style={{flex: 1}}>
           <RootNavigation />
+          </SafeAreaProvider>
         </NavigationContainer>
-      </SafeAreaProvider>
     </Provider>
   );
 }

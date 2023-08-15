@@ -7,14 +7,13 @@ import {
 import {Profile} from '@contexts/profileContext/domain/entity/profile';
 import * as utils from '@utils/index';
 import {useEffect} from 'react';
-
-
+import { SafeAreaView } from 'react-native-safe-area-context';
+import colors from '@assets/colors';
 
 interface Props {
   profile: Profile | undefined;
   loadProfileLocal: () => void;
 }
-
 
 export const MenuLeft = (props: Props) => {
 
@@ -22,7 +21,7 @@ export const MenuLeft = (props: Props) => {
     props.loadProfileLocal();
   }, [])
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <View style={styles.headerContainer}>
           <View style={styles.userInfo}>
@@ -34,10 +33,10 @@ export const MenuLeft = (props: Props) => {
           </View>
         </View>
       </View>
-      <DrawerContentScrollView {...props}>
+      <DrawerContentScrollView   {...props}>
         <DrawerItemList {...props} />
       </DrawerContentScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -52,7 +51,7 @@ const styles = StyleSheet.create({
     backgroundColor: utils.colors.primary,
   },
   headerContainer: {
-    flex: 1,
+  
     flexDirection: 'row',
   },
   userInfo: {

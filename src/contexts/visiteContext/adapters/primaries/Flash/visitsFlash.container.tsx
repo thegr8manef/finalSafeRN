@@ -21,7 +21,6 @@ import {Site} from '../../../domain/entity/Site';
 import {SitesList} from '../components/SitesList';
 import colors from '@assets/colors';
 import { Observation } from '../components/ObservationView';
-import { onChange } from 'react-native-reanimated';
 
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
