@@ -17,7 +17,7 @@ import { PreviewImages } from '../components/images/previewImages';
 import { FooterVisitFlash } from '../components/footerVisitFlash';
 
 interface Props {
-  navigation: any;
+  navigation: Partial<StackNavigationProp<StackParamList>>;
   loadingVisits: boolean;
   errorVisits: string | undefined;
   flash: Flash | undefined;
