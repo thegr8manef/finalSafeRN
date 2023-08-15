@@ -5,9 +5,10 @@ import { StatRisk } from '@contexts/statisticContext/domain/entity/statRisk';
 import { StatVisit } from '@contexts/statisticContext/domain/entity/statVisit';
 import { saveStats, saveStatsFailed, saveStatsSuccess } from '@contexts/statisticContext/useCases/saveStats/actions';
 import { saveStatsLoadingSelector, saveStatsErrorSelector } from '@contexts/statisticContext/useCases/saveStats/selectors';
-import { AppState } from 'react-native';
+
 import { ReduxStoreWO } from '../../reduxStore.wo';
 import { Store } from 'redux';
+import { AppState } from '@redux/appState';
 
 const deepFreeze = require('deep-freeze');
 
@@ -61,7 +62,7 @@ describe('save statistic flow', () => {
     expect(saveStatsErrorSelector(store.getState())).toBeUndefined();
   });
 
-  it('should start loading local statistic', done => {
+  it('should start saving statistic', done => {
     let eventCounter = 0;
     store.subscribe(() => {
       if (++eventCounter === 1) {
@@ -74,29 +75,30 @@ describe('save statistic flow', () => {
   });
 
 
-  it('should return error when loading save stats failed ', done => {
+  it('should return error when save stats ', done => {
     let eventCounter = 0;
     store.subscribe(() => {
-      if (++eventCounter === 1) {
+      if (++eventCounter === 2) {
         expect(saveStatsLoadingSelector(store.getState())).toBeFalsy();
         expect(saveStatsErrorSelector(store.getState())).toBe('ERROR');
         done();
       }
     });
-    store.dispatch(saveStatsFailed('ERROR'))
+    store.dispatch(saveStats(stat));
+    reduxStoreWO.saveStatsError('ERROR')
   });
 
 
   it('should save stats statistic success ', done => {
     let eventCounter = 0;
     store.subscribe(() => {
-      if (++eventCounter === 2) {
+      if (++eventCounter === 3) {
         expect(saveStatsLoadingSelector(store.getState())).toBeFalsy();
         expect(saveStatsErrorSelector(store.getState())).toBeUndefined();
         done();
       }
     });
     store.dispatch(saveStats(stat));
-    store.dispatch(saveStatsSuccess());
+    reduxStoreWO.saveStatsNext()
   });
 });

@@ -1,4 +1,5 @@
-import {AppState} from '../../../redux_configuration/appState';
+
+import { AppState } from '@redux/appState';
 import {Stat} from '../../domain/entity/Stat';
 
 export const localStatsSelector = (appState: AppState): Stat | undefined =>

@@ -10,26 +10,26 @@ import {
   EpicMiddleware,
   createEpicMiddleware,
 } from 'redux-observable';
-import {Subject} from 'rxjs';
-import {AppState} from '../src/redux_configuration/appState';
-import {connectionRootEpics} from '../src/common/isConnected/configuration/rootEpic';
-import {visitsRootEpics} from '@contexts/visiteContext/configuration/rootEpic';
-import {reduxReducer} from '../src/redux_configuration/rootReducers';
-import {Site} from '@contexts/visiteContext/domain/entity/Site';
-import {synchronisationRootEpics} from '@contexts/synchronisationContext/configuration/rootEpic';
-import {Stat} from "@contexts/statisticContext/domain/entity/Stat";
-import {Profile} from "@contexts/profileContext/domain/entity/profile";
-import {User} from "@contexts/profileContext/domain/entity/user";
-import {profileRootEpics} from "@contexts/profileContext/configuration/rootEpic";
-import {statisticRootEpics} from "@contexts/statisticContext/configuration/rootEpic";
+import { Subject } from 'rxjs';
+import { AppState } from '../src/redux_configuration/appState';
+import { connectionRootEpics } from '../src/common/isConnected/configuration/rootEpic';
+import { visitsRootEpics } from '@contexts/visiteContext/configuration/rootEpic';
+import { reduxReducer } from '../src/redux_configuration/rootReducers';
+import { Site } from '@contexts/visiteContext/domain/entity/Site';
+import { synchronisationRootEpics } from '@contexts/synchronisationContext/configuration/rootEpic';
+import { Stat } from "@contexts/statisticContext/domain/entity/Stat";
+import { Profile } from "@contexts/profileContext/domain/entity/profile";
+import { User } from "@contexts/profileContext/domain/entity/user";
+import { profileRootEpics } from "@contexts/profileContext/configuration/rootEpic";
+import { statisticRootEpics } from "@contexts/statisticContext/configuration/rootEpic";
 
 export class ReduxStoreWO {
   private static instance: ReduxStoreWO;
   private rootEpics: Epic;
   private middleware: EpicMiddleware<Action>;
   private loadStatistic$: Subject<Stat> = new Subject();
-  private loadStatFomLocal$: Subject<Stat> = new Subject();
-  private saveStatInLocal$: Subject<void> = new Subject();
+  private loadLocalStats$: Subject<Stat> = new Subject();
+  private saveStats$: Subject<void> = new Subject();
   private loginMsal$: Subject<Profile> = new Subject();
   private setUserConnected$: Subject<Profile> = new Subject();
   private checkUserConnected$: Subject<boolean> = new Subject();
@@ -57,8 +57,8 @@ export class ReduxStoreWO {
           loadStatistic: (): Subject<Stat> => this.loadStatistic$,
         },
         statsRepository: {
-          loadLocalStats: (): Subject<Stat> => this.loadStatFomLocal$,
-          saveStats: (): Subject<void> => this.saveStatInLocal$,
+          loadLocalStats: (): Subject<Stat> => this.loadLocalStats$,
+          saveStats: (): Subject<void> => this.saveStats$,
         },
         profileService: {
           loginMsal: (): Subject<Profile> => this.loginMsal$,
@@ -106,6 +106,8 @@ export class ReduxStoreWO {
   loadStatisticError = (error: string): void =>
     this.loadStatistic$.error(error);
 
+  saveStatsError = (error: string): void => this.saveStats$.error(error)
+  saveStatsNext = (): void => this.saveStats$.next()
   loadDataNext = (data: Site[]): void => this.LoadData$.next(data);
   loadDataError = (error: string): void => this.LoadData$.error(error);
 
@@ -140,6 +142,9 @@ export class ReduxStoreWO {
   loadLocalProfileError = (error: string): void =>
     this.loadLocalProfile$.error(error);
 
-  loadAllSitesError= (error: string): void => this.loadAllSites$.error(error)
-  loadAllSitesNext= (sites: Site[]): void => this.loadAllSites$.next(sites)
+  loadAllSitesError = (error: string): void => this.loadAllSites$.error(error)
+  loadAllSitesNext = (sites: Site[]): void => this.loadAllSites$.next(sites)
+
+  loadLocalStatsError = (error: string): void => this.loadLocalStats$.error(error)
+  loadLocalStatsNext = (stat: Stat): void => this.loadLocalStats$.next(stat)
 }
