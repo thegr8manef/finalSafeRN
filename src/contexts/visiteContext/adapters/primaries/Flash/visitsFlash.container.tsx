@@ -46,6 +46,7 @@ export const VisitFlashContainer = (props: Props) => {
   const [onChangeText, setonChangeText] = useState(false);
   const [sitesList, setSitesList] = useState(props.sites)
   const [selectedSite, setSelectedSite]= useState(null)
+  const [selectedSitelist, setSelectedSitelist]= useState([])
 
   const {t} = useTranslation();
   const OptionEcartSansRisque = useMemo(
@@ -127,13 +128,13 @@ Alert.alert('', t('etes_vous_sur_de_vouloir_sauvegarder')!!, [
     setclicked(false);
   }
   if (onChangeText) {
-    const listSites = sitesList?.some(listSites => listSites.name)
-    console.log("site",site)
-    if(site)
+    const listSites = sitesList?.filter(listSites => listSites.name === code)
+    console.log("listSites",listSites)
+    if(listSites !== undefined)
     {
-       setSelectedSite(site)
+      setSelectedSitelist(listSites)
     }  
-     setclicked(false);
+     setonChangeText(false);
    }
  
 
