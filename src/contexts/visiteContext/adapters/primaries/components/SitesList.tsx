@@ -2,8 +2,8 @@ import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
 import * as utils from '@utils/index';
 import {useTranslation} from 'react-i18next';
-import {SiteModalWithCode} from './SiteModalWithCode';
-import {SiteModalWithName} from './SiteModalWithName';
+import {SiteModalWithCode} from './SearchSiteWithCodeModal';
+import {SiteModalWithName} from './SearchSiteWithNameModal';
 interface Props {
   setcodeByChantier: (CodeChantier: string) => void;
   codeByChantier: string;

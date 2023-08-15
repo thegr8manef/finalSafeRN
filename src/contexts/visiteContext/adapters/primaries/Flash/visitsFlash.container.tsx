@@ -21,6 +21,7 @@ import {Site} from '../../../domain/entity/Site';
 import {SitesList} from '../components/SitesList';
 import colors from '@assets/colors';
 import { Observation } from '../components/ObservationView';
+import { SiteInfo } from '../components/siteInfo';
 
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
@@ -31,11 +32,11 @@ interface Props {
   error: string | undefined;
   sites: Site[] | null;
   loading: boolean;
-  LoadSites: () => void;
+  loadSites: () => void;
   navigationDrawer: any;
 }
 export const VisitFlashContainer = (props: Props) => {
-  const [mount, setMount] = useState(false);
+  const {t} = useTranslation();
   const [commentaires, setcommentaires] = useState('');
   const [levelId, setLevelId] = useState(0);
   const [btnPositive, setbtnPositive] = useState(false);
@@ -43,12 +44,21 @@ export const VisitFlashContainer = (props: Props) => {
   const [images, setimages] = useState([]);
   const [code, setCode] = useState('');
   const [clicked, setclicked] = useState(false);
-  const [sitesList, setSitesList] = useState(props.sites)
-  const [selectedSite, setSelectedSite]= useState(null)
+  const [sitesList, setSitesList] = useState<Site[] | null>(null)
+  const [selectedSite, setSelectedSite]= useState<Site | null>(null)
 
-  const {t} = useTranslation();
-  const OptionEcartSansRisque = useMemo(
-    () => [
+  useEffect(()=>{
+    props.loadSites()
+  },[])
+
+  useEffect(() =>{
+    console.log(props.sites)
+    if(props.sites != null)
+    setSitesList(props.sites)
+  },[props.sites])
+
+
+  const OptionEcartSansRisque = useMemo( () => [
       {
         id: '1',
         label: t('txt_i_know_i_can_i_act'),
@@ -73,18 +83,7 @@ export const VisitFlashContainer = (props: Props) => {
     ],
     [],
   );
-  useEffect(() => {
-    setMount(true);
-  }, []);
 
-useEffect(()=>{
-  props.LoadSites()
-},[])
-
-useEffect(() =>{
-  if(props.sites != null)
-  setSitesList(props.sites)
-},[props.sites])
 
 const createTwoButtonAlert = () =>
 Alert.alert('', t('etes_vous_sur_de_vouloir_sauvegarder')!!, [
@@ -130,21 +129,8 @@ Alert.alert('', t('etes_vous_sur_de_vouloir_sauvegarder')!!, [
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollViewContainer}>
-        <View style={styles.ContainerChantier}>
-          <Text style={styles.selectionnerText}>
-            {t('selectionner_le_chantier_par')}
-          </Text>
-          <View style={styles.sitesListContainer}>
-            <SitesList
-              loading={props.loading}
-              setcodeByChantier={setCode}
-              codeByChantier={code}
-              setclicked={setclicked}
-              clicked={clicked}
-              codeExist={selectedSite?.reference}
-              nom_chantier={setclicked?.name}></SitesList>
-          </View>
-        </View>
+        <SiteInfo sites={props.sites} selectedSite={selectedSite}/>
+
 
       <Observation
         setbtnPositive={setbtnPositive}

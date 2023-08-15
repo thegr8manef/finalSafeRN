@@ -1,63 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {View, Text, Modal, StyleSheet, Image} from 'react-native';
 import * as utils from '@utils/index';
 import {useTranslation} from 'react-i18next';
 import {TextInput} from 'react-native-gesture-handler';
 import {Divider} from '@common/adapters/primaries/components/Divider';
+import { Site } from '@contexts/visiteContext/domain/entity/Site';
+import { HeaderModal } from './HeaderModal';
+import { SearchInputSite } from './searchInputSite';
+import { SearchResultSites } from './searchResultSites';
 
 interface Props {
   modalVisible: boolean;
-  setWithNameVisibilty(visibilty: boolean): void;
+  onClose: () => void;
+  sites: Site[] | null
+  onSearch:(site: Site) =>void
 }
-export const SiteModalWithName = (props: Props) => {
+export const SearchSiteWithNameModal = (props: Props) => {
   const {t} = useTranslation();
-
-  const SetVisibilty = (visibilty: boolean) => {
-    props.setWithNameVisibilty(visibilty);
-  };
-
+const [keyword, setKeyword]= useState<string>('')
+const [sites, setSites]= useState<Site[] | undefined>(undefined)
+const searchSite= (keyword:string)=>{ 
+  setKeyword(keyword)
+ const filtedSites =  props.sites?.filter(site => site.name.indexOf(keyword) !== -1)
+  setSites(filtedSites)
+}
   return (
     <Modal
       animationType="slide"
       transparent={false}
       visible={props.modalVisible}>
       <View style={styles.centeredView}>
-        <View style={styles.header}>
-          <Text
-            style={styles.centeredTitle}
-            onPress={() => {
-              SetVisibilty(false);
-            }}>
-            {t('txt_cancel')}
-          </Text>
-          <Text
-            style={styles.centeredText}>
-            {t('choisir_un_chantier')}
-          </Text>
-        </View>
-        <View style={styles.container}>
-          <View style={styles.filter}>
-            <Text style={styles.textFiletr}> {t('choisir_un_chantier')}</Text>
-            <View style={styles.btnFilter}>
-              <Text style={styles.textFiletr}> {t('txt.mes.chantier')}</Text>
-              <Image
-                source={utils.images.filterArrowIcon}
-                style={styles.filterIcon}
-              />
-            </View>
-          </View>
-        </View>
+      <HeaderModal title={t('choisir_un_chantier')} onLeftPress={props.onClose} leftLabel={t('txt_cancel')} />
 
-        <Divider />
-        <View style={styles.filterContainer}>
-          <Image source={utils.images.searchIcon} style={styles.searchIcon} />
-          <TextInput
-            style={styles.input}
-            placeholder={t('txt.filter')!!}
-            cursorColor={utils.colors.primary}
-          />
-        </View>
-        <Divider />
+      <SearchInputSite keyword={keyword} searchSites={searchSite} />
+        <SearchResultSites sites={props.sites} />
       </View>
     </Modal>
   );

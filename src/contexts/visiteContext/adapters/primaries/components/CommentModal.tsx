@@ -27,14 +27,16 @@ export const CommentModal = (props: Props) => {
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <HeaderModal
-              children={t('txt.commentaires.without.start')}
-              onPressCustomizePositive={() => {
+              title={t('txt.commentaires.without.start')}
+              leftLabel={t('txt.annuler')}
+              rightLabel={t('txt.valider')}
+              onRightPress={() => {
                 if (props.commentaires.length !== 0) {
                   setModalVisible(!modalVisible);
                   setEmpty(false);
                 } else Alert.alert(t('error.point.empty'));
               }}
-              onPressCustomizeNegative={() => {
+              onLeftPress={() => {
                 setModalVisible(!modalVisible);
                 setEmpty(true);
                 props.setcommentaires('');

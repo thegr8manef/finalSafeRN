@@ -39,14 +39,16 @@ export class DbVisitsService implements VisitsService {
     return from(saveFlashtoDb);
   }
 
-  LoadAllSites(code: string): Observable<Site> {
-    const LoadChantierInDb = new Promise<Site>((resolve, reject) => {
+  LoadAllSites(): Observable<Site[]> {
+    console.log('--------')
+    const LoadChantierInDb = new Promise<Site[]>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
 
       try {
         db.then(realm => {
-          const objects = realm.objects('Chantier').filtered('ref == $0', code);
-          resolve(SiteMapper.maptoSite(objects[0]));
+          const objects = realm.objects('Chantier')
+          console.log(objects)
+          resolve(SiteMapper.maptoSite(objects));
         });
       } catch (error) {
         reject(error);

@@ -23,7 +23,7 @@ interface StateToPropsType {
 }
 interface DispatchToPropsType {
   saveFlash: (data: Flash) => void;
-  LoadSites: () => void;
+  loadSites: () => void;
 }
 const mapStateToProps = (state: AppState): StateToPropsType => ({
   errorVisits: saveFashErrorSelector(state),
@@ -34,7 +34,7 @@ const mapStateToProps = (state: AppState): StateToPropsType => ({
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => ({
   saveFlash: (data: Flash): FlashActionTypes => dispatch(SaveFlash(data)),
-  LoadSites: (): LoadSitesActionTypes => dispatch(LoadSites()),
+  loadSites: (): LoadSitesActionTypes => dispatch(LoadSites()),
 });
 
 export const VisitsFlashPage = connect(
