@@ -1,4 +1,5 @@
-import {AppState} from '../../../redux_configuration/appState';
+import { AppState } from "@redux/appState";
+
 
 export const saveStatsLoadingSelector = (appState: AppState): boolean =>
   appState.statistic.saveStats.loading;

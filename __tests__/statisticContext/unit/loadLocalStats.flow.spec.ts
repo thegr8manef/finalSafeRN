@@ -3,11 +3,12 @@ import { Stat } from '@contexts/statisticContext/domain/entity/Stat';
 import { StatObservation } from '@contexts/statisticContext/domain/entity/statObservation';
 import { StatRisk } from '@contexts/statisticContext/domain/entity/statRisk';
 import { StatVisit } from '@contexts/statisticContext/domain/entity/statVisit';
-import { loadLocalStats, loadLocalStatsFailed, loadLocalStatsSuccess } from '@contexts/statisticContext/useCases/LoadLocalStats/actions';
+import { loadLocalStats } from '@contexts/statisticContext/useCases/LoadLocalStats/actions';
 import { loadLocalStatLoadingSelector, localStatsSelector, loadLocalStatErrorSelector } from '@contexts/statisticContext/useCases/LoadLocalStats/selectors';
-import { AppState } from 'react-native';
+
 import { ReduxStoreWO } from '../../reduxStore.wo';
 import { Store } from 'redux';
+import { AppState } from '@redux/appState';
 
 const deepFreeze = require('deep-freeze');
 
@@ -59,6 +60,7 @@ describe('Load local statistic flow', () => {
   it('statistic reducer should have a initial state ', () => {
     expect(loadLocalStatLoadingSelector(store.getState())).toBeFalsy();
     expect(localStatsSelector(store.getState())).toBeUndefined();
+    expect(localStatsSelector(store.getState())).toBeUndefined()
   });
 
   it('should start loading local statistic', done => {
@@ -67,6 +69,7 @@ describe('Load local statistic flow', () => {
       if (++eventCounter === 1) {
         expect(loadLocalStatLoadingSelector(store.getState())).toBeTruthy();
         expect(loadLocalStatErrorSelector(store.getState())).toBeUndefined();
+        expect(localStatsSelector(store.getState())).toBeUndefined()
         done();
       }
     });
@@ -77,13 +80,15 @@ describe('Load local statistic flow', () => {
   it('should return error when loading statistic failed ', done => {
     let eventCounter = 0;
     store.subscribe(() => {
-      if (++eventCounter === 1) {
+      if (++eventCounter === 2) {
         expect(loadLocalStatLoadingSelector(store.getState())).toBeFalsy();
         expect(loadLocalStatErrorSelector(store.getState())).toBe('ERROR');
+        expect(localStatsSelector(store.getState())).toBeUndefined()
         done();
       }
     });
-    store.dispatch(loadLocalStatsFailed('ERROR'))
+    store.dispatch(loadLocalStats());
+    reduxStoreWO.loadLocalStatsError('ERROR')
   });
 
 
@@ -93,10 +98,11 @@ describe('Load local statistic flow', () => {
       if (++eventCounter === 2) {
         expect(loadLocalStatLoadingSelector(store.getState())).toBeFalsy();
         expect(loadLocalStatErrorSelector(store.getState())).toBeUndefined();
+        expect(localStatsSelector(store.getState())).toEqual(stat)
         done();
       }
     });
     store.dispatch(loadLocalStats());
-    store.dispatch(loadLocalStatsSuccess(stat));
+   reduxStoreWO.loadLocalStatsNext(stat)
   });
 });

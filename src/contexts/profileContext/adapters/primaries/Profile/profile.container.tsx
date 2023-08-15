@@ -4,14 +4,13 @@ import {useTranslation} from 'react-i18next';
 import styles from './profile.style';
 import * as utils from '@utils/index';
 import {StackParamList} from '@navigConfig/navigation.types';
+import {Profile} from '@contexts/profileContext/domain/entity/profile';
+import {User} from '@contexts/profileContext/domain/entity/user';
 import {DetailsContainer} from '@common/adapters/primaries/components/DetailsContainer';
 import {InfoContainer} from '@common/adapters/primaries/components/InfoContainer';
 import {Divider} from '@common/adapters/primaries/components/Divider';
-import { User } from '@contexts/profileContext/domain/entity/user';
-import { Profile } from '@contexts/profileContext/domain/entity/profile';
 import {
   View,
-  SafeAreaView,
   ActivityIndicator,
 } from 'react-native';
 
@@ -24,6 +23,7 @@ interface Props {
 }
 
 export const ProfileContainer = (props: Props) => {
+  
   const [mounted, setMounted] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
   const {t} = useTranslation();
@@ -38,11 +38,6 @@ export const ProfileContainer = (props: Props) => {
   if (!mounted) {
     props.loadProfileDetails(props.profile?.accessToken!);
   }
-  const handlNavigation = () => {
-    if (isCompleted) {
-      props.navigation.replace('Home');
-    }
-  };
 
   return (
     <>

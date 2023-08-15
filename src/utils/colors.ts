@@ -23,5 +23,6 @@ const colors = {
   red200: '#fc9ca0',
   orange: '#ff9f54',
   pink: '#fbd7d7',
+  statusBar: '#d6b518',
 };
 export default colors;

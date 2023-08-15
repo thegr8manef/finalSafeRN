@@ -52,6 +52,7 @@ export const HomeNavigation = () => {
   // Return the Drawer Navigator
   return (
     <Drawer.Navigator
+    
       initialRouteName="Dashboard"
       drawerContent={props => <MenuLeftPage {...props} />}
       screenOptions={styles.drawerStyle}>
