@@ -4,34 +4,36 @@ import { render } from '@testing-library/react-native';
 import { Site } from '@contexts/visiteContext/domain/entity/Site';
 import { Flash } from '@contexts/visiteContext/domain/entity/Flash';
 import { VisitFlashContainer } from '@contexts/visiteContext/adapters/primaries/Flash/visitsFlash.container';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { StackParamList } from '@navigConfig/navigation.types';
 
 interface Props {
-    navigation: any;
+    navigation: Partial<StackNavigationProp<StackParamList>>;
     loadingVisits: boolean;
     errorVisits: string | undefined;
     flash: Flash | undefined;
     saveFlash: (data: Flash) => void;
     error: string | undefined;
-    site: Site | null;
+    sites: Site[] | null;
     loading: boolean;
-    loadSiteByCode: (code: string) => void;
+    LoadSites: () => void;
     navigationDrawer: any;
-}
+  }
 
 describe('VisitFlashContainer', () => {
 
 const props: Props = {
-    navigation: {
-        navigate: jest.fn(),
+    navigation:  {
+        navigate: jest.fn()
     },
     loadingVisits: true,
     errorVisits: undefined,
     flash: undefined,
     saveFlash: jest.fn(),
     error: undefined,
-    site: null,
+    sites: null,
     loading: true,
-    loadSiteByCode: jest.fn(),
+    LoadSites: jest.fn(),
     navigationDrawer: jest.fn(),
 };
 

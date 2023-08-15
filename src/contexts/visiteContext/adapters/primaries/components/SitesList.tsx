@@ -3,8 +3,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SiteModalWithCode } from './SiteModalWithCode';
 import { SiteModalWithName } from './SiteModalWithName';
-import colors from '@utils/colors';
-import images from '@utils/images';
+import * as utils from '@utils/index';
 interface Props {
   setcodeByChantier: (CodeChantier: string) => void;
   codeByChantier: string;
@@ -30,7 +29,7 @@ export const SitesList = (props: Props) => {
           }}>
           <View style={styles.siteContainer}>
             <Image
-              source={images.inputIcon}
+              source={utils.images.inputIcon}
               style={styles.img}
             />
             <Text style={styles.label}>{t('code_chantier_btn')}</Text>
@@ -45,7 +44,7 @@ export const SitesList = (props: Props) => {
           }}>
           <View style={styles.siteContainer}>
             <Image
-              source={images.constructionIcon}
+              source={utils.images.constructionIcon}
               style={styles.img}
             />
             <Text style={styles.label}>{t('chantier_de_mon_perimetre')}</Text>
@@ -114,7 +113,7 @@ const styles = StyleSheet.create({
   },
   siteContainer: {
     flex: 1,
-    borderColor: colors.gris,
+    borderColor: utils.colors.gris,
     borderWidth: 0.8,
     justifyContent: 'center',
     alignItems: 'center',
@@ -135,7 +134,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   label: {
-    color: colors.textColor,
+    color: utils.colors.textColor,
     padding: 3,
     textAlign: 'center',
     flex: 1,
@@ -147,13 +146,13 @@ const styles = StyleSheet.create({
   },
   textCodeChantier: {
     textAlign: 'center',
-    color: colors.black,
+    color: utils.colors.black,
     marginTop: 20,
     fontSize: 17,
   },
   textNameChantier: {
     textAlign: 'center',
-    color: colors.gray700,
+    color: utils.colors.gray700,
     marginTop: 10,
   },
 });

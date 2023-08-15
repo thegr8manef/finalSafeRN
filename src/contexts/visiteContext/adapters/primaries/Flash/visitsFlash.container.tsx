@@ -23,7 +23,7 @@ import colors from '@assets/colors';
 import { Observation } from '../components/ObservationView';
 
 interface Props {
-  navigation: StackNavigationProp<StackParamList>;
+  navigation: Partial<StackNavigationProp<StackParamList>>;
   loadingVisits: boolean;
   errorVisits: string | undefined;
   flash: Flash | undefined;
@@ -40,7 +40,7 @@ export const VisitFlashContainer = (props: Props) => {
   const [levelId, setLevelId] = useState(0);
   const [btnPositive, setbtnPositive] = useState(false);
   const [btnNegative, setbtnNegative] = useState(false);
-  const [images, setimages] = useState([]);
+  const [images, setimages] = useState<any>([]);
   const [code, setCode] = useState('');
   const [clicked, setclicked] = useState(false);
   const [onChangeText, setonChangeText] = useState(false);
