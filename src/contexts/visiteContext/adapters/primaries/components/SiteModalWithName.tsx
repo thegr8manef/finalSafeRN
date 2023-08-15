@@ -24,13 +24,14 @@ export const SiteModalWithName = (props: Props) => {
         <View style={styles.header}>
           <Text
             testID='cancel-modal-btn'
-            style={[styles.normalText, { flex: 1 }]}
+            style={styles.centeredTitle}
             onPress={() => {
               SetVisibilty(false);
             }}>
             {t('txt_cancel')}
           </Text>
-          <Text style={[styles.normalText, { fontWeight: 'bold', fontSize: 15, flex: 1.5 }]}>
+          <Text
+            style={styles.centeredText}>
             {t('choisir_un_chantier')}
           </Text>
         </View>
@@ -53,7 +54,7 @@ export const SiteModalWithName = (props: Props) => {
           <TextInput
             testID='filter-input'
             style={styles.input}
-            placeholder={t('txt.filter')}
+            placeholder={t('txt.filter')!!}
             cursorColor={utils.colors.primary}
           />
         </View>
@@ -64,6 +65,22 @@ export const SiteModalWithName = (props: Props) => {
 };
 
 const styles = StyleSheet.create({
+  centeredTitle: {
+    color: utils.colors.textColor,
+    height: '90%',
+    marginTop: '10%',
+    alignItems: 'center',
+    flex: 1
+  },
+  centeredText: {
+    fontWeight: 'bold', 
+    fontSize: 15, 
+    flex: 1.5,
+    color: utils.colors.textColor,
+    height: '90%',
+    marginTop: '10%',
+    alignItems: 'center',
+  },
   centeredView: {
     flex: 1,
   },

@@ -11,14 +11,14 @@ export const OPON = (props: Props) => {
   return (
     <TouchableOpacity testID='up-thumb-btn'
       onPress={props.onPressPositive} style={styles.container}>
-      <View style={{ flex: 2 }}>
+      <View style={styles.imageConatiner}>
         <Image
           testID='img'
           source={utils.images.PositDisabledIcon}
           style={styles.logoImage1}
         />
       </View>
-      <View style={{ flex: 1 }}>
+      <View style={styles.textContainer}>
         <Text style={styles.TextObservation}>{t('observation_positive')}</Text>
       </View>
     </TouchableOpacity>
@@ -26,7 +26,13 @@ export const OPON = (props: Props) => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: utils.colors.griy500 },
+  imageConatiner: {
+    flex: 2
+  },
+  textContainer: {
+    flex: 1
+  },
+  container: {flex: 1, backgroundColor: utils.colors.griy500},
   TextObservation: {
     color: utils.colors.gris300,
     textAlign: 'center',

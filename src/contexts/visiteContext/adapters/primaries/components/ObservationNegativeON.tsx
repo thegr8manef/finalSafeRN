@@ -11,14 +11,14 @@ export const ONON = (props: Props) => {
   return (
     <TouchableOpacity testID='up-thumb-btn'
       onPress={props.onPressNegative} style={styles.container}>
-      <View style={{ flex: 2 }}>
+      <View style={styles.imageConatiner}>
         <Image
         testID='img'
           source={utils.images.NegDisabledIcon}
           style={styles.logoImage2}
         />
       </View>
-      <View style={{ flex: 1 }}>
+      <View style={styles.textContainer}>
         <Text style={styles.TextObservation}>{t('observation_negative')}</Text>
       </View>
     </TouchableOpacity>
@@ -26,6 +26,12 @@ export const ONON = (props: Props) => {
 };
 
 const styles = StyleSheet.create({
+  imageConatiner: {
+    flex: 2
+  },
+  textContainer: {
+    flex: 1
+  },
   logoImage2: {
     height: '40%',
     resizeMode: 'contain',

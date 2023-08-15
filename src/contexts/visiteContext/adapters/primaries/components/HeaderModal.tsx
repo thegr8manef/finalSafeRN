@@ -17,7 +17,7 @@ export const HeaderModal = (props: Props) => {
           <Pressable
           testID='cancel-btn'
             onPress={props.onPressCustomizeNegative}
-            android_ripple={{color: utils.colors.gris300}}>
+            android_ripple={styles.androidRipple}>
             <Text style={styles.textExtremetyLeft}>{t('txt.annuler')}</Text>
           </Pressable>
         </View>
@@ -28,7 +28,7 @@ export const HeaderModal = (props: Props) => {
           <Pressable
             testID='confirm-btn'
             onPress={props.onPressCustomizePositive}
-            android_ripple={{color: utils.colors.gris300}}>
+            android_ripple={styles.androidRipple}>
             <Text style={styles.textExtremetyRight}>{t('txt.valider')}</Text>
           </Pressable>
         </View>
@@ -38,6 +38,9 @@ export const HeaderModal = (props: Props) => {
 };
 
 const styles = StyleSheet.create({
+  androidRipple:{
+    color: utils.colors.gris300
+  },
   rectangle: {
     height: 50,
     backgroundColor: utils.colors.primary,
