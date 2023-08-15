@@ -2,7 +2,6 @@ import { Store } from "redux"
 import { User } from "@contexts/profileContext/domain/entity/user"
 import { loadLocalProfile } from "@contexts/profileContext/useCases/LoadLocalProfile/action"
 import { loadLocalProfileErrorSelector, loadLocalProfileSelector, localProfileSelector } from "@contexts/profileContext/useCases/LoadLocalProfile/selectors"
-import { loadProfileDetails } from "@contexts/profileContext/useCases/ProfileDetails/action"
 import { AppState } from "../../../../src/redux_configuration/appState"
 import { ReduxStoreWO } from "../../../reduxStore.wo"
 
@@ -11,7 +10,6 @@ const deepFreeze = require('deep-freeze')
 describe('Load local profile flow', () => {
     let store: Store<AppState>
     let reduxStoreWO: ReduxStoreWO
-    const accessTokenFake = 'ABCEJJEJEJJEJE'
     let user: User
 
     beforeEach(()=> {
@@ -43,16 +41,28 @@ describe('Load local profile flow', () => {
     it('should return error when loading local profile fails', done => {
         let eventCounter = 0
         store.subscribe(() => {
-            if(++eventCounter === 4) {
+            if(++eventCounter === 2) {
                 expect(loadLocalProfileSelector(store.getState())).toBeFalsy()
                 expect(loadLocalProfileErrorSelector(store.getState())).toBe("ERROR")
                 expect(localProfileSelector(store.getState())).toBeUndefined()
                 done()
             }
         })
-        store.dispatch(loadProfileDetails(accessTokenFake))
-        reduxStoreWO.loadProfileDetailsError("ERROR")
         store.dispatch(loadLocalProfile())
-        reduxStoreWO.loadLocalProfileError("ERROR")
+        reduxStoreWO.loadProfileDetailsError("ERROR")
+    })
+
+    it('should return user when loading local profile succeedded', done => {
+        let eventCounter = 0
+        store.subscribe(() => {
+            if(++eventCounter ===2) {
+                expect(loadLocalProfileSelector(store.getState())).toBeFalsy()
+                expect(loadLocalProfileErrorSelector(store.getState())).toBeUndefined()
+                expect(localProfileSelector(store.getState())).toEqual(user)
+                done()
+            }
+        })
+        store.dispatch(loadLocalProfile())
+        reduxStoreWO.loadProfileDetailsNext(user)
     })
 })

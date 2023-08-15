@@ -3,12 +3,12 @@ import { Stat } from '@contexts/statisticContext/domain/entity/Stat';
 import { StatObservation } from '@contexts/statisticContext/domain/entity/statObservation';
 import { StatRisk } from '@contexts/statisticContext/domain/entity/statRisk';
 import { StatVisit } from '@contexts/statisticContext/domain/entity/statVisit';
-import { loadRemoteStats, loadRemoteStatsFailed, loadRemoteStatsSuccess } from '@contexts/statisticContext/useCases/LoadRemoteStats/action';
+import { loadRemoteStats } from '@contexts/statisticContext/useCases/LoadRemoteStats/action';
 import { loadRemoteStatsLoadingSelector, remoteStatsSelector, loadRemoteStatsErrorSelector } from '@contexts/statisticContext/useCases/LoadRemoteStats/selectors';
-import { saveStats } from '@contexts/statisticContext/useCases/saveStats/actions';
 import { AppState } from 'react-native';
 import { ReduxStoreWO } from '../../reduxStore.wo';
 import { Store } from 'redux';
+import { saveStatsLoadingSelector } from '@contexts/statisticContext/useCases/saveStats/selectors';
 
 const deepFreeze = require('deep-freeze');
 
@@ -75,16 +75,17 @@ describe('Load remote statistic flow', () => {
   });
 
 
-  it('should return error when loading statistic failed ', done => {
+  it('should return error when loading remote statistic failed ', done => {
     let eventCounter = 0;
     store.subscribe(() => {
-      if (++eventCounter === 1) {
+      if (++eventCounter === 2) {
         expect(loadRemoteStatsLoadingSelector(store.getState())).toBeFalsy();
         expect(loadRemoteStatsErrorSelector(store.getState())).toBe('ERROR');
         done();
       }
     });
-    store.dispatch(loadRemoteStatsFailed('ERROR'))
+    store.dispatch(loadRemoteStats())
+    reduxStoreWO.loadStatisticError('ERROR')
   });
 
 
@@ -94,12 +95,12 @@ describe('Load remote statistic flow', () => {
       if (++eventCounter === 3) {
         expect(loadRemoteStatsLoadingSelector(store.getState())).toBeFalsy();
         expect(loadRemoteStatsErrorSelector(store.getState())).toBeUndefined();
+        expect(saveStatsLoadingSelector(store.getState())).toBeTruthy()
         done();
       }
     });
 
     store.dispatch(loadRemoteStats());
-    store.dispatch(saveStats(stat));
-    store.dispatch(loadRemoteStatsSuccess(stat));
+    reduxStoreWO.loadStatisticNext(stat)
   });
 });
