@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import * as utils from '@utils/index';
 import {useTranslation} from 'react-i18next';
 import { Site } from '@contexts/visiteContext/domain/entity/Site';
-import { HeaderModal } from './HeaderModal';
+import { HeaderModal } from '../HeaderModal';
+
 
 interface Props {
   modalVisible: boolean;
@@ -39,7 +40,7 @@ export const SearchSiteWithCodeModal = (props: Props) => {
        
       <View style={styles.container}>
       <HeaderModal title={t('txt.code.chantier.no.star')} onLeftPress={props.onClose} leftLabel={t('txt_cancel')}
-        rightLabel={t('txt.valider')!!} onRightPress={() =>searchSite()}
+        rightLabel={t('txt.valider')!} onRightPress={() =>searchSite()}
          />
         <View style={styles.content}>
           <Text>{t('txt.code.chantier')}</Text>

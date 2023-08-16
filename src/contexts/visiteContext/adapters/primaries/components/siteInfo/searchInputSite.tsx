@@ -1,5 +1,3 @@
-import { Divider } from '@common/adapters/primaries/components/Divider'
-import { Props } from '@react-native-community/checkbox/dist/CheckBox.android'
 import { t } from 'i18next'
 import React from 'react'
 import { View, Text, Image, TextInput, StyleSheet } from 'react-native'
@@ -27,7 +25,7 @@ export const SearchInputSite = (props: Props)=>{
                 <Image source={utils.images.searchIcon} style={styles.searchIcon} />
                 <TextInput
                     style={styles.input} value={props.keyword} onChangeText={props.searchSites}
-                    placeholder={t('txt.filter')!!}
+                    placeholder={t('txt.filter')!}
                     cursorColor={utils.colors.primary} />
             </View></View>
     )

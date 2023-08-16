@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-import {View, Text, Modal, StyleSheet, Image} from 'react-native';
+import {View,  Modal, StyleSheet, Image} from 'react-native';
 import * as utils from '@utils/index';
 import {useTranslation} from 'react-i18next';
-import {TextInput} from 'react-native-gesture-handler';
-import {Divider} from '@common/adapters/primaries/components/Divider';
 import { Site } from '@contexts/visiteContext/domain/entity/Site';
-import { HeaderModal } from './HeaderModal';
+import { HeaderModal } from '../HeaderModal';
 import { SearchInputSite } from './searchInputSite';
 import { SearchResultSites } from './searchResultSites';
 
@@ -33,7 +31,7 @@ const searchSite= (keyword:string)=>{
       <HeaderModal title={t('choisir_un_chantier')} onLeftPress={props.onClose} leftLabel={t('txt_cancel')} />
 
       <SearchInputSite keyword={keyword} searchSites={searchSite} />
-        <SearchResultSites sites={props.sites} />
+        <SearchResultSites sites={sites} />
       </View>
     </Modal>
   );

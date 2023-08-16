@@ -6,10 +6,11 @@ import * as utils from '@utils/index';
 import { SearchSiteItem } from './searchSiteItem';
 import { SearchSiteWithCodeModal } from './SearchSiteWithCodeModal';
 import { SearchSiteWithNameModal } from './SearchSiteWithNameModal';
+import { PreviewSite } from './previewSite';
 
 interface Props{
     sites: Site[] | null;
-    selectedSite: Site | null
+    selectedSite: Site | undefined
     setSelectedSite: (site: Site| undefined) => void
 }
 export const SiteInfo = (props: Props) =>{
@@ -26,10 +27,11 @@ export const SiteInfo = (props: Props) =>{
             <SearchSiteItem label={t('chantier_de_mon_perimetre')} icon={utils.images.constructionIcon} onPress={() =>setSearchWithNameVisible(true)}/>
             <SearchSiteItem label={t('qr_code')} icon={utils.images.qrCodeIcon} onPress={() =>setSearchWithCodeVisible(true)}/>
           </View>
+          <PreviewSite site={props.selectedSite}/>
           <SearchSiteWithCodeModal modalVisible={searchWithCodeVisible} onClose={()=> setSearchWithCodeVisible(false)} 
           onSearch={(site:  Site | undefined)=> props.setSelectedSite(site)} sites={props.sites} />
-          <SearchSiteWithNameModal modalVisible={searchWithNameVisible} onClose={()=>setSearchWithNameVisible(false) 
-          } sites={props.sites} onSearch={(site:  Site | undefined)=> props.setSelectedSite(site)} />
+          <SearchSiteWithNameModal modalVisible={searchWithNameVisible} onClose={()=>setSearchWithNameVisible(false)} sites={props.sites}
+           onSearch={(site:  Site | undefined)=> props.setSelectedSite(site)} />
       </View>
     )
 }

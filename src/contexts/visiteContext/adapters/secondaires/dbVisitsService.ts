@@ -40,15 +40,12 @@ export class DbVisitsService implements VisitsService {
   }
 
   LoadAllSites(): Observable<Site[]> {
-    console.log('--------')
     const LoadChantierInDb = new Promise<Site[]>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
-
       try {
         db.then(realm => {
           const objects = realm.objects('Chantier')
-          console.log(objects)
-          resolve(SiteMapper.maptoSite(objects));
+          resolve(SiteMapper.maptoSites(objects));
         });
       } catch (error) {
         reject(error);
