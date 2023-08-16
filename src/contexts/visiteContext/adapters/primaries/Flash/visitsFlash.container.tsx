@@ -38,7 +38,10 @@ export const VisitFlashContainer = (props: Props) => {
   useEffect(()=>{
     props.loadSites()
   },[])
- 
+  useEffect(()=>{
+    props.sites
+    console.log("🚀 ~ file: visitsFlash.container.tsx:43 ~ useEffect ~ props.sites:", props.sites)
+  },[props.sites])
   const addImage = (image: string) => {
     setImages([...images, image]);
   };

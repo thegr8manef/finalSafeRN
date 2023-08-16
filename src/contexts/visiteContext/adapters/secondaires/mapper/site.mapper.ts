@@ -21,7 +21,8 @@ export class SiteMapper {
       chantier.pid,
       chantier.piid,
       chantier.sr,
-      chantier.org
+      chantier.org,
+
     ));
   }
 }
