@@ -1,7 +1,7 @@
 import React from 'react';
-import { render } from '@testing-library/react-native';
-import { SitesList } from '../../../../src/visiteContext/adapters/primaries/components/SitesList';
+import { fireEvent, render } from '@testing-library/react-native';
 import i18n from '../../../../src/assets/languages/i18n';
+import { SitesList } from '@contexts/visiteContext/adapters/primaries/components/SitesList';
 
 describe('SitesList', () => {
 
@@ -46,8 +46,8 @@ describe('SitesList', () => {
     it('should not render the code and name of the chantier when they are not available', () => {
         const props = {
             codeExist: '',
-            codeByChantier: undefined,
-            nom_chantier: undefined,
+            codeByChantier: "",
+            nom_chantier: "",
             clicked: false,
             setcodeByChantier: () => { },
             setclicked: () => { },

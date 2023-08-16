@@ -16,19 +16,21 @@ export const HeaderModal = (props: Props) => {
       <View style={styles.container}>
         <View style={styles.left}>
           <Pressable
-            onPress={props.onLeftPress}
+          testID='cancel-btn'
+            onPress={props.onPressCustomizeNegative}
             android_ripple={styles.androidRipple}>
-            <Text style={styles.text}>{props.leftLabel}</Text>
+            <Text style={styles.textExtremetyLeft}>{t('txt.annuler')}</Text>
           </Pressable>
         </View>
-        <View style={styles.center}>
-          <Text style={styles.title}>{props.title}</Text>
+        <View style={styles.containerButtonCenter}>
+          <Text testID='header' style={styles.textCentre}>{props.children}</Text>
         </View>
-        <View style={styles.right}>
-          {props.rightLabel ? <Pressable
-            onPress={props.onRightPress}
+        <View style={styles.containerButtonLeft}>
+          <Pressable
+            testID='confirm-btn'
+            onPress={props.onPressCustomizePositive}
             android_ripple={styles.androidRipple}>
-            <Text style={styles.textRight}>{props.rightLabel}</Text>
+            <Text style={styles.textExtremetyRight}>{t('txt.valider')}</Text>
           </Pressable>
           : <View/>}
         </View>
@@ -40,7 +42,7 @@ const styles = StyleSheet.create({
   androidRipple:{
     color: utils.colors.gris300
   },
-  container: {
+  rectangle: {
     height: 50,
     backgroundColor: utils.colors.primary,
     flexDirection: 'row',

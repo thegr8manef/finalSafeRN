@@ -24,6 +24,7 @@ interface Props {
   saveFlash: (data: Flash) => void;
   error: string | undefined;
   sites: Site[] | null;
+  sites: Site[] | null;
   loading: boolean;
   loadSites: () => void;
   navigationDrawer: any;

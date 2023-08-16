@@ -41,6 +41,8 @@ export class ReduxStoreWO {
   private saveData$: Subject<void> = new Subject();
   private loadLastUpdateDate$: Subject<string> = new Subject();
   private loadLocalProfile$: Subject<Profile> = new Subject();
+  // Visite Services
+  // private SaveFlash$: Subject<Flash> = new Subject();
 
   private loadAllSites$: Subject<Site[]> = new Subject();
 
@@ -144,6 +146,15 @@ export class ReduxStoreWO {
     this.loadLocalProfile$.error(error);
 
   loadAllSitesError = (error: string): void => this.loadAllSites$.error(error)
+
+  // // Visite actions
+  // loadSiteByCodeNext = (site: Site): void => this.loadSiteByCode$.next(site)
+  // loadSiteByCodeError = (error: string): void => this.loadSiteByCode$.error(error)
+
+   // Save Flash actions
+  //  saveFlashNext = (flash: Flash): void => this.SaveFlash$.next(flash)
+   saveFlashError = (error: string): void => this.SaveFlash$.error(error)
+ 
   loadAllSitesNext = (sites: Site[]): void => this.loadAllSites$.next(sites)
 
   loadLocalStatsError = (error: string): void => this.loadLocalStats$.error(error)
