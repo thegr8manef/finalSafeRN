@@ -1,17 +1,15 @@
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {View, Text, StyleSheet, Image,TouchableOpacity} from 'react-native';
 import React from 'react';
 import {useTranslation} from 'react-i18next';
 import * as utils from '@utils/index';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {StackParamList} from '@navigConfig/navigation.types';
-import {Header} from '@common/adapters/primaries/components/Header';
 
 interface Props {
-  navigation: StackNavigationProp<StackParamList>;
+  navigation: Partial<StackNavigationProp<StackParamList>>;
 }
 const HorizontalLine = (): JSX.Element => {
-  return <View style={styles.horizontalLine} />;
+  return <View testID='horizontal-line' style={styles.horizontalLine} />;
 };
 
 export const VisitsContainer = (props: Props): JSX.Element => {
@@ -26,7 +24,7 @@ export const VisitsContainer = (props: Props): JSX.Element => {
           <Text style={styles.visites_cloturees}>
             {t('txt.visites.cloturees')}
           </Text>
-          <TouchableOpacity style={styles.btn_synchro}>
+          <TouchableOpacity testID='sync-button' style={styles.btn_synchro}>
             <Text style={styles.txt_btn_synchro}>{t('txt.synchroniser')}</Text>
           </TouchableOpacity>
         </View>
@@ -43,6 +41,7 @@ export const VisitsContainer = (props: Props): JSX.Element => {
         <View style={styles.visits_type}>
           <View style={styles.type_container}>
             <Image
+              testID='img-prevention'
               source={utils.images.addPrevenationIcon}
               style={styles.type_image}
             />
@@ -51,6 +50,7 @@ export const VisitsContainer = (props: Props): JSX.Element => {
 
           <View style={styles.type_container}>
             <Image
+              testID='img-conformite'
               source={utils.images.addConformite}
               style={styles.type_image}
             />
@@ -59,6 +59,7 @@ export const VisitsContainer = (props: Props): JSX.Element => {
 
           <View style={styles.type_container}>
             <Image
+              testID='img-hierarchical'
               source={utils.images.addhierarchicalIcon}
               style={styles.type_image}
             />
