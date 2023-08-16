@@ -1,14 +1,19 @@
 import {View, Text, StyleSheet, Image} from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import {useTranslation} from 'react-i18next';
 import * as utils from '@utils/index';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {StackParamList} from '@navigConfig/navigation.types';
-import {Header} from '@common/adapters/primaries/components/Header';
+import { Site } from '@contexts/visiteContext/domain/entity/Site';
 
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
+  errorVisits: string | undefined;
+  error: string | undefined;
+  sites: Site[] | null;
+  loading: boolean;
+  loadSites: () => void;
 }
 const HorizontalLine = (): JSX.Element => {
   return <View style={styles.horizontalLine} />;
@@ -16,7 +21,14 @@ const HorizontalLine = (): JSX.Element => {
 
 export const VisitsContainer = (props: Props): JSX.Element => {
   const {t} = useTranslation();
+  useEffect(() => {
+    props.loadSites();
+  }, []);
+  useEffect(() =>{
+    console.log("🚀 ~ file: visits.container.tsx:27 ~ useEffect ~ props.loadSites():", props.sites)
 
+  }, [props.sites]
+  )
   return (
     <View style={styles.container}>
       <View style={styles.main}>
