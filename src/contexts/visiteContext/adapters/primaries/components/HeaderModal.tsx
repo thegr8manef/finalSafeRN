@@ -1,48 +1,48 @@
-import {View, Text, StyleSheet, Pressable} from 'react-native';
+import { View, Text, StyleSheet, Pressable } from 'react-native';
 import * as utils from '@utils/index';
 import React from 'react';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   title: string;
-  onRightPress?: ()=> void;
-  onLeftPress:()=>void;
+  onRightPress?: () => void;
+  onLeftPress: () => void;
   leftLabel: string
   rightLabel?: string
 }
 export const HeaderModal = (props: Props) => {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   return (
-      <View style={styles.container}>
-        <View style={styles.left}>
-          <Pressable
-          testID='cancel-btn'
-            onPress={props.onPressCustomizeNegative}
-            android_ripple={styles.androidRipple}>
-            <Text style={styles.textExtremetyLeft}>{t('txt.annuler')}</Text>
-          </Pressable>
-        </View>
-        <View style={styles.containerButtonCenter}>
-          <Text testID='header' style={styles.textCentre}>{props.children}</Text>
-        </View>
-        <View style={styles.containerButtonLeft}>
-          <Pressable
-            testID='confirm-btn'
-            onPress={props.onPressCustomizePositive}
-            android_ripple={styles.androidRipple}>
-            <Text style={styles.textExtremetyRight}>{t('txt.valider')}</Text>
-          </Pressable>
-          : <View/>}
-        </View>
+    <View style={styles.container}>
+      <View style={styles.left}>
+        <Pressable
+          testID='header-modal-left-button'
+          onPress={props.onLeftPress}
+          android_ripple={styles.androidRipple}>
+          <Text style={styles.text}>{props.leftLabel}</Text>
+        </Pressable>
       </View>
+      <View style={styles.center}>
+        <Text style={styles.title}>{props.title}</Text>
+      </View>
+      <View style={styles.right}>
+        {props.rightLabel ? <Pressable
+          testID='header-modal-right-button'
+          onPress={props.onRightPress}
+          android_ripple={styles.androidRipple}>
+          <Text style={styles.textRight}>{props.rightLabel}</Text>
+        </Pressable>
+          : <View />}
+      </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  androidRipple:{
+  androidRipple: {
     color: utils.colors.gris300
   },
-  rectangle: {
+  container: {
     height: 50,
     backgroundColor: utils.colors.primary,
     flexDirection: 'row',

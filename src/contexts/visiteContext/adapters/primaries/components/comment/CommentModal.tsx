@@ -1,34 +1,32 @@
-import React, { useState } from 'react';
-import {
-  Modal,
-  StyleSheet,
-  View,
-  TextInput,
-  Alert,
-} from 'react-native';
-import { HeaderModal } from '../HeaderModal';
+import React, {useState} from 'react';
+import {Modal, StyleSheet, View, TextInput, Alert} from 'react-native';
+import {HeaderModal} from '../HeaderModal';
 import * as utils from '@utils/index';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 interface Props {
   comment: string;
   setComment: (text: string) => void;
   visible: boolean;
-  onClose: () => void
+  onClose: () => void;
 }
 
 export const CommentModal = (props: Props) => {
-  const [comment, setComment] = useState<string>(props.comment)
-  const { t } = useTranslation();
+  const [comment, setComment] = useState<string>(props.comment);
+  const {t} = useTranslation();
+
   const saveComment = () => {
     if (comment.length !== 0) {
-      props.setComment(comment)
-      props.onClose()
-    }
-    else
-      Alert.alert(t('error.point.empty'));
-  }
+      props.setComment(comment);
+      props.onClose();
+    } else Alert.alert(t('error.point.empty'));
+  };
+
   return (
-    <Modal animationType="slide" transparent={true} visible={props.visible}>
+    <Modal
+      testID="modal"
+      animationType="slide"
+      transparent={true}
+      visible={props.visible}>
       <View style={styles.container}>
         <HeaderModal
           title={t('txt.commentaires.without.start')}
@@ -38,6 +36,7 @@ export const CommentModal = (props: Props) => {
           onLeftPress={() => props.onClose()}
         />
         <TextInput
+          testID="text-input"
           style={styles.input}
           onChangeText={text => setComment(text)}
           value={comment}

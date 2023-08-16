@@ -1,96 +1,77 @@
-import React from 'react'
-import { render, fireEvent, waitFor } from '@testing-library/react-native';
-import { act } from 'react-test-renderer';
-import i18n from '../../../../src/assets/languages/i18n';
-import { CommentModal } from '@contexts/visiteContext/adapters/primaries/components/CommentModal';
+import React from 'react';
+import { render, fireEvent } from '@testing-library/react-native';
+import { CommentModal } from '@contexts/visiteContext/adapters/primaries/components/comment/CommentModal';
+import { Alert } from 'react-native';
 
 describe('CommentModal', () => {
-    beforeEach(() => {
-        i18n.init();
-    });
 
-    jest.mock('react-native/Libraries/Alert/Alert', () => ({
-        alert: jest.fn(),
-    }));
+  it('renders correctly', () => {
+    const setCommentMock = jest.fn();
+    const onCloseMock = jest.fn();
 
-    let props = {
-        commentaires: 'mock-comment',
-        setcommentaires: jest.fn
-    }
+    const { getByTestId } = render(
+      <CommentModal
+        comment=""
+        setComment={setCommentMock}
+        visible={true}
+        onClose={onCloseMock}
+      />
+    );
 
-    it('should render the component correctly', () => {
-        expect(render(<CommentModal {...props} />)).toBeTruthy()
-    });
+    const modal = getByTestId('modal');
+    const input = getByTestId('text-input');
+    
+    expect(modal).toBeTruthy();
+    expect(input).toBeTruthy();
+  });
 
-    it('should open the modal when the button is pressed with comments', () => {
+  it('calls setComment and onClose functions when valid comment is entered and validated', () => {
+    const setCommentMock = jest.fn();
+    const onCloseMock = jest.fn();
 
-        const { getByText, getByTestId } = render(<CommentModal  {...props} />);
-        const button = getByTestId('modal-btn');
+    const { getByTestId } = render(
+      <CommentModal
+        comment=""
+        setComment={setCommentMock}
+        visible={true}
+        onClose={onCloseMock}
+      />
+    );
 
-        act(()=>fireEvent.press(button))
+    // set a comment
+    const input = getByTestId('text-input');
+    fireEvent.changeText(input, 'Test comment');
+    
+    // save comment
+    const validateButton = getByTestId('header-modal-right-button');
+    fireEvent.press(validateButton);
+    
+    // close comment
+    const closeButton = getByTestId('header-modal-left-button');
+    fireEvent.press(closeButton);
+    
+    expect(setCommentMock).toHaveBeenCalledWith('Test comment');
+    expect(onCloseMock).toHaveBeenCalled();
+  });
 
-        waitFor(() => {
-            const headerModal = getByText('txt.commentaires.without.start')
-            expect(headerModal)
-                .toBeTruthy();
+  it('shows an error alert if the comment is empty when validated', () => {
+    const setCommentMock = jest.fn();
+    const onCloseMock = jest.fn();
+    const alertMock = jest.spyOn(Alert, 'alert');
 
-            // Initial state: empty is true
-            expect(getByTestId('comment-divider').children[0]).toBe(undefined);
+    const { getByTestId } = render(
+      <CommentModal
+        comment=""
+        setComment={setCommentMock}
+        visible={true}
+        onClose={onCloseMock}
+      />
+    );
 
-            fireEvent.changeText(getByTestId('text-input'), 'mock-comment');
+    const validateButton = getByTestId('header-modal-right-button');
+    fireEvent.press(validateButton);
+    
+    expect(alertMock).toHaveBeenCalledWith('error.point.empty');
+  });
 
-            // Updated state: empty is false
-            expect(getByTestId('comment-divider').children[0]).not.toBe('mock-comment');
-
-            fireEvent.press(getByTestId("confirm-btn"))
-            expect(props.setcommentaires).toHaveBeenCalledWith('');
-            fireEvent.press(getByTestId("cancel-btn"))
-            expect(props.setcommentaires).toHaveBeenCalledWith('');
-
-        }
-        );
-    });
-
-    it('should open the modal when the button is pressed without comments', async () => {
-
-        props = {
-            commentaires: '',
-            setcommentaires: jest.fn
-        }
-        
-        const { getByText, getByTestId } = render(<CommentModal  {...props} />);
-        const button = getByTestId('modal-btn');
-
-        fireEvent.press(button)
-
-        waitFor(() => {
-            const headerModal = getByText('txt.commentaires.without.start')
-            expect(headerModal)
-                .toBeTruthy();
-
-            // Initial state: empty is true
-            expect(getByTestId('comment-divider').children[0]).toBe(undefined);
-
-            fireEvent.changeText(getByTestId('text-input'), 'mock-comment');
-
-            // Updated state: empty is false
-            expect(getByTestId('comment-divider').children[0]).not.toBe('mock-comment');
-
-            fireEvent.press(getByTestId("confirm-btn"))
-            expect(props.setcommentaires).toHaveBeenCalledWith('');
-            fireEvent.press(getByTestId("cancel-btn"))
-            expect(props.setcommentaires).toHaveBeenCalledWith('');
-
-        }
-        );
-    });
-
-
-    it('should close the modal when the close button is pressed', () => {
-        const { getByTestId } = render(<CommentModal  {...props} />);
-        const button = getByTestId('modal-btn');
-        fireEvent.press(button)
-
-        fireEvent.press(getByTestId("cancel-btn"))
-    });
 });
