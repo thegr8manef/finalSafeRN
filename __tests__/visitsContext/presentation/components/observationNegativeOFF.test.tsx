@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
 import i18n from '../../../../src/assets/languages/i18n';
-import { ONOFF } from '../../../../src/visiteContext/adapters/primaries/components/ObservationNegativeOFF';
+import { ONOFF } from '@contexts/visiteContext/adapters/primaries/components/ObservationNegativeOFF';
 
 describe('ObservationNegativeOFF test', () => {
     const mockOFFPressNegative = jest.fn();

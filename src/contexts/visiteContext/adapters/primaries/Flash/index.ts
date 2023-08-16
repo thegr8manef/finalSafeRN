@@ -10,11 +10,14 @@ import {
   sitesSelector,
   loadSitesErrorSelector,
   loadingSitesSelector,
+  sitesSelector,
+  loadSitesErrorSelector,
+  loadingSitesSelector,
 } from '@contexts/visiteContext/useCases/LoadSites/selectors';
 import {LoadSites} from '@contexts/visiteContext/useCases/LoadSites/action';
 import {LoadSitesActionTypes} from '@contexts/visiteContext/useCases/LoadSites/actionTypes';
 import {Site} from '../../../domain/entity/Site';
-
+//TODO:FIX relative path aren't work well for selectors and actions
 interface StateToPropsType {
   errorVisits: string | undefined;
   error: string | undefined;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
-import { HeaderModal } from '../../../../src/visiteContext/adapters/primaries/components/HeaderModal';
 import i18n from '../../../../src/assets/languages/i18n';
+import { HeaderModal } from '@contexts/visiteContext/adapters/primaries/components/HeaderModal';
 
 describe('HeaderModal', () => {
     const props = {

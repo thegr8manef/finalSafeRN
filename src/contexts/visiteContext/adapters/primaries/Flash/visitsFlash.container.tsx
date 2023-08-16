@@ -18,11 +18,13 @@ import { FooterVisitFlash } from '../components/footerVisitFlash';
 
 interface Props {
   navigation: Partial<StackNavigationProp<StackParamList>>;
+  navigation: Partial<StackNavigationProp<StackParamList>>;
   loadingVisits: boolean;
   errorVisits: string | undefined;
   flash: Flash | undefined;
   saveFlash: (data: Flash) => void;
   error: string | undefined;
+  sites: Site[] | null;
   sites: Site[] | null;
   loading: boolean;
   loadSites: () => void;
