@@ -28,12 +28,16 @@ describe('SiteModalWithCode', () => {
 
         const cancelButton = getByTestId('cancel-modal-btn');
         expect(cancelButton).toBeDefined();
-
+        fireEvent.press(cancelButton)
         const validerButton = getByTestId('submit-btn');
         expect(validerButton).toBeDefined();
+        fireEvent.press(validerButton)
 
         const codeInput = getByTestId('code-input');
         expect(codeInput).toBeDefined();
+        fireEvent.press(codeInput)
+        fireEvent.changeText(codeInput,'123')
+
     });
 
     it('handles click on Valider button when (code?.length !== 0)', () => {
