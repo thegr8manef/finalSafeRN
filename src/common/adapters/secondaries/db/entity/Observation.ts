@@ -1,20 +1,37 @@
+import { Photo } from "./Photo";
+
 export class Observation extends Realm.Object<Observation> {
     token?: string;
     tokenQuestion?: string;
     parentQuestionToken?: string;
     idCS?: string;
-    date?: number;
-    chantier?: Chantier;
-    codeChantier?: string;
-    InfoComplementaire?: string;
-    remarques?: Remarque[];
-    observations?: Observation[];
-    accompagnants?: Accompagnant[];
-    V_enCours?: number;
-    pointToImprove?: PointToImprove[];
-    strongPoint?: StrongPoint[];
+    listPhotos?: Photo[];
+    responseId?: number;
     ordre?: number;
-    userId?: string;
-    dateVisite?: string;
-    type?: number;
+    VId?: string;
+    commentaire?: string;
+    dt?: string;
+    title?: string;
+    unq?: boolean;
+    remarqueID?: string;
+
+    static schema = {
+        name: 'Observation',
+        primaryKey: 'token',
+        properties: {
+            token: 'string?',
+            tokenQuestion: 'string?',
+            parentQuestionToken: 'string?',
+            idCS: 'string?',
+            listPhotos: 'Photo[]',
+            responseId: 'int',
+            ordre: 'int',
+            VId: 'string?',
+            commentaire: 'string?',
+            dt: 'string?',
+            title: 'string?',
+            unq: 'bool',
+            remarqueID: 'string',
+        },
+    };
 }

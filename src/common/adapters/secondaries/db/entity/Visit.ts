@@ -24,4 +24,28 @@ export class Visit extends Realm.Object<Visit> {
     userId?: string;
     dateVisite?: string;
     type?: number;
+
+    static schema = {
+        name: 'Visit',
+        primaryKey: 'id',
+        properties: {
+            id: 'string?',
+            dt: 'string?',
+            timeStamp: 'string',
+            date: 'string',
+            chantier: 'Chantier?',
+            codeChantier: 'string?',
+            InfoComplementaire: 'string?',
+            remarques: 'Remarque[]',
+            observations: 'Observation[]',
+            accompagnants: 'Accompagnant[]',
+            V_enCours: 'int',
+            pointToImprove: 'PointToImprove[]',
+            strongPoint: 'StrongPoint[]',
+            ordre: 'int',
+            userId: 'string?',
+            dateVisite: 'string?',
+            type: 'int',
+        },
+    }
 }

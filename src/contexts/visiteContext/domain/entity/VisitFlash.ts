@@ -10,7 +10,6 @@ export class VisitFlash {
   get commentaire(): string {
     return this._commentaire;
   }
-
   get images(): Photo[] {
     return this._images;
   }

@@ -1,5 +1,5 @@
 import { VisitFlash } from '@contexts/visiteContext/domain/entity/VisitFlash';
-import {FlashDto} from '../dto/flash.dto';
+import { FlashDto } from '../dto/flash.dto';
 
 export class FlashMapper {
   static mapTodb(item: VisitFlash): FlashDto {
