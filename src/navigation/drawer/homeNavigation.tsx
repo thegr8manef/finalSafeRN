@@ -15,6 +15,7 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
+import { LocalProfilePage } from '@contexts/profileContext/adapters/primaries/LocalProfile';
 
 // Create a Drawer navigator
 const Drawer = createDrawerNavigator();
@@ -90,7 +91,7 @@ export const HomeNavigation = () => {
       />
       <Drawer.Screen
         name={'profile'}
-        component={DashboardPage}
+        component={LocalProfilePage}
         options={createScreenOptions({
           titleKey: 'txt.profile',
           drawerIconPath: utils.images.profileIcon,
