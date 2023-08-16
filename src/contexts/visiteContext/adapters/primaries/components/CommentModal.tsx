@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   Modal,
   StyleSheet,
@@ -9,9 +9,9 @@ import {
   TextInput,
   Alert,
 } from 'react-native';
-import {HeaderModal} from './HeaderModal';
+import { HeaderModal } from './HeaderModal';
 import * as utils from '@utils/index';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 interface Props {
   commentaires: string;
   setcommentaires: (text: string) => void;
@@ -20,7 +20,7 @@ interface Props {
 export const CommentModal = (props: Props) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [empty, setEmpty] = React.useState(true);
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   return (
     <View style={styles.centeredView}>
       <Modal animationType="slide" transparent={true} visible={modalVisible}>
@@ -41,6 +41,7 @@ export const CommentModal = (props: Props) => {
               }}
             />
             <TextInput
+              testID='text-input'
               style={styles.input}
               onChangeText={text => props.setcommentaires(text)}
               value={props.commentaires}
@@ -56,15 +57,11 @@ export const CommentModal = (props: Props) => {
         style={[styles.button, styles.buttonOpen]}
         onPress={() => setModalVisible(true)}
         android_ripple={styles.androidRipple}>
-        {!empty ? (
-          <Text style={styles.commentDivider}>
-            {props.commentaires}
-          </Text>
-        ) : (
-          <Text style={styles.commentDivider}>
-            {[null]}
-          </Text>
-        )}
+
+        <Text testID='comment-divider' style={styles.commentDivider}>
+          {!empty ? props.commentaires : null}
+        </Text>
+
         <Image source={utils.images.textareaIcon} style={styles.logoImage3} />
         <Image source={utils.images.dividerIcon} style={styles.logoImage4} />
       </Pressable>
@@ -73,12 +70,12 @@ export const CommentModal = (props: Props) => {
 };
 
 const styles = StyleSheet.create({
-  androidRipple:{
+  androidRipple: {
     color: utils.colors.gris300
   },
   commentDivider: {
-    marginBottom: '-4%', 
-    marginLeft: '5%', 
+    marginBottom: '-4%',
+    marginLeft: '5%',
     fontSize: 17
   },
   centeredView: {
