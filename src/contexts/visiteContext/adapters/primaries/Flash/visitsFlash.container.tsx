@@ -39,6 +39,7 @@ export const VisitFlashContainer = (props: Props) => {
   },[])
   useEffect(()=>{
     props.sites
+    console.log("🚀 ~ file: visitsFlash.container.tsx:43 ~ useEffect ~ props.sites:", props.sites)
   },[props.sites])
   const addImage = (image: string) => {
     setImages([...images, image]);
@@ -100,15 +101,6 @@ export const VisitFlashContainer = (props: Props) => {
 };
 
 const styles = StyleSheet.create({
-  scrollViewContainer:{
-    flexGrow: 1
-  },
-  radioGroupContainer:{
-    alignItems: 'flex-start'
-  },
-  androidRipple:{
-    color: utils.colors.gris300
-  },
   container: {
     flex: 1,
     backgroundColor: utils.colors.white,

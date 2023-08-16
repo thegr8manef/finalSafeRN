@@ -35,6 +35,7 @@ export const HomeNavigation = () => {
       titleKey,
       renderHeaderRight: headerRightContent,
     }),
+    unmountOnBlur: true,
     drawerLabel: () => <Text style={styles.label}>{t(titleKey)}</Text>,
     drawerIcon: () => (
       <Image source={drawerIconPath} style={styles.iconStyle} />
