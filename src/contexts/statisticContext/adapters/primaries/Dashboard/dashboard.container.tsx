@@ -44,6 +44,7 @@ export const DashboardContainer = (props: Props) => {
   }
 
   useEffect(() => {
+    console.log('hello')
     setMount(true);
 
     if (props.error != undefined) {

@@ -9,21 +9,13 @@ import {
 } from 'react-native';
 import React from 'react';
 import * as utils from '@utils/index';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
 interface Props {
-  images: string;
-  setimages: (images: string[]) => void;
+  addImage:(image: string)=> void
 }
 
-export const ImageController = (props: Props) => {
-  const addItem = (newItem: string) => {
-    if (props.images.length === null) {
-      props.setimages([newItem]);
-    } else {
-      props.setimages([...props.images, newItem]);
-    }
-  };
+export const AddImageButtons = (props: Props) => {
 
   const requestCameraPermission = async () => {
     if (Platform.OS === 'android') {
@@ -64,13 +56,14 @@ export const ImageController = (props: Props) => {
         // If WRITE_EXTERNAL_STORAGE Permission is granted
         return granted === PermissionsAndroid.RESULTS.GRANTED;
       } catch (err) {
-        alert('Write permission err', err);
+        Alert.alert('Write permission err :: ' + err);
       }
       return false;
     } else {
       return true;
     }
   };
+ 
 
   const captureImage = async () => {
     const options = {
@@ -96,17 +89,18 @@ export const ImageController = (props: Props) => {
           Alert.alert('Permission not satisfied');
           return;
         } else if (response.errorCode == 'others') {
-          Alert.alert(response.errorMessage);
+          Alert.alert(response.errorMessage !);
           return;
         }
-        addItem(response.assets[0].uri);
+        if (response.assets && response.assets.length > 0 && response.assets[0].uri)
+        props.addImage(response.assets[0].uri);
       });
     }
   };
 
   const chooseFile = () => {
     const options = {
-      mediaType: 'photo',
+      mediaType          : 'photo',
       maxWidth: 300,
       maxHeight: 550,
       quality: 1,
@@ -122,31 +116,28 @@ export const ImageController = (props: Props) => {
         Alert.alert('Permission not satisfied');
         return;
       } else if (response.errorCode == 'others') {
-        Alert.alert(response.errorMessage);
+        Alert.alert(response.errorMessage!);
         return;
       }
-      addItem(response.assets[0].uri);
+      if (response.assets && response.assets.length > 0 && response.assets[0].uri)
+        props.addImage(response.assets[0].uri);
     });
   };
   return (
-    <View style={styles.DividerTwoImageBottomNav}>
-      <View style={{flex: 1}}>
-        <Pressable
+    <View style={styles.container}>
+        <Pressable style={styles.button}
           onPress={() => captureImage()}
-          android_ripple={{color: utils.colors.gris300}}>
+          android_ripple={{ color: utils.colors.gris300 }}>
           <Image
             style={styles.logoImage5}
             source={utils.images.takePhotoIcon}
           />
         </Pressable>
-      </View>
-      <View style={{flex: 1}}>
-        <Pressable
+        <Pressable style={styles.button}
           onPress={() => chooseFile()}
-          android_ripple={{color: utils.colors.gris300}}>
+          android_ripple={{ color: utils.colors.gris300 }}>
           <Image style={styles.logoImage5} source={utils.images.fileIcon} />
         </Pressable>
-      </View>
     </View>
   );
 };
@@ -154,16 +145,17 @@ const styles = StyleSheet.create({
   logoImage5: {
     width: 30,
     height: 25,
+    marginTop: 10,
     resizeMode: 'stretch',
     alignSelf: 'center',
-    marginTop: '25%',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  DividerTwoImageBottomNav: {
-    flex: 1,
+  container: {
     flexDirection: 'row',
+    flex:1
   },
+  button:{
+    padding:10
+  }
 });
-
-export default ImageController;

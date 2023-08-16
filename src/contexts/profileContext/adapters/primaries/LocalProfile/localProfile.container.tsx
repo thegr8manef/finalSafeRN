@@ -32,7 +32,7 @@ export const LocalProfileScreen  = (props: Props) =>  {
     <View style={styles.detailsContainer}>
       <InfoContainer
         title={t('txt.region')}
-     subtitle={props.profile?.region!!}
+     subtitle={props.profile?.region!}
       />
     </View>
     <Divider />

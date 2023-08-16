@@ -1,12 +1,12 @@
-import {View, Image, Text} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {StackNavigationProp} from '@react-navigation/stack';
+import { View, Image, Text } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { StackNavigationProp } from '@react-navigation/stack';
 import styles from './splash.style';
-import {t} from 'i18next';
-import {StackParamList} from '@navigConfig/navigation.types';
-import {Profile} from '@contexts/profileContext/domain/entity/profile';
+import { t } from 'i18next';
+import { StackParamList } from '@navigConfig/navigation.types';
+import { Profile } from '@contexts/profileContext/domain/entity/profile';
 import * as utils from '@utils/index';
-import {ProgressBarCard} from '@contexts/statisticContext/adapters/primaries/components/ProgressBarCard';
+import { ProgressBarCard } from '@contexts/statisticContext/adapters/primaries/components/ProgressBarCard';
 
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
@@ -51,12 +51,12 @@ export const SplashContainer = (props: Props) => {
   const resetNavigation = (componentName: keyof StackParamList) => {
     props.navigation.reset({
       index: 0,
-      routes: [{name: componentName}],
+      routes: [{ name: componentName }],
     });
   };
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} testID='splash-container'>
       <View style={styles.container_logo_splash}>
         <Image style={styles.logo_splash} source={utils.images.splashSLogo} />
         <View>
@@ -71,7 +71,7 @@ export const SplashContainer = (props: Props) => {
                   height={4}
                   unfilledColor={utils.colors.yellow800}
                 />
-                <Text style={styles.txtSynchro}>
+                <Text style={styles.txtSynchro} testID='synchro-text'>
                   {t('txt.synchronise.en.cours')}
                 </Text>
               </>

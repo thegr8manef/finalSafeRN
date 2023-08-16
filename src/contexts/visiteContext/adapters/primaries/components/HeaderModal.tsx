@@ -4,75 +4,79 @@ import React from 'react';
 import {useTranslation} from 'react-i18next';
 
 interface Props {
-  children: string;
-  onPressCustomizePositive(): void;
-  onPressCustomizeNegative(): void;
+  title: string;
+  onRightPress?: ()=> void;
+  onLeftPress:()=>void;
+  leftLabel: string
+  rightLabel?: string
 }
 export const HeaderModal = (props: Props) => {
   const {t} = useTranslation();
   return (
-    <View>
-      <View style={styles.rectangle}>
-        <View style={styles.containerButtonRight}>
+      <View style={styles.container}>
+        <View style={styles.left}>
           <Pressable
-            onPress={props.onPressCustomizeNegative}
-            android_ripple={{color: utils.colors.gris300}}>
-            <Text style={styles.textExtremetyLeft}>{t('txt.annuler')}</Text>
+            onPress={props.onLeftPress}
+            android_ripple={styles.androidRipple}>
+            <Text style={styles.text}>{props.leftLabel}</Text>
           </Pressable>
         </View>
-        <View style={styles.containerButtonCenter}>
-          <Text style={styles.textCentre}>{props.children}</Text>
+        <View style={styles.center}>
+          <Text style={styles.title}>{props.title}</Text>
         </View>
-        <View style={styles.containerButtonLeft}>
-          <Pressable
-            onPress={props.onPressCustomizePositive}
-            android_ripple={{color: utils.colors.gris300}}>
-            <Text style={styles.textExtremetyRight}>{t('txt.valider')}</Text>
+        <View style={styles.right}>
+          {props.rightLabel ? <Pressable
+            onPress={props.onRightPress}
+            android_ripple={styles.androidRipple}>
+            <Text style={styles.textRight}>{props.rightLabel}</Text>
           </Pressable>
+          : <View/>}
         </View>
       </View>
-    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  rectangle: {
+  androidRipple:{
+    color: utils.colors.gris300
+  },
+  container: {
     height: 50,
     backgroundColor: utils.colors.primary,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  textCentre: {
+  title: {
     fontSize: 16,
     fontWeight: 'bold',
     color: 'black',
     textAlign: 'center',
   },
-  textExtremetyLeft: {
+  text: {
     fontSize: 14,
     color: 'black',
     marginStart: 5,
   },
-  textExtremetyRight: {
+  textRight: {
     fontSize: 14,
     color: 'black',
     marginEnd: 5,
     textAlign: 'right',
   },
-  containerButtonRight: {
+  right: {
     flex: 1,
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  containerButtonCenter: {
+  center: {
     flex: 4,
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  containerButtonLeft: {
+  left: {
     flex: 1,
     height: '100%',
     justifyContent: 'center',
