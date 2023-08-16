@@ -59,5 +59,19 @@ describe('SitesList', () => {
         expect(getByTestId('chantier_de_mon_perimetre').props.value).toBeUndefined();
     });
 
+    it('should not render the code and name of the chantier when they are not available', () => {
+        const props = {
+            codeExist: '',
+            codeByChantier: "",
+            nom_chantier: "",
+            clicked: false,
+            setcodeByChantier: () => { },
+            setclicked: () => { },
+            loading: false
+        };
+        const { getByTestId } = render(<SitesList {...props} />);
 
+        fireEvent.press(getByTestId('code_chantier_btn'))
+        fireEvent.press(getByTestId('chantier_de_mon_perimetre'))
+    });
 });
