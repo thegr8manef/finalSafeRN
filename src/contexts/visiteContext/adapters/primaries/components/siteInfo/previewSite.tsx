@@ -8,9 +8,9 @@ interface Props {
 }
 export const PreviewSite = (props: Props) => {
     return (
-        <View>
+        <View style={styles.container}>
             {props.site ?
-                <View style={styles.container}>
+                <View>
                     <Text style={styles.code}>{props.site.reference}</Text>
                     <Text style={styles.name}>{props.site.name}</Text>
                 </View> :
@@ -22,7 +22,7 @@ export const PreviewSite = (props: Props) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex: 0.5,
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: 20
