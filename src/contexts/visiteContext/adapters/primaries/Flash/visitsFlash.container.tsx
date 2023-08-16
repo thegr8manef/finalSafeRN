@@ -17,13 +17,12 @@ import { PreviewImages } from '../components/images/previewImages';
 import { FooterVisitFlash } from '../components/footerVisitFlash';
 
 interface Props {
-  navigation: Partial<StackNavigationProp<StackParamList>>;
+  navigation: any;
   loadingVisits: boolean;
   errorVisits: string | undefined;
   flash: Flash | undefined;
   saveFlash: (data: Flash) => void;
   error: string | undefined;
-  sites: Site[] | null;
   sites: Site[] | null;
   loading: boolean;
   loadSites: () => void;
@@ -49,6 +48,7 @@ export const VisitFlashContainer = (props: Props) => {
 
   const saveVisit= () =>{
     if(validVisit()){
+      // TODO replace images with new Photo()
       const flash = new Flash(comment, images, levelId);
       Alert.alert('', t('etes_vous_sur_de_vouloir_sauvegarder')!, [
         {
@@ -80,26 +80,6 @@ export const VisitFlashContainer = (props: Props) => {
     }
   };
 
-  if (clicked) {
-   const site = sitesList?.find(site => site.reference === code)
-   console.log("site",site)
-   if(site)
-   {
-      setSelectedSite(site)
-   }  
-    setclicked(false);
-  }
-  if (onChangeText) {
-    const listSites = sitesList?.some(listSites => listSites.name)
-    console.log("site",site)
-    if(site)
-    {
-       setSelectedSite(site)
-    }  
-     setclicked(false);
-   }
- 
-
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollViewContainer}>
@@ -123,15 +103,6 @@ export const VisitFlashContainer = (props: Props) => {
 };
 
 const styles = StyleSheet.create({
-  scrollViewContainer:{
-    flexGrow: 1
-  },
-  radioGroupContainer:{
-    alignItems: 'flex-start'
-  },
-  androidRipple:{
-    color: utils.colors.gris300
-  },
   container: {
     flex: 1,
     backgroundColor: utils.colors.white,
