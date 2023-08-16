@@ -18,7 +18,7 @@ interface Props {
   navigation: StackNavigationProp<StackParamList>;
 }
 
-export const LoginContainer = (props: Props) => {
+export const LoginContainer: React.FC<Props> = (props: Props) => {
   const [open, setOpen] = useState(false);
   const [language, setLanguage] = useState('');
   const [mounted, setMounted] = useState(false);
@@ -43,18 +43,18 @@ export const LoginContainer = (props: Props) => {
       } else {
         setLanguage('Français');
       }
-    } catch (e) {}
+    } catch (e) { }
   };
 
   const changeLanguage = async () => {
     try {
       i18n.changeLanguage(language);
       await AsyncStorage.setItem('language', language);
-    } catch (e) {}
+    } catch (e) { }
   };
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} testID='login-container'>
       <View style={styles.languageContainer}>
         <DropDownPicker
           open={open}
@@ -76,6 +76,7 @@ export const LoginContainer = (props: Props) => {
         <Text style={styles.description}>{t('sso_description')}</Text>
       </View>
       <ActivityIndicator
+        testID='activity-indicator'
         size="large"
         color={utils.colors.primary}
         style={{display: props.loading ? 'flex' : 'none'}}
