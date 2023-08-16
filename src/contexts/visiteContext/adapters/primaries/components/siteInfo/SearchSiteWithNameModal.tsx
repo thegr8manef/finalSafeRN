@@ -26,9 +26,7 @@ const searchSite= (keyword:string)=>{
   setSites(filtedSites)
 }
 const onSelectSite = () => {
-  console.log(selectedSite)
   if(!selectedSite){
-    console.log('temchich')
    Alert.alert('',t('txt.veuillez.choisir.chantier')!!)
   }else{
     props.onSearch(selectedSite)
