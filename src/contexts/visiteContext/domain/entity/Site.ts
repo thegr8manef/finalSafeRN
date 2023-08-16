@@ -1,3 +1,4 @@
+import { Remarque } from '@common/adapters/secondaries/db/entity/Remarque';
 import {Flash} from './Flash';
 
 export class Site {
@@ -12,6 +13,7 @@ export class Site {
     private _ville: string,
     private _st: number,
     private _lastUpdateDate: number,
+    private _remarques: Remarque[],
     private _reference: string,
     private _regionName: string,
     private _osc: string,
@@ -88,5 +90,8 @@ export class Site {
 
   get id(): string {
     return this._id;
+  }
+  get remarque(): Remarque[] {
+    return this._remarques;
   }
 }
