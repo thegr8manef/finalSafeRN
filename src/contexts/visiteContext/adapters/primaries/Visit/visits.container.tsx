@@ -7,7 +7,7 @@ import { t } from 'i18next';
 import globalStyle from '@styles/globalStyle';
 import ButtonComponent from '@common/adapters/primaries/components/ButtonPrimary';
 import { Divider } from '@common/adapters/primaries/components/Divider';
-import { Chantier } from '@common/adapters/secondaries/db/entity/Chantier';
+import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
 
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
@@ -30,7 +30,7 @@ export const VisitsContainer = (props: Props): JSX.Element => {
     );
   };
 
-  const CustomVisitList: React.FC<CustomAddNewVisitProps> = (Chantier: Chantier) => {
+  const CustomVisitList: React.FC<CustomAddNewVisitProps> = (visit : Visit) => {
     return (
       <View></View>
     );

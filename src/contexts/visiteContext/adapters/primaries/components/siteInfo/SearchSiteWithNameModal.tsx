@@ -1,27 +1,43 @@
-import React, { useState } from 'react';
-import {View,  Modal, StyleSheet, Image} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import {View,  Modal, StyleSheet, Alert} from 'react-native';
 import * as utils from '@utils/index';
 import {useTranslation} from 'react-i18next';
 import { Site } from '@contexts/visiteContext/domain/entity/Site';
 import { HeaderModal } from '../HeaderModal';
 import { SearchInputSite } from './searchInputSite';
 import { SearchResultSites } from './searchResultSites';
+import { FooterSearchSiteWithName } from './FooterSearchSiteWithName';
 
 interface Props {
   modalVisible: boolean;
   onClose: () => void;
-  sites: Site[] | null
-  onSearch:(site: Site) =>void
+  sites: Site[] | undefined;
+  onSearch:(site: Site) =>void;
+
 }
 export const SearchSiteWithNameModal = (props: Props) => {
   const {t} = useTranslation();
 const [keyword, setKeyword]= useState<string>('')
 const [sites, setSites]= useState<Site[] | undefined>(undefined)
+const [selectedSite, setSelectedSite]= useState<Site | undefined>(undefined)
 const searchSite= (keyword:string)=>{ 
   setKeyword(keyword)
  const filtedSites =  props.sites?.filter(site => site.name.indexOf(keyword) !== -1)
   setSites(filtedSites)
 }
+const onSelectSite = () => {
+  if(!selectedSite){
+   Alert.alert('',t('txt.veuillez.choisir.chantier')!!)
+  }else{
+    props.onSearch(selectedSite)
+    props.onClose()
+  }
+}
+
+useEffect(() => {
+  
+  },[selectedSite]);
+
   return (
     <Modal
       animationType="slide"
@@ -31,7 +47,8 @@ const searchSite= (keyword:string)=>{
       <HeaderModal title={t('choisir_un_chantier')} onLeftPress={props.onClose} leftLabel={t('txt_cancel')} />
 
       <SearchInputSite keyword={keyword} searchSites={searchSite} />
-        <SearchResultSites sites={sites} />
+        <SearchResultSites sites={sites} onSelect={(site:  Site | undefined)=> setSelectedSite(site)} />
+        <FooterSearchSiteWithName onSelectSite={onSelectSite}  />
       </View>
     </Modal>
   );
