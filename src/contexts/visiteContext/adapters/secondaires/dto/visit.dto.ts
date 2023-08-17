@@ -1,12 +1,15 @@
+import { PointToImproveDto } from "./pointToImprove.dto";
 import { RemarqueDto } from "./remarque.dto";
+import { StrongPointDto } from "./strongPoint.dto";
 
-export interface Visit {
+export interface VisitDto {
     tp? :number;
     tk? :string;
     dt?: string;
     ai?: string;
     idcs?: string;
     ac?: string;
-    pp?: RemarqueDto[];
-
+    pp: PointToImproveDto[],
+    pn: StrongPointDto[],
+    rq: RemarqueDto[],
 }

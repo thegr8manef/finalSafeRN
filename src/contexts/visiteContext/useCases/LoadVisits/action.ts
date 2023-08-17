@@ -1,4 +1,4 @@
-import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
+import { Visit } from '@contexts/visiteContext/domain/entity/Visits';
 import {
   LoadVisitsFailedAction,
   LoadVisitsSuccessAction,

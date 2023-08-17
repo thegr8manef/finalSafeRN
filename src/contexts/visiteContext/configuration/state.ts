@@ -1,5 +1,5 @@
 import { Site } from '../domain/entity/Site';
-import { Visit } from '../domain/entity/Visit';
+import { Visit } from '../domain/entity/Visits';
 
 export interface VisitsState {
   saveFlash: SaveFlashState;

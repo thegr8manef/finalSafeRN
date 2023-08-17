@@ -7,7 +7,7 @@ import { t } from 'i18next';
 import globalStyle from '@styles/globalStyle';
 import ButtonComponent from '@common/adapters/primaries/components/ButtonPrimary';
 import { Divider } from '@common/adapters/primaries/components/Divider';
-import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
+import { Visit } from '@contexts/visiteContext/domain/entity/Visits';
 
 interface Props {
   navigation: StackNavigationProp<StackParamList>;

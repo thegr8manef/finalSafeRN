@@ -4,7 +4,7 @@ import ApplicationContext from '@common/appConfig/ApplicationContext';
 import { Site } from '../../domain/entity/Site';
 import { SiteMapper } from './mapper/site.mapper';
 import { VisitFlash } from '@contexts/visiteContext/domain/entity/VisitFlash';
-import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
+import { Visit } from '@contexts/visiteContext/domain/entity/Visits';
 import moment from "moment"; // Import Moment.js
 import { VisitMapper } from './mapper/visit.mapper';
 
@@ -79,21 +79,21 @@ export class DbVisitsService implements VisitsService {
   }
 
 
-//   loadVisitsDetails(): Observable<Site[]> {
-//     const LoadVisitDb = new Promise<Visit[]>((resolve, reject) => {
-//       const db = ApplicationContext.getInstance().db();
-//       try {
-//         db.then(realm => {
-//           const objects = realm.objects('Visit')
-//           resolve(VisitMapper.(objects));
-//         });
-//       } catch (error) {
-//         reject(error);
-//       }
-//     });
-//     return from(LoadVisitDb);
-//   }
-// }
+  loadVisitsDetails(): Observable<Visit[]> {
+    const LoadVisitDb = new Promise<Visit[]>((resolve, reject) => {
+      const db = ApplicationContext.getInstance().db();
+      try {
+        db.then(realm => {
+          const objects = realm.objects('Visit')
+          resolve(VisitMapper.mapToVisits(objects));
+        });
+      } catch (error) {
+        reject(error);
+      }
+    });
+    return from(LoadVisitDb);
+  }
+
 
 
   LoadAllSites(): Observable<Site[]> {

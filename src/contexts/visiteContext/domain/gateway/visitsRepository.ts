@@ -1,7 +1,7 @@
 import {Observable} from 'rxjs';
-import { Visit } from '../entity/Visit';
+import { Visit } from '../entity/Visits';
 
 
 export interface VisitsRepository {
-  loadVisitsDetails(): Observable<Visit>;
+  loadVisitsDetails(): Observable<Visit[]>;
 }
