@@ -1,6 +1,7 @@
 import { Visit } from "@common/adapters/secondaries/db/entity/Visit";
 import { Visits } from "@contexts/visiteContext/domain/entity/Visits";
-import { RemarqueMapper } from "./remarque.maper";
+import { Remarque } from "@common/adapters/secondaries/db/entity/Remarque";
+import { VisitRemarque } from "@contexts/visiteContext/domain/entity/VisitRemarque";
 
 export class VisitMapper {
 
@@ -10,9 +11,20 @@ export class VisitMapper {
             visit.id || "",
             visit.codeChantier || "",
             visit.dt || "",
-            RemarqueMapper.mapToVisitRemarque(visit.remarques), // Map the visit.remarques using RemarqueMapper
+            this.mapToVisitRemarque(visit.remarques), // Map the visit.remarques using RemarqueMapper
         ));
     }
-   
+
+    static mapToVisitRemarque(remarques: Remarque[]): VisitRemarque[] {
+        return remarques.map(remarque => new VisitRemarque(
+            remarque.dt,
+            remarque.ds,
+            remarque.tk,
+            remarque.lvl,
+            remarque.nt,
+            remarque.photos,
+        ));
+    }
+
 }
 

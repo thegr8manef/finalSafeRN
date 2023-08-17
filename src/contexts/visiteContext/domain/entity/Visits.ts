@@ -1,6 +1,4 @@
-import { PointToImproveDto } from "@contexts/visiteContext/adapters/secondaires/dto/pointToImprove.dto";
 import { RemarqueDto } from "@contexts/visiteContext/adapters/secondaires/dto/remarque.dto";
-import { StrongPointDto } from "@contexts/visiteContext/adapters/secondaires/dto/strongPoint.dto";
 
 export class Visits {
 
@@ -10,11 +8,6 @@ export class Visits {
     private _cdc?: string,
     private _dt?: string,
     private _rq?: RemarqueDto[],
-    // private _ai?: string,
-    // private _idcs?: string,
-    // private _ac?: string,
-    // private _pp?: PointToImproveDto[],
-    // private _pn?: StrongPointDto[],
   ) {
   }
 

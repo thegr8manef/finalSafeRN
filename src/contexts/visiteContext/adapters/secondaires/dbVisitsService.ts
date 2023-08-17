@@ -4,9 +4,10 @@ import ApplicationContext from '@common/appConfig/ApplicationContext';
 import { Site } from '../../domain/entity/Site';
 import { SiteMapper } from './mapper/site.mapper';
 import { VisitFlash } from '@contexts/visiteContext/domain/entity/VisitFlash';
-import { Visit } from '@contexts/visiteContext/domain/entity/Visits';
 import moment from "moment"; // Import Moment.js
 import { VisitMapper } from './mapper/visit.mapper';
+import { Visit } from '@common/adapters/secondaries/db/entity/Visit';
+import { Remarque } from '@common/adapters/secondaries/db/entity/Remarque';
 
 export class DbVisitsService implements VisitsService {
   SaveFlash(data: VisitFlash): Observable<void> {
@@ -51,21 +52,23 @@ export class DbVisitsService implements VisitsService {
       try {
         db.then((realm) => {
           realm?.write(() => {
-            const newVisit = realm.create("Visit", {
+            const newVisit = realm.create<Visit>("Visit", {
               // Map Visit properties from data
-              dt: formattedCurrentDateTime, // Replace with current date and time
-              dtc: formattedCurrentDateTime, // Replace with current date and time
-              timeStamp: currentDateTime.format("DD MMMM YYYY"), // Format as "15 août 2023"
+              dt: formattedCurrentDateTime,
+              dtc: formattedCurrentDateTime,
+              timeStamp: currentDateTime.format("DD MMMM YYYY"),
               codeChantier: data.codeChantier,
               V_enCours: 0,
-              order: 0,
+              ordre: 0,
               userId: data.userId
-              // ... map other properties similarly
             });
-            // Fetch all related Remarque objects in a single query
-            const relatedRemarques = realm.objects("Remarque").filtered(`id IN $0`, data.remarques || []);
-            // Associate all related Remarque objects
-            newVisit.remarques.push(...relatedRemarques);
+            if (newVisit.remarques) {
+              const relatedRemarques = realm.objects<Remarque>("Remarque").filtered(`id IN $0`, data.remarques || []);
+              const relatedRemarquesSnapshot = relatedRemarques.snapshot();
+              relatedRemarquesSnapshot.forEach((remarque) => {
+                newVisit.remarques!.push(remarque);
+              });
+            }
             resolve(); // Resolve the Promise
           });
         }).catch((error) => {
@@ -85,7 +88,7 @@ export class DbVisitsService implements VisitsService {
       try {
         db.then(realm => {
           const objects = realm.objects('Visit')
-          resolve(VisitMapper.mapToVisits(objects));
+          resolve(VisitMapper.mapToVisit(objects));
         });
       } catch (error) {
         reject(error);
@@ -93,8 +96,6 @@ export class DbVisitsService implements VisitsService {
     });
     return from(LoadVisitDb);
   }
-
-
 
   LoadAllSites(): Observable<Site[]> {
     const LoadChantierInDb = new Promise<Site[]>((resolve, reject) => {
