@@ -7,6 +7,7 @@ import {catchError, map} from 'rxjs/operators';
 import constants from '@common/constants';
 import {Site} from '@contexts/visiteContext/domain/entity/Site';
 import ws from '@config/ws';
+import { VisitSynchronisation } from '@contexts/synchronisationContext/domain/entity/VisitSynchronisation';
 
 export class APISynchronisationService implements SynchronisationService {
   loadData(accessToken: string, lastUpdateDate: string): Observable<Site[]> {
@@ -38,4 +39,10 @@ export class APISynchronisationService implements SynchronisationService {
         catchError(err => throwError(err)),
       );
   }
+
+ 
+  sendData(accessToken: string, lastUpadet: string, visitSynchronisation: VisitSynchronisation): Observable<void> {
+    throw new Error('Method not implemented.');
+  }
+
 }

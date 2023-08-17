@@ -6,20 +6,17 @@ import {
 } from '@react-navigation/drawer';
 import {Profile} from '@contexts/profileContext/domain/entity/profile';
 import * as utils from '@utils/index';
-import {useEffect} from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import colors from '@assets/colors';
-
 interface Props {
   profile: Profile | undefined;
   loadProfileLocal: () => void;
 }
 
 export const MenuLeft = (props: Props) => {
-
-  useEffect(()=>{
-    props.loadProfileLocal();
-  }, [])
+  console.log(props.profile)
+  if (props.profile?.email == '') {
+    props.loadProfileLocal()
+  }
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>

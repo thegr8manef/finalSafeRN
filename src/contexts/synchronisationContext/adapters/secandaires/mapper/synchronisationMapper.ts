@@ -65,6 +65,7 @@ export class SynchronisationMapper {
   }
 
   static mapSiteToChantier(site: Site): Chantier {
+    console.log(site)
     return {
       id: site.id,
       no: site.name,
@@ -80,11 +81,19 @@ export class SynchronisationMapper {
       st: site.st === undefined ? 0: site.st,
       lu: site.last_update,
       ref: site.reference,
-      org: site.org.toString(),
+      org: site.org ? site.org : "",
       ol_name: site.region_name,
       osc: site.osc,
-      pid: site.pid,
-      piid: site.piid,
+      pid: site.pid.toString(),
+      piid: site.piid.toString(),
     } as Chantier;
   }
+
+  static encodedVisit(visit: string): string {
+    return visit
+        .replace(/%7B/g, '{')
+        .replace(/%22/g, '"')
+        .replace(/%3A/g, ':');
+        
+}
 }
