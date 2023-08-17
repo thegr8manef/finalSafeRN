@@ -5,7 +5,7 @@ import * as utils from '@utils/index';
 interface Props {
     onSelectSite: () =>void
 }
-export const FooterSearchSites =(props: Props) =>{
+export const FooterSearchSiteWithName =(props: Props) =>{
     const {t} = useTranslation();
     return(
         <View style={styles.container}>

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import {View,  Modal, StyleSheet, Image, Alert} from 'react-native';
+import {View,  Modal, StyleSheet, Alert} from 'react-native';
 import * as utils from '@utils/index';
 import {useTranslation} from 'react-i18next';
 import { Site } from '@contexts/visiteContext/domain/entity/Site';
 import { HeaderModal } from '../HeaderModal';
 import { SearchInputSite } from './searchInputSite';
 import { SearchResultSites } from './searchResultSites';
-import { FooterSearchSites } from './footerSearchSites';
+import { FooterSearchSiteWithName } from './FooterSearchSiteWithName';
 
 interface Props {
   modalVisible: boolean;
@@ -31,7 +31,6 @@ const onSelectSite = () => {
   }else{
     props.onSearch(selectedSite)
     props.onClose()
-    return selectedSite
   }
 }
 
@@ -49,7 +48,7 @@ useEffect(() => {
 
       <SearchInputSite keyword={keyword} searchSites={searchSite} />
         <SearchResultSites sites={sites} onSelect={(site:  Site | undefined)=> setSelectedSite(site)} />
-        <FooterSearchSites onSelectSite={onSelectSite}  />
+        <FooterSearchSiteWithName onSelectSite={onSelectSite}  />
       </View>
     </Modal>
   );

@@ -30,12 +30,14 @@ const styles = StyleSheet.create({
     code: {
         color: utils.colors.black,
         fontSize: 14,
-        padding: 10
+        padding: 10,
+        alignSelf: 'center'
     },
     name: {
         color: utils.colors.gray90,
         fontSize: 12,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        alignSelf: 'center'
     },
     placeholder: {
         color: utils.colors.gray700,
