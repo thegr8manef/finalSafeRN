@@ -30,7 +30,7 @@ export const VisitsContainer = (props: Props): JSX.Element => {
     );
   };
 
-  const CustomVisitList: React.FC<CustomAddNewVisitProps> = (Chantier : Chantier) => {
+  const CustomVisitList: React.FC<CustomAddNewVisitProps> = (Chantier: Chantier) => {
     return (
       <View></View>
     );
@@ -77,7 +77,6 @@ const styles = StyleSheet.create({
     backgroundColor: utils.colors.white,
 
   },
-
   visitTypesStyle: {
     flex: 1,
     flexDirection: 'row',
