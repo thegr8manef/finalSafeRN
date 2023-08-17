@@ -20,12 +20,13 @@ export const SearchSiteWithCodeModal = (props: Props) => {
   //fct search site on click on validate
   const searchSite = () => {
     if (code.length !== 0) {
-     const selectedSite = props.sites?.find(site => site.reference=== code)
+     const selectedSite = props.sites?.find(site => site.reference===code)
       if (!selectedSite) {
         alert(t('no_cs_by_ref'));
       } else {
         setCode('')
        props.onSearch(selectedSite)
+       props.onClose()
       }
     } else {
       alert(t('error.point.empty'));

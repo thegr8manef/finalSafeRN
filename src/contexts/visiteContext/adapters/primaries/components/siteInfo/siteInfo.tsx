@@ -1,5 +1,5 @@
 import { Site } from '@contexts/visiteContext/domain/entity/Site';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
 import * as utils from '@utils/index';
@@ -16,7 +16,7 @@ interface Props{
 export const SiteInfo = (props: Props) =>{
     const {t} = useTranslation();
     const [searchWithCodeVisible, setSearchWithCodeVisible] = useState(false);
-  const [searchWithNameVisible, setSearchWithNameVisible] = useState(false);
+    const [searchWithNameVisible, setSearchWithNameVisible] = useState(false);
     return(
         <View style={styles.container}>
         <Text style={styles.title}>
@@ -30,15 +30,15 @@ export const SiteInfo = (props: Props) =>{
           <PreviewSite site={props.selectedSite}/>
           <SearchSiteWithCodeModal modalVisible={searchWithCodeVisible} onClose={()=> setSearchWithCodeVisible(false)} 
           onSearch={(site:  Site | undefined)=> props.setSelectedSite(site)} sites={props.sites} />
-          <SearchSiteWithNameModal modalVisible={searchWithNameVisible} onClose={()=>setSearchWithNameVisible(false)} sites={props.sites}
-           onSearch={(site:  Site | undefined)=> props.setSelectedSite(site)} />
+          <SearchSiteWithNameModal modalVisible={searchWithNameVisible} onClose={() => setSearchWithNameVisible(false)} sites={props.sites}
+        onSearch={(site: Site | undefined) => props.setSelectedSite(site)}  />
       </View>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-      height: 150,
+      height: 200,
       margin: 30,
       backgroundColor: 'white',
     },

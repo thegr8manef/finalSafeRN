@@ -14,7 +14,7 @@ import { SiteInfo } from '../components/siteInfo/siteInfo';
 import { ObservationInfo } from '../components/observation/observationInfo';
 import { CommentInfo } from '../components/comment/commentInfo';
 import { PreviewImages } from '../components/images/previewImages';
-import { FooterVisitFlash } from '../components/footerVisitFlash';
+import { FooterVisitFlash } from '../components/FooterVisitFlash';
 
 interface Props {
   navigation: any;
@@ -38,10 +38,11 @@ export const VisitFlashContainer = (props: Props) => {
   useEffect(()=>{
     props.loadSites()
   },[])
+
   useEffect(()=>{
     props.sites
-    console.log("🚀 ~ file: visitsFlash.container.tsx:43 ~ useEffect ~ props.sites:", props.sites)
   },[props.sites])
+
   const addImage = (image: string) => {
     setImages([...images, image]);
   };
