@@ -1,3 +1,4 @@
+import { VisitFlash } from '@contexts/visiteContext/domain/entity/VisitFlash';
 import {
   FlashActionFailed,
   FlashActionSuccess,
@@ -6,9 +7,8 @@ import {
   SAVE_FLASH_SUCCESS,
   SaveFlashAction,
 } from './actionTypes';
-import {Flash} from '../../domain/entity/Flash';
 
-export const SaveFlash = (data: Flash): SaveFlashAction => ({
+export const SaveFlash = (data: VisitFlash): SaveFlashAction => ({
   type: SAVE_FLASH,
   payload: data,
 });

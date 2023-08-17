@@ -1,4 +1,4 @@
-import {Flash} from '../../domain/entity/Flash';
+import { VisitFlash } from "@contexts/visiteContext/domain/entity/VisitFlash";
 
 export const SAVE_FLASH = 'SAVE_FLASH';
 export const SAVE_FLASH_SUCCESS = 'SAVE_FLASH_SUCCESS';
@@ -6,7 +6,7 @@ export const SAVE_FLASH_FAILED = 'SAVE_FLASH_FAILED';
 
 export interface SaveFlashAction {
   type: typeof SAVE_FLASH;
-  payload: Flash;
+  payload: VisitFlash;
 }
 
 export interface FlashActionFailed {

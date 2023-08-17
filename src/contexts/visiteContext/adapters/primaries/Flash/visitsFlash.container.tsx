@@ -6,22 +6,21 @@ import {
   Alert,
 } from 'react-native';
 import * as utils from '@utils/index';
-import {Flash} from '../../../domain/entity/Flash';
 import {useTranslation} from 'react-i18next';
 import {Site} from '../../../domain/entity/Site';
-import colors from '@assets/colors';
 import { SiteInfo } from '../components/siteInfo/siteInfo';
 import { ObservationInfo } from '../components/observation/observationInfo';
 import { CommentInfo } from '../components/comment/commentInfo';
 import { PreviewImages } from '../components/images/previewImages';
-import { FooterVisitFlash } from '../components/FooterVisitFlash';
+import { FooterVisitFlash } from '../components/footerVisitFlash';
+import { VisitFlash } from '@contexts/visiteContext/domain/entity/VisitFlash';
 
 interface Props {
   navigation: any;
   loadingVisits: boolean;
   errorVisits: string | undefined;
-  flash: Flash | undefined;
-  saveFlash: (data: Flash) => void;
+  flash: VisitFlash | undefined;
+  saveFlash: (data: VisitFlash) => void;
   error: string | undefined;
   sites: Site[] | null;
   loading: boolean;
@@ -49,7 +48,7 @@ export const VisitFlashContainer = (props: Props) => {
 
   const saveVisit= () =>{
     if(validVisit()){
-      const flash = new Flash(comment, images, levelId);
+      const flash = new VisitFlash(comment, images, levelId);
       Alert.alert('', t('etes_vous_sur_de_vouloir_sauvegarder')!, [
         {
           text: 'NON',
