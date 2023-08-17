@@ -8,9 +8,9 @@ interface Props {
 }
 export const PreviewSite = (props: Props) => {
     return (
-        <View>
+        <View style={styles.container}>
             {props.site ?
-                <View style={styles.container}>
+                <View>
                     <Text style={styles.code}>{props.site.reference}</Text>
                     <Text style={styles.name}>{props.site.name}</Text>
                 </View> :
@@ -22,7 +22,7 @@ export const PreviewSite = (props: Props) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex: 0.5,
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: 20
@@ -30,12 +30,14 @@ const styles = StyleSheet.create({
     code: {
         color: utils.colors.black,
         fontSize: 14,
-        padding: 10
+        padding: 10,
+        alignSelf: 'center'
     },
     name: {
         color: utils.colors.gray90,
         fontSize: 12,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        alignSelf: 'center'
     },
     placeholder: {
         color: utils.colors.gray700,

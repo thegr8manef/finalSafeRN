@@ -1,28 +1,51 @@
 import { Site } from '@contexts/visiteContext/domain/entity/Site'
-import React from 'react'
-import { Text, FlatList, View, StyleSheet } from 'react-native'
+import React, { useState } from 'react'
+import { Text, FlatList, View, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import * as utils from '@utils/index';
 
 interface Props {
     sites: Site[] | undefined
+    onSelect: (site: Site) => void
 }
 export const SearchResultSites = (props: Props) => {
-    const renderItem = (item: Site): JSX.Element => (
-        <View  style={styles.item}>
+    const [selectedItem, setSelectedItem] = useState<Site | undefined>(undefined);
+  
+    const renderItem = ({ item }: { item: Site }) => {
+      const isSelected = selectedItem && selectedItem.id === item.id;
+      if(selectedItem !== undefined){
+        props.onSelect(selectedItem)
+      }
+      return (
+        <TouchableOpacity
+          onPress={() => setSelectedItem(item)}
+          style={styles.item}>
+
+            <View style={{flex:1}}>
             <Text style={styles.title}>{item.name}</Text>
-            <Text style={styles.address}>{item.address}</Text>
-        </View>
-    )
+          <Text style={styles.address}>{item.address}</Text>
+            </View>
+            <View style={{flex:1,alignItems:'flex-end',alignSelf:'center'}}>
+            {isSelected && <Image source={utils.images.checkmarkIcon} style={styles.image} />}
+            </View>
+      </TouchableOpacity>
+      );
+    };
+  
     return (
-        <FlatList data={props.sites} renderItem={({ item }) => renderItem(item)}/>
-)
-}
+      <FlatList
+        data={props.sites}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+      />
+    );
+  };
 const styles = StyleSheet.create({
     item: {
         padding: 20,
         width: '100%',
         borderBottomColor: utils.colors.gray90,
-        borderBottomWidth: 1
+        borderBottomWidth: 1,
+        flexDirection: 'row'
     },
     title:{
         fontSize: 14,
@@ -31,5 +54,9 @@ const styles = StyleSheet.create({
     },
     address:{
         color: utils.colors.gray700
+    },
+    image: {
+        width: 30,
+        height: 30,
     }
 })

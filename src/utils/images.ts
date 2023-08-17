@@ -27,5 +27,6 @@ const images = {
   addPrevenationIcon: require('../assets/img/icn_add_prevention.png'),
   addConformite: require('../assets/img/icn_add_conformite.png'),
   addhierarchicalIcon: require('../assets/img/icn_add_hierarchique.png'),
+  checkmarkIcon: require('../assets/img/icn_checkmark.png'),
 };
 export default images;
