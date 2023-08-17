@@ -125,35 +125,19 @@ export const AddImageButtons = (props: Props) => {
     });
   };
   return (
-<<<<<<< HEAD:src/contexts/visiteContext/adapters/primaries/components/images/addImageButtons.tsx
     <View style={styles.container}>
         <Pressable style={styles.button}
-=======
-    <View testID='img-container' style={styles.DividerTwoImageBottomNav}>
-      <View style={{flex: 1}}>
-        <Pressable
->>>>>>> 9946d56 (feat(visitContext_test): imageController):src/visiteContext/adapters/primaries/components/ImageController.tsx
           onPress={() => captureImage()}
           android_ripple={{ color: utils.colors.gris300 }}>
           <Image
-            testID='capture-img'
             style={styles.logoImage5}
             source={utils.images.takePhotoIcon}
           />
         </Pressable>
         <Pressable style={styles.button}
           onPress={() => chooseFile()}
-<<<<<<< HEAD:src/contexts/visiteContext/adapters/primaries/components/images/addImageButtons.tsx
           android_ripple={{ color: utils.colors.gris300 }}>
           <Image style={styles.logoImage5} source={utils.images.fileIcon} />
-=======
-          android_ripple={{color: colors.gris300}}>
-          <Image
-                      testID='choose-img'
-            style={styles.logoImage5}
-            source={require('../../../../assets/img/icn_file.png')}
-          />
->>>>>>> 9946d56 (feat(visitContext_test): imageController):src/visiteContext/adapters/primaries/components/ImageController.tsx
         </Pressable>
     </View>
   );
