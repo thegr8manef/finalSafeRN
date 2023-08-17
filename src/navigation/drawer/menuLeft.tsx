@@ -13,7 +13,6 @@ interface Props {
 }
 
 export const MenuLeft = (props: Props) => {
-  console.log(props.profile)
   if (props.profile?.email == '') {
     props.loadProfileLocal()
   }

@@ -24,11 +24,7 @@ export const VisitsContainer = (props: Props): JSX.Element => {
   useEffect(() => {
     props.loadSites();
   }, []);
-  useEffect(() =>{
-    console.log("🚀 ~ file: visits.container.tsx:27 ~ useEffect ~ props.loadSites():", props.sites)
 
-  }, [props.sites]
-  )
   return (
     <View style={styles.container}>
       <View style={styles.main}>

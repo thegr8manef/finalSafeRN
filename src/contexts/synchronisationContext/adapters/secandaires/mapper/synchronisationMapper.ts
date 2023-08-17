@@ -65,7 +65,6 @@ export class SynchronisationMapper {
   }
 
   static mapSiteToChantier(site: Site): Chantier {
-    console.log(site)
     return {
       id: site.id,
       no: site.name,
@@ -91,9 +90,14 @@ export class SynchronisationMapper {
 
   static encodedVisit(visit: string): string {
     return visit
-        .replace(/%7B/g, '{')
-        .replace(/%22/g, '"')
-        .replace(/%3A/g, ':');
+    .replace(/'/g, '%27')
+    .replace(/"/g, '%22')
+    .replace(/{/g, '%7B')
+    .replace(/}/g, '%7D')
+    .replace(/\[/g, '%5B')
+    .replace(/]/g, '%5D')
+    .replace(/:/g, '%3A')
+    .replace(/,/g, '%2C');
         
 }
 }
