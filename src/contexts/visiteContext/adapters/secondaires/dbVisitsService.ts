@@ -8,6 +8,7 @@ import moment from "moment"; // Import Moment.js
 import { VisitMapper } from './mapper/visit.mapper';
 import { Visit } from '@common/adapters/secondaries/db/entity/Visit';
 import { Remarque } from '@common/adapters/secondaries/db/entity/Remarque';
+import { v4 as uuidv4 } from 'uuid'; // Import UUID generator
 
 export class DbVisitsService implements VisitsService {
 
@@ -18,6 +19,7 @@ export class DbVisitsService implements VisitsService {
         db.then(realm => {
           realm?.write(() => {
             realm.create('Remarque', {
+              tk: uuidv4(), // Generate a UUID-like value
               nbPhoto: data.images.length,
               ds: data.commentaire,
               photos: data.images,
@@ -32,13 +34,16 @@ export class DbVisitsService implements VisitsService {
               unq: false,
               tg: 1,
             });
+            console.log("🚀 ~ook");
 
             resolve(); // Resolve the Promise
           });
         }).catch(error => {
+          console.log("🚀 ~ file: dbVisitsService.ts:38 ~ DbVisitsService ~ saveFlashtoDb ~ error:", error)
           reject(error);
         });
       } catch (error) {
+        console.log("🚀 ~ file: dbVisitsService.ts:42 ~ DbVisitsService ~ saveFlashtoDb ~ error:", error)
         reject(error);
       }
     });
@@ -61,7 +66,8 @@ export class DbVisitsService implements VisitsService {
               codeChantier: data.codeChantier,
               V_enCours: 0,
               ordre: 0,
-              userId: data.userId
+              userId: data.userId,
+              type : data.type
             });
             if (newVisit.remarques) {
               const relatedRemarques = realm.objects<Remarque>("Remarque").filtered(`id IN $0`, data.remarques || []);
