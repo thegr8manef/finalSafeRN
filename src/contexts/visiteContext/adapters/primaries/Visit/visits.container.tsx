@@ -8,6 +8,8 @@ import globalStyle from '@styles/globalStyle';
 import ButtonComponent from '@common/adapters/primaries/components/ButtonPrimary';
 import { Divider } from '@common/adapters/primaries/components/Divider';
 import { Site } from '@contexts/visiteContext/domain/entity/Site';
+import { Profile } from '@contexts/profileContext/domain/entity/profile';
+import { Synchronisation } from '@contexts/synchronisationContext/domain/entity/Synchronisation';
 
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
@@ -16,6 +18,8 @@ interface Props {
   sites: Site[] | null;
   loading: boolean;
   loadSites: () => void;
+  profile : Profile | undefined
+  sendData : (accessToken : string, lastUpadet : string, synchronisation : Synchronisation) => void;
 }
 
 interface CustomAddNewVisitProps {
@@ -41,6 +45,30 @@ export const VisitsContainer = (props: Props): JSX.Element => {
     );
   };
 
+  const handlSynchronisation = () => {
+  
+
+    const syn = {
+      "vs": [
+          {
+              "tp": 3,
+              "tk": "8d5f5bd5-f365-4c2f-b581-af445bdd3dd2acan1692261041336",
+              "cdcs": "B98283AB",
+              "dt": "2023\/08\/18 15:30:41",
+              "rq": {
+                  "dt": "2023\/08\/18 15:31:03",
+                  "ds": "shitd",
+                  "tk": "ac6d4cb0-1dea-4854-a4eb-a2902edd413d3can1692261041340",
+                  "lvl": 3,
+                  "nt": 0,
+                  "md": []
+              }
+          }
+      ]
+  }
+    props.sendData(props.profile?.accessToken!!, props.profile?.lastUpdate!!, syn )
+  }
+
   return (
     <View style={globalStyle.containerStyle}>
       <View style={styles.mainStyle}>
@@ -50,6 +78,7 @@ export const VisitsContainer = (props: Props): JSX.Element => {
             {t('txt.visites.cloturees')}
           </Text>
           <ButtonComponent
+            onPressButton={handlSynchronisation}
             buttonColor={utils.colors.primary}
             width={'30%'}
             textButton={t('txt.synchroniser')} />

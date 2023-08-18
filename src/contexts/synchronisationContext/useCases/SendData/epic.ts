@@ -1,11 +1,12 @@
 import { AppState } from "@redux/appState";
 import {Epic, StateObservable, ofType} from 'redux-observable';
-import {map, switchMap, mergeMap, catchError} from 'rxjs/operators';
+import {map, switchMap, mergeMap, concatMap ,catchError} from 'rxjs/operators';
 import {SynchronisationService} from '../../domain/gateway/SynchronisationService';
 import {SynchronisationRepository} from '../../domain/gateway/SynchronisationRepository';
 import { SEND_DATA } from "./actionTypes";
 import { sendDataFailed, sendDataSucccess } from "./actions";
 import {of} from 'rxjs';
+import { loadData } from "../LoadData/actions";
 
 
 export const sendDataEpic: Epic = (
@@ -19,6 +20,7 @@ export const sendDataEpic: Epic = (
         synchronisationRepository: SynchronisationRepository;
       }
 ) => 
+
       action$.pipe(
         ofType(SEND_DATA),
             switchMap(action =>
@@ -27,9 +29,11 @@ export const sendDataEpic: Epic = (
                             synchronisationService.sendData(
                                 action.payload.accessToken,
                                 lastUpdate,
-                                action.payload.VisitSynchronisation
+                                action.payload.visitSynchronisation
                                 )
-                                .pipe(map(()=> sendDataSucccess()),
+                                .pipe(concatMap(()=> [
+                                    sendDataSucccess(),
+                                     loadData(action.payload.accessToken, lastUpdate)]),
                         catchError(error => of(sendDataFailed(error)))
                             ),
                         ),

@@ -1,3 +1,4 @@
+import { Synchronisation } from "@contexts/synchronisationContext/domain/entity/Synchronisation"
 import { VisitSynchronisation } from "@contexts/synchronisationContext/domain/entity/VisitSynchronisation"
 
 export const SEND_DATA = "SEND_DATA"
@@ -10,7 +11,7 @@ export interface SendDataAction {
     {
         'accessToken': string,
         'lastUpdate': string,
-        'visitSynchronisation' : VisitSynchronisation,
+        'synchronisation' : Synchronisation,
   
     }
 }

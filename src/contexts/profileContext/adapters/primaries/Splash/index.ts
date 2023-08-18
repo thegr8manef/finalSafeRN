@@ -20,7 +20,7 @@ interface StateToPropsType {
 
 interface DispatchToPropsType {
   loadLocalProfile: () => void;
-  loadSychronisationData: (accessToken: string) => void;
+  loadSychronisationData: (accessToken: string, lastUpadet: string) => void;
 }
 
 const mapStateToProps = (state: AppState): StateToPropsType => ({
@@ -30,8 +30,8 @@ const mapStateToProps = (state: AppState): StateToPropsType => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => ({
-  loadSychronisationData: (accessToken: string): LoadDataActionTypes =>
-    dispatch(loadData(accessToken)),
+  loadSychronisationData: (accessToken: string, lastUpadet : string): LoadDataActionTypes =>
+    dispatch(loadData(accessToken, lastUpadet)),
   loadLocalProfile: (): LoadLocalProfileAction => dispatch(loadLocalProfile()),
 });
 

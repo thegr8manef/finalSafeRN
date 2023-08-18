@@ -8,6 +8,7 @@ import constants from '@common/constants';
 import {Site} from '@contexts/visiteContext/domain/entity/Site';
 import ws from '@config/ws';
 import { VisitSynchronisation } from '@contexts/synchronisationContext/domain/entity/VisitSynchronisation';
+import { Synchronisation } from '@contexts/synchronisationContext/domain/entity/Synchronisation';
 
 export class APISynchronisationService implements SynchronisationService {
   loadData(accessToken: string, lastUpdateDate: string): Observable<Site[]> {
@@ -41,37 +42,21 @@ export class APISynchronisationService implements SynchronisationService {
   }
 
  
-  sendData(accessToken: string, lastUpadet: string, visitSynchronisation: VisitSynchronisation): Observable<void> {
-
-    const st = {
-      "vs":[ 
-          {"tp":3,
-          "tk":"e8d6340b-36bf-4a51-bda1-ceuu9343428c74an169235335g9282",
-          "cdcs":"99E898E8",
-          "dt":"2023\/08\/18 10:09:19",
-          "rq":{
-              "dt":"2023\/08\/18 10:09:39",
-              "ds":"vfverf",
-              "tk":"3d675012-bb03-440b-9e1b-a7282uu038d5ddagn1692353359282",
-              "lvl":3,
-              "nt":0,
-              "md":[]
-              }
-         }
-           ],
-       "rkl": []
-      }
+  sendData(accessToken: string, lastUpadet: string, synchronisation: Synchronisation): Observable<void> {
+    console.log("------------------START-------------------")
+    console.log(visitSynchronisation)
     const _headers: Record<string, string> = {
+
       'Content-Type': 'application/json',
       //  'token': accessToken
       /**
        * We are using a static token because we don't have access to FinalSafe msal
        */
-      token: constants.accessToken
+      token: accessToken
     };
     const body: Record<string, string> = {
       lu: lastUpadet,
-      dt : JSON.stringify(st)
+      dt : JSON.stringify(SynchronisationMapper.mapperToVisitSynchronisation(synchronisation))
     };
 
     const URL = ws.baseUrl + 'synchronization';
@@ -80,8 +65,8 @@ export class APISynchronisationService implements SynchronisationService {
       .put<SynchronisationDto>(URL, body, _headers)
       .pipe(
         map(response =>
-          response.response,
-        ),
+          response.response
+          ),
         catchError(err => throwError(err)),
       );
   }
