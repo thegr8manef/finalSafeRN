@@ -7,6 +7,8 @@ interface Props {
 }
 export const FooterSearchSiteWithName =(props: Props) =>{
     const {t} = useTranslation();
+    console.log('props.sites')
+
     return(
         <View style={styles.container}>
             <View style={styles.content}>
