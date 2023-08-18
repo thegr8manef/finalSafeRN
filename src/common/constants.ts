@@ -10,3 +10,6 @@ export const LANGUAGE_CONSTANTS = [
   {label: 'Allemand', value: 'al'},
   {label: 'Anglais', value: 'en'},
 ];
+
+export const NAMESPACE = '1b671a64-40d5-491e-99b0-da01ff1f3341'; // UUID of the "namespace"
+export const NAME = Date.now().toString() + Math.random().toString();

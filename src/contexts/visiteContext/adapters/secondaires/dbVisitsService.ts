@@ -8,7 +8,8 @@ import moment from "moment"; // Import Moment.js
 import { VisitMapper } from './mapper/visit.mapper';
 import { Visit } from '@common/adapters/secondaries/db/entity/Visit';
 import { Remarque } from '@common/adapters/secondaries/db/entity/Remarque';
-import { v4 as uuidv4 } from 'uuid'; // Import UUID generator
+import { v5 as uuidv5 } from 'uuid';
+import { NAME, NAMESPACE } from '@common/constants';
 
 export class DbVisitsService implements VisitsService {
 
@@ -19,7 +20,7 @@ export class DbVisitsService implements VisitsService {
         db.then(realm => {
           realm?.write(() => {
             realm.create('Remarque', {
-              tk: uuidv4(), // Generate a UUID-like value
+              tk: uuidv5(NAME, NAMESPACE), // Generate deterministic UUID-like value
               nbPhoto: data.images.length,
               ds: data.commentaire,
               photos: data.images,
