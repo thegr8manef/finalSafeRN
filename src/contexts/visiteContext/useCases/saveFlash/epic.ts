@@ -1,10 +1,10 @@
 import {Epic, ofType, StateObservable} from 'redux-observable';
-import {AppState} from '../../../redux_configuration/appState';
 import {SAVE_FLASH} from './actionTypes';
 import {catchError, map, switchMap} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {SaveFlashFailed, SaveFlashSuccess} from './action';
 import {VisitsService} from '../../domain/gateway/visitsService';
+import { AppState } from '@redux/appState';
 
 export const saveVisitFlashEpic: Epic = (
   action$,

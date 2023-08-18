@@ -1,6 +1,6 @@
 import {Photo} from './Photo';
 
-export class Flash {
+export class VisitFlash {
   constructor(
     private _commentaire: string,
     private _images: Photo[],
@@ -10,7 +10,6 @@ export class Flash {
   get commentaire(): string {
     return this._commentaire;
   }
-
   get images(): Photo[] {
     return this._images;
   }

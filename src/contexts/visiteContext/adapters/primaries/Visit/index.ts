@@ -1,10 +1,6 @@
 import {AppState} from '@redux/appState';
 import {Dispatch} from 'redux';
 import {connect} from 'react-redux';
-import {VisitFlashContainer} from './visitsFlash.container';
-import {Flash} from '../../../domain/entity/Flash';
-import {FlashActionTypes} from '../../../useCases/saveFlash/actionTypes';
-import {SaveFlash} from '../../../useCases/saveFlash/action';
 import {saveFashErrorSelector} from '../../../useCases/saveFlash/selectors';
 import {
   loadSitesErrorSelector,
@@ -15,6 +11,8 @@ import {LoadSites} from '@contexts/visiteContext/useCases/LoadSites/action';
 import {LoadSitesActionTypes} from '@contexts/visiteContext/useCases/LoadSites/actionTypes';
 import {Site} from '../../../domain/entity/Site';
 import { VisitsContainer } from './visits.container';
+
+
 
 interface StateToPropsType {
   errorVisits: string | undefined;

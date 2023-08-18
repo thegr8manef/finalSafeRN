@@ -88,16 +88,4 @@ export class SynchronisationMapper {
     } as Chantier;
   }
 
-  static encodedVisit(visit: string): string {
-    return visit
-    .replace(/'/g, '%27')
-    .replace(/"/g, '%22')
-    .replace(/{/g, '%7B')
-    .replace(/}/g, '%7D')
-    .replace(/\[/g, '%5B')
-    .replace(/]/g, '%5D')
-    .replace(/:/g, '%3A')
-    .replace(/,/g, '%2C');
-        
-}
 }

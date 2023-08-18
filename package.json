@@ -25,6 +25,7 @@
     "deep-freeze": "^0.0.1",
     "expo-font": "^11.1.1",
     "i18next": "^22.4.15",
+    "moment": "^2.29.4",
     "react": "18.2.0",
     "react-i18next": "^12.2.2",
     "react-native": "0.71.7",

@@ -1,19 +1,16 @@
-import {StatusBar} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import { StatusBar } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import 'react-native-gesture-handler';
-import {reduxStore} from './src/redux_configuration/store.redux';
-import {Provider} from 'react-redux';
-import {NavigationContainer} from '@react-navigation/native';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
+import { reduxStore } from '@redux/store.redux';
+import { Provider } from 'react-redux';
+import { NavigationContainer } from '@react-navigation/native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import * as utils from '@utils/index';
-import {
-  loadConnectionStatus,
-  setConnectionStatus,
-} from './src/common/isConnected/useCase/loadConnectionStatus/actions';
 import NetInfo from '@react-native-community/netinfo';
-import i18n from './src/assets/languages/i18n';
+import i18n from '@assets/languages/i18n';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { RootNavigation } from '@navigConfig/rootNavigation';
+import { loadConnectionStatus, setConnectionStatus } from '@common/isConnected/useCase/loadConnectionStatus/actions';
 
 const store = reduxStore();
 
@@ -29,7 +26,7 @@ export default function App() {
       } else {
         i18n.changeLanguage('fr');
       }
-    } catch (e) {}
+    } catch (e) { }
   };
 
   if (!mount) {
@@ -47,11 +44,11 @@ export default function App() {
   return (
     <Provider store={store}>
       <StatusBar translucent={true} backgroundColor={utils.colors.statusBar} />
-        <NavigationContainer>
-        <SafeAreaProvider style={{flex: 1}}>
+      <NavigationContainer>
+        <SafeAreaProvider style={{ flex: 1 }}>
           <RootNavigation />
-          </SafeAreaProvider>
-        </NavigationContainer>
+        </SafeAreaProvider>
+      </NavigationContainer>
     </Provider>
   );
 }
