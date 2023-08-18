@@ -1,3 +1,4 @@
+import { mergeMap } from 'rxjs/operators';
 import { VisitsService } from '../../domain/gateway/visitsService';
 import { Observable, from } from 'rxjs';
 import ApplicationContext from '@common/appConfig/ApplicationContext';
@@ -14,13 +15,13 @@ import { NAME, NAMESPACE } from '@common/constants';
 export class DbVisitsService implements VisitsService {
 
   SaveFlash(data: VisitFlash): Observable<void> {
-    const saveFlashtoDb = new Promise<void>((resolve, reject) => {
+    const saveFlashtoDb = new Promise<Remarque>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
       try {
         db.then(realm => {
           realm?.write(() => {
-            realm.create('Remarque', {
-              tk: uuidv5(NAME, NAMESPACE), // Generate deterministic UUID-like value
+            const newRemarque = realm.create<Remarque>('Remarque', {
+              tk: uuidv5(NAME, NAMESPACE),
               nbPhoto: data.images.length,
               ds: data.commentaire,
               photos: data.images,
@@ -28,6 +29,7 @@ export class DbVisitsService implements VisitsService {
               lvl: Number(data.level),
               nt: false,
               or: 0,
+              idcs: data.site_id,
               levee: false,
               ordreGlobal: 0,
               fromObs: false,
@@ -35,25 +37,32 @@ export class DbVisitsService implements VisitsService {
               unq: false,
               tg: 1,
             });
-            console.log("🚀 ~ook");
-
-            resolve(); // Resolve the Promise
+  
+            console.log("New Remarque created:", newRemarque);
+            resolve(newRemarque);
           });
         }).catch(error => {
-          console.log("🚀 ~ file: dbVisitsService.ts:38 ~ DbVisitsService ~ saveFlashtoDb ~ error:", error)
+          console.log("Error creating Remarque:", error);
           reject(error);
         });
       } catch (error) {
-        console.log("🚀 ~ file: dbVisitsService.ts:42 ~ DbVisitsService ~ saveFlashtoDb ~ error:", error)
+        console.log("Error creating Remarque:", error);
         reject(error);
       }
     });
-    return from(saveFlashtoDb);
+  
+    return from(saveFlashtoDb).pipe(
+      mergeMap((createdRemarque: Remarque) => this.SaveVisit(data, createdRemarque))
+    );
   }
+  
+  SaveVisit(data: VisitFlash, createdRemarque: Remarque): Observable<void> {
+    const currentDateTime = moment();
+    const formattedCurrentDateTime = currentDateTime.format("YYYY/MM/DD HH:mm:ss");
+    const currentDateTimeInMillis = moment().valueOf();
 
-  SaveVisit(data: Visit): Observable<void> {
-    const currentDateTime = moment(); // Get current date and time
-    const formattedCurrentDateTime = currentDateTime.format("YYYY/MM/DD HH:mm:ss"); // Format as "YYYY/MM/DD HH:mm:ss"
+    console.log('formattedCurrentDateTime',formattedCurrentDateTime)
+
     const saveVisitToDb = new Promise<void>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
       try {
@@ -63,31 +72,35 @@ export class DbVisitsService implements VisitsService {
               // Map Visit properties from data
               dt: formattedCurrentDateTime,
               dtc: formattedCurrentDateTime,
+              date: currentDateTimeInMillis,
               timeStamp: currentDateTime.format("DD MMMM YYYY"),
-              codeChantier: data.codeChantier,
+              codeChantier: createdRemarque.idcs,
               V_enCours: 0,
               ordre: 0,
-              userId: data.userId,
-              type : data.type
+              userId: 'hdkjhkjsfhkjhfskjqhjk',
+              type: createdRemarque.lvl,
             });
+  
             if (newVisit.remarques) {
-              const relatedRemarques = realm.objects<Remarque>("Remarque").filtered(`id IN $0`, data.remarques || []);
-              const relatedRemarquesSnapshot = relatedRemarques.snapshot();
-              relatedRemarquesSnapshot.forEach((remarque) => {
-                newVisit.remarques!.push(remarque);
-              });
+              newVisit.remarques.push(createdRemarque);
             }
-            resolve(); // Resolve the Promise
+  
+            console.log('Visit added');
+            resolve();
           });
         }).catch((error) => {
+          console.log("Error saving Visit:", error);
           reject(error);
         });
       } catch (error) {
+        console.log("Error saving Visit:", error);
         reject(error);
       }
     });
+  
     return from(saveVisitToDb);
   }
+  
 
   loadVisitsDetails(): Observable<Visit[]> {
     const LoadVisitDb = new Promise<Visit[]>((resolve, reject) => {

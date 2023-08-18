@@ -27,7 +27,7 @@ const searchSite= (keyword:string)=>{
   setSites(filtedSites)
 }
 const onSelectSite = () => {
-  console.log('props.sites',props.sites)
+  console.log('props.sites',selectedSite)
   if(!selectedSite){
    Alert.alert('',t('txt.veuillez.choisir.chantier')!!)
   }else{

@@ -12,6 +12,7 @@ interface Props{
     sites: Site[] | null;
     selectedSite: Site | undefined
     setSelectedSite: (site: Site| undefined) => void
+    selectedIdSite: string
 }
 export const SiteInfo = (props: Props) =>{
     const {t} = useTranslation();
@@ -31,7 +32,7 @@ export const SiteInfo = (props: Props) =>{
           <SearchSiteWithCodeModal modalVisible={searchWithCodeVisible} onClose={()=> setSearchWithCodeVisible(false)} 
           onSearch={(site:  Site | undefined)=> props.setSelectedSite(site)} sites={props.sites} />
           <SearchSiteWithNameModal modalVisible={searchWithNameVisible} onClose={() => setSearchWithNameVisible(false)} sites={props.sites}
-        onSearch={(site: Site | undefined) => props.setSelectedSite(site)}  />
+        onSearch={(site: Site | undefined) => props.setSelectedSite(site)}   />
       </View>
     )
 }
