@@ -10,6 +10,7 @@ import { Visit } from '@common/adapters/secondaries/db/entity/Visit';
 import { Remarque } from '@common/adapters/secondaries/db/entity/Remarque';
 
 export class DbVisitsService implements VisitsService {
+
   SaveFlash(data: VisitFlash): Observable<void> {
     const saveFlashtoDb = new Promise<void>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
@@ -80,7 +81,6 @@ export class DbVisitsService implements VisitsService {
     });
     return from(saveVisitToDb);
   }
-
 
   loadVisitsDetails(): Observable<Visit[]> {
     const LoadVisitDb = new Promise<Visit[]>((resolve, reject) => {

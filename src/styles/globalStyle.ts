@@ -40,6 +40,12 @@ const globalStyle = StyleSheet.create({
         fontFamily: utils.fonts.AvenirMedium,
         color: utils.colors.black,
     },
+    fontBoldDark20Style: {
+        fontSize: 20,
+        fontFamily: utils.fonts.AvenirHeavy,
+        color: utils.colors.black,
+
+    },
     fontCenterStyle: {
         textAlign: 'center'
     }

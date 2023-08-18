@@ -5,7 +5,7 @@ import { VisitRemarque } from "@contexts/visiteContext/domain/entity/VisitRemarq
 
 export class VisitMapper {
 
-    static mapToVisits(visit: Visit[]): Visits[] {
+    static mapToVisit(visit: Visit[]): Visits[] {
         return visit.map(visit => new Visits(
             visit.type || 0,
             visit.id || "",
