@@ -13,29 +13,30 @@ import * as utils from '@utils/index';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
 interface Props {
-  addImage:(image: string)=> void
+  addImage: (image: string) => void
 }
 
 export const AddImageButtons = (props: Props) => {
 
   const requestCameraPermission = async () => {
     if (Platform.OS === 'android') {
-      try {
-        const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.CAMERA,
-          {
-            buttonNegative: undefined,
-            buttonNeutral: undefined,
-            buttonPositive: '',
-            title: 'Camera Permission',
-            message: 'App needs camera permission',
-          },
-        );
-        // If CAMERA Permission is granted
-        return granted === PermissionsAndroid.RESULTS.GRANTED;
-      } catch (err) {
-        return false;
-      }
+      // try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.CAMERA,
+        {
+          buttonNegative: undefined,
+          buttonNeutral: undefined,
+          buttonPositive: '',
+          title: 'Camera Permission',
+          message: 'App needs camera permission',
+        },
+      );
+      // If CAMERA Permission is granted
+      return granted === PermissionsAndroid.RESULTS.GRANTED;
+      // ? this statement never will execute catch() it will return false if request !"GRANTED"
+      // } catch (err) {
+      //   return false;
+      // }
     } else {
       return true;
     }
@@ -43,7 +44,7 @@ export const AddImageButtons = (props: Props) => {
 
   const requestExternalWritePermission = async () => {
     if (Platform.OS === 'android') {
-      try {
+      // try {
         const granted = await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
           {
@@ -56,15 +57,15 @@ export const AddImageButtons = (props: Props) => {
         );
         // If WRITE_EXTERNAL_STORAGE Permission is granted
         return granted === PermissionsAndroid.RESULTS.GRANTED;
-      } catch (err) {
-        Alert.alert('Write permission err :: ' + err);
-      }
-      return false;
+      // } catch (err) {
+      //   Alert.alert('Write permission err :: ' + err);
+      //   return false;
+      // }
     } else {
       return true;
     }
   };
- 
+
 
   const captureImage = async () => {
     const options = {
@@ -78,6 +79,8 @@ export const AddImageButtons = (props: Props) => {
     };
     const isCameraPermitted = await requestCameraPermission();
     const isStoragePermitted = await requestExternalWritePermission();
+    console.log({ isCameraPermitted, isStoragePermitted });
+
     if (isCameraPermitted && isStoragePermitted) {
       launchCamera(options, response => {
         if (response.didCancel) {
@@ -90,18 +93,18 @@ export const AddImageButtons = (props: Props) => {
           Alert.alert('Permission not satisfied');
           return;
         } else if (response.errorCode == 'others') {
-          Alert.alert(response.errorMessage !);
+          Alert.alert(response.errorMessage!);
           return;
         }
         if (response.assets && response.assets.length > 0 && response.assets[0].uri)
-        props.addImage(response.assets[0].uri);
+          props.addImage(response.assets[0].uri);
       });
     }
   };
 
   const chooseFile = () => {
     const options = {
-      mediaType          : 'photo',
+      mediaType: 'photo',
       maxWidth: 300,
       maxHeight: 550,
       quality: 1,
@@ -126,19 +129,23 @@ export const AddImageButtons = (props: Props) => {
   };
   return (
     <View style={styles.container}>
-        <Pressable style={styles.button}
-          onPress={() => captureImage()}
-          android_ripple={{ color: utils.colors.gris300 }}>
-          <Image
-            style={styles.logoImage5}
-            source={utils.images.takePhotoIcon}
-          />
-        </Pressable>
-        <Pressable style={styles.button}
-          onPress={() => chooseFile()}
-          android_ripple={{ color: utils.colors.gris300 }}>
-          <Image style={styles.logoImage5} source={utils.images.fileIcon} />
-        </Pressable>
+      <Pressable
+        testID='capture-img'
+        style={styles.button}
+        onPress={() => captureImage()}
+        android_ripple={{ color: utils.colors.gris300 }}>
+        <Image
+          style={styles.logoImage5}
+          source={utils.images.takePhotoIcon}
+        />
+      </Pressable>
+      <Pressable
+        testID='choose-img'
+        style={styles.button}
+        onPress={() => chooseFile()}
+        android_ripple={{ color: utils.colors.gris300 }}>
+        <Image style={styles.logoImage5} source={utils.images.fileIcon} />
+      </Pressable>
     </View>
   );
 };
@@ -154,9 +161,9 @@ const styles = StyleSheet.create({
   },
   container: {
     flexDirection: 'row',
-    flex:1
+    flex: 1
   },
-  button:{
-    padding:10
+  button: {
+    padding: 10
   }
 });
