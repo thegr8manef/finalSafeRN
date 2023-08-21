@@ -7,12 +7,12 @@ import { t } from 'i18next';
 import globalStyle from '@styles/globalStyle';
 import ButtonComponent from '@common/adapters/primaries/components/ButtonPrimary';
 import { Divider } from '@common/adapters/primaries/components/Divider';
-import { Visits } from '@contexts/visiteContext/domain/entity/Visits';
+import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
 
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
   loadVisits: () => void;
-  visits: Visits[] | null; // Update this type
+  visits: Visit[] | null; // Update this type
   error: string | undefined;
   loading: boolean;
 }
@@ -25,7 +25,7 @@ interface CustomAddNewVisitProps {
 export const VisitsContainer = (props: Props): JSX.Element => {
 
   useEffect(() => {
-    props.loadVisits();
+    console.log('props.visits',props.visits);
   }, [])
   
   // useEffect(() => {

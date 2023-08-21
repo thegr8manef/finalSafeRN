@@ -4,7 +4,7 @@ import ApplicationContext from '@common/appConfig/ApplicationContext';
 import {Profile} from '../../domain/entity/profile';
 import {LocalProfilMapper} from './mapper/localProfile.mapper';
 import {User} from '../../domain/entity/user';
-import { NAME, NAMESPACE } from '@common/constants';
+import { NAMESPACE } from '@common/constants';
 import { v5 as uuidv5 } from 'uuid';
 
 export class DBUserRepository implements UserRepository {
@@ -12,12 +12,13 @@ export class DBUserRepository implements UserRepository {
   setUserConnected(userConnected: Profile): Observable<void> {
     const promiSetUser = new Promise<void>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
+      const name = Date.now().toString() + Math.random().toString();
 
       try {
         db.then(realm => {
           realm?.write(() => {
             realm.create('User', {
-              id: uuidv5(NAME, NAMESPACE),
+              id: uuidv5(name, NAMESPACE),
               fn: userConnected.name.substring(
                 0,
                 userConnected.name.indexOf(' '),

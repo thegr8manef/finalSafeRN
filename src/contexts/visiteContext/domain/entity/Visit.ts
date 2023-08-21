@@ -1,6 +1,6 @@
 import { RemarqueDto } from "@contexts/visiteContext/adapters/secondaires/dto/remarque.dto";
 
-export class Visits {
+export class Visit {
 
   constructor(
     private _tp?: number,

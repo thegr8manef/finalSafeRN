@@ -1,4 +1,4 @@
-import { Visits } from "@contexts/visiteContext/domain/entity/Visits";
+import { Visit } from "@contexts/visiteContext/domain/entity/Visit";
 
 export const LOAD_VISITS = 'LOAD_VISITS';
 export const LOAD_VISITS_SUCCESS = 'LOAD_VISITS_SUCCESS';
@@ -15,7 +15,7 @@ export interface LoadVisitsFailedAction {
 
 export interface LoadVisitsSuccessAction {
     type: typeof LOAD_VISITS_SUCCESS;
-    payload: Visits[];
+    payload: Visit[];
 }
 
 export type LoadVisitsActionDbTypes =

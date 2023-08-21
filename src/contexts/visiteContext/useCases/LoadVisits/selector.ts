@@ -1,4 +1,4 @@
-import { Visit } from "@contexts/visiteContext/domain/entity/Visits";
+import { Visit } from "@contexts/visiteContext/domain/entity/Visit";
 import { AppState } from "@redux/appState";
 
 

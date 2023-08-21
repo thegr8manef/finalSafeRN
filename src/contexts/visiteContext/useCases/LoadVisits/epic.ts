@@ -5,7 +5,7 @@ import { LOAD_VISITS } from './actionTypes';
 import { VisitsRepository } from '@contexts/visiteContext/domain/gateway/visitsRepository';
 import { AppState } from '@redux/appState';
 import { LoadVisitsFailed, LoadVisitsSuccess } from './action';
-import { Visits } from '@contexts/visiteContext/domain/entity/Visits';
+import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
 
 export const loadVisitsEpic: Epic = (
   action$,
@@ -18,7 +18,7 @@ export const loadVisitsEpic: Epic = (
       console.log("LOAD_VISITS action triggered"); // Add this log statement
 
       return visitRepository.loadVisitsDetails().pipe(
-        map((data: Visits[]) => {
+        map((data: Visit[]) => {
           console.log("Visits loaded successfully:", data); // Add this log statement
           return LoadVisitsSuccess(data);
         }),

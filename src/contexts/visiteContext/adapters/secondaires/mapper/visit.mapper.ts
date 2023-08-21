@@ -1,12 +1,12 @@
-import { Visit } from "@common/adapters/secondaries/db/entity/Visit";
-import { Visits } from "@contexts/visiteContext/domain/entity/Visits";
+import { Visit as VisitDb } from "@common/adapters/secondaries/db/entity/Visit";
+import { Visit as visitDomaine } from "@contexts/visiteContext/domain/entity/Visit";
 import { Remarque } from "@common/adapters/secondaries/db/entity/Remarque";
 import { VisitRemarque } from "@contexts/visiteContext/domain/entity/VisitRemarque";
 
 export class VisitMapper {
 
-    static mapToVisit(visit: Visit[]): Visits[] {
-        return visit.map(visit => new Visits(
+    static mapToVisit(visit: VisitDb[]): visitDomaine[] {
+        return visit.map(visit => new visitDomaine(
             visit.type || 0,
             visit.id || "",
             visit.codeChantier || "",

@@ -1,4 +1,4 @@
-import { Visits } from '@contexts/visiteContext/domain/entity/Visits';
+import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
 import {
   LoadVisitsFailedAction,
   LoadVisitsSuccessAction,
@@ -21,7 +21,7 @@ export const LoadVisitsFailed = (
 });
 
 export const LoadVisitsSuccess = (
-  visits: Visits[],
+  visits: Visit[],
 ): LoadVisitsSuccessAction => ({
   type: LOAD_VISITS_SUCCESS,
   payload: visits,

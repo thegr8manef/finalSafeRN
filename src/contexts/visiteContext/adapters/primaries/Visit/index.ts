@@ -5,10 +5,10 @@ import { AppState } from '@redux/appState';
 import { LoadVisitsActionDbTypes } from '@contexts/visiteContext/useCases/LoadVisits/actionTypes';
 import { LoadVisits } from '@contexts/visiteContext/useCases/LoadVisits/action';
 import { VisitsContainer } from './visits.container';
-import { Visits } from '@contexts/visiteContext/domain/entity/Visits';
+import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
 
 interface StateToPropsType {
-  visits: Visits[] | undefined;
+  visits: Visit[] | undefined;
   error: string | undefined;
   loading: boolean;
 
