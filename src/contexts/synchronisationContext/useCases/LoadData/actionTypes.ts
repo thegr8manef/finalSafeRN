@@ -4,7 +4,10 @@ export const LOAD_DATA_FAILED = 'LOAD_DATA_FAILED';
 
 export interface LoadDataAction {
   type: typeof LOAD_DATA;
-  payload: string;
+  payload: {
+    "accessToken" : string,
+    "lastUpdate"  : string
+  };
 }
 
 export interface LoadDataSuccessAction {

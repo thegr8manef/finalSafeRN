@@ -7,9 +7,12 @@ import {
   LoadDataSuccessAction,
 } from './actionTypes';
 
-export const loadData = (_accessToken: string): LoadDataAction => ({
+export const loadData = (_accessToken: string, _lastUpdate : string): LoadDataAction => ({
   type: LOAD_DATA,
-  payload: _accessToken,
+  payload: {
+    "accessToken" : _accessToken,
+    "lastUpdate"  : _accessToken
+  } 
 });
 
 export const loadDataSuccess = (): LoadDataSuccessAction => ({
