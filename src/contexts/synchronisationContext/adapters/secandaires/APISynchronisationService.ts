@@ -43,15 +43,9 @@ export class APISynchronisationService implements SynchronisationService {
 
  
   sendData(accessToken: string, lastUpadet: string, synchronisation: Synchronisation): Observable<void> {
-    console.log("------------------START-------------------")
-    console.log(visitSynchronisation)
     const _headers: Record<string, string> = {
 
       'Content-Type': 'application/json',
-      //  'token': accessToken
-      /**
-       * We are using a static token because we don't have access to FinalSafe msal
-       */
       token: accessToken
     };
     const body: Record<string, string> = {
