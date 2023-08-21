@@ -22,7 +22,7 @@ import { Profile } from "@contexts/profileContext/domain/entity/profile";
 import { User } from "@contexts/profileContext/domain/entity/user";
 import { profileRootEpics } from "@contexts/profileContext/configuration/rootEpic";
 import { statisticRootEpics } from "@contexts/statisticContext/configuration/rootEpic";
-import { Flash } from '@contexts/visiteContext/domain/entity/Flash';
+import { VisitFlash } from '@contexts/visiteContext/domain/entity/VisitFlash';
 
 export class ReduxStoreWO {
   private static instance: ReduxStoreWO;
@@ -145,23 +145,17 @@ export class ReduxStoreWO {
   loadLocalProfileError = (error: string): void =>
     this.loadLocalProfile$.error(error);
 
-  loadAllSitesError = (error: string): void => this.loadAllSites$.error(error)
 
-  // // Visite actions
-  // loadSiteByCodeNext = (site: Site): void => this.loadSiteByCode$.next(site)
-  // loadSiteByCodeError = (error: string): void => this.loadSiteByCode$.error(error)
+  // Visite actions
 
-   // Save Flash actions
-  //  saveFlashNext = (flash: Flash): void => this.SaveFlash$.next(flash)
-   saveFlashError = (error: string): void => this.SaveFlash$.error(error)
- 
   loadAllSitesNext = (sites: Site[]): void => this.loadAllSites$.next(sites)
+  loadAllSitesError = (error: string): void => this.loadAllSites$.error(error)
 
   loadLocalStatsError = (error: string): void => this.loadLocalStats$.error(error)
   loadLocalStatsNext = (stat: Stat): void => this.loadLocalStats$.next(stat)
   
    // Save Flash actions
-   saveFlashNext = (flash: Flash): void => this.SaveFlash$.next(flash)
+   saveFlashNext = (): void => this.SaveFlash$.next()
    saveFlashError = (error: string): void => this.SaveFlash$.error(error)
  
 }

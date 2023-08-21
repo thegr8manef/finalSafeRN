@@ -75,6 +75,6 @@ describe('Save Flash flow', () => {
             }
         });
         store.dispatch(SaveFlash(flashInstance));
-        store.dispatch(SaveFlashSuccess())
+        reduxStoreWO.saveFlashNext()
         });
 });
