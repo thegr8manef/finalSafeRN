@@ -1,43 +1,42 @@
-import {View, Text, Pressable, StyleSheet} from 'react-native';
 import React from 'react';
-import * as utils from '@utils/index';
+import { TouchableOpacity, Text } from 'react-native';
+import globalStyle from '@styles/globalStyle';
+
 interface Props {
-  textButton: string;
-  OnPressCustomized: () => void;
+  onPressButton?: () => void;
+  style?: any;
+  buttonColor?: string;
+  width?: string;
+  height?: number;
+  textButton?: any;
+  borderWidth?: number;
+  borderColor?: string;
+  buttonText?: boolean;
+  titleStyle?: any;
+  borderRadius?: number;
 }
 
-export const ButtonPrimary = (props: Props): JSX.Element => {
+export const ButtonComponent = (props: Props): JSX.Element => {
+
   return (
-    <View style={styles.buttonOuterContainer}>
-      <Pressable
-        style={({pressed}) =>
-          pressed
-            ? [styles.buttonInnerContainer, styles.pressed]
-            : styles.buttonInnerContainer
-        }
-        onPress={() => props.OnPressCustomized()}
-        android_ripple={{color: '#ababab'}}>
-        <Text style={styles.buttomText}>{props.textButton}</Text>
-      </Pressable>
-    </View>
+    <TouchableOpacity
+      onPress={props.onPressButton}
+      style={[
+        props.style,
+        {
+          backgroundColor: props.buttonColor,
+          width: props.width,
+          padding: 5,
+          height: props.height,
+          borderWidth: props.borderWidth,
+          borderColor: props.borderColor,
+          borderRadius: props.borderRadius,
+        },
+      ]} >
+      <Text style={[globalStyle.fontMediumDark14Style, props.titleStyle]}>{props.textButton}</Text>
+    </TouchableOpacity>
   );
 };
-const styles = StyleSheet.create({
-  buttonOuterContainer: {
-    margin: 4,
-    overflow: 'hidden',
-  },
-  buttonInnerContainer: {
-    backgroundColor: utils.colors.primary,
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-  },
-  buttomText: {
-    fontSize: 17,
-    color: 'black',
-    textAlign: 'center',
-  },
-  pressed: {
-    opacity: 0.75,
-  },
-});
+
+
+export default ButtonComponent;

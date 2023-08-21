@@ -6,7 +6,6 @@ import {
   Alert,
 } from 'react-native';
 import * as utils from '@utils/index';
-import {Flash} from '../../../domain/entity/Flash';
 import {useTranslation} from 'react-i18next';
 import {Site} from '../../../domain/entity/Site';
 import { SiteInfo } from '../components/siteInfo/siteInfo';
@@ -14,13 +13,14 @@ import { ObservationInfo } from '../components/observation/observationInfo';
 import { CommentInfo } from '../components/comment/commentInfo';
 import { PreviewImages } from '../components/images/previewImages';
 import { FooterVisitFlash } from '../components/footerVisitFlash';
+import { VisitFlash } from '@contexts/visiteContext/domain/entity/VisitFlash';
 
 interface Props {
   navigation: any;
   loadingVisits: boolean;
   errorVisits: string | undefined;
-  flash: Flash | undefined;
-  saveFlash: (data: Flash) => void;
+  flash: VisitFlash | undefined;
+  saveFlash: (data: VisitFlash) => void;
   error: string | undefined;
   sites: Site[] | null;
   loading: boolean;
@@ -37,18 +37,20 @@ export const VisitFlashContainer = (props: Props) => {
   useEffect(()=>{
     props.loadSites()
   },[])
+
   useEffect(()=>{
     props.sites //todo remove logs
     console.log("🚀 ~ file: visitsFlash.container.tsx:43 ~ useEffect ~ props.sites:", props.sites)
   },[props.sites])
+
   const addImage = (image: string) => {
     setImages([...images, image]);
   };
 
   const saveVisit= () =>{
     if(validVisit()){
+      const flash = new VisitFlash(comment, images, levelId);
       // TODO replace images with new Photo()
-      const flash = new Flash(comment, images, levelId);
       Alert.alert('', t('etes_vous_sur_de_vouloir_sauvegarder')!, [
         {
           text: 'NON',

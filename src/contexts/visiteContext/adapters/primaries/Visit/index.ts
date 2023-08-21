@@ -1,6 +1,6 @@
-import {Dispatch} from 'redux';
-import {connect} from 'react-redux';
-import {VisitsContainer} from './visits.container';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
+import { VisitsContainer } from './visits.container';
 
 
 interface StateToPropsType {

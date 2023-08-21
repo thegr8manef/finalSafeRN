@@ -1,5 +1,4 @@
-import { Remarque } from '@common/adapters/secondaries/db/entity/Remarque';
-import {Flash} from './Flash';
+import { Remarque } from "@common/adapters/secondaries/db/entity/Remarque";
 
 export class Site {
   constructor(

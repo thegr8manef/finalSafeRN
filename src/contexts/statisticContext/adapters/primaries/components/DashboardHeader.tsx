@@ -1,7 +1,7 @@
-import {View, Text, StyleSheet, Image} from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import * as utils from '@utils/index';
 import React from 'react';
-import {t} from 'i18next';
+import { t } from 'i18next';
 
 interface Props {
   visits: number;
@@ -48,7 +48,7 @@ export const DashboardHeader = (props: Props): JSX.Element => {
         <View style={styles.container_divider} />
         <View style={styles.statics}>
           <Image source={utils.images.infoIcon} style={styles.ImageInfo} />
-          <Text style={[styles.textStat, {fontSize: 12}]}>
+          <Text style={[styles.textStat, { fontSize: 12 }]}>
             {t('txt.dashboard.message')} {props.dateDebut} {t('au')}
             {props.dateFinale}
           </Text>
@@ -59,7 +59,7 @@ export const DashboardHeader = (props: Props): JSX.Element => {
 };
 
 const styles = StyleSheet.create({
-  container: {flex: 1},
+  container: { flex: 1 },
 
   containerVisites: {
     height: 50,
