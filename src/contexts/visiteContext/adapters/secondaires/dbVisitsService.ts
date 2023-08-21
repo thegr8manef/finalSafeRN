@@ -1,4 +1,4 @@
-import { mergeMap } from 'rxjs/operators';
+import { mergeMap, map } from 'rxjs/operators';
 import { VisitsService } from '../../domain/gateway/visitsService';
 import { Observable, from } from 'rxjs';
 import ApplicationContext from '@common/appConfig/ApplicationContext';
@@ -11,8 +11,14 @@ import { Visit } from '@common/adapters/secondaries/db/entity/Visit';
 import { Remarque } from '@common/adapters/secondaries/db/entity/Remarque';
 import { v5 as uuidv5 } from 'uuid';
 import { NAME, NAMESPACE } from '@common/constants';
+import { DBUserRepository } from '@contexts/profileContext/adapters/secondaires/DBUserRepository';
 
 export class DbVisitsService implements VisitsService {
+  private userRepository: DBUserRepository;
+
+  constructor(userRepository: DBUserRepository) {
+    this.userRepository = userRepository;
+  }
 
   SaveFlash(data: VisitFlash): Observable<void> {
     const saveFlashtoDb = new Promise<Remarque>((resolve, reject) => {
@@ -37,7 +43,7 @@ export class DbVisitsService implements VisitsService {
               unq: false,
               tg: 1,
             });
-  
+
             console.log("New Remarque created:", newRemarque);
             resolve(newRemarque);
           });
@@ -50,23 +56,24 @@ export class DbVisitsService implements VisitsService {
         reject(error);
       }
     });
-  
+
     return from(saveFlashtoDb).pipe(
       mergeMap((createdRemarque: Remarque) => this.SaveVisit(data, createdRemarque))
     );
   }
-  
+
   SaveVisit(data: VisitFlash, createdRemarque: Remarque): Observable<void> {
     const currentDateTime = moment();
     const formattedCurrentDateTime = currentDateTime.format("YYYY/MM/DD HH:mm:ss");
     const currentDateTimeInMillis = moment().valueOf();
 
-    console.log('formattedCurrentDateTime',formattedCurrentDateTime)
-
+    console.log('formattedCurrentDateTime');
     const saveVisitToDb = new Promise<void>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
+
       try {
         db.then((realm) => {
+          const user = realm.objects('User');
           realm?.write(() => {
             const newVisit = realm.create<Visit>("Visit", {
               // Map Visit properties from data
@@ -77,14 +84,14 @@ export class DbVisitsService implements VisitsService {
               codeChantier: createdRemarque.idcs,
               V_enCours: 0,
               ordre: 0,
-              userId: 'hdkjhkjsfhkjhfskjqhjk',
+              userId: user[0]?.id,
               type: createdRemarque.lvl,
             });
-  
+
             if (newVisit.remarques) {
               newVisit.remarques.push(createdRemarque);
             }
-  
+
             console.log('Visit added');
             resolve();
           });
@@ -97,10 +104,11 @@ export class DbVisitsService implements VisitsService {
         reject(error);
       }
     });
-  
+
     return from(saveVisitToDb);
+
   }
-  
+
 
   loadVisitsDetails(): Observable<Visit[]> {
     const LoadVisitDb = new Promise<Visit[]>((resolve, reject) => {
@@ -132,3 +140,7 @@ export class DbVisitsService implements VisitsService {
     return from(LoadChantierInDb);
   }
 }
+function switchMap(arg0: (isConnected: any) => Observable<unknown>): import("rxjs").OperatorFunction<boolean, void> {
+  throw new Error('Function not implemented.');
+}
+
