@@ -3,10 +3,10 @@
 import { ReduxStoreWO } from '../../reduxStore.wo';
 import { Store } from 'redux';
 import { AppState } from "@redux/appState";
-import { Flash } from '@contexts/visiteContext/domain/entity/Flash';
 import { Photo } from '@contexts/visiteContext/domain/entity/Photo';
 import { saveFashErrorSelector, saveFlashLoadingSelector } from '@contexts/visiteContext/useCases/saveFlash/selectors';
 import { SaveFlash, SaveFlashSuccess } from '@contexts/visiteContext/useCases/saveFlash/action';
+import { VisitFlash } from '@contexts/visiteContext/domain/entity/VisitFlash';
 
 const deepFreeze = require('deep-freeze');
 
@@ -15,7 +15,7 @@ describe('Save Flash flow', () => {
     let reduxStoreWO: ReduxStoreWO;
     const mockPhoto = new Photo();
     mockPhoto.path = 'mocked-url'
-    const flashInstance = new Flash('mock-comment', [mockPhoto], 2);
+    const flashInstance = new VisitFlash('mock-comment', [mockPhoto], 2);
 
     beforeEach(() => {
         reduxStoreWO = new ReduxStoreWO();
