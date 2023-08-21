@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import * as utils from '@utils/index'
 
 export const Divider = (): JSX.Element => {
-  return (<View style={styles.container_divider} />);
+  return (<View testID='horizontal-line' style={styles.container_divider} />);
 };
 
 const styles = StyleSheet.create({

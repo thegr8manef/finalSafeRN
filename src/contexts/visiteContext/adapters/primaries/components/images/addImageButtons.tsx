@@ -79,7 +79,6 @@ export const AddImageButtons = (props: Props) => {
     };
     const isCameraPermitted = await requestCameraPermission();
     const isStoragePermitted = await requestExternalWritePermission();
-    console.log({ isCameraPermitted, isStoragePermitted });
 
     if (isCameraPermitted && isStoragePermitted) {
       launchCamera(options, response => {

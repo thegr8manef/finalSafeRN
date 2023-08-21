@@ -49,8 +49,9 @@ export const VisitFlashContainer = (props: Props) => {
 
   const saveVisit= () =>{
     if(validVisit()){
-      const flash = new VisitFlash(comment, images, levelId);
+      
       // TODO replace images with new Photo()
+      const flash = new VisitFlash(comment, images, levelId);
       Alert.alert('', t('etes_vous_sur_de_vouloir_sauvegarder')!, [
         {
           text: 'NON',
