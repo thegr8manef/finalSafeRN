@@ -9,7 +9,6 @@ import * as utils from '@utils/index';
 import {Flash} from '../../../domain/entity/Flash';
 import {useTranslation} from 'react-i18next';
 import {Site} from '../../../domain/entity/Site';
-import colors from '@assets/colors';
 import { SiteInfo } from '../components/siteInfo/siteInfo';
 import { ObservationInfo } from '../components/observation/observationInfo';
 import { CommentInfo } from '../components/comment/commentInfo';
@@ -39,7 +38,7 @@ export const VisitFlashContainer = (props: Props) => {
     props.loadSites()
   },[])
   useEffect(()=>{
-    props.sites
+    props.sites //todo remove logs
     console.log("🚀 ~ file: visitsFlash.container.tsx:43 ~ useEffect ~ props.sites:", props.sites)
   },[props.sites])
   const addImage = (image: string) => {
@@ -57,10 +56,10 @@ export const VisitFlashContainer = (props: Props) => {
         },
         {
           text: 'OUI',
-          onPress: () => [
-            props.saveFlash(flash),
-            props.navigation.navigate('visites'),
-          ],
+          onPress: () => {
+            props.saveFlash(flash)
+            props.navigation.navigate('visites')
+          }
         },
       ]);
     }
