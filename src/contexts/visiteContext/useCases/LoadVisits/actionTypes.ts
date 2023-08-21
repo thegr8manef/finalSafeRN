@@ -1,4 +1,4 @@
-import { Visit } from "@common/adapters/secondaries/db/entity/Visit";
+import { Visits } from "@common/adapters/secondaries/db/entity/Visit";
 
 export const LOAD_VISITS = 'LOAD_VISITS';
 export const LOAD_VISITS_SUCCESS = 'LOAD_VISITS_SUCCESS';
@@ -15,7 +15,7 @@ export interface LoadVisitsFailedAction {
 
 export interface LoadVisitsSuccessAction {
     type: typeof LOAD_VISITS_SUCCESS;
-    payload: Visit;
+    payload: Visits;
 }
 
 export type LoadVisitsActionDbTypes =

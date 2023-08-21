@@ -5,7 +5,7 @@ import { LOAD_VISITS } from './actionTypes';
 import { VisitsRepository } from '@contexts/visiteContext/domain/gateway/visitsRepository';
 import { AppState } from '@redux/appState';
 import { LoadVisitsFailed, LoadVisitsSuccess } from './action';
-import { Visit } from '@contexts/visiteContext/domain/entity/Visits';
+import { Visits } from '@contexts/visiteContext/domain/entity/Visits';
 
 export const loadVisitsEpic: Epic = (
   action$,
@@ -16,7 +16,7 @@ export const loadVisitsEpic: Epic = (
     ofType(LOAD_VISITS),
     switchMap(() =>
       visitRepository.loadVisitsDetails().pipe(
-        map((data: Visit[]) => LoadVisitsSuccess(data)),
+        map((data: Visits[]) => LoadVisitsSuccess(data)),
         catchError(error => of(LoadVisitsFailed(error))),
       ),
     ),

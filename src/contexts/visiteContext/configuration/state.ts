@@ -1,5 +1,5 @@
 import { Site } from '../domain/entity/Site';
-import { Visit } from '../domain/entity/Visits';
+import { Visits } from '../domain/entity/Visits';
 
 export interface VisitsState {
   saveFlash: SaveFlashState;
@@ -18,6 +18,6 @@ export interface LoadSitesState {
 export interface LoadVisitsState {
   loading: boolean;
   error: string | undefined;
-  visits: Visit | undefined;
+  visits: Visits | undefined;
 }
 
