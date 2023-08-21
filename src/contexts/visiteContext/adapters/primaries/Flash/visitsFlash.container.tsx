@@ -13,8 +13,7 @@ import { SiteInfo } from '../components/siteInfo/siteInfo';
 import { ObservationInfo } from '../components/observation/observationInfo';
 import { CommentInfo } from '../components/comment/commentInfo';
 import { PreviewImages } from '../components/images/previewImages';
-import { FooterVisitFlash } from '../components/footerVisitFlash';
-
+import { FooterVisitFlash } from '../components/FooterVisitFlash';
 interface Props {
   navigation: any;
   loadingVisits: boolean;

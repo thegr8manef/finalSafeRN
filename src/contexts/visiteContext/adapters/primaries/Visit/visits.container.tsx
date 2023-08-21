@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Image } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import * as utils from '@utils/index';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { StackParamList } from '@navigConfig/navigation.types';
@@ -7,10 +7,14 @@ import { t } from 'i18next';
 import globalStyle from '@styles/globalStyle';
 import ButtonComponent from '@common/adapters/primaries/components/ButtonPrimary';
 import { Divider } from '@common/adapters/primaries/components/Divider';
-import { Visit } from '@contexts/visiteContext/domain/entity/Visits';
+import { Visits } from '@contexts/visiteContext/domain/entity/Visits';
 
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
+  loadVisits: () => void;
+  visits: Visits[] | null; // Update this type
+  error: string | undefined;
+  loading: boolean;
 }
 
 interface CustomAddNewVisitProps {
@@ -18,8 +22,15 @@ interface CustomAddNewVisitProps {
   icon: any; // You might need to specify the correct type for the icon
 }
 
-
 export const VisitsContainer = (props: Props): JSX.Element => {
+
+  useEffect(() => {
+    props.loadVisits();
+  }, [])
+  
+  // useEffect(() => {
+  //   console.log('visits', props.visits)
+  // }, [])
 
   const CustomAddNewVisit: React.FC<CustomAddNewVisitProps> = ({ title, icon }) => {
     return (
@@ -30,11 +41,11 @@ export const VisitsContainer = (props: Props): JSX.Element => {
     );
   };
 
-  const CustomVisitList: React.FC<CustomAddNewVisitProps> = (visit : Visit) => {
-    return (
-      <View></View>
-    );
-  };
+  // const CustomVisitList: React.FC<CustomAddNewVisitProps> = (visit: Visit) => {
+  //   return (
+  //     <View></View>
+  //   );
+  // };
 
   return (
     <View style={globalStyle.containerStyle}>

@@ -12,6 +12,7 @@ import { Remarque } from '@common/adapters/secondaries/db/entity/Remarque';
 import { v5 as uuidv5 } from 'uuid';
 import { NAME, NAMESPACE } from '@common/constants';
 import { DBUserRepository } from '@contexts/profileContext/adapters/secondaires/DBUserRepository';
+import { Visits } from '@contexts/visiteContext/domain/entity/Visits';
 
 export class DbVisitsService implements VisitsService {
   private userRepository: DBUserRepository;
@@ -43,7 +44,6 @@ export class DbVisitsService implements VisitsService {
               unq: false,
               tg: 1,
             });
-
             console.log("New Remarque created:", newRemarque);
             resolve(newRemarque);
           });
@@ -110,12 +110,13 @@ export class DbVisitsService implements VisitsService {
   }
 
 
-  loadVisitsDetails(): Observable<Visit[]> {
-    const LoadVisitDb = new Promise<Visit[]>((resolve, reject) => {
+  loadVisitsDetails(): Observable<Visits[]> {
+    const LoadVisitDb = new Promise<Visits[]>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
       try {
         db.then(realm => {
-          const objects = realm.objects('Visit')
+          const objects = realm.objects('Visit');
+          console.log('objects',objects)
           resolve(VisitMapper.mapToVisit(objects));
         });
       } catch (error) {
