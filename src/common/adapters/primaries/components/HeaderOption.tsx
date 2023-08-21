@@ -17,8 +17,7 @@ const CustomHeader: React.FC<{ title: string }> = ({ title }) => (
 // Function to create customized screen options
 export const HeaderOption = (props: Props) => ({
     headerShown: true,
-    headerTitle: () => <CustomHeader title={t(props.titleKey)} />,
-    headerTitleAlign: 'center',
+    headerTitle: () => <CustomHeader title={t(props.titleKey)} />,   
     headerBackground: () => <View style={styles.backgroundHeader} />,
     headerRight: () => (
         <>

@@ -3,7 +3,6 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { DashboardPage } from '@contexts/statisticContext/adapters/primaries/Dashboard';
 import { VisitsFlashPage } from '@contexts/visiteContext/adapters/primaries/Flash';
 import { MenuLeftPage } from './index';
-import { VisitsContainer } from '@contexts/visiteContext/adapters/primaries/Visit/visits.container';
 import * as utils from '@utils/index';
 import { t } from 'i18next';
 import { HeaderOption } from '@common/adapters/primaries/components/HeaderOption';
@@ -15,6 +14,8 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
+import { LocalProfilePage } from '@contexts/profileContext/adapters/primaries/LocalProfile';
+import { VisitsPage } from '@contexts/visiteContext/adapters/primaries/Visit';
 
 // Create a Drawer navigator
 const Drawer = createDrawerNavigator();
@@ -65,7 +66,7 @@ export const HomeNavigation = () => {
       />
       <Drawer.Screen
         name={'visites'}
-        component={VisitsContainer}
+        component={VisitsPage}
         options={createScreenOptions({
           titleKey: 'txt.visites',
           drawerIconPath: utils.images.visitIcon,
@@ -89,7 +90,7 @@ export const HomeNavigation = () => {
       />
       <Drawer.Screen
         name={'profile'}
-        component={DashboardPage}
+        component={LocalProfilePage}
         options={createScreenOptions({
           titleKey: 'txt.profile',
           drawerIconPath: utils.images.profileIcon,

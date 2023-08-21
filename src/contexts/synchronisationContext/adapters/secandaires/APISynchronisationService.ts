@@ -7,6 +7,8 @@ import {catchError, map} from 'rxjs/operators';
 import constants from '@common/constants';
 import {Site} from '@contexts/visiteContext/domain/entity/Site';
 import ws from '@config/ws';
+import { VisitSynchronisation } from '@contexts/synchronisationContext/domain/entity/VisitSynchronisation';
+import { Synchronisation } from '@contexts/synchronisationContext/domain/entity/Synchronisation';
 
 export class APISynchronisationService implements SynchronisationService {
   loadData(accessToken: string, lastUpdateDate: string): Observable<Site[]> {
@@ -38,4 +40,29 @@ export class APISynchronisationService implements SynchronisationService {
         catchError(err => throwError(err)),
       );
   }
+
+ 
+  sendData(accessToken: string, lastUpadet: string, synchronisation: Synchronisation): Observable<void> {
+    const _headers: Record<string, string> = {
+
+      'Content-Type': 'application/json',
+      token: accessToken
+    };
+    const body: Record<string, string> = {
+      lu: lastUpadet,
+      dt : JSON.stringify(SynchronisationMapper.mapperToVisitSynchronisation(synchronisation))
+    };
+
+    const URL = ws.baseUrl + 'synchronization';
+
+    return new ObservableAjaxHttpClient()
+      .put<SynchronisationDto>(URL, body, _headers)
+      .pipe(
+        map(response =>
+          response.response
+          ),
+        catchError(err => throwError(err)),
+      );
+  }
+
 }

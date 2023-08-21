@@ -14,4 +14,12 @@ export class ObservableAjaxHttpClient implements HttpClient {
   get<R>(url: string, headers?: Record<string, string>): Observable<R> {
     return ajax.getJSON<R>(url, headers);
   }
+
+  put<T>(
+    url : string,
+    body?: Record<string,string>,
+    headers?: Record<string,string> 
+  ): Observable<R>{
+    return ajax.put<T>(url, body, headers)
+  }
 }
