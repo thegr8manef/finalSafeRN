@@ -39,7 +39,8 @@ export const VisitFlashContainer = (props: Props) => {
   },[])
 
   useEffect(()=>{
-    props.sites
+    props.sites //todo remove logs
+    console.log("🚀 ~ file: visitsFlash.container.tsx:43 ~ useEffect ~ props.sites:", props.sites)
   },[props.sites])
 
   const addImage = (image: string) => {
@@ -48,6 +49,8 @@ export const VisitFlashContainer = (props: Props) => {
 
   const saveVisit= () =>{
     if(validVisit()){
+      
+      // TODO replace images with new Photo()
       const flash = new VisitFlash(comment, images, levelId);
       Alert.alert('', t('etes_vous_sur_de_vouloir_sauvegarder')!, [
         {
@@ -56,10 +59,10 @@ export const VisitFlashContainer = (props: Props) => {
         },
         {
           text: 'OUI',
-          onPress: () => [
-            props.saveFlash(flash),
-            props.navigation.navigate('visites'),
-          ],
+          onPress: () => {
+            props.saveFlash(flash)
+            props.navigation.navigate('visites')
+          }
         },
       ]);
     }

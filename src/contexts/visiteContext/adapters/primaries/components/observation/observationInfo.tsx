@@ -6,47 +6,47 @@ import { ObservationNegative } from './observationNegative';
 import { ObservationNegativeLevel } from './observationNegativeLevel';
 
 interface Props {
-    onSave: (levelId: number)=> void
+    onSave: (levelId: number) => void
 }
-export const ObservationInfo = (props: Props) =>{
-    const [observation, setObservation]= useState<'positive' | 'negative' | undefined>(undefined)
+export const ObservationInfo = (props: Props) => {
+    const [observation, setObservation] = useState<'positive' | 'negative' | undefined>(undefined)
     const [levelId, setLevelId] = useState<number>(0);
-    const setPositiveObservation = () =>{
-        if(observation ==='positive')
-        setObservation('negative')
-        else{
-        setObservation('positive')
-        setLevelObservation(0)
+    const setPositiveObservation = () => {
+        if (observation === 'positive')
+            setObservation('negative')
+        else {
+            setObservation('positive')
+            setLevelObservation(0)
         }
     }
 
-    const setNegativeObservation= () =>{
-        if(observation ==='negative') {
+    const setNegativeObservation = () => {
+        if (observation === 'negative') {
             setObservation('positive')
-           setLevelObservation(0)
-            }
+            setLevelObservation(0)
+        }
         else
-        setObservation('negative')
+            setObservation('negative')
     }
-    const setLevelObservation = (levelId: number) =>{
+    const setLevelObservation = (levelId: number) => {
         setLevelId(levelId)
         props.onSave(levelId)
     }
 
-    return(
+    return (
         <View style={styles.container}>
-        <View style={styles.content}>
-           <ObservationPositive onPress={() => setPositiveObservation()} status={observation ==='positive'}/>
-           <View style={styles.divider} />
-           <ObservationNegative onPress={() => setNegativeObservation()} status={observation ==='negative'}/>
-        </View>
-        {observation ==='negative' ? <ObservationNegativeLevel setLevelId={setLevelObservation} levelId={levelId}/>: null }
+            <View style={styles.content}>
+                <ObservationPositive onPress={() => setPositiveObservation()} status={observation === 'positive'} />
+                <View style={styles.divider} />
+                <ObservationNegative onPress={() => setNegativeObservation()} status={observation === 'negative'} />
+            </View>
+            {observation === 'negative' ? <ObservationNegativeLevel setLevelId={setLevelObservation} levelId={levelId} /> : null}
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    container:{
+    container: {
         height: 'auto',
         paddingBottom: 50
     },
@@ -57,10 +57,10 @@ const styles = StyleSheet.create({
         backgroundColor: utils.colors.gris100,
         flexDirection: 'row',
         marginHorizontal: 25,
-      },
+    },
     divider: {
         flex: 0.01,
         backgroundColor: utils.colors.gris200,
         marginVertical: 10,
-      },
+    },
 });

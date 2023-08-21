@@ -7,30 +7,31 @@ import { t } from 'i18next';
 import globalStyle from '@styles/globalStyle';
 import ButtonComponent from '@common/adapters/primaries/components/ButtonPrimary';
 import { Divider } from '@common/adapters/primaries/components/Divider';
-import { Visit } from '@contexts/visiteContext/domain/entity/Visits';
+import { Visits } from '@contexts/visiteContext/domain/entity/Visits';
 
 interface Props {
-  navigation: StackNavigationProp<StackParamList>;
+  navigation: Partial<StackNavigationProp<StackParamList>>;
 }
 
 interface CustomAddNewVisitProps {
   title: string;
-  icon: any; // You might need to specify the correct type for the icon
+  icon: any; // You might need to specify the correct type for the icon,
+  testID?: string
 }
 
 
 export const VisitsContainer = (props: Props): JSX.Element => {
 
-  const CustomAddNewVisit: React.FC<CustomAddNewVisitProps> = ({ title, icon }) => {
+  const CustomAddNewVisit: React.FC<CustomAddNewVisitProps> = ({ title, icon, testID }) => {
     return (
       <View style={styles.visitContatiner}>
-        <Image source={icon} style={styles.visitImageStyle} />
+        <Image testID={testID} source={icon} style={styles.visitImageStyle} />
         <Text style={globalStyle.fontMediumDark15Style}>{title}</Text>
       </View>
     );
   };
 
-  const CustomVisitList: React.FC<CustomAddNewVisitProps> = (visit : Visit) => {
+  const CustomVisitList: React.FC<CustomAddNewVisitProps> = (visit: Visits) => {
     return (
       <View></View>
     );
@@ -45,6 +46,7 @@ export const VisitsContainer = (props: Props): JSX.Element => {
             {t('txt.visites.cloturees')}
           </Text>
           <ButtonComponent
+            testID='sync-button'
             buttonColor={utils.colors.primary}
             width={'30%'}
             textButton={t('txt.synchroniser')} />
@@ -58,9 +60,9 @@ export const VisitsContainer = (props: Props): JSX.Element => {
       <View style={globalStyle.containerStyle}>
         <Text style={[globalStyle.fontBoldDark15Style, globalStyle.fontCenterStyle]}>{t('txt.creez.new.visite')}</Text>
         <View style={styles.visitTypesStyle}>
-          <CustomAddNewVisit title={t('txt.prevention')} icon={utils.images.addPrevenationIcon} />
-          <CustomAddNewVisit title={t('txt.conformite')} icon={utils.images.addConformite} />
-          <CustomAddNewVisit title={t('txt.hierarchique')} icon={utils.images.addhierarchicalIcon} />
+          <CustomAddNewVisit testID='img-prevention' title={t('txt.prevention')} icon={utils.images.addPrevenationIcon} />
+          <CustomAddNewVisit testID='img-conformite' title={t('txt.conformite')} icon={utils.images.addConformite} />
+          <CustomAddNewVisit testID='img-hierarchical' title={t('txt.hierarchique')} icon={utils.images.addhierarchicalIcon} />
         </View>
       </View>
     </View>

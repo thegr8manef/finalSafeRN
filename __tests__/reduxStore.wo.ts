@@ -22,6 +22,7 @@ import { Profile } from "@contexts/profileContext/domain/entity/profile";
 import { User } from "@contexts/profileContext/domain/entity/user";
 import { profileRootEpics } from "@contexts/profileContext/configuration/rootEpic";
 import { statisticRootEpics } from "@contexts/statisticContext/configuration/rootEpic";
+import { VisitFlash } from '@contexts/visiteContext/domain/entity/VisitFlash';
 
 export class ReduxStoreWO {
   private static instance: ReduxStoreWO;
@@ -40,6 +41,8 @@ export class ReduxStoreWO {
   private saveData$: Subject<void> = new Subject();
   private loadLastUpdateDate$: Subject<string> = new Subject();
   private loadLocalProfile$: Subject<Profile> = new Subject();
+  // Visite Services
+  // private SaveFlash$: Subject<Flash> = new Subject();
 
   private loadAllSites$: Subject<Site[]> = new Subject();
 
@@ -142,9 +145,17 @@ export class ReduxStoreWO {
   loadLocalProfileError = (error: string): void =>
     this.loadLocalProfile$.error(error);
 
-  loadAllSitesError = (error: string): void => this.loadAllSites$.error(error)
+
+  // Visite actions
+
   loadAllSitesNext = (sites: Site[]): void => this.loadAllSites$.next(sites)
+  loadAllSitesError = (error: string): void => this.loadAllSites$.error(error)
 
   loadLocalStatsError = (error: string): void => this.loadLocalStats$.error(error)
   loadLocalStatsNext = (stat: Stat): void => this.loadLocalStats$.next(stat)
+  
+   // Save Flash actions
+   saveFlashNext = (): void => this.SaveFlash$.next()
+   saveFlashError = (error: string): void => this.SaveFlash$.error(error)
+ 
 }

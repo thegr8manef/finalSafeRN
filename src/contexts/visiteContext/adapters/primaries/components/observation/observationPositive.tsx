@@ -11,10 +11,12 @@ export const ObservationPositive = (props: Props) =>{
     const {t} = useTranslation();
     return (
       <TouchableOpacity
+        testID="positive-observation-btn"
         onPress={props.onPress}
         style={styles.container}>
         <View style={styles.imageContent}>
           <Image
+            testID="img-observation-btn"
             source={utils.images.PositDisabledIcon}
             style={props.status ? styles.activeLogo: styles.inactiveLogo}
           />
