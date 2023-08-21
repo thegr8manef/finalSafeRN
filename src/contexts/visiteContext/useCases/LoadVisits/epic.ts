@@ -16,7 +16,7 @@ export const loadVisitsEpic: Epic = (
     ofType(LOAD_VISITS),
     switchMap(() =>
       visitRepository.loadVisitsDetails().pipe(
-        map((data: Visits[]) => LoadVisitsSuccess(data)),
+        map((data: Visits[]) => LoadVisitsSuccess(data)), // Did LoadVisitsSuccess accept visits or array of visits
         catchError(error => of(LoadVisitsFailed(error))),
       ),
     ),
