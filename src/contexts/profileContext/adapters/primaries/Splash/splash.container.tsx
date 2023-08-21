@@ -14,7 +14,7 @@ interface Props {
   connectionStatus: boolean | undefined;
   profile: Profile | undefined;
   loadLocalProfile: () => void;
-  loadSychronisationData: (accessToken: string) => void;
+  loadSychronisationData: (accessToken: string, lastUpdate : string) => void;
 }
 
 export const SplashContainer = (props: Props) => {
@@ -34,7 +34,7 @@ export const SplashContainer = (props: Props) => {
         if (props.connectionStatus) {
           if (!mountedSyn) {
             setMountedSyn(true);
-            props.loadSychronisationData(props.profile?.accessToken!);
+            props.loadSychronisationData(props.profile?.accessToken!, props.profile?.lastUpdate);
           }
           if (props.loading == false && mountedSyn) {
             resetNavigation('Home');

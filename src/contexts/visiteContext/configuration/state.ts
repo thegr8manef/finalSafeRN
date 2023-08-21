@@ -18,6 +18,6 @@ export interface LoadSitesState {
 export interface LoadVisitsState {
   loading: boolean;
   error: string | undefined;
-  visits: Visit | undefined;
+  visits: Visit[] | undefined;
 }
 

@@ -15,15 +15,11 @@ export const loadVisitsEpic: Epic = (
   action$.pipe(
     ofType(LOAD_VISITS),
     switchMap(() => {
-      console.log("LOAD_VISITS action triggered"); // Add this log statement
-
       return visitRepository.loadVisitsDetails().pipe(
         map((data: Visit[]) => {
-          console.log("Visits loaded successfully:", data); // Add this log statement
           return LoadVisitsSuccess(data);
         }),
         catchError(error => {
-          console.error("Error loading visits:", error); // Add this error log statement
           return of(LoadVisitsFailed(error));
         }),
       );

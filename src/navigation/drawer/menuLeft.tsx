@@ -15,11 +15,9 @@ interface Props {
 }
 
 export const MenuLeft = (props: Props) => {
-
-  useEffect(() => {
-    props.loadProfileLocal();
-  }, [])
-
+  if (props.profile?.email == '') {
+    props.loadProfileLocal()
+  }
   return (
     <View style={globalStyle.containerStyle}>
       <View style={styles.header}>

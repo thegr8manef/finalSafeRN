@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     container: {
         height: 130,
         marginTop: 5,
-        marginBottom:10
+        marginBottom: 10
     },
     title: {
         color: utils.colors.gris200,
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         marginTop: 30,
         marginBottom: 15,
-        marginLeft:25
+        marginLeft: 25
     },
     content: {
         height: 130,
@@ -76,28 +76,28 @@ const styles = StyleSheet.create({
         backgroundColor: utils.colors.green300,
         width: '85%',
         fontSize: 15,
-        color : utils.colors.textColor,
-        paddingRight : 10,
-        paddingTop :5,
-        paddingBottom : 5
-      },
-      radioButton2: {
+        color: utils.colors.textColor,
+        paddingRight: 10,
+        paddingTop: 5,
+        paddingBottom: 5
+    },
+    radioButton2: {
         backgroundColor: utils.colors.yellow900,
         width: '85%',
         fontSize: 15,
-        color : utils.colors.textColor,
-        paddingRight : 10,
-        paddingTop :5,
-        paddingBottom : 5
-      },
-      radioButton3: {
+        color: utils.colors.textColor,
+        paddingRight: 10,
+        paddingTop: 5,
+        paddingBottom: 5
+    },
+    radioButton3: {
         backgroundColor: utils.colors.pink,
         width: '85%',
         fontSize: 15,
-        color : utils.colors.textColor,
-        paddingRight : 10,
-        paddingTop :5,
-        paddingBottom : 5
-      },
+        color: utils.colors.textColor,
+        paddingRight: 10,
+        paddingTop: 5,
+        paddingBottom: 5
+    },
 
 });

@@ -56,10 +56,10 @@ export const VisitFlashContainer = (props: Props) => {
         },
         {
           text: 'OUI',
-          onPress: () => [
-            props.saveFlash(flash),
-            props.navigation.navigate('visites'),
-          ],
+          onPress: () => {
+            props.saveFlash(flash)
+            props.navigation.navigate('visites')
+          }
         },
       ]);
     }

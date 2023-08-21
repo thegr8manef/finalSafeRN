@@ -21,13 +21,11 @@ const [keyword, setKeyword]= useState<string>('')
 const [sites, setSites]= useState<Site[] | undefined>(undefined)
 const [selectedSite, setSelectedSite]= useState<Site | undefined>(undefined)
 const searchSite= (keyword:string)=>{ 
-  console.log('keyboard',keyword)
   setKeyword(keyword)
  const filtedSites =  props.sites?.filter(site => site.name.indexOf(keyword) !== -1)
   setSites(filtedSites)
 }
 const onSelectSite = () => {
-  console.log('props.sites',selectedSite)
   if(!selectedSite){
    Alert.alert('',t('txt.veuillez.choisir.chantier')!!)
   }else{
@@ -37,8 +35,6 @@ const onSelectSite = () => {
 }
 
 useEffect(() => {
-  console.log('props.sites',props.sites)
-
   },[selectedSite]);
 
   return (

@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Image } from 'react-native';
-import React, { useEffect } from 'react';
+import React from 'react';
 import * as utils from '@utils/index';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { StackParamList } from '@navigConfig/navigation.types';
@@ -19,33 +19,21 @@ interface Props {
 
 interface CustomAddNewVisitProps {
   title: string;
-  icon: any; // You might need to specify the correct type for the icon
+  icon: any; // You might need to specify the correct type for the icon,
+  testID?: string
 }
 
 export const VisitsContainer = (props: Props): JSX.Element => {
-
-  useEffect(() => {
-    console.log('props.visits',props.visits);
-  }, [])
   
-  // useEffect(() => {
-  //   console.log('visits', props.visits)
-  // }, [])
-
-  const CustomAddNewVisit: React.FC<CustomAddNewVisitProps> = ({ title, icon }) => {
+  const CustomAddNewVisit: React.FC<CustomAddNewVisitProps> = ({ title, icon, testID }) => {
     return (
       <View style={styles.visitContatiner}>
-        <Image source={icon} style={styles.visitImageStyle} />
+        <Image testID={testID} source={icon} style={styles.visitImageStyle} />
         <Text style={globalStyle.fontMediumDark15Style}>{title}</Text>
       </View>
     );
   };
 
-  // const CustomVisitList: React.FC<CustomAddNewVisitProps> = (visit: Visit) => {
-  //   return (
-  //     <View></View>
-  //   );
-  // };
 
   return (
     <View style={globalStyle.containerStyle}>
@@ -56,6 +44,7 @@ export const VisitsContainer = (props: Props): JSX.Element => {
             {t('txt.visites.cloturees')}
           </Text>
           <ButtonComponent
+            testID='sync-button'
             buttonColor={utils.colors.primary}
             width={'30%'}
             textButton={t('txt.synchroniser')} />
@@ -69,9 +58,9 @@ export const VisitsContainer = (props: Props): JSX.Element => {
       <View style={globalStyle.containerStyle}>
         <Text style={[globalStyle.fontBoldDark15Style, globalStyle.fontCenterStyle]}>{t('txt.creez.new.visite')}</Text>
         <View style={styles.visitTypesStyle}>
-          <CustomAddNewVisit title={t('txt.prevention')} icon={utils.images.addPrevenationIcon} />
-          <CustomAddNewVisit title={t('txt.conformite')} icon={utils.images.addConformite} />
-          <CustomAddNewVisit title={t('txt.hierarchique')} icon={utils.images.addhierarchicalIcon} />
+          <CustomAddNewVisit testID='img-prevention' title={t('txt.prevention')} icon={utils.images.addPrevenationIcon} />
+          <CustomAddNewVisit testID='img-conformite' title={t('txt.conformite')} icon={utils.images.addConformite} />
+          <CustomAddNewVisit testID='img-hierarchical' title={t('txt.hierarchique')} icon={utils.images.addhierarchicalIcon} />
         </View>
       </View>
     </View>

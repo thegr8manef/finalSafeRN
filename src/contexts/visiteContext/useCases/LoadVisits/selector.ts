@@ -9,5 +9,5 @@ export const loadVisitsErrorSelector = (
     appState: AppState,
 ): string | undefined => appState.visits.loadVisits.error;
 
-export const localVistsSelector = (appState: AppState): Visit | undefined =>
+export const localVistsSelector = (appState: AppState): Visit[] | undefined =>
     appState.visits.loadVisits.visits;

@@ -1,0 +1,7 @@
+import './platform.mock'
+import './reactI18n.mock'
+import './react-native-permission.mock'
+import './react-native-image-picker.mock'
+import './react-native-async-storage.mock'
+import './react-native-chart-kit.mock'
+import './react-native-radio-buttons.mock'
