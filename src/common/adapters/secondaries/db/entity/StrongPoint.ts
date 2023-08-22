@@ -1,3 +1,5 @@
+import Realm from 'realm';
+
 export class StrongPoint extends Realm.Object<StrongPoint> {
     id?: string;
     title?: string;

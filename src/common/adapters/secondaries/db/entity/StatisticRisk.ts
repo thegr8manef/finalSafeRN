@@ -1,4 +1,5 @@
 import {StatisticRiskObject} from './StatisticRiskObject';
+import Realm from 'realm';
 
 export class StatisticRisk extends Realm.Object<StatisticRisk> {
   risk0?: StatisticRiskObject;

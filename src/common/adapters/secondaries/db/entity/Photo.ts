@@ -1,3 +1,5 @@
+import Realm from 'realm';
+
 export class Photo extends Realm.Object<Photo> {
   id?: string;
   Name?: string;

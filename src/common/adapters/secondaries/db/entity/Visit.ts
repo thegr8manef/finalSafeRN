@@ -4,6 +4,7 @@ import { Observation } from "./Observation";
 import { PointToImprove } from "./PointToImprove";
 import { Remarque } from "./Remarque";
 import { StrongPoint } from "./StrongPoint";
+import Realm from 'realm';
 
 export class Visit extends Realm.Object<Visit> {
     id?: string;

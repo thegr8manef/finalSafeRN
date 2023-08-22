@@ -2,6 +2,7 @@ import {StatisticObservation} from './StatisticObservation';
 import {StatisticRisk} from './StatisticRisk';
 import {StatisticUser} from './StatisticUser';
 import {StatisticVisit} from './StatisticVisit';
+import Realm from 'realm';
 
 export class Statistic extends Realm.Object<Statistic> {
   statisticRisk?: StatisticRisk;
