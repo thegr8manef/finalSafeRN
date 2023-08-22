@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, FlatList } from 'react-native';
 import React, { useEffect } from 'react';
 import * as utils from '@utils/index';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -8,6 +8,9 @@ import globalStyle from '@styles/globalStyle';
 import ButtonComponent from '@common/adapters/primaries/components/ButtonPrimary';
 import { Divider } from '@common/adapters/primaries/components/Divider';
 import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
+import { flexBoxStyle } from '@styles/flexBoxStyle';
+import { visitTypeToImageSource } from '@common/constants';
+import { convertDate } from '@utils/utils';
 
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
@@ -23,11 +26,25 @@ interface CustomAddNewVisitProps {
   testID?: string
 }
 
+interface CustomVistList {
+  visit: Visit;
+}
+
+interface CustomVisitDetailsProps {
+  title: string;
+  value: number; // You might need to specify the correct type for the icon,
+}
+
 export const VisitsContainer = (props: Props): JSX.Element => {
+
+  // const imageSource = visitTypeToImageSource[visit.type] || visitTypeToImageSource.default;
 
   useEffect(() => {
     props.loadVisits();
   }, [])
+
+  useEffect(() => {
+  }, [props.visits]);
 
   const CustomAddNewVisit: React.FC<CustomAddNewVisitProps> = ({ title, icon, testID }) => {
     return (
@@ -38,14 +55,54 @@ export const VisitsContainer = (props: Props): JSX.Element => {
     );
   };
 
+  const CustomVisitOption: React.FC<CustomVisitDetailsProps> = ({ title, value }) => {
+    return (
+      <View style={flexBoxStyle.flexColumn}>
+        <Text style={styles.visitDetailsStyle}>{value}</Text>
+        <Text style={styles.visitDetailsStyle}>{title}</Text>
+      </View>
+    )
+  }
+  const CustomVistList: React.FC<CustomVistList> = ({ visit }) => {
+    var imageSource = visitTypeToImageSource[visit.tp] || visitTypeToImageSource.default
+    return (
+      <View style={flexBoxStyle.flexRowSpace}>
+        <View style={flexBoxStyle.m1}>
+          <View style={flexBoxStyle.flexRowCenterSpace}>
+            <View style={flexBoxStyle.flexRow}>
+              <Image source={imageSource} style={globalStyle.defaultImageStyle} />
+              <View>
+                <Text style={globalStyle.fontMedium15Style}> {convertDate(visit.dt)} </Text>
+                <Text style={globalStyle.fontMediumDark15Style}> {visit?.rq[0].ds}</Text>
+              </View>
+            </View>
+            <View style={flexBoxStyle.flexRow}>
+              {visit.tp != 3 &&
+                <CustomVisitOption title={'Observations'} value={0} />
+              }
+              <CustomVisitOption title={'Levée'} value={0} />
+              <CustomVisitOption title={'Photos'} value={0} />
+            </View>
+          </View>
+        </View>
+        <View>
+          <Image source={utils.images.visitLockIcon} style={globalStyle.defaultImageStyle} />
+        </View>
+      </View>
+    );
+  };
 
   return (
     <View style={globalStyle.containerStyle}>
       <View style={styles.mainStyle}>
-        <Text style={globalStyle.fontMedium15Style}>{t('txt.aucune.synchro')}</Text>
+        <View style={styles.fontBackground}>
+          <View style={flexBoxStyle.p1}>
+            <Text style={[globalStyle.fontMedium15Style]}>{t('txt.aucune.synchro')}</Text>
+          </View>
+        </View>
         <View style={[globalStyle.rowContainerStyle, styles.synchroContainerStyle]}>
           <Text style={globalStyle.fontMediumDark17Style}>
-            {t('txt.visites.cloturees')}
+            {props.visits?.length} {t('txt.visites.cloturees')}
           </Text>
           <ButtonComponent
             testID='sync-button'
@@ -54,13 +111,22 @@ export const VisitsContainer = (props: Props): JSX.Element => {
             textButton={t('txt.synchroniser')} />
         </View>
         <Divider />
-        <View style={globalStyle.centerContainerStyle}>
-          <Text style={globalStyle.fontMedium15Style}>{t('txt.no.visit.clotured')}</Text>
-        </View>
+        {props.visits ? (
+          <FlatList
+            data={props.visits}
+            keyExtractor={(item) => item.tk?.toString()} // Adjust the key extractor based on your data structure
+            renderItem={({ item }) => <CustomVistList visit={item} />}
+            ItemSeparatorComponent={() => (<Divider />)}
+          />
+        ) : (
+          <View style={globalStyle.centerContainerStyle}>
+            <Text style={globalStyle.fontMedium15Style}>{t('txt.no.visit.clotured')}</Text>
+          </View>
+        )}
+
       </View>
       <Divider />
       <View style={globalStyle.containerStyle}>
-        <Text style={[globalStyle.fontBoldDark15Style, globalStyle.fontCenterStyle]}>{t('txt.creez.new.visite')}</Text>
         <View style={styles.visitTypesStyle}>
           <CustomAddNewVisit testID='img-prevention' title={t('txt.prevention')} icon={utils.images.addPrevenationIcon} />
           <CustomAddNewVisit testID='img-conformite' title={t('txt.conformite')} icon={utils.images.addConformite} />
@@ -72,14 +138,21 @@ export const VisitsContainer = (props: Props): JSX.Element => {
 };
 
 const styles = StyleSheet.create({
+  visitDetailsStyle: {
+    ...globalStyle.fontMedium13Style,
+    ...globalStyle.fontCenterStyle,
+    ...flexBoxStyle.mL2
+  },
+  fontBackground: {
+    backgroundColor: utils.colors.gray90,
+
+  },
   mainStyle: {
     flex: 5,
     backgroundColor: utils.colors.white,
   },
   synchroContainerStyle: {
     margin: 10,
-    backgroundColor: utils.colors.white,
-
   },
   visitTypesStyle: {
     flex: 1,
@@ -96,12 +169,5 @@ const styles = StyleSheet.create({
     width: '65%',
     height: '65%',
     resizeMode: 'contain',
-  },
-  visitTitle: {
-    textAlign: 'center',
-    color: utils.colors.textColor,
-    fontSize: 12,
-    fontWeight: '400',
-    marginTop: 10,
   },
 });

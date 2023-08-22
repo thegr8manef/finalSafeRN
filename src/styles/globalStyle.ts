@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import * as utils from '@utils/index';
+import { windowWidth } from './dimension';
 
 const globalStyle = StyleSheet.create({
     containerStyle: {
@@ -23,7 +24,10 @@ const globalStyle = StyleSheet.create({
     fontMedium15Style: {
         fontSize: 15,
         fontFamily: utils.fonts.AvenirMedium,
-        margin: 15,
+    },
+    fontMedium13Style: {
+        fontSize: 13,
+        fontFamily: utils.fonts.AvenirMedium,
     },
     fontMediumDark15Style: {
         fontSize: 15,
@@ -44,10 +48,14 @@ const globalStyle = StyleSheet.create({
         fontSize: 20,
         fontFamily: utils.fonts.AvenirHeavy,
         color: utils.colors.black,
-
     },
     fontCenterStyle: {
         textAlign: 'center'
-    }
+    },
+    defaultImageStyle: {
+        width: windowWidth / 12,
+        height: windowWidth / 15,
+        resizeMode: 'contain',
+    },
 })
 export default globalStyle;
