@@ -48,6 +48,7 @@
     "react-redux": "^8.0.5",
     "realm": "^11.10.1",
     "redux": "^4.2.1",
+    "redux-logger": "^3.0.6",
     "redux-observable": "^2.0.0",
     "uuid": "^9.0.0"
   },

@@ -1,19 +1,20 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
+import * as utils from '@utils/index';
+import { VisitFlash } from '../../../domain/entity/VisitFlash';
+import { useTranslation } from 'react-i18next';
+import { Site } from '../../../domain/entity/Site';
+import { SiteInfo } from '../components/siteInfo/siteInfo';
+import { ObservationInfo } from '../components/observation/observationInfo';
+import { CommentInfo } from '../components/comment/commentInfo';
+import { PreviewImages } from '../components/images/previewImages';
+import { FooterVisitFlash } from '../components/footerVisitFlash';
 import {
   StyleSheet,
   View,
   ScrollView,
   Alert,
 } from 'react-native';
-import * as utils from '@utils/index';
-import {VisitFlash} from '../../../domain/entity/VisitFlash';
-import {useTranslation} from 'react-i18next';
-import {Site} from '../../../domain/entity/Site';
-import { SiteInfo } from '../components/siteInfo/siteInfo';
-import { ObservationInfo } from '../components/observation/observationInfo';
-import { CommentInfo } from '../components/comment/commentInfo';
-import { PreviewImages } from '../components/images/previewImages';
-import { FooterVisitFlash } from '../components/footerVisitFlash';
+import { Remarque } from '@common/adapters/secondaries/db/entity/Remarque';
 
 interface Props {
   navigation: any;
@@ -21,33 +22,42 @@ interface Props {
   errorVisits: string | undefined;
   flash: VisitFlash | undefined;
   saveFlash: (data: VisitFlash) => void;
+  saveVisit: (data: Remarque) => void;
+  removeRemark: () => void;
   error: string | undefined;
   sites: Site[] | null;
   loading: boolean;
   loadSites: () => void;
+  createdRemark: Remarque | undefined;
   navigationDrawer: any;
 }
 export const VisitFlashContainer = (props: Props) => {
-  const {t} = useTranslation();
+
+  const { t } = useTranslation();
   const [comment, setComment] = useState<string>('');
   const [levelId, setLevelId] = useState<number | null>(null);
   const [images, setImages] = useState<string[]>([]);
-  const [selectedSite, setSelectedSite]= useState<Site | undefined>(undefined)
+  const [selectedSite, setSelectedSite] = useState<Site | undefined>(undefined)
 
-  useEffect(()=>{
-    props.loadSites()
-  },[])
+  useEffect(() => {
+    props.loadSites();
+  }, [])
 
-  useEffect(()=>{
-  },[props.sites])
+  useEffect(() => {
+    if (props.createdRemark) {
+      console.log('props.createdRemark', props.createdRemark)
+      props.saveVisit(props.createdRemark);
+      props.removeRemark();
+    }
+  }, [props.createdRemark])
 
   const addImage = (image: string) => {
     setImages([...images, image]);
   };
 
-  const saveVisit= () =>{
-    if(validVisit()){
-      const flash = new VisitFlash(comment, images, levelId,selectedSite?.id);
+  const saveVisit = () => {
+    if (validVisit()) {
+      const flash = new VisitFlash(comment, images, levelId, selectedSite?.id);
       Alert.alert('', t('etes_vous_sur_de_vouloir_sauvegarder')!, [
         {
           text: 'NON',
@@ -57,6 +67,7 @@ export const VisitFlashContainer = (props: Props) => {
           text: 'OUI',
           onPress: () => {
             props.saveFlash(flash)
+            console.log('props.saveFlash(flash)', props.saveFlash(flash))
             props.navigation.navigate('visites')
           }
         },
@@ -73,7 +84,7 @@ export const VisitFlashContainer = (props: Props) => {
         Alert.alert('', t('msg.saisr.commentaires.flash')!);
         return false
       } else {
-          return true
+        return true
       }
     }
   };
@@ -81,16 +92,16 @@ export const VisitFlashContainer = (props: Props) => {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollViewContainer}>
-        <SiteInfo sites={props.sites} selectedSite={selectedSite} setSelectedSite={setSelectedSite}/>
+        <SiteInfo sites={props.sites} selectedSite={selectedSite} setSelectedSite={setSelectedSite} />
 
         <ObservationInfo onSave={(levelId) => {
           setLevelId(levelId)
         }} />
 
-        <CommentInfo comment={comment} setComment={(comment: string)=>setComment(comment) } />
+        <CommentInfo comment={comment} setComment={(comment: string) => setComment(comment)} />
 
 
-        <PreviewImages images={images}/>
+        <PreviewImages images={images} />
 
       </ScrollView>
 
@@ -105,8 +116,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: utils.colors.white,
   },
-  scrollViewContainer:{
+  scrollViewContainer: {
     flexGrow: 1,
-    flexDirection:'column'
+    flexDirection: 'column'
   },
 });

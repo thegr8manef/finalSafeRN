@@ -11,7 +11,7 @@ const initialState: SaveVisitState = {
     loading: false,
 };
 
-export const reducerVisitVisit = (
+export const reducerSaveVisit = (
     state = initialState,
     action: VisitActionTypes,
 ): SaveVisitState => {

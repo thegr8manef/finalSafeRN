@@ -1,4 +1,4 @@
-import { mergeMap } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { VisitsService } from '../../domain/gateway/visitsService';
 import { Observable, from } from 'rxjs';
 import ApplicationContext from '@common/appConfig/ApplicationContext';
@@ -15,13 +15,12 @@ import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
 
 export class DbVisitsService implements VisitsService {
 
-  SaveFlash(data: VisitFlash): Observable<void> {
+  SaveFlash(data: VisitFlash): Observable<Remarque> { // Update the return type to Observable<Remarque>
     const saveFlashtoDb = new Promise<Remarque>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
       const name = Date.now().toString() + Math.random().toString();
       try {
         db.then(realm => {
-
           realm?.write(() => {
             const newRemarque = realm.create<Remarque>('Remarque', {
               tk: uuidv5(name, NAMESPACE),
@@ -50,8 +49,16 @@ export class DbVisitsService implements VisitsService {
       }
     });
 
-    return from(saveFlashtoDb).pipe(
-      mergeMap((createdRemarque: Remarque) => this.SaveVisit(createdRemarque))
+  return from(saveFlashtoDb).pipe(
+      map((createdRemarque: Remarque) => {
+        // Return the created Remarque
+        return createdRemarque;
+      }),
+      catchError(error => {
+        // Handle errors here if needed
+        console.error('Error:', error);
+        throw error; // Re-throw the error to propagate it in the observable
+      })
     );
   }
 
@@ -99,7 +106,6 @@ export class DbVisitsService implements VisitsService {
   }
 
   loadVisitsDetails(): Observable<Visit[]> {
-    console.log('visitts here')
     const LoadVisitDb = new Promise<Visit[]>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
       try {

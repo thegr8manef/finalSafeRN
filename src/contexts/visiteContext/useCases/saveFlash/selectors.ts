@@ -1,4 +1,4 @@
-import {AppState} from '../../../redux_configuration/appState';
+import { AppState } from "@redux/appState";
 
 export const saveFashErrorSelector = (appState: AppState): string | undefined =>
   appState.visits.saveFlash.error;

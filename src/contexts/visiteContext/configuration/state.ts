@@ -1,3 +1,4 @@
+import { Remarque } from '@common/adapters/secondaries/db/entity/Remarque';
 import { Site } from '../domain/entity/Site';
 import { Visit } from '../domain/entity/Visit';
 
@@ -10,6 +11,7 @@ export interface VisitsState {
 export interface SaveFlashState {
   error: string | undefined;
   loading: boolean;
+  createdRemark : Remarque | undefined;
 }
 export interface SaveVisitState {
   error: string | undefined;
