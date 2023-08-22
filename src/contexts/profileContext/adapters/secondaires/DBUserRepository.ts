@@ -1,9 +1,9 @@
-import {Observable, from} from 'rxjs';
-import {UserRepository} from '../../domain/gateway/userReposiory';
+import { Observable, from } from 'rxjs';
+import { UserRepository } from '../../domain/gateway/userReposiory';
 import ApplicationContext from '@common/appConfig/ApplicationContext';
-import {Profile} from '../../domain/entity/profile';
-import {LocalProfilMapper} from './mapper/localProfile.mapper';
-import {User} from '../../domain/entity/user';
+import { Profile } from '../../domain/entity/profile';
+import { LocalProfilMapper } from './mapper/localProfile.mapper';
+import { User } from '../../domain/entity/user';
 import { NAMESPACE } from '@common/constants';
 import { v5 as uuidv5 } from 'uuid';
 
@@ -13,7 +13,6 @@ export class DBUserRepository implements UserRepository {
     const promiSetUser = new Promise<void>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
       const name = Date.now().toString() + Math.random().toString();
-
       try {
         db.then(realm => {
           realm?.write(() => {
@@ -33,7 +32,7 @@ export class DBUserRepository implements UserRepository {
             });
           });
           resolve(); // Emit the boolean value
-        });
+        }).catch(error => reject(error));
       } catch (error) {
         reject(error);
       }
@@ -56,7 +55,7 @@ export class DBUserRepository implements UserRepository {
               resolve(false);
             }
           });
-        });
+        }).catch(error => reject(error));
       } catch (error) {
         reject(error);
       }
@@ -74,7 +73,7 @@ export class DBUserRepository implements UserRepository {
             const objects = realm.objects('User');
             resolve(LocalProfilMapper.mapUserDbToProfile(objects[0]));
           });
-        });
+        }).catch(error => reject(error));
       } catch (error) {
         reject(error);
       }
@@ -89,10 +88,10 @@ export class DBUserRepository implements UserRepository {
         db.then(realm => {
           const updt = realm.objects('User');
           realm?.write(() => {
-            updt[0].rg = user.region;
+            updt[0].region = user.region;
           });
           resolve();
-        });
+        }).catch(error => reject(error));
       } catch (error) {
         reject(error);
       }

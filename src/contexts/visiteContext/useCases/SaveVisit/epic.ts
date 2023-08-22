@@ -3,8 +3,8 @@ import { SAVE_VISIT } from './actionTypes';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { SaveVisitFailed, SaveVisitSuccess } from './action';
-import { VisitsService } from '../../domain/gateway/visitsService';
 import { AppState } from '@redux/appState';
+import { VisitsService } from '@contexts/visiteContext/domain/gateway/visitsService';
 
 export const saveVisitEpic: Epic = (
     action$,
