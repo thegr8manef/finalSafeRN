@@ -106,6 +106,7 @@ export class DbVisitsService implements VisitsService {
   }
 
   loadVisitsDetails(): Observable<Visit[]> {
+    console.log('hello from db ')
     const LoadVisitDb = new Promise<Visit[]>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
       try {

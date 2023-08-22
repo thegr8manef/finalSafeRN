@@ -3,5 +3,4 @@ import { Visit } from '../entity/Visit';
 
 
 export interface VisitsRepository {
-  loadVisitsDetails(): Observable<Visit[]>;
 }

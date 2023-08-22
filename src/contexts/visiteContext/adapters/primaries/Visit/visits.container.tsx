@@ -26,7 +26,7 @@ interface CustomAddNewVisitProps {
 export const VisitsContainer = (props: Props): JSX.Element => {
 
   useEffect(() => {
-    // props.loadVisits()
+    props.loadVisits();
   }, [])
 
   const CustomAddNewVisit: React.FC<CustomAddNewVisitProps> = ({ title, icon, testID }) => {
