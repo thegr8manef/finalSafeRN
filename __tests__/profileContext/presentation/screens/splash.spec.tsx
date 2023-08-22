@@ -14,7 +14,7 @@ describe('Test SplashContainer screen', () => {
         connectionStatus: boolean | undefined;
         profile: Profile | undefined;
         loadLocalProfile: () => void;
-        loadSychronisationData: (accessToken: string) => void;
+        loadSychronisationData: (accessToken: string, lastUpdate: string) => void;
     }
 
     beforeEach(() => {
@@ -57,8 +57,7 @@ describe('Test SplashContainer screen', () => {
         act(() => {
             jest.runAllTimers(); // Advance setTimeout
         });
-
-        await waitFor(() => expect(updatedProps.loadSychronisationData).toHaveBeenCalledWith(updatedProps?.profile?.accessToken));
+        await waitFor(() => expect(updatedProps.loadSychronisationData).toHaveBeenCalledWith(updatedProps?.profile?.accessToken, '-1')); //-1 is lastUpdate
     });
 
     it('navigates to Home when connectionStatus is false', async () => {
