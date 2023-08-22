@@ -51,11 +51,11 @@ export class DbVisitsService implements VisitsService {
     });
 
     return from(saveFlashtoDb).pipe(
-      mergeMap((createdRemarque: Remarque) => this.SaveVisit(data, createdRemarque))
+      mergeMap((createdRemarque: Remarque) => this.SaveVisit(createdRemarque))
     );
   }
 
-  SaveVisit(data: VisitFlash, createdRemarque: Remarque): Observable<void> {
+  SaveVisit(createdRemarque: Remarque): Observable<void> {
     const currentDateTime = moment();
     const formattedCurrentDateTime = currentDateTime.format("YYYY/MM/DD HH:mm:ss");
     const currentDateTimeInMillis = moment().valueOf();
@@ -99,6 +99,7 @@ export class DbVisitsService implements VisitsService {
   }
 
   loadVisitsDetails(): Observable<Visit[]> {
+    console.log('visitts here')
     const LoadVisitDb = new Promise<Visit[]>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
       try {

@@ -15,6 +15,7 @@ export const loadVisitsEpic: Epic = (
   action$.pipe(
     ofType(LOAD_VISITS),
     switchMap(() => {
+
       return visitRepository.loadVisitsDetails().pipe(
         map((data: Visit[]) => {
           return LoadVisitsSuccess(data);
@@ -25,3 +26,7 @@ export const loadVisitsEpic: Epic = (
       );
     }),
   );
+
+
+
+  

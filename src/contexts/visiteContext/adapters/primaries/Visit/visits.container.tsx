@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Image } from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import * as utils from '@utils/index';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { StackParamList } from '@navigConfig/navigation.types';
@@ -24,6 +24,10 @@ interface CustomAddNewVisitProps {
 }
 
 export const VisitsContainer = (props: Props): JSX.Element => {
+
+  useEffect(()=>{
+    props.loadVisits()
+  },[])
   
   const CustomAddNewVisit: React.FC<CustomAddNewVisitProps> = ({ title, icon, testID }) => {
     return (

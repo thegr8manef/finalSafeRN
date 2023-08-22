@@ -32,7 +32,6 @@ export const VisitFlashContainer = (props: Props) => {
   const [comment, setComment] = useState<string>('');
   const [levelId, setLevelId] = useState<number | null>(null);
   const [images, setImages] = useState<string[]>([]);
-  const [siteId, setSiteId] = useState<string>('');
   const [selectedSite, setSelectedSite]= useState<Site | undefined>(undefined)
 
   useEffect(()=>{

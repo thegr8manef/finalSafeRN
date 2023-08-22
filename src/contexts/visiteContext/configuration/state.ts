@@ -4,9 +4,14 @@ import { Visit } from '../domain/entity/Visit';
 export interface VisitsState {
   saveFlash: SaveFlashState;
   loadSites: LoadSitesState;
-  loadVisits : LoadVisitsState;
+  loadVisits: LoadVisitsState;
+  saveVisit : SaveVisitState;
 }
 export interface SaveFlashState {
+  error: string | undefined;
+  loading: boolean;
+}
+export interface SaveVisitState {
   error: string | undefined;
   loading: boolean;
 }
