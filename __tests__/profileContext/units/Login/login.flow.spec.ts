@@ -3,9 +3,9 @@ import { login } from '@contexts/profileContext/useCases/Login/action';
 import { loginLoadingSelector, loginErrorSelector, profileSelector } from '@contexts/profileContext/useCases/Login/selectors';
 import { setUserConnectedSelector } from '@contexts/profileContext/useCases/SetUserConnected/Selector';
 import { setUserConnected } from '@contexts/profileContext/useCases/SetUserConnected/actions';
-import { AppState } from 'react-native';
 import {Store} from 'redux';
 import { ReduxStoreWO } from "../../../reduxStore.wo"
+import { AppState } from '@redux/appState';
 
 const deepFreeze = require('deep-freeze');
 
