@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import * as utils from '@utils/index';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { StackParamList } from '@navigConfig/navigation.types';
-import { t } from 'i18next';
+import i18next, { t } from 'i18next';
 import globalStyle from '@styles/globalStyle';
 import ButtonComponent from '@common/adapters/primaries/components/ButtonPrimary';
 import { Divider } from '@common/adapters/primaries/components/Divider';
@@ -11,6 +11,7 @@ import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
 import { flexBoxStyle } from '@styles/flexBoxStyle';
 import { visitTypeToImageSource } from '@common/constants';
 import { convertDate } from '@utils/utils';
+import { windowWidth } from '@styles/dimension';
 
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
@@ -36,8 +37,6 @@ interface CustomVisitDetailsProps {
 }
 
 export const VisitsContainer = (props: Props): JSX.Element => {
-
-  // const imageSource = visitTypeToImageSource[visit.type] || visitTypeToImageSource.default;
 
   useEffect(() => {
     props.loadVisits();
@@ -69,24 +68,26 @@ export const VisitsContainer = (props: Props): JSX.Element => {
       <View style={flexBoxStyle.flexRowSpace}>
         <View style={flexBoxStyle.m1}>
           <View style={flexBoxStyle.flexRowCenterSpace}>
-            <View style={flexBoxStyle.flexRow}>
+            <View style={styles.visitRowStyle}>
               <Image source={imageSource} style={globalStyle.defaultImageStyle} />
-              <View>
-                <Text style={globalStyle.fontMedium15Style}> {convertDate(visit.dt)} </Text>
+              <View >
+                <Text style={globalStyle.fontMedium15Style}> {convertDate(visit.dt, i18next.language)} </Text>
                 <Text style={globalStyle.fontMediumDark15Style}> {visit?.rq[0].ds}</Text>
               </View>
             </View>
-            <View style={flexBoxStyle.flexRow}>
-              {visit.tp != 3 &&
-                <CustomVisitOption title={'Observations'} value={0} />
-              }
-              <CustomVisitOption title={'Levée'} value={0} />
-              <CustomVisitOption title={'Photos'} value={0} />
-            </View>
+
           </View>
         </View>
         <View>
-          <Image source={utils.images.visitLockIcon} style={globalStyle.defaultImageStyle} />
+          <View style={flexBoxStyle.flexEnd}>
+            {visit.tp != 3 &&
+              <CustomVisitOption title={'Observations'} value={0} />
+            }
+            <CustomVisitOption title={'Levée'} value={0} />
+            <CustomVisitOption title={'Photos'} value={0} />
+            <Image source={utils.images.visitLockIcon} style={globalStyle.defaultImageStyle} />
+
+          </View>
         </View>
       </View>
     );
@@ -141,7 +142,11 @@ const styles = StyleSheet.create({
   visitDetailsStyle: {
     ...globalStyle.fontMedium13Style,
     ...globalStyle.fontCenterStyle,
-    ...flexBoxStyle.mL2
+    ...flexBoxStyle.mL1
+  },
+  visitRowStyle: {
+    ...flexBoxStyle.flexRow,
+    width: windowWidth / 2.3,
   },
   fontBackground: {
     backgroundColor: utils.colors.gray90,
