@@ -99,6 +99,11 @@ export const VisitsContainer = (props: Props): JSX.Element => {
     );
   };
 
+
+  const handlSynchronisation = () => {
+   props.sendData(props.profile?.accessToken!!, props.profile?.lastUpdate!! )
+  }
+
   return (
     <View style={globalStyle.containerStyle}>
       <View style={styles.mainStyle}>

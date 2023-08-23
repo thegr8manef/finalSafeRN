@@ -19,24 +19,27 @@ interface StateToPropsType {
   loading: boolean;
   createdRemark: Remarque | undefined;
   profile: Profile | undefined;
-
 }
 interface DispatchToPropsType {
   loadVisits: () => void;
   sendData: (accessToken: string, lastUpadet: string, synchronisation: Synchronisation) => void;
+  
 }
+
 const mapStateToProps = (state: AppState): StateToPropsType => ({
   profile: profileSelector(state),
   error: loadVisitsErrorSelector(state),
   visits: localVistsSelector(state),
   loading: loadVisitsSelector(state),
   createdRemark: loadRemarkSelector(state),
+
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => ({
   loadVisits: (): LoadVisitsActionDbTypes => dispatch(LoadVisits()),
-  sendData: (accessToken: string, lastUpadet: string, synchronisation: Synchronisation): SendDataActionTypes =>
-    dispatch(sendData(accessToken, lastUpadet, synchronisation))
+  sendData    : (accessToken : string, lastUpadet : string, synchronisation : Synchronisation): SendDataActionTypes  =>
+   dispatch(sendData(accessToken, lastUpadet, synchronisation)),
+
 
 });
 

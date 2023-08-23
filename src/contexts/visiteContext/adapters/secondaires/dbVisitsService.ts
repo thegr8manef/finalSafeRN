@@ -135,5 +135,40 @@ export class DbVisitsService implements VisitsService {
     });
     return from(LoadChantierInDb);
   }
+
+  loadRemarques(): Observable<CustomRemarque[]> {
+    const LoadRemarqueDB = new Promise<CustomRemarque[]>((resolve, reject) => {
+      const db = ApplicationContext.getInstance().db();
+      try {
+        db.then(realm => {
+          const objects = realm.objects('Remarque')
+          resolve(RemarqueMapper.mapperToRemarques(objects));
+        });
+      } catch (error) {
+        reject(error);
+      }
+    });
+    return from(LoadRemarqueDB);
+  }
+
+  deleteVisits(): Observable<void> {
+    const LoadRemarqueDB = new Promise<void>((resolve, reject) => {
+      const db = ApplicationContext.getInstance().db();
+      try {
+        db.then(realm => {
+          const objects = realm.objects('Visit');
+          realm.write(() => {
+            // Delete all items in the visit schema
+            realm.delete(objects);
+          });
+          resolve();
+        });
+      } catch (error) {
+        reject(error);
+      }
+    });
+    return from(LoadRemarqueDB);
+  }
+ 
 }
 

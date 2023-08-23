@@ -9,4 +9,6 @@ export interface VisitsService {
   LoadAllSites(): Observable<Site[]>;
   loadVisitsDetails(): Observable<Visit[]>;
   SaveVisit(data: Remarque): Observable<void>;
+  loadRemarques(): Observable<Remarque[]>;
+  deleteVisits(): Observable<void>;
 }
