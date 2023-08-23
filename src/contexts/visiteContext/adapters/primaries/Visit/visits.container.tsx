@@ -86,7 +86,7 @@ export const VisitsContainer = (props: Props): JSX.Element => {
         </View>
         <View>
           <View style={flexBoxStyle.flexEnd}>
-            {visit.tp != 3 &&
+            {visit.tp != 4 &&
               <CustomVisitOption title={t('txt_Observations')} value={0} />
             }
             <CustomVisitOption title={t('txt.levee')} value={0} />
