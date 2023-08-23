@@ -1,4 +1,3 @@
-import { Remarque } from "@common/adapters/secondaries/db/entity/Remarque";
 import { VisitFlash } from "@contexts/visiteContext/domain/entity/VisitFlash";
 
 export const SAVE_FLASH = 'SAVE_FLASH';

@@ -1,4 +1,3 @@
-import { map, catchError } from 'rxjs/operators';
 import { VisitsService } from '../../domain/gateway/visitsService';
 import { Observable, from } from 'rxjs';
 import ApplicationContext from '@common/appConfig/ApplicationContext';
@@ -51,17 +50,7 @@ export class DbVisitsService implements VisitsService {
       }
     });
 
-    return from(saveFlashtoDb).pipe(
-      map((createdRemarque: Remarque) => {
-        // Return the created Remarque
-        return createdRemarque;
-      }),
-      catchError(error => {
-        // Handle errors here if needed
-        console.log('error',error)
-        throw error; // Re-throw the error to propagate it in the observable
-      })
-    );
+    return from(saveFlashtoDb);
   }
 
   SaveVisit(createdRemarque: Remarque): Observable<void> {

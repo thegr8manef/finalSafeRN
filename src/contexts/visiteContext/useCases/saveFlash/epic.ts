@@ -1,6 +1,6 @@
 import { Epic, ofType, StateObservable } from 'redux-observable';
 import { SAVE_FLASH } from './actionTypes';
-import { catchError, map, switchMap, concatMap } from 'rxjs/operators'; // Add concatMap import
+import { catchError, switchMap, concatMap } from 'rxjs/operators'; // Add concatMap import
 import { of } from 'rxjs';
 import { SaveFlashFailed, SaveFlashSuccess } from './action'; // Add SaveVisit import
 import { VisitsService } from '../../domain/gateway/visitsService';
@@ -19,7 +19,7 @@ export const saveVisitFlashEpic: Epic = (
       return visitsService.SaveFlash(action.payload).pipe(
         concatMap(createdRemarque => {
           // Fix the bracket placement here
-          return [SaveFlashSuccess(), SaveVisit(createdRemarque),LoadVisits()]; // Return the created Remarque with the action
+          return [SaveFlashSuccess(), SaveVisit(createdRemarque), LoadVisits()]; // Return the created Remarque with the action
         }),
         catchError(error => {
           return of(SaveFlashFailed(error));

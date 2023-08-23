@@ -9,9 +9,6 @@ import { LoadSites } from '@contexts/visiteContext/useCases/LoadSites/action';
 import { LoadSitesActionTypes } from '@contexts/visiteContext/useCases/LoadSites/actionTypes';
 import { Site } from '../../../domain/entity/Site';
 import { VisitFlash } from '@contexts/visiteContext/domain/entity/VisitFlash';
-import { Remarque } from '@common/adapters/secondaries/db/entity/Remarque';
-import { SaveVisit } from '@contexts/visiteContext/useCases/SaveVisit/action';
-import { VisitActionTypes } from '@contexts/visiteContext/useCases/SaveVisit/actionTypes';
 import {
   sitesSelector,
   loadSitesErrorSelector,
@@ -26,7 +23,6 @@ interface StateToPropsType {
 }
 interface DispatchToPropsType {
   saveFlash: (data: VisitFlash) => void;
-  saveVisit: (data: Remarque) => void;
   loadSites: () => void;
 }
 const mapStateToProps = (state: AppState): StateToPropsType => ({
@@ -38,7 +34,6 @@ const mapStateToProps = (state: AppState): StateToPropsType => ({
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => ({
   saveFlash: (data: VisitFlash): FlashActionTypes => dispatch(SaveFlash(data)),
-  saveVisit: (data: Remarque): VisitActionTypes => dispatch(SaveVisit(data)),
   loadSites: (): LoadSitesActionTypes => dispatch(LoadSites())
 });
 

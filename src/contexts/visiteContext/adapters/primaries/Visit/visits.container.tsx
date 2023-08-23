@@ -98,7 +98,6 @@ export const VisitsContainer = (props: Props): JSX.Element => {
     );
   };
 
-
   const handlSynchronisation = () => {
     props.sendData(props.profile?.accessToken!!, props.profile?.lastUpdate!!)
   }
@@ -134,7 +133,6 @@ export const VisitsContainer = (props: Props): JSX.Element => {
             <Text style={globalStyle.fontMedium15Style}>{t('txt.no.visit.clotured')}</Text>
           </View>
         )}
-
       </View>
       <Divider />
       <View style={globalStyle.containerStyle}>
@@ -160,7 +158,6 @@ const styles = StyleSheet.create({
   },
   fontBackground: {
     backgroundColor: utils.colors.gray90,
-
   },
   mainStyle: {
     flex: 5,
@@ -173,7 +170,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
   },
-
   visitContatiner: {
     flex: 1,
     marginTop: 10,

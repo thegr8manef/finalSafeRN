@@ -7,7 +7,6 @@ import {
   SAVE_FLASH_SUCCESS,
   SaveFlashAction,
 } from './actionTypes';
-import { Remarque } from '@common/adapters/secondaries/db/entity/Remarque';
 
 export const SaveFlash = (data: VisitFlash): SaveFlashAction => ({
   type: SAVE_FLASH,
