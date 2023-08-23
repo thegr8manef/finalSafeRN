@@ -7,6 +7,7 @@ import { SEND_DATA } from "./actionTypes";
 import { sendDataFailed, sendDataSucccess } from "./actions";
 import {of} from 'rxjs';
 import { loadData } from "../LoadData/actions";
+import { deleteVisit } from "@contexts/visiteContext/useCases/DeleteVisits/actions";
 
 
 export const sendDataEpic: Epic = (
@@ -32,8 +33,12 @@ export const sendDataEpic: Epic = (
                                 action.payload.visitSynchronisation
                                 )
                                 .pipe(concatMap(()=> [
-                                    sendDataSucccess(),
-                                     loadData(action.payload.accessToken, lastUpdate)]),
+
+                                      sendDataSucccess(),
+                                      loadData(action.payload.accessToken, lastUpdate),
+                                     deleteVisit()
+                                     ]
+                                ),
                         catchError(error => of(sendDataFailed(error)))
                             ),
                         ),

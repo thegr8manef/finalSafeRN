@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Image } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import * as utils from '@utils/index';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { StackParamList } from '@navigConfig/navigation.types';
@@ -8,9 +8,25 @@ import globalStyle from '@styles/globalStyle';
 import ButtonComponent from '@common/adapters/primaries/components/ButtonPrimary';
 import { Divider } from '@common/adapters/primaries/components/Divider';
 import { Visits } from '@contexts/visiteContext/domain/entity/Visits';
+import { Site } from '@contexts/visiteContext/domain/entity/Site';
+import { Profile } from '@contexts/profileContext/domain/entity/profile';
+import { Synchronisation } from '@contexts/synchronisationContext/domain/entity/Synchronisation';
+import Remarque from '@contexts/visiteContext/domain/entity/Remarque';
+
 
 interface Props {
-  navigation: Partial<StackNavigationProp<StackParamList>>;
+  navigation : StackNavigationProp<StackParamList>;
+  errorVisits: string | undefined;
+  error      : string | undefined;
+  sites      : Site[] | null;
+  loading    : boolean;
+  profile    : Profile    | undefined
+  remarques  : Remarque[] | undefined
+
+  // functions
+  loadSites     : () => void;
+  loadRemarques : () => void;
+  sendData      : (accessToken : string, lastUpadet : string, synchronisation : Synchronisation) => void;
 }
 
 interface CustomAddNewVisitProps {
@@ -37,6 +53,11 @@ export const VisitsContainer = (props: Props): JSX.Element => {
     );
   };
 
+
+  const handlSynchronisation = () => {
+   props.sendData(props.profile?.accessToken!!, props.profile?.lastUpdate!! )
+  }
+
   return (
     <View style={globalStyle.containerStyle}>
       <View style={styles.mainStyle}>
@@ -47,6 +68,7 @@ export const VisitsContainer = (props: Props): JSX.Element => {
           </Text>
           <ButtonComponent
             testID='sync-button'
+            onPressButton={handlSynchronisation}
             buttonColor={utils.colors.primary}
             width={'30%'}
             textButton={t('txt.synchroniser')} />

@@ -8,8 +8,13 @@ import moment from "moment"; // Import Moment.js
 import { VisitMapper } from './mapper/visit.mapper';
 import { Visit } from '@common/adapters/secondaries/db/entity/Visit';
 import { Remarque } from '@common/adapters/secondaries/db/entity/Remarque';
+import  CustomRemarque  from '../../domain/entity/Remarque';
+import { RemarqueMapper } from './mapper/remarque.mapper';
+
 
 export class DbVisitsService implements VisitsService {
+ 
+ 
   SaveFlash(data: VisitFlash): Observable<void> {
     const saveFlashtoDb = new Promise<void>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
@@ -111,4 +116,39 @@ export class DbVisitsService implements VisitsService {
     });
     return from(LoadChantierInDb);
   }
+
+  loadRemarques(): Observable<CustomRemarque[]> {
+    const LoadRemarqueDB = new Promise<CustomRemarque[]>((resolve, reject) => {
+      const db = ApplicationContext.getInstance().db();
+      try {
+        db.then(realm => {
+          const objects = realm.objects('Remarque')
+          resolve(RemarqueMapper.mapperToRemarques(objects));
+        });
+      } catch (error) {
+        reject(error);
+      }
+    });
+    return from(LoadRemarqueDB);
+  }
+
+  deleteVisits(): Observable<void> {
+    const LoadRemarqueDB = new Promise<void>((resolve, reject) => {
+      const db = ApplicationContext.getInstance().db();
+      try {
+        db.then(realm => {
+          const objects = realm.objects('Visit');
+          realm.write(() => {
+            // Delete all items in the visit schema
+            realm.delete(objects);
+          });
+          resolve();
+        });
+      } catch (error) {
+        reject(error);
+      }
+    });
+    return from(LoadRemarqueDB);
+  }
+ 
 }
