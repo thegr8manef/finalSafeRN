@@ -3,6 +3,7 @@ import React from 'react'
 import { StyleSheet } from 'react-native';
 import * as utils from '@utils/index';
 import { t } from 'i18next';
+import globalStyle from '@styles/globalStyle';
 
 // Define types for screen options
 type Props = {
@@ -11,13 +12,13 @@ type Props = {
 };
 // Custom header component
 const CustomHeader: React.FC<{ title: string }> = ({ title }) => (
-    <Text style={styles.pageTitle}>{title}</Text>
+    <Text style={globalStyle.fontBoldDark20Style}>{title}</Text>
 );
 
 // Function to create customized screen options
 export const HeaderOption = (props: Props) => ({
     headerShown: true,
-    headerTitle: () => <CustomHeader title={t(props.titleKey)} />,   
+    headerTitle: () => <CustomHeader title={t(props.titleKey)} />,
     headerBackground: () => <View style={styles.backgroundHeader} />,
     headerRight: () => (
         <>
@@ -26,17 +27,10 @@ export const HeaderOption = (props: Props) => ({
     ),
 });
 
-
 const styles = StyleSheet.create({
-
     backgroundHeader: {
         backgroundColor: utils.colors.primary,
         flex: 1,
-    },
-    pageTitle: {
-        color: utils.colors.textColor,
-        fontSize: 20,
-        fontWeight: '500',
     },
 });
 

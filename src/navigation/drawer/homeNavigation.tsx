@@ -6,6 +6,7 @@ import { MenuLeftPage } from './index';
 import * as utils from '@utils/index';
 import { t } from 'i18next';
 import { HeaderOption } from '@common/adapters/primaries/components/HeaderOption';
+import globalStyle from '@styles/globalStyle';
 import {
   StyleSheet,
   Text,
@@ -36,7 +37,7 @@ export const HomeNavigation = () => {
       titleKey,
       renderHeaderRight: headerRightContent,
     }),
-    drawerLabel: () => <Text style={styles.label}>{t(titleKey)}</Text>,
+    drawerLabel: () => <Text style={globalStyle.fontBoldDark15Style}>{t(titleKey)}</Text>,
     drawerIcon: () => (
       <Image source={drawerIconPath} style={styles.iconStyle} />
     ),

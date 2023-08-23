@@ -7,78 +7,57 @@ import { VisitSynchronisation } from '@contexts/synchronisationContext/domain/en
 
 export class SynchronisationMapper {
   static mapperToChanties(synchronisationDto: SynchronisationDto): Site[] {
-    const chanties: Site[] = [];
-    synchronisationDto.rd.cs.forEach(chantier => {
-      chanties.push(
-        new Site(
-          chantier.id.toString(),
-          chantier.no,
-          chantier.ad ? chantier.ad : '',
-          -1,
-          chantier.ac,
-          chantier.cp ? chantier.cp.toString() : '',
-          chantier.py ? chantier.py : '',
-          chantier.vl ? chantier.vl : '',
-          chantier.st,
-          synchronisationDto.rd.lus ? parseInt(synchronisationDto.rd.lus) : -1,
-          chantier.ref,
-          chantier.ol_name,
-          chantier.osc,
-          chantier.pid.toString(),
-          chantier.piid.toString(),
-          chantier.sr,
-          chantier.org,
-        ),
-      );
-    });
+    return [
+      ...synchronisationDto.rd.cs.map(chantier => this.mapChantier(chantier, synchronisationDto)),
+      ...synchronisationDto.rd.ocs.filter(chantier =>
+        !synchronisationDto.rd.cs.some(_chantier => _chantier.id?.toString() === chantier.id.toString())
+      ).map(chantier => this.mapChantier(chantier, synchronisationDto))
+    ];
+  }
 
-    synchronisationDto.rd.ocs.forEach(chantier => {
-      if (
-        !chanties.some(
-          _chantier => _chantier.id?.toString() == chantier.id.toString(),
-        )
-      ) {
-        chanties.push(
-          new Site(
-            chantier.id.toString(),
-            chantier.no,
-            chantier.ad ? chantier.ad : '',
-            -1,
-            chantier.ac,
-            '',
-            chantier.py ? chantier.py : '',
-            chantier.vl ? chantier.vl : '',
-            chantier.st,
-            synchronisationDto.rd.lus
-              ? parseInt(synchronisationDto.rd.lus)
-              : -1,
-            chantier.ref,
-            chantier.ol_name,
-            chantier.osc.toString(),
-            chantier.pid.toString(),
-            chantier.piid.toString(),
-            chantier.sr,
-            chantier.org,
-          ),
-        );
-      }
-    });
-
-    return chanties;
+  static mapChantier(chantier: any, synchronisationDto: SynchronisationDto): Site {
+    const {
+      id, no, ad, ac, cp, py, vl, st, ref, ol_name, osc, pid, piid, sr, org
+    } = chantier;
+    
+    return new Site(
+      id.toString(),
+      no,
+      ad || '',
+      -1,
+      ac,
+      cp ? cp.toString() : '',
+      py || '',
+      vl || '',
+      st,
+      synchronisationDto.rd.lus ? parseInt(synchronisationDto.rd.lus) : -1,
+      ref,
+      ol_name,
+      osc,
+      pid.toString(),
+      piid.toString(),
+      sr,
+      org || ''
+    );
   }
 
   static mapSiteToChantier(site: Site): Chantier {
+    const {
+      id, name, address, accepted, code_postal, pays, ville, sr,
+      st, last_update, reference, region_name, osc, pid, piid, org
+    } = site;
+    
     return {
-      id: site.id,
-      no: site.name,
-      ad: site.address,
+      id,
+      no: name,
+      ad: address,
       type: -1,
-      ac: site.accepted,
-      cp: site.code_postal,
+      ac: accepted,
+      cp: code_postal,
       co: '',
-      py: site.pays,
-      vl: site.ville,
-      sr: site.sr,
+      py: pays,
+      vl: ville,
+      sr,
       cd: '',
       st: site.st === undefined ? 0: site.st,
       lu: site.last_update,

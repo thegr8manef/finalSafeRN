@@ -1,12 +1,14 @@
 import * as React from 'react';
-import {StyleSheet, View, Text, Image} from 'react-native';
+import { StyleSheet, View, Text, Image } from 'react-native';
 import {
   DrawerContentScrollView,
   DrawerItemList,
 } from '@react-navigation/drawer';
-import {Profile} from '@contexts/profileContext/domain/entity/profile';
+import { Profile } from '@contexts/profileContext/domain/entity/profile';
 import * as utils from '@utils/index';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useEffect } from 'react';
+import globalStyle from '@styles/globalStyle';
+
 interface Props {
   profile: Profile | undefined;
   loadProfileLocal: () => void;
@@ -17,37 +19,37 @@ export const MenuLeft = (props: Props) => {
     props.loadProfileLocal()
   }
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={globalStyle.containerStyle}>
       <View style={styles.header}>
         <View style={styles.headerContainer}>
           <View style={styles.userInfo}>
-            <Text style={styles.username}>{props.profile?.name}</Text>
-            <Text style={styles.email}>{props.profile?.email}</Text>
+            <Text style={globalStyle.fontBoldDark20Style}>{props.profile?.name}</Text>
+            <Text style={globalStyle.fontMediumDark15Style}>{props.profile?.email}</Text>
           </View>
           <View style={styles.logoutBtn}>
             <Image source={utils.images.logoutIcon} style={styles.icn_logout} />
           </View>
         </View>
       </View>
-      <DrawerContentScrollView   {...props}>
+      <DrawerContentScrollView
+        style={styles.DrawerContentStyle}
+        {...props}>
         <DrawerItemList {...props} />
       </DrawerContentScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: utils.colors.white,
+  DrawerContentStyle: {
+    top: -30
   },
-
   header: {
+    paddingTop: '10%',
     flex: 0.2,
     backgroundColor: utils.colors.primary,
   },
   headerContainer: {
-  
     flexDirection: 'row',
   },
   userInfo: {
@@ -58,22 +60,10 @@ const styles = StyleSheet.create({
   logoutBtn: {
     flex: 0.25,
   },
-  username: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    fontFamily: 'AvenirLTStdHeavy',
-    color: utils.colors.textColor,
-  },
-  email: {
-    top: 5,
-    fontSize: 16,
-    fontWeight: '500',
-    color: utils.colors.textColor,
-  },
   icn_logout: {
     width: 35,
     height: 30,
-    resizeMode: 'stretch',
+    resizeMode: 'contain',
     marginTop: 60,
   },
 });

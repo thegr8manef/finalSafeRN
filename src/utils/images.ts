@@ -28,5 +28,10 @@ const images = {
   addConformite: require('../assets/img/icn_add_conformite.png'),
   addhierarchicalIcon: require('../assets/img/icn_add_hierarchique.png'),
   checkmarkIcon: require('../assets/img/icn_checkmark.png'),
+  visitFlasIcon: require('../assets/img/icn_flash_list.png'),
+  visithierachicalIcon: require('../assets/img/icn_hierarchique_list.png'),
+  visitpreventionIcon: require('../assets/img/icn_prevention_list.png'),
+  visitLockIcon: require('../assets/img/icn_lock_visit_list.png'),
+  visitConformiteIcon: require('../assets/img/icn_conformite_list.png'),
 };
 export default images;

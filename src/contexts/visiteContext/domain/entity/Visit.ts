@@ -1,6 +1,7 @@
+import { Chantier } from "@common/adapters/secondaries/db/entity/Chantier";
 import { RemarqueDto } from "@contexts/visiteContext/adapters/secondaires/dto/remarque.dto";
 
-export class Visits {
+export class Visit {
 
   constructor(
     private _tp?: number,
@@ -8,9 +9,9 @@ export class Visits {
     private _cdc?: string,
     private _dt?: string,
     private _rq?: RemarqueDto[],
+    private _chantier?: Chantier,
   ) {
   }
-
   public get tp(): number | undefined {
     return this._tp;
   }
@@ -41,6 +42,10 @@ export class Visits {
   public set cdc(value: string | undefined) {
     this._cdc = value;
   }
-
-
+  public getchantier?(): Chantier | undefined {
+    return this._chantier;
+  }
+  public setchantier?(chantier?: Chantier | undefined) {
+    this._chantier = chantier;
+  }
 }

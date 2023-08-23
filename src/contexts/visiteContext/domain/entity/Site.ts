@@ -16,13 +16,11 @@ export class Site {
     private _reference: string,
     private _regionName: string,
     private _osc: string,
-
     private _pid: string,
     private _piid: string,
-
     private _sr: number,
-    private _org: string,
-  ) {}
+    private _org: string = "",
+  ) { }
   //pid tjrs 223
   get pid(): string {
     return this._pid;
