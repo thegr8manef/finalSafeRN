@@ -105,6 +105,20 @@ describe("DBSynchronisationRepository Tests", () => {
         });
         expect(retrievedUser.lu).toEqual(site1.last_update.toString())
       });
+
+      it('should handle errors in saveData', async() => {
+        const errorMessage = "Mocked error";
+
+        (ApplicationContext.getInstance as jest.Mock).mockReturnValue({
+            db: jest.fn(() => Promise.reject(new Error(errorMessage)))
+        });
+
+        try {
+            await firstValueFrom(synchronisationRepository.saveData(sites)) 
+        } catch (error: any) {
+            expect(error.message).toBe(errorMessage)
+        }
+      })
     });
 
 

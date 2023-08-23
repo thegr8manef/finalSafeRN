@@ -1,8 +1,8 @@
-import {Observable, from} from 'rxjs';
-import {SynchronisationRepository} from '../../domain/gateway/SynchronisationRepository';
+import { Observable, from } from 'rxjs';
+import { SynchronisationRepository } from '../../domain/gateway/SynchronisationRepository';
 import ApplicationContext from '@common/appConfig/ApplicationContext';
-import {SynchronisationMapper} from './mapper/synchronisationMapper';
-import {Site} from '@contexts/visiteContext/domain/entity/Site';
+import { SynchronisationMapper } from './mapper/synchronisationMapper';
+import { Site } from '@contexts/visiteContext/domain/entity/Site';
 
 export class DBSynchronisationRepository implements SynchronisationRepository {
   saveData(sites: Site[]): Observable<void> {
@@ -21,7 +21,7 @@ export class DBSynchronisationRepository implements SynchronisationRepository {
               });
               updt[0].lu = sites[0].last_update?.toString();
             });
-          });
+          }).catch(error => reject(error));
         }
         resolve();
       } catch (error) {
