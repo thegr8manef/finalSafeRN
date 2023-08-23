@@ -12,6 +12,7 @@ export class VisitMapper {
             visit.codeChantier || "",
             visit.dt || "",
             this.mapToVisitRemarque(visit.remarques), // Map the visit.remarques using RemarqueMapper
+            visit.chantier
         ));
     }
 

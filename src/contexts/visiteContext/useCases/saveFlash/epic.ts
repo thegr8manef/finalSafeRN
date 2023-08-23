@@ -14,16 +14,11 @@ export const saveVisitFlashEpic: Epic = (
   action$.pipe(
     ofType(SAVE_FLASH),
     switchMap(action => {
-      console.log('SAVE_FLASH action triggered with payload:', action.payload);
-
       return visitsService.SaveFlash(action.payload).pipe(
         map(createdRemarque => {
-          console.log('SaveFlashSuccess action triggered');
-          console.log('Created Remarque:', createdRemarque);
           return SaveFlashSuccess(createdRemarque); // Return the created Remarque with the action
         }),
         catchError(error => {
-          console.error('SaveFlashFailed action triggered with error:', error);
           return of(SaveFlashFailed(error));
         }),
       );

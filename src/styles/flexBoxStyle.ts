@@ -25,6 +25,7 @@ export const flexBoxStyle = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'flex-end',
+
   },
   flexColumn: {
     flexDirection: 'column',

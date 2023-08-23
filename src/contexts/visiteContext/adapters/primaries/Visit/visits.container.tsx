@@ -12,13 +12,18 @@ import { flexBoxStyle } from '@styles/flexBoxStyle';
 import { visitTypeToImageSource } from '@common/constants';
 import { convertDate } from '@utils/utils';
 import { windowWidth } from '@styles/dimension';
+import { Remarque } from '@common/adapters/secondaries/db/entity/Remarque';
+import { Profile } from '@contexts/profileContext/domain/entity/profile';
 
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
   loadVisits: () => void;
-  visits: Visit[] | null; // Update this type
+  visits: Visit[] | undefined;
   error: string | undefined;
   loading: boolean;
+  createdRemark: Remarque | undefined;
+  profile: Profile | undefined;
+
 }
 
 interface CustomAddNewVisitProps {
@@ -39,8 +44,11 @@ interface CustomVisitDetailsProps {
 export const VisitsContainer = (props: Props): JSX.Element => {
 
   useEffect(() => {
-    props.loadVisits();
-  }, [])
+    if (!props.createdRemark) {
+      props.loadVisits();
+    }
+  }, [props.createdRemark])
+
 
   useEffect(() => {
   }, [props.visits]);
@@ -71,11 +79,10 @@ export const VisitsContainer = (props: Props): JSX.Element => {
             <View style={styles.visitRowStyle}>
               <Image source={imageSource} style={globalStyle.defaultImageStyle} />
               <View >
-                <Text style={globalStyle.fontMedium15Style}> {convertDate(visit.dt, i18next.language)} </Text>
-                <Text style={globalStyle.fontMediumDark15Style}> {visit?.rq[0].ds}</Text>
+                <Text style={globalStyle.fontMedium15Style} numberOfLines={2}> {convertDate(visit?.dt, i18next.language)} </Text>
+                <Text style={globalStyle.fontMediumDark15Style} numberOfLines={2}> {visit?.getchantier()?.no}</Text>
               </View>
             </View>
-
           </View>
         </View>
         <View>
@@ -84,9 +91,8 @@ export const VisitsContainer = (props: Props): JSX.Element => {
               <CustomVisitOption title={'Observations'} value={0} />
             }
             <CustomVisitOption title={'Levée'} value={0} />
-            <CustomVisitOption title={'Photos'} value={0} />
+            <CustomVisitOption title={'Photos'} value={visit?.rq[0].md.length} />
             <Image source={utils.images.visitLockIcon} style={globalStyle.defaultImageStyle} />
-
           </View>
         </View>
       </View>
@@ -107,12 +113,12 @@ export const VisitsContainer = (props: Props): JSX.Element => {
           </Text>
           <ButtonComponent
             testID='sync-button'
-            buttonColor={utils.colors.primary}
+            buttonColor={props.visits?.length ? utils.colors.primary : utils.colors.gray90}
             width={'30%'}
             textButton={t('txt.synchroniser')} />
         </View>
         <Divider />
-        {props.visits ? (
+        {props.visits?.length ? (
           <FlatList
             data={props.visits}
             keyExtractor={(item) => item.tk?.toString()} // Adjust the key extractor based on your data structure

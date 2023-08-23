@@ -7,6 +7,7 @@ export class VisitFlash {
     private _images: Photo[],
     private _level: number,
     private _site_id: string,
+    private _type: string,
   ) { }
 
   public get site_id(): string {

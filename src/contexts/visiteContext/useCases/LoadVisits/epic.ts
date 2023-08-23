@@ -16,18 +16,13 @@ export const loadVisitsEpic: Epic = (
     ofType(LOAD_VISITS),
     switchMap(() => {
       // Log that the LOAD_VISITS action has been triggered
-      console.log('LOAD_VISITS action triggered');
-
       return visitsService.loadVisitsDetails().pipe(
         map((data: Visit[]) => {
           // Log the data received from the repository
-          console.log('Data from visitRepository:', data);
-
           return LoadVisitsSuccess(data);
         }),
         catchError(error => {
           // Log the error and dispatch the failure action
-          console.error('Error in loadVisitsEpic:', error);
           return of(LoadVisitsFailed(error));
         }),
       );

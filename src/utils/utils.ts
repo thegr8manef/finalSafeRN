@@ -3,17 +3,15 @@ import 'moment/locale/fr';
 import 'moment/locale/nl';
 import 'moment/locale/de';
 import 'moment/locale/pl';
-
-const moment = require('moment');
+import 'moment/locale/en-in';
+import moment from "moment";
 
 // Function to convert a date to a specific format
 export function convertDate(date: string, lang: string): string {
     try {
         const changeLangCode = getLanguageCode(lang)
         // Set the locale based on the language code
-        if (lang !== 'en') {
-            moment.locale(changeLangCode);
-        }
+        moment.locale(changeLangCode);
         // Parse the input date using Moment.js and format it as 'DD MMMM YYYY'
         return moment(date, 'YYYY/MM/DD HH:mm:ss').format('DD MMMM YYYY');
     } catch (error) {

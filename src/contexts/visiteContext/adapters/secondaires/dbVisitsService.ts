@@ -49,14 +49,13 @@ export class DbVisitsService implements VisitsService {
       }
     });
 
-  return from(saveFlashtoDb).pipe(
+    return from(saveFlashtoDb).pipe(
       map((createdRemarque: Remarque) => {
         // Return the created Remarque
         return createdRemarque;
       }),
       catchError(error => {
         // Handle errors here if needed
-        console.error('Error:', error);
         throw error; // Re-throw the error to propagate it in the observable
       })
     );
@@ -69,10 +68,13 @@ export class DbVisitsService implements VisitsService {
     const saveVisitToDb = new Promise<void>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
       const name = Date.now().toString() + Math.random().toString();
-
+      // Find the chantier based on createdRemarque.idcs
       try {
         db.then((realm) => {
           const user = realm.objects('User');
+          const chantier = realm
+            .objects('Chantier')
+            .filtered(`ref = "${createdRemarque.idcs}"`)[0];
           realm?.write(() => {
             const newVisit = realm.create<VisitDb>("Visit", {
               // Map Visit properties from data
@@ -81,17 +83,16 @@ export class DbVisitsService implements VisitsService {
               dtc: formattedCurrentDateTime,
               date: currentDateTimeInMillis,
               timeStamp: currentDateTime.format("DD MMMM YYYY"),
+              chantier: chantier,
               codeChantier: createdRemarque.idcs,
               V_enCours: 0,
               ordre: 0,
               userId: user[0]?.id,
               type: createdRemarque.lvl,
             });
-
             if (newVisit.remarques) {
               newVisit.remarques.push(createdRemarque);
             }
-
             resolve();
           });
         }).catch((error) => {
@@ -106,7 +107,6 @@ export class DbVisitsService implements VisitsService {
   }
 
   loadVisitsDetails(): Observable<Visit[]> {
-    console.log('hello from db ')
     const LoadVisitDb = new Promise<Visit[]>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
       try {

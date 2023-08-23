@@ -15,20 +15,14 @@ export const saveVisitEpic: Epic = (
         ofType(SAVE_VISIT),
         switchMap(action => {
             // Log the action and store state if needed
-            console.log('Action:', action);
-            console.log('Store State:', store.value);
-
             return visitsService.SaveVisit(action.payload).pipe(
                 map(() => {
                     // Log a success message
-                    console.log('SaveVisitSuccess');
-
                     // Dispatch the success action
                     return SaveVisitSuccess();
                 }),
                 catchError(error => {
                     // Log the error and dispatch the failure action
-                    console.error('SaveVisitFailed:', error);
                     return of(SaveVisitFailed(error));
                 }),
             );

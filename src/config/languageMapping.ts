@@ -4,6 +4,7 @@ const languageCodeMap: any = {
     bl: 'nl',
     pl: 'pl',
     al: 'de',
+    en:'en-in'
 };
 
 export default languageCodeMap;

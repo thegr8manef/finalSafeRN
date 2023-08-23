@@ -45,7 +45,6 @@ export const VisitFlashContainer = (props: Props) => {
 
   useEffect(() => {
     if (props.createdRemark) {
-      console.log('props.createdRemark', props.createdRemark)
       props.saveVisit(props.createdRemark);
       props.removeRemark();
     }
@@ -66,9 +65,8 @@ export const VisitFlashContainer = (props: Props) => {
         {
           text: 'OUI',
           onPress: () => {
-            props.saveFlash(flash)
-            console.log('props.saveFlash(flash)', props.saveFlash(flash))
-            props.navigation.navigate('visites')
+            props.saveFlash(flash);
+            props.navigation.navigate('visites');
           }
         },
       ]);
