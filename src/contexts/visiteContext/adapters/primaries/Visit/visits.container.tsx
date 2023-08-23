@@ -99,7 +99,27 @@ export const VisitsContainer = (props: Props): JSX.Element => {
   };
 
   const handlSynchronisation = () => {
-    props.sendData(props.profile?.accessToken!!, props.profile?.lastUpdate!!)
+  
+
+  //   const syn = {
+  //     "vs": [
+  //         {
+  //             "tp": 3,
+  //             "tk": "8d5f5bd5-f365-4c2f-b581-af445bdd3dd2acan1692261041336",
+  //             "cdcs": "B98283AB",
+  //             "dt": "2023\/08\/18 15:30:41",
+  //             "rq": {
+  //                 "dt": "2023\/08\/18 15:31:03",
+  //                 "ds": "shitd",
+  //                 "tk": "ac6d4cb0-1dea-4854-a4eb-a2902edd413d3can1692261041340",
+  //                 "lvl": 3,
+  //                 "nt": 0,
+  //                 "md": []
+  //             }
+  //         }
+  //     ]
+  // }
+  //   props.sendData(props.profile?.accessToken!!, props.profile?.lastUpdate!!, syn )
   }
 
   return (
