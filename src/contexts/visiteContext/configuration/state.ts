@@ -7,21 +7,24 @@ export interface VisitsState {
   saveFlash    : SaveFlashState;
   loadSites    : LoadSitesState;
   loadVisits   : LoadVisitsState;
-  loadRemarques : LoadRemarquesState
+  loadRemarques: LoadRemarquesState;
+  deleteVisits : DeleteVisitsState;
 }
+
+
 export interface SaveFlashState {
-  error: string | undefined;
-  loading: boolean;
+  error      : string | undefined;
+  loading    : boolean;
 }
 export interface LoadSitesState {
-  error: string | undefined;
-  sites: Site[] | null;
-  loading: boolean;
+  error      : string      | undefined;
+  sites      : Site[]      | null;
+  loading    : boolean;
 }
 export interface LoadVisitsState {
-  loading: boolean;
-  error: string | undefined;
-  visits: Visits | undefined;
+  loading    : boolean;
+  error      : string      | undefined;
+  visits     : Visits      | undefined;
 }
 
 export interface LoadRemarquesState {
@@ -30,3 +33,8 @@ export interface LoadRemarquesState {
   loading    : boolean;
 }
 
+
+export interface DeleteVisitsState {
+  error     : string       | undefined,
+  loading   : boolean 
+}

@@ -7,5 +7,5 @@ export interface VisitsService {
   SaveFlash(data: VisitFlash): Observable<void>;
   LoadAllSites(): Observable<Site[]>;
   loadRemarques(): Observable<Remarque[]>;
-
+  deleteVisits(): Observable<void>;
 }

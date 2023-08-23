@@ -131,4 +131,24 @@ export class DbVisitsService implements VisitsService {
     });
     return from(LoadRemarqueDB);
   }
+
+  deleteVisits(): Observable<void> {
+    const LoadRemarqueDB = new Promise<void>((resolve, reject) => {
+      const db = ApplicationContext.getInstance().db();
+      try {
+        db.then(realm => {
+          const objects = realm.objects('Visit');
+          realm.write(() => {
+            // Delete all items in the visit schema
+            realm.delete(objects);
+          });
+          resolve();
+        });
+      } catch (error) {
+        reject(error);
+      }
+    });
+    return from(LoadRemarqueDB);
+  }
+ 
 }
