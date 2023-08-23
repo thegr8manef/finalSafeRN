@@ -23,12 +23,10 @@ interface Props {
   flash: VisitFlash | undefined;
   saveFlash: (data: VisitFlash) => void;
   saveVisit: (data: Remarque) => void;
-  removeRemark: () => void;
   error: string | undefined;
   sites: Site[] | null;
   loading: boolean;
   loadSites: () => void;
-  createdRemark: Remarque | undefined;
   navigationDrawer: any;
 }
 export const VisitFlashContainer = (props: Props) => {
@@ -43,20 +41,13 @@ export const VisitFlashContainer = (props: Props) => {
     props.loadSites();
   }, [])
 
-  useEffect(() => {
-    if (props.createdRemark) {
-      props.saveVisit(props.createdRemark);
-      props.removeRemark();
-    }
-  }, [props.createdRemark])
-
   const addImage = (image: string) => {
     setImages([...images, image]);
   };
 
   const saveVisit = () => {
     if (validVisit()) {
-      const flash = new VisitFlash(comment, images, levelId, selectedSite?.reference);
+      const flash = new VisitFlash(comment, images, levelId, selectedSite?.reference, 4);
       Alert.alert('', t('etes_vous_sur_de_vouloir_sauvegarder')!, [
         {
           text: 'NON',

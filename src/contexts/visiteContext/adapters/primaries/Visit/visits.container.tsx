@@ -12,18 +12,19 @@ import { flexBoxStyle } from '@styles/flexBoxStyle';
 import { visitTypeToImageSource } from '@common/constants';
 import { convertDate } from '@utils/utils';
 import { windowWidth } from '@styles/dimension';
-import { Remarque } from '@common/adapters/secondaries/db/entity/Remarque';
 import { Profile } from '@contexts/profileContext/domain/entity/profile';
+import { Synchronisation } from '@contexts/synchronisationContext/domain/entity/Synchronisation';
 
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
-  loadVisits: () => void;
   visits: Visit[] | undefined;
   error: string | undefined;
   loading: boolean;
-  createdRemark: Remarque | undefined;
   profile: Profile | undefined;
 
+  // functions
+  sendData: (accessToken: string, lastUpadet: string, synchronisation: Synchronisation) => void;
+  loadVisits: () => void;
 }
 
 interface CustomAddNewVisitProps {
@@ -44,10 +45,8 @@ interface CustomVisitDetailsProps {
 export const VisitsContainer = (props: Props): JSX.Element => {
 
   useEffect(() => {
-    if (!props.createdRemark) {
-      props.loadVisits();
-    }
-  }, [props.createdRemark])
+    props.loadVisits();
+  }, [])
 
 
   useEffect(() => {
@@ -65,7 +64,7 @@ export const VisitsContainer = (props: Props): JSX.Element => {
   const CustomVisitOption: React.FC<CustomVisitDetailsProps> = ({ title, value }) => {
     return (
       <View style={flexBoxStyle.flexColumn}>
-        <Text style={styles.visitDetailsStyle}>{value}</Text>
+        <Text style={[styles.visitDetailsStyle,flexBoxStyle.mT1]}>{value}</Text>
         <Text style={styles.visitDetailsStyle}>{title}</Text>
       </View>
     )
@@ -88,10 +87,10 @@ export const VisitsContainer = (props: Props): JSX.Element => {
         <View>
           <View style={flexBoxStyle.flexEnd}>
             {visit.tp != 3 &&
-              <CustomVisitOption title={'Observations'} value={0} />
+              <CustomVisitOption title={t('txt_Observations')} value={0} />
             }
-            <CustomVisitOption title={'Levée'} value={0} />
-            <CustomVisitOption title={'Photos'} value={visit?.rq[0].md.length} />
+            <CustomVisitOption title={t('txt.levee')} value={0} />
+            <CustomVisitOption title={t('txt.photos')} value={visit?.rq[0].md.length} />
             <Image source={utils.images.visitLockIcon} style={globalStyle.defaultImageStyle} />
           </View>
         </View>
@@ -101,7 +100,7 @@ export const VisitsContainer = (props: Props): JSX.Element => {
 
 
   const handlSynchronisation = () => {
-   props.sendData(props.profile?.accessToken!!, props.profile?.lastUpdate!! )
+    props.sendData(props.profile?.accessToken!!, props.profile?.lastUpdate!!)
   }
 
   return (

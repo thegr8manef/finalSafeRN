@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { loadRemarkSelector, loadVisitsErrorSelector, loadVisitsSelector, localVistsSelector } from '@contexts/visiteContext/useCases/LoadVisits/selector';
+import { loadVisitsErrorSelector, loadVisitsSelector, localVistsSelector } from '@contexts/visiteContext/useCases/LoadVisits/selector';
 import { AppState } from '@redux/appState';
 import { LoadVisitsActionDbTypes } from '@contexts/visiteContext/useCases/LoadVisits/actionTypes';
 import { LoadVisits } from '@contexts/visiteContext/useCases/LoadVisits/action';
@@ -17,7 +17,6 @@ interface StateToPropsType {
   visits: Visit[] | undefined;
   error: string | undefined;
   loading: boolean;
-  createdRemark: Remarque | undefined;
   profile: Profile | undefined;
 }
 interface DispatchToPropsType {
@@ -31,7 +30,6 @@ const mapStateToProps = (state: AppState): StateToPropsType => ({
   error: loadVisitsErrorSelector(state),
   visits: localVistsSelector(state),
   loading: loadVisitsSelector(state),
-  createdRemark: loadRemarkSelector(state),
 
 });
 

@@ -22,6 +22,7 @@ export const visitTypeToImageSource = {
   1: utils.images.visitConformiteIcon,
   2: utils.images.visithierachicalIcon,
   3: utils.images.visitFlasIcon,
+  4: utils.images.visitFlasIcon,
   // Add more mappings for different types as needed
   default: utils.images.visitFlasIcon, // Default image for unknown types
 };

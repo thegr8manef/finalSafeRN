@@ -10,6 +10,3 @@ export const loadingSitesSelector = (appState: AppState): boolean =>
 
 export const sitesSelector = (appState: AppState): Site[] | null =>
   appState.visits.loadSites.sites;
-
-export const createdRemarkSelector = (appState: AppState): Remarque | undefined =>
-  appState.visits.saveFlash.createdRemark;

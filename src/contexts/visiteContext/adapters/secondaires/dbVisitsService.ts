@@ -28,7 +28,7 @@ export class DbVisitsService implements VisitsService {
               ds: data.commentaire,
               photos: data.images,
               ti: data.commentaire,
-              lvl: Number(data.level),
+              lvl: Number(data.type),
               nt: false,
               or: 0,
               idcs: data.site_id,
@@ -45,6 +45,8 @@ export class DbVisitsService implements VisitsService {
           reject(error);
         });
       } catch (error) {
+        console.log('error',error)
+
         reject(error);
       }
     });
@@ -56,6 +58,7 @@ export class DbVisitsService implements VisitsService {
       }),
       catchError(error => {
         // Handle errors here if needed
+        console.log('error',error)
         throw error; // Re-throw the error to propagate it in the observable
       })
     );
