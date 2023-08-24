@@ -1,20 +1,9 @@
-import { Accompagnant } from "@common/adapters/secondaries/db/entity/Accompagnant";
-import { Chantier } from "@common/adapters/secondaries/db/entity/Chantier";
-import { Photo } from "@common/adapters/secondaries/db/entity/Photo";
-import { Remarque } from "@common/adapters/secondaries/db/entity/Remarque";
-import { Statistic } from "@common/adapters/secondaries/db/entity/Statistic";
-import { StatisticObservation } from "@common/adapters/secondaries/db/entity/StatisticObservation";
-import { StatisticRisk } from "@common/adapters/secondaries/db/entity/StatisticRisk";
-import { StatisticRiskObject } from "@common/adapters/secondaries/db/entity/StatisticRiskObject";
-import { StatisticUser } from "@common/adapters/secondaries/db/entity/StatisticUser";
-import { StatisticVisit } from "@common/adapters/secondaries/db/entity/StatisticVisit";
 import { User as UserSchema } from "@common/adapters/secondaries/db/entity/User";
-import { Zone } from "@common/adapters/secondaries/db/entity/Zone";
 import ApplicationContext from "@common/appConfig/ApplicationContext";
 import { DBUserRepository } from "@contexts/profileContext/adapters/secondaires/DBUserRepository";
 import { Profile } from "@contexts/profileContext/domain/entity/profile";
 import { User } from "@contexts/profileContext/domain/entity/user";
-import Realm from "realm";
+import { realmInstance } from "../../../configuration/mocks/realm.mock";
 import { firstValueFrom } from "rxjs";
 
 jest.mock("@common/appConfig/ApplicationContext");
@@ -22,7 +11,6 @@ jest.mock("@common/appConfig/ApplicationContext");
 describe('DBUserRepository Tests', () => {
     let userConnected: Profile
     let userRepository: DBUserRepository
-    const realmInstance = new Realm({ schema: [UserSchema, Chantier, Zone, Remarque, Photo, Accompagnant, Statistic, StatisticRisk, StatisticVisit, StatisticObservation, StatisticUser, StatisticRiskObject] });
     let userSchema: UserSchema
 
     beforeEach(() => {
