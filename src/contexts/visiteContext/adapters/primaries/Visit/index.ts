@@ -1,50 +1,44 @@
-import {AppState} from '@redux/appState';
-import {Dispatch} from 'redux';
-import {connect} from 'react-redux';
-import {saveFashErrorSelector} from '../../../useCases/saveFlash/selectors';
-import {
-  loadSitesErrorSelector,
-  loadingSitesSelector,
-  sitesSelector,
-} from '@contexts/visiteContext/useCases/LoadSites/selectors';
-import {LoadSites} from '@contexts/visiteContext/useCases/LoadSites/action';
-import {LoadSitesActionTypes} from '@contexts/visiteContext/useCases/LoadSites/actionTypes';
-import {Site} from '../../../domain/entity/Site';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
+import { loadVisitsErrorSelector, loadVisitsSelector, localVistsSelector } from '@contexts/visiteContext/useCases/LoadVisits/selector';
+import { AppState } from '@redux/appState';
+import { LoadVisitsActionDbTypes } from '@contexts/visiteContext/useCases/LoadVisits/actionTypes';
+import { LoadVisits } from '@contexts/visiteContext/useCases/LoadVisits/action';
 import { VisitsContainer } from './visits.container';
-import { Profile } from '@contexts/profileContext/domain/entity/profile';
-import { localProfileSelector } from '@contexts/profileContext/useCases/LoadLocalProfile/selectors';
+import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
+import { Synchronisation } from '@contexts/synchronisationContext/domain/entity/Synchronisation';
 import { SendDataActionTypes } from '@contexts/synchronisationContext/useCases/SendData/actionTypes';
 import { sendData } from '@contexts/synchronisationContext/useCases/SendData/actions';
-import { loadingSendSelector } from '@contexts/synchronisationContext/useCases/SendData/selector';
-import { Synchronisation } from '@contexts/synchronisationContext/domain/entity/Synchronisation';
-
-
+import { Remarque } from '@common/adapters/secondaries/db/entity/Remarque';
+import { Profile } from '@contexts/profileContext/domain/entity/profile';
+import { profileSelector } from '@contexts/profileContext/useCases/Login/selectors';
 
 interface StateToPropsType {
-  errorVisits: string | undefined;
+  visits: Visit[] | undefined;
   error: string | undefined;
-  sites: Site[] | null;
   loading: boolean;
-  profile: Profile | undefined
+  profile: Profile | undefined;
 }
 interface DispatchToPropsType {
-  loadSites: () => void;
-  sendData : (accessToken : string, lastUpadet : string, synchronisation : Synchronisation) => void;
+  loadVisits: () => void;
+  sendData: (accessToken: string, lastUpadet: string, synchronisation: Synchronisation) => void;
+  
 }
-const mapStateToProps = (state: AppState): StateToPropsType => ({
-  errorVisits: saveFashErrorSelector(state),
-  error: loadSitesErrorSelector(state),
-  sites: sitesSelector(state),
-  loading: loadingSitesSelector(state) || loadingSendSelector(state),
-  profile: localProfileSelector(state),
 
+const mapStateToProps = (state: AppState): StateToPropsType => ({
+  profile: profileSelector(state),
+  error: loadVisitsErrorSelector(state),
+  visits: localVistsSelector(state),
+  loading: loadVisitsSelector(state),
 
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => ({
-  loadSites: (): LoadSitesActionTypes => dispatch(LoadSites()),
-  sendData : (accessToken : string, lastUpadet : string, synchronisation : Synchronisation): SendDataActionTypes  =>
-   dispatch(sendData(accessToken, lastUpadet, synchronisation))
+  loadVisits: (): LoadVisitsActionDbTypes => dispatch(LoadVisits()),
+  sendData    : (accessToken : string, lastUpadet : string, synchronisation : Synchronisation): SendDataActionTypes  =>
+   dispatch(sendData(accessToken, lastUpadet, synchronisation)),
+
+
 });
 
 export const VisitsPage = connect(

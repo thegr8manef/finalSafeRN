@@ -33,7 +33,7 @@ export class Visit extends Realm.Object<Visit> {
             id: 'string?',
             dt: 'string?',
             timeStamp: 'string',
-            date: 'string',
+            date: 'int',
             chantier: 'Chantier?',
             codeChantier: 'string?',
             InfoComplementaire: 'string?',

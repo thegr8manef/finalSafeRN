@@ -1,17 +1,18 @@
-import { Visit } from "@common/adapters/secondaries/db/entity/Visit";
-import { Visits } from "@contexts/visiteContext/domain/entity/Visits";
+import { Visit as VisitDb } from "@common/adapters/secondaries/db/entity/Visit";
+import { Visit as VisitDomaine } from "@contexts/visiteContext/domain/entity/Visit";
 import { Remarque } from "@common/adapters/secondaries/db/entity/Remarque";
 import { VisitRemarque } from "@contexts/visiteContext/domain/entity/VisitRemarque";
 
 export class VisitMapper {
 
-    static mapToVisits(visit: Visit[]): Visits[] {
-        return visit.map(visit => new Visits(
+    static mapToVisit(visit: VisitDb[]): VisitDomaine[] {
+        return visit.map(visit => new VisitDomaine(
             visit.type || 0,
             visit.id || "",
             visit.codeChantier || "",
             visit.dt || "",
             this.mapToVisitRemarque(visit.remarques), // Map the visit.remarques using RemarqueMapper
+            visit.chantier
         ));
     }
 

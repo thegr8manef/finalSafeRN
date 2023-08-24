@@ -6,24 +6,31 @@ import { SiteMapper } from './mapper/site.mapper';
 import { VisitFlash } from '@contexts/visiteContext/domain/entity/VisitFlash';
 import moment from "moment"; // Import Moment.js
 import { VisitMapper } from './mapper/visit.mapper';
-import { Visit } from '@common/adapters/secondaries/db/entity/Visit';
+import { Visit as VisitDb } from '@common/adapters/secondaries/db/entity/Visit';
 import { Remarque } from '@common/adapters/secondaries/db/entity/Remarque';
+import { v5 as uuidv5 } from 'uuid';
+import { NAMESPACE } from '@common/constants';
+import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
 
 export class DbVisitsService implements VisitsService {
-  SaveFlash(data: VisitFlash): Observable<void> {
-    const saveFlashtoDb = new Promise<void>((resolve, reject) => {
+
+  SaveFlash(data: VisitFlash): Observable<Remarque> { // Update the return type to Observable<Remarque>
+    const saveFlashtoDb = new Promise<Remarque>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
+      const name = Date.now().toString() + Math.random().toString();
       try {
         db.then(realm => {
           realm?.write(() => {
-            realm.create('Remarque', {
+            const newRemarque = realm.create<Remarque>('Remarque', {
+              tk: uuidv5(name, NAMESPACE),
               nbPhoto: data.images.length,
               ds: data.commentaire,
               photos: data.images,
               ti: data.commentaire,
-              lvl: Number(data.level),
+              lvl: Number(data.type),
               nt: false,
               or: 0,
+              idcs: data.site_id,
               levee: false,
               ordreGlobal: 0,
               fromObs: false,
@@ -31,45 +38,54 @@ export class DbVisitsService implements VisitsService {
               unq: false,
               tg: 1,
             });
-
-            resolve(); // Resolve the Promise
+            resolve(newRemarque);
           });
         }).catch(error => {
           reject(error);
         });
       } catch (error) {
+        console.log('error',error)
+
         reject(error);
       }
     });
+
     return from(saveFlashtoDb);
   }
 
-  SaveVisit(data: Visit): Observable<void> {
-    const currentDateTime = moment(); // Get current date and time
-    const formattedCurrentDateTime = currentDateTime.format("YYYY/MM/DD HH:mm:ss"); // Format as "YYYY/MM/DD HH:mm:ss"
+  SaveVisit(createdRemarque: Remarque): Observable<void> {
+    const currentDateTime = moment();
+    const formattedCurrentDateTime = currentDateTime.format("YYYY/MM/DD HH:mm:ss");
+    const currentDateTimeInMillis = moment().valueOf();
     const saveVisitToDb = new Promise<void>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
+      const name = Date.now().toString() + Math.random().toString();
+      // Find the chantier based on createdRemarque.idcs
       try {
         db.then((realm) => {
+          const user = realm.objects('User');
+          const chantier = realm
+            .objects('Chantier')
+            .filtered(`ref = "${createdRemarque.idcs}"`)[0];
           realm?.write(() => {
-            const newVisit = realm.create<Visit>("Visit", {
+            const newVisit = realm.create<VisitDb>("Visit", {
               // Map Visit properties from data
+              id: uuidv5(name, NAMESPACE),
               dt: formattedCurrentDateTime,
               dtc: formattedCurrentDateTime,
+              date: currentDateTimeInMillis,
               timeStamp: currentDateTime.format("DD MMMM YYYY"),
-              codeChantier: data.codeChantier,
+              chantier: chantier,
+              codeChantier: createdRemarque.idcs,
               V_enCours: 0,
               ordre: 0,
-              userId: data.userId
+              userId: user[0]?.id,
+              type: createdRemarque.lvl,
             });
             if (newVisit.remarques) {
-              const relatedRemarques = realm.objects<Remarque>("Remarque").filtered(`id IN $0`, data.remarques || []);
-              const relatedRemarquesSnapshot = relatedRemarques.snapshot();
-              relatedRemarquesSnapshot.forEach((remarque) => {
-                newVisit.remarques!.push(remarque);
-              });
+              newVisit.remarques.push(createdRemarque);
             }
-            resolve(); // Resolve the Promise
+            resolve();
           });
         }).catch((error) => {
           reject(error);
@@ -78,16 +94,16 @@ export class DbVisitsService implements VisitsService {
         reject(error);
       }
     });
+
     return from(saveVisitToDb);
   }
-
 
   loadVisitsDetails(): Observable<Visit[]> {
     const LoadVisitDb = new Promise<Visit[]>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
       try {
         db.then(realm => {
-          const objects = realm.objects('Visit')
+          const objects = realm.objects('Visit');
           resolve(VisitMapper.mapToVisit(objects));
         });
       } catch (error) {
@@ -111,4 +127,40 @@ export class DbVisitsService implements VisitsService {
     });
     return from(LoadChantierInDb);
   }
+
+  loadRemarques(): Observable<CustomRemarque[]> {
+    const LoadRemarqueDB = new Promise<CustomRemarque[]>((resolve, reject) => {
+      const db = ApplicationContext.getInstance().db();
+      try {
+        db.then(realm => {
+          const objects = realm.objects('Remarque')
+          resolve(RemarqueMapper.mapperToRemarques(objects));
+        });
+      } catch (error) {
+        reject(error);
+      }
+    });
+    return from(LoadRemarqueDB);
+  }
+
+  deleteVisits(): Observable<void> {
+    const LoadRemarqueDB = new Promise<void>((resolve, reject) => {
+      const db = ApplicationContext.getInstance().db();
+      try {
+        db.then(realm => {
+          const objects = realm.objects('Visit');
+          realm.write(() => {
+            // Delete all items in the visit schema
+            realm.delete(objects);
+          });
+          resolve();
+        });
+      } catch (error) {
+        reject(error);
+      }
+    });
+    return from(LoadRemarqueDB);
+  }
+ 
 }
+

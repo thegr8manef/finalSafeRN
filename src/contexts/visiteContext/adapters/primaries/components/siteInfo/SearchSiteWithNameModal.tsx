@@ -11,7 +11,7 @@ import { FooterSearchSiteWithName } from './FooterSearchSiteWithName';
 interface Props {
   modalVisible: boolean;
   onClose: () => void;
-  sites: Site[] | undefined;
+  sites: Site[] | null;
   onSearch:(site: Site) =>void;
 
 }
@@ -35,7 +35,6 @@ const onSelectSite = () => {
 }
 
 useEffect(() => {
-  
   },[selectedSite]);
 
   return (

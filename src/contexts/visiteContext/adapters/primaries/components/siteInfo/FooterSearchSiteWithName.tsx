@@ -7,6 +7,7 @@ interface Props {
 }
 export const FooterSearchSiteWithName =(props: Props) =>{
     const {t} = useTranslation();
+
     return(
         <View style={styles.container}>
             <View style={styles.content}>

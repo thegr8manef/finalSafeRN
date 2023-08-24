@@ -19,3 +19,4 @@ export const SaveFlashFailed = (error: string): FlashActionFailed => ({
 export const SaveFlashSuccess = (): FlashActionSuccess => ({
   type: SAVE_FLASH_SUCCESS,
 });
+
