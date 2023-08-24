@@ -66,7 +66,7 @@ describe('DBUserRepository Tests', () => {
         expect(isConnected).toBe(false);
     });
 
-    it('should set user connected using MockRealm', async () => {
+    it('should set user connected', async () => {
         // Mock the ApplicationContext to return the mocked Realm instance
         (ApplicationContext.getInstance as jest.Mock).mockReturnValue({
             db: jest.fn(() => Promise.resolve(realmInstance))
@@ -123,7 +123,7 @@ describe('DBUserRepository Tests', () => {
         }
     });
 
-    it('should load profile details using MockRealm', async () => {
+    it('should load profile details', async () => {
         // Mock the ApplicationContext to return the mocked Realm instance
         (ApplicationContext.getInstance as jest.Mock).mockReturnValue({
             db: jest.fn(() => Promise.resolve(realmInstance))
@@ -151,7 +151,7 @@ describe('DBUserRepository Tests', () => {
         }
     });
 
-    it('should update local profile using MockRealm', async () => {
+    it('should update local profile', async () => {
         (ApplicationContext.getInstance as jest.Mock).mockReturnValue({
             db: jest.fn(() => Promise.resolve(realmInstance))
         });
