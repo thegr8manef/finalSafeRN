@@ -1,18 +1,28 @@
+import { Accompagnant } from "@common/adapters/secondaries/db/entity/Accompagnant";
+import { Chantier } from "@common/adapters/secondaries/db/entity/Chantier";
+import { Photo } from "@common/adapters/secondaries/db/entity/Photo";
+import { Remarque } from "@common/adapters/secondaries/db/entity/Remarque";
+import { Statistic } from "@common/adapters/secondaries/db/entity/Statistic";
+import { StatisticObservation } from "@common/adapters/secondaries/db/entity/StatisticObservation";
+import { StatisticRisk } from "@common/adapters/secondaries/db/entity/StatisticRisk";
+import { StatisticRiskObject } from "@common/adapters/secondaries/db/entity/StatisticRiskObject";
+import { StatisticUser } from "@common/adapters/secondaries/db/entity/StatisticUser";
+import { StatisticVisit } from "@common/adapters/secondaries/db/entity/StatisticVisit";
 import { User as UserSchema } from "@common/adapters/secondaries/db/entity/User";
+import { Zone } from "@common/adapters/secondaries/db/entity/Zone";
 import ApplicationContext from "@common/appConfig/ApplicationContext";
 import { DBUserRepository } from "@contexts/profileContext/adapters/secondaires/DBUserRepository";
 import { Profile } from "@contexts/profileContext/domain/entity/profile";
 import { User } from "@contexts/profileContext/domain/entity/user";
+import Realm from "realm";
 import { firstValueFrom } from "rxjs";
-import Realm from "../../../configuration/mocks/realm.mock";
 
-jest.mock('Realm', () => require('../../../configuration/mocks/realm.mock'));
 jest.mock("@common/appConfig/ApplicationContext");
 
 describe('DBUserRepository Tests', () => {
     let userConnected: Profile
     let userRepository: DBUserRepository
-    const realmInstance = new Realm({ schema: [UserSchema] });
+    const realmInstance = new Realm({ schema: [UserSchema, Chantier, Zone, Remarque, Photo, Accompagnant, Statistic, StatisticRisk, StatisticVisit, StatisticObservation, StatisticUser, StatisticRiskObject] });
     let userSchema: UserSchema
 
     beforeEach(() => {
@@ -26,6 +36,7 @@ describe('DBUserRepository Tests', () => {
         )
         userRepository = new DBUserRepository();
         userSchema = {
+            id: '123',
             fn: userConnected.name.substring(
                 0,
                 userConnected.name.indexOf(' '),
@@ -37,16 +48,22 @@ describe('DBUserRepository Tests', () => {
             visitCreated: 0,
             lu: '-1',
             token: userConnected.accessToken,
-            primaryKey: 'id',
         }
     })
 
-    it('should create and retrieve objects using MockRealm', () => {
+    afterAll(() => {
         realmInstance.write(() => {
-            const createdObject = realmInstance.create('User', userSchema);
-            const retrievedObject = realmInstance.objectForPrimaryKey('User', createdObject.id);
-            expect(retrievedObject).toEqual(createdObject);
+            realmInstance.deleteAll();
         });
+    })
+
+    it('should return false when no User connected', async () => {
+        (ApplicationContext.getInstance as jest.Mock).mockReturnValue({
+            db: jest.fn(() => Promise.resolve(realmInstance))
+        });
+
+        const isConnected = await firstValueFrom(userRepository.checkUserConnected())
+        expect(isConnected).toBe(false);
     });
 
     it('should set user connected using MockRealm', async () => {
@@ -55,12 +72,17 @@ describe('DBUserRepository Tests', () => {
             db: jest.fn(() => Promise.resolve(realmInstance))
         });
 
+        realmInstance.write(() => {
+            realmInstance.create('User', userSchema);
+        })
+
         userRepository.setUserConnected(userConnected);
-        const retrievedUser = realmInstance.objectForPrimaryKey('User', userConnected.primaryKey);
+        const retrievedUser: UserSchema = realmInstance.objectForPrimaryKey('User', userConnected.id);
 
         expect(retrievedUser).not.toBeNull();
         expect(retrievedUser?.fn).toEqual('John');
         expect(retrievedUser?.ln).toEqual(' Doe');
+        expect(retrievedUser?.connected).toBe(true)
     });
 
     it('should handle error when setting user connected', async () => {
@@ -78,27 +100,10 @@ describe('DBUserRepository Tests', () => {
         }
     });
 
-    it('should return false when no User connected', async () => {
-        (ApplicationContext.getInstance as jest.Mock).mockReturnValue({
-            db: jest.fn(() => Promise.resolve(realmInstance))
-        });
-
-        realmInstance.write(() => {
-            realmInstance.deleteAll();
-        });
-
-        const isConnected = await firstValueFrom(userRepository.checkUserConnected())
-
-        expect(isConnected).toBe(false);
-    });
 
     it('should return true when a User is connected', async () => {
         (ApplicationContext.getInstance as jest.Mock).mockReturnValue({
             db: jest.fn(() => Promise.resolve(realmInstance))
-        });
-
-        realmInstance.write(() => {
-            realmInstance.create('User', userSchema);
         });
 
         const isConnected = await firstValueFrom(userRepository.checkUserConnected())
@@ -122,11 +127,6 @@ describe('DBUserRepository Tests', () => {
         // Mock the ApplicationContext to return the mocked Realm instance
         (ApplicationContext.getInstance as jest.Mock).mockReturnValue({
             db: jest.fn(() => Promise.resolve(realmInstance))
-        });
-
-        // Create a user object and save it in the Realm instance
-        realmInstance.write(() => {
-            realmInstance.create('User', userSchema);
         });
 
         const loadedProfile = await firstValueFrom(userRepository.loadProfileDetails());
@@ -156,9 +156,6 @@ describe('DBUserRepository Tests', () => {
             db: jest.fn(() => Promise.resolve(realmInstance))
         });
 
-        realmInstance.write(() => {
-            realmInstance.create('User', userSchema);
-        });
         const updatedUser = new User(
             userConnected.name.substring(
                 0,
@@ -170,8 +167,8 @@ describe('DBUserRepository Tests', () => {
 
         await firstValueFrom(userRepository.updateLocalProfile(updatedUser));
 
-        const retrievedUser: User = realmInstance.objectForPrimaryKey('User', updatedUser.primaryKey);
-        expect(retrievedUser?.region).toEqual(updatedUser.region);
+        const retrievedUser: UserSchema = realmInstance.objectForPrimaryKey('User', userConnected.id);
+        expect(retrievedUser?.rg).toEqual(updatedUser.region);
     });
 
     it('should handle errors in updateLocalProfile', async () => {
@@ -194,5 +191,19 @@ describe('DBUserRepository Tests', () => {
         } catch (error: any) {
             expect(error.message).toBe(errorMessage);
         }
+    });
+
+    it('should return false when no User connected', async () => {
+        (ApplicationContext.getInstance as jest.Mock).mockReturnValue({
+            db: jest.fn(() => Promise.resolve(realmInstance))
+        });
+
+        realmInstance.write(() => {
+            realmInstance.deleteAll();
+        });
+
+        const isConnected = await firstValueFrom(userRepository.checkUserConnected())
+
+        expect(isConnected).toBe(false);
     });
 });
