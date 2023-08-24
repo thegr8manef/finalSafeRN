@@ -94,6 +94,27 @@ describe("DBSynchronisationRepository Tests", () => {
             expect(error.message).toBe(errorMessage)
         }
     })
+
+    it('should load last update date', async () => {
+        await firstValueFrom(synchronisationRepository.loadLastUpdateDate())
+
+        const retrievedUser: User = realmInstance.objectForPrimaryKey("User", userConnected.id)
+        expect(retrievedUser.lu).toEqual(sites[0].last_update.toString())
+    })
+
+    it('should handle errors in loadLastUpdateDate', async () => {
+        const errorMessage = "Mocked error";
+
+        (ApplicationContext.getInstance as jest.Mock).mockReturnValue({
+            db: jest.fn(() => Promise.reject(new Error(errorMessage)))
+        });
+
+        try {
+            await firstValueFrom(synchronisationRepository.loadLastUpdateDate())
+        } catch (error: any) {
+            expect(error.message).toBe(errorMessage)
+        }
+    })
 });
 
 
