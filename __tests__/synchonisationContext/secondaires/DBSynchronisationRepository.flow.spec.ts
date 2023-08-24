@@ -42,6 +42,7 @@ describe("DBSynchronisationRepository Tests", () => {
     const sites: Site[] = [new Site('1', 'name', 'rue', 1, false, '1235', 'FR', 'Paris', -1, 123, 'ref', 'NR', 'r', '11', 'gg', 1, '', ''),
     new Site('12', 'name 11', 'rue', 1, false, '1235', 'FR', 'Paris', -1, 456, 'ref', 'NR', 'r', '11', 'gg', 1, '', '')]
 
+
     beforeEach(() => {
         synchronisationRepository = new DBSynchronisationRepository();
 
@@ -118,3 +119,10 @@ describe("DBSynchronisationRepository Tests", () => {
         }
       })
     });
+
+
+
+
+
+
+
