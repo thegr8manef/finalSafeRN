@@ -1,4 +1,5 @@
 import {Statistic} from './Statistic';
+import Realm from 'realm';
 
 export class Zone extends Realm.Object<Zone> {
   id?: string;

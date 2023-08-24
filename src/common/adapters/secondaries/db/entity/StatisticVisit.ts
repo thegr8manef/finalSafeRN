@@ -1,3 +1,5 @@
+import Realm from 'realm';
+
 export class StatisticVisit extends Realm.Object<StatisticVisit> {
   vf?: number;
   vh?: number;
