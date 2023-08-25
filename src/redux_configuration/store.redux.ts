@@ -2,13 +2,19 @@ import {Action, applyMiddleware, createStore, Store} from 'redux';
 import {reduxReducer} from './rootReducers';
 import {epicsMiddleware, rootEpics} from './rootEpics';
 import {AppState} from './appState';
-import logger from 'redux-logger';
 
 
 export const reduxStore = (): Store<AppState> => {
+  const middlewares = [epicsMiddleware,]
+
+  if (process.env.NODE_ENV === `development`) {
+    const { logger } = require(`redux-logger`);
+    middlewares.push(logger);
+  }
+
   const store: Store = createStore<AppState, Action, object, object>(
     reduxReducer,
-    applyMiddleware(epicsMiddleware,logger),
+    applyMiddleware(...middlewares),
   );
   epicsMiddleware.run(rootEpics);
 
