@@ -22,7 +22,7 @@ import { Profile } from "@contexts/profileContext/domain/entity/profile";
 import { User } from "@contexts/profileContext/domain/entity/user";
 import { profileRootEpics } from "@contexts/profileContext/configuration/rootEpic";
 import { statisticRootEpics } from "@contexts/statisticContext/configuration/rootEpic";
-import { VisitFlash } from '@contexts/visiteContext/domain/entity/VisitFlash';
+import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
 
 export class ReduxStoreWO {
   private static instance: ReduxStoreWO;
@@ -45,6 +45,7 @@ export class ReduxStoreWO {
   // private SaveFlash$: Subject<Flash> = new Subject();
 
   private loadAllSites$: Subject<Site[]> = new Subject();
+  private loadVisits$: Subject<Visit[]> = new Subject();
 
   constructor() {
     this.rootEpics = combineEpics<Action>(
@@ -75,7 +76,8 @@ export class ReduxStoreWO {
         },
         visitsService: {
           SaveFlash: (): Subject<void> => this.SaveFlash$,
-          LoadAllSites: (): Subject<Site[]> => this.loadAllSites$
+          LoadAllSites: (): Subject<Site[]> => this.loadAllSites$,
+          loadVisits: (): Subject<Visit[]> => this.loadVisits$
         },
         synchronisationService: {
           loadData: (): Subject<Site[]> => this.LoadData$,
@@ -147,15 +149,19 @@ export class ReduxStoreWO {
 
 
   // Visite actions
-
   loadAllSitesNext = (sites: Site[]): void => this.loadAllSites$.next(sites)
   loadAllSitesError = (error: string): void => this.loadAllSites$.error(error)
 
-  loadLocalStatsError = (error: string): void => this.loadLocalStats$.error(error)
+  // load local actions
   loadLocalStatsNext = (stat: Stat): void => this.loadLocalStats$.next(stat)
+  loadLocalStatsError = (error: string): void => this.loadLocalStats$.error(error)
+
+  // Save Flash actions
+  saveFlashNext = (): void => this.SaveFlash$.next()
+  saveFlashError = (error: string): void => this.SaveFlash$.error(error)
+
+    // laod visit actions
+    loadVisitsNext = (visits:Visit[]): void => this.loadVisits$.next(visits)
+    loadVisitsError = (error: string): void => this.loadVisits$.error(error)
   
-   // Save Flash actions
-   saveFlashNext = (): void => this.SaveFlash$.next()
-   saveFlashError = (error: string): void => this.SaveFlash$.error(error)
- 
 }
