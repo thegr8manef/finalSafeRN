@@ -1,4 +1,5 @@
 import {Photo} from './Photo';
+import Realm from 'realm';
 
 export class Remarque extends Realm.Object<Remarque> {
   tk?: string;

@@ -1,3 +1,5 @@
+import Realm from 'realm';
+
 export class PointToImprove extends Realm.Object<PointToImprove> {
     id?: string;
     title?: string;

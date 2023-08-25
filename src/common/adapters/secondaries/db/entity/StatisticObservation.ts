@@ -1,3 +1,5 @@
+import Realm from 'realm';
+
 export class StatisticObservation extends Realm.Object<StatisticObservation> {
   ol?: number;
   onl?: number;

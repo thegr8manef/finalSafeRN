@@ -1,6 +1,7 @@
 import {Accompagnant} from './Accompagnant';
 import {Chantier} from './Chantier';
 import {Zone} from './Zone';
+import Realm from 'realm';
 
 export class User extends Realm.Object<User> {
   id?: string;

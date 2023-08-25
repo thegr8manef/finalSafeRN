@@ -1,4 +1,5 @@
 import {Remarque} from './Remarque';
+import Realm from 'realm';
 
 export class Chantier extends Realm.Object<Chantier> {
   id?: string;
