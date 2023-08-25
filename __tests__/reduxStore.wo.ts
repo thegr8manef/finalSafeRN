@@ -23,6 +23,7 @@ import { User } from "@contexts/profileContext/domain/entity/user";
 import { profileRootEpics } from "@contexts/profileContext/configuration/rootEpic";
 import { statisticRootEpics } from "@contexts/statisticContext/configuration/rootEpic";
 import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
+import Remarque from '@contexts/visiteContext/domain/entity/Remarque';
 
 export class ReduxStoreWO {
   private static instance: ReduxStoreWO;
@@ -36,14 +37,13 @@ export class ReduxStoreWO {
   private checkUserConnected$: Subject<boolean> = new Subject();
   private loadProfileDetails$: Subject<User> = new Subject();
   private updateLocalProfile$: Subject<User> = new Subject();
-  private SaveFlash$: Subject<void> = new Subject();
   private LoadData$: Subject<Site[]> = new Subject();
   private saveData$: Subject<void> = new Subject();
   private loadLastUpdateDate$: Subject<string> = new Subject();
   private loadLocalProfile$: Subject<Profile> = new Subject();
   // Visite Services
-  // private SaveFlash$: Subject<Flash> = new Subject();
-
+  private SaveFlash$: Subject<void> = new Subject();
+  private SaveVisit$:  Subject<Remarque> = new Subject();
   private loadAllSites$: Subject<Site[]> = new Subject();
   private loadVisits$: Subject<Visit[]> = new Subject();
 
@@ -77,7 +77,9 @@ export class ReduxStoreWO {
         visitsService: {
           SaveFlash: (): Subject<void> => this.SaveFlash$,
           LoadAllSites: (): Subject<Site[]> => this.loadAllSites$,
-          loadVisits: (): Subject<Visit[]> => this.loadVisits$
+          loadVisitsDetails: (): Subject<Visit[]> => this.loadVisits$,
+          SaveVisit: (): Subject<Remarque> => this.SaveVisit$,
+
         },
         synchronisationService: {
           loadData: (): Subject<Site[]> => this.LoadData$,
