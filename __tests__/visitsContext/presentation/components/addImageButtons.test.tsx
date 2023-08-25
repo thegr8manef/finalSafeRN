@@ -5,7 +5,7 @@ import { PermissionStatus, Platform } from 'react-native';
 
 describe('AddImageButtons', () => {
 
-    it('Choose image on android', () => {
+    it('should denied choose image on android', () => {
         Platform.OS = 'android';
         jest.mock(
             'react-native//Libraries/PermissionsAndroid/PermissionsAndroid',
@@ -26,7 +26,7 @@ describe('AddImageButtons', () => {
         fireEvent.press(chooseImageFileButton)
     })
 
-    it('Capture image on android', () => {
+    it('should denied capture image on android', () => {
         Platform.OS = 'android';
         jest.mock(
             'react-native//Libraries/PermissionsAndroid/PermissionsAndroid',
@@ -41,16 +41,13 @@ describe('AddImageButtons', () => {
         );
 
         const { getByTestId } = render(<AddImageButtons addImage={jest.fn} />)
-
-        //
         const captureImageFileButton = getByTestId('capture-img')
         expect(captureImageFileButton).toBeTruthy()
         fireEvent.press(captureImageFileButton)
     })
     ///////////////////////////////////////////////////////////////////////////////////
-    it('Choose image on ios', () => {
+    it('should run choose image on ios', () => {
         Platform.OS = 'ios';
-
         const { getByTestId } = render(<AddImageButtons addImage={jest.fn} />)
         //
         const chooseImageFileButton = getByTestId('choose-img')
@@ -58,9 +55,8 @@ describe('AddImageButtons', () => {
         fireEvent.press(chooseImageFileButton)
     })
 
-    it('Capture image on ios', () => {
+    it('should capture image on ios', () => {
         Platform.OS = 'ios';
-
         const { getByTestId } = render(<AddImageButtons addImage={jest.fn} />)
         //
         const captureImageFileButton = getByTestId('capture-img')
