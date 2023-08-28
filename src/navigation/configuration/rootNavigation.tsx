@@ -26,12 +26,12 @@ const RootNavigation = () => {
   const navigation = useNavigation();
   const dataState = useSelector((state: AppState) => state.profile.updateLocalProfile);
 
-  const CustomHeaderButton = ({buttonText }: { buttonText: string }) => (
-    <TouchableOpacity onPress={()=>handleNavigation()}>
+  const CustomHeaderButton = ({ buttonText }: { buttonText: string }) => (
+    <TouchableOpacity onPress={() => handleNavigation()}>
       <Text style={styles.txtNext}>{t(buttonText)}</Text>
     </TouchableOpacity>
   );
-  
+
   // Function to create customized screen options
   const createScreenOptions = ({
     titleKey,
@@ -62,9 +62,9 @@ const RootNavigation = () => {
         component={ProfilePage}
         options={
           createScreenOptions({
-          titleKey: 'txt.profile',
-          buttonText: 'txt.next',
-        })}
+            titleKey: 'txt.profile',
+            buttonText: 'txt.next',
+          })}
       />
       <Stack.Screen name="Home" component={HomeNavigation} />
     </Stack.Navigator>
