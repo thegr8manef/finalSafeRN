@@ -31,14 +31,14 @@ describe('Load Sites flow', () => {
     }];
 
     // todo add this instance to the new Site array in mockedSites after fixing type
-    const visitRemarqueInstance = new VisitRemarque(
-        "2023-08-21",
-        "Description",
-        "Token",
-        2,
-        true,
-        flashPhotos
-    );
+    // const visitRemarqueInstance = new VisitRemarque(
+    //     "2023-08-21",
+    //     "Description",
+    //     "Token",
+    //     2,
+    //     true,
+    //     flashPhotos
+    // );
 
     let store: Store<AppState>;
     let reduxStoreWO: ReduxStoreWO;

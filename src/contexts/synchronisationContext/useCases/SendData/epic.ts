@@ -1,6 +1,6 @@
 import { AppState } from "@redux/appState";
 import {Epic, StateObservable, ofType} from 'redux-observable';
-import {map, switchMap, mergeMap, concatMap ,catchError} from 'rxjs/operators';
+import {switchMap, mergeMap, concatMap ,catchError} from 'rxjs/operators';
 import {SynchronisationService} from '../../domain/gateway/SynchronisationService';
 import {SynchronisationRepository} from '../../domain/gateway/SynchronisationRepository';
 import { SEND_DATA } from "./actionTypes";

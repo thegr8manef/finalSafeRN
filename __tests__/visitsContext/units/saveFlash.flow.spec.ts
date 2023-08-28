@@ -6,7 +6,7 @@ import { AppState } from "@redux/appState";
 import { Photo } from '@contexts/visiteContext/domain/entity/Photo';
 import { saveFashErrorSelector, saveFlashLoadingSelector } from '@contexts/visiteContext/useCases/saveFlash/selectors';
 import { SaveFlash, SaveFlashSuccess } from '@contexts/visiteContext/useCases/saveFlash/action';
-import { VisitFlash } from '@contexts/visiteContext/domain/entity/VisitFlash';
+import Remarque from '@contexts/visiteContext/domain/entity/Remarque';
 
 const deepFreeze = require('deep-freeze');
 
@@ -15,7 +15,8 @@ describe('Save Flash flow', () => {
     let reduxStoreWO: ReduxStoreWO;
     const mockPhoto = new Photo();
     mockPhoto.path = 'mocked-url'
-    const flashInstance = new VisitFlash('mock-comment', [mockPhoto], 2);
+
+    const remarqueInstance = new Remarque();
 
     beforeEach(() => {
         reduxStoreWO = new ReduxStoreWO();
@@ -26,10 +27,10 @@ describe('Save Flash flow', () => {
     it('should create an instance of Flash and test properties', () => {
 
         // Test assertions
-        expect(flashInstance.commentaire).toEqual('mock-comment');
-        expect(flashInstance.images.length).toBe(1);
-        expect(flashInstance.images[0]?.path).toEqual('mocked-url');
-        expect(flashInstance.level).toBe(2);
+        expect(remarqueInstance.commentaire).toEqual('mock-comment');
+        expect(remarqueInstance.images.length).toBe(1);
+        expect(remarqueInstance.images[0]?.path).toEqual('mocked-url');
+        expect(remarqueInstance.level).toBe(2);
     });
 
 
@@ -47,7 +48,7 @@ describe('Save Flash flow', () => {
                 done();
             }
         });
-        store.dispatch(SaveFlash(flashInstance));
+        store.dispatch(SaveFlash(remarqueInstance));
     });
 
 
@@ -60,7 +61,7 @@ describe('Save Flash flow', () => {
                 done();
             }
         });
-        store.dispatch(SaveFlash(flashInstance));
+        store.dispatch(SaveFlash(remarqueInstance));
         reduxStoreWO.saveFlashError('ERROR')
     });
 
@@ -74,7 +75,7 @@ describe('Save Flash flow', () => {
                 done();
             }
         });
-        store.dispatch(SaveFlash(flashInstance));
+        store.dispatch(SaveFlash(remarqueInstance));
         reduxStoreWO.saveFlashNext()
         });
 });

@@ -6,7 +6,6 @@ import {
 } from '@react-navigation/drawer';
 import { Profile } from '@contexts/profileContext/domain/entity/profile';
 import * as utils from '@utils/index';
-import { useEffect } from 'react';
 import globalStyle from '@styles/globalStyle';
 
 interface Props {

@@ -70,7 +70,7 @@ export const VisitsContainer = (props: Props): JSX.Element => {
     )
   }
   const CustomVistList: React.FC<CustomVistList> = ({ visit }) => {
-    var imageSource = visitTypeToImageSource[visit.tp] || visitTypeToImageSource.default
+    const imageSource = visitTypeToImageSource[visit.tp] || visitTypeToImageSource.default
     return (
       <View testID='custom-visit-list' style={flexBoxStyle.flexRowSpace}>
         <View style={flexBoxStyle.m1}>
@@ -99,7 +99,7 @@ export const VisitsContainer = (props: Props): JSX.Element => {
   };
 
   const handlSynchronisation = () => {
-    props.sendData(props.profile?.accessToken!!, props.profile?.lastUpdate!!)
+    props.sendData(props.profile?.accessToken!, props.profile?.lastUpdate!)
   }
 
   return (

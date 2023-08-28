@@ -1,7 +1,6 @@
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import * as utils from '@utils/index';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
 interface Props {
   title: string;
@@ -11,7 +10,6 @@ interface Props {
   rightLabel?: string
 }
 export const HeaderModal = (props: Props) => {
-  const { t } = useTranslation();
   return (
     <View style={styles.container}>
       <View style={styles.left}>
