@@ -16,7 +16,15 @@ describe('Save Flash flow', () => {
     const mockPhoto = new Photo();
     mockPhoto.path = 'mocked-url'
 
-    const remarqueInstance = new Remarque();
+    // Create an instance of the Remarque class
+    const remarkInstance = new Remarque(
+        "token_value",
+        "2023-08-28",
+        "This is a sample remark.",
+        2,
+        4,
+        [mockPhoto] 
+    );
 
     beforeEach(() => {
         reduxStoreWO = new ReduxStoreWO();
@@ -27,10 +35,13 @@ describe('Save Flash flow', () => {
     it('should create an instance of Flash and test properties', () => {
 
         // Test assertions
-        expect(remarqueInstance.commentaire).toEqual('mock-comment');
-        expect(remarqueInstance.images.length).toBe(1);
-        expect(remarqueInstance.images[0]?.path).toEqual('mocked-url');
-        expect(remarqueInstance.level).toBe(2);
+        expect(remarkInstance.token).toEqual('token_value');
+        expect(remarkInstance.note).toEqual(4);
+        expect(remarkInstance.created_At).toEqual('2023-08-28');
+        expect(remarkInstance.description).toEqual('This is a sample remark.');
+        expect(remarkInstance.photos.length).toBe(1);
+        expect(remarkInstance.photos[0]?.path).toEqual('mocked-url');
+        expect(remarkInstance.level).toBe(2);
     });
 
 
@@ -48,7 +59,7 @@ describe('Save Flash flow', () => {
                 done();
             }
         });
-        store.dispatch(SaveFlash(remarqueInstance));
+        store.dispatch(SaveFlash(remarkInstance));
     });
 
 
@@ -61,7 +72,7 @@ describe('Save Flash flow', () => {
                 done();
             }
         });
-        store.dispatch(SaveFlash(remarqueInstance));
+        store.dispatch(SaveFlash(remarkInstance));
         reduxStoreWO.saveFlashError('ERROR')
     });
 
@@ -75,7 +86,7 @@ describe('Save Flash flow', () => {
                 done();
             }
         });
-        store.dispatch(SaveFlash(remarqueInstance));
+        store.dispatch(SaveFlash(remarkInstance));
         reduxStoreWO.saveFlashNext()
         });
 });
