@@ -5,7 +5,10 @@ import { PermissionStatus, Platform } from 'react-native';
 
 describe('AddImageButtons', () => {
 
-    it('should denied choose image on android', () => {
+    it('should choose image on android', () => {
+        const props = {
+            addImage:jest.fn()
+        }
         Platform.OS = 'android';
         jest.mock(
             'react-native//Libraries/PermissionsAndroid/PermissionsAndroid',
@@ -19,10 +22,12 @@ describe('AddImageButtons', () => {
             },
         );
 
-        const { getByTestId } = render(<AddImageButtons addImage={jest.fn} />)
+        const { getByTestId } = render(<AddImageButtons {...props} />)
         const chooseImageFileButton = getByTestId('choose-img')
         expect(chooseImageFileButton).toBeTruthy()
         fireEvent.press(chooseImageFileButton)
+        // TODO Add launch Camera test
+        // TODO Add props.addImage calling test
     })
 
     it('should denied capture image on android', () => {
