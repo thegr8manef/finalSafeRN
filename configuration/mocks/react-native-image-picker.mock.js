@@ -3,11 +3,10 @@ const mockImageResponse = {
   didCancel: false,
   assets: [{uri: 'mock_image_uri'}],
 };
-const mockResponse = { didCancel: true };
 
-const mockLaunchCamera = jest.fn((options, callback) => callback(mockResponse));
+const mockLaunchCamera = jest.fn((options, response)=>response(mockImageResponse));
        
-const mockLaunchImageLibrary = jest.fn((options, callback) => callback(mockResponse));
+const mockLaunchImageLibrary = jest.fn((options, response)=>response(mockImageResponse));
 
 jest.mock('react-native-image-picker', () => ({
   launchCamera: mockLaunchCamera,

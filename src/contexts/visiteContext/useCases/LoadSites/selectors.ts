@@ -1,5 +1,4 @@
 
-import { Remarque } from '@common/adapters/secondaries/db/entity/Remarque';
 import { Site } from '../../domain/entity/Site';
 import { AppState } from "@redux/appState";
 

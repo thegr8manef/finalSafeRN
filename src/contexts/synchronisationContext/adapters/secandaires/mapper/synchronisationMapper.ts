@@ -44,7 +44,7 @@ export class SynchronisationMapper {
   static mapSiteToChantier(site: Site): Chantier {
     const {
       id, name, address, accepted, code_postal, pays, ville, sr,
-      st, last_update, reference, region_name, osc, pid, piid, org
+  //    st, last_update, reference, region_name, osc, pid, piid, org // ? never used 
     } = site;
     
     return {

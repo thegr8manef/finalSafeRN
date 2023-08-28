@@ -10,13 +10,78 @@ import {
 } from "@contexts/visiteContext/useCases/LoadSites/selectors";
 import { Site } from "@contexts/visiteContext/domain/entity/Site";
 import { LoadSites } from "@contexts/visiteContext/useCases/LoadSites/action";
+import { VisitRemarque } from '@contexts/visiteContext/domain/entity/VisitRemarque';
+import { FlashPhotoDto } from '@contexts/visiteContext/adapters/secondaires/dto/flash.photo.dto';
+
 const deepFreeze = require('deep-freeze');
 
 describe('Load Sites flow', () => {
+    const flashPhotos: FlashPhotoDto[] = [{
+        id: "1",
+        Name: "NameFlashPhoto",
+        path: "/path", // empty
+        idRemarque: "99", // id remarque
+        idVisite: "-1",
+        levee: true,
+        or: 0,
+        formationId: "string",
+        wasDrafts: true,
+        deleted: true,
+        synchEtat: 1,
+    }];
+
+    // todo add this instance to the new Site array in mockedSites after fixing type
+    // const visitRemarqueInstance = new VisitRemarque(
+    //     "2023-08-21",
+    //     "Description",
+    //     "Token",
+    //     2,
+    //     true,
+    //     flashPhotos
+    // );
+
     let store: Store<AppState>;
     let reduxStoreWO: ReduxStoreWO;
-    const mockedSites = [new Site('1', 'name', 'rue', 1, false, '1235', 'FR', 'Paris', -1, -1, 'ref', 'NR', 'r', '11', 'gg', 1, ''),
-    new Site('12', 'name 11', 'rue', 1, false, '1235', 'FR', 'Paris', -1, -1, 'ref', 'NR', 'r', '11', 'gg', 1, '')]
+    const mockedSites = [new Site(
+        "site_id",
+        "Site Name",
+        "Site Address",
+        1,
+        true,
+        "12345",
+        "Country",
+        "City",
+        123,
+        Date.now(),
+        [],
+        "Reference",
+        "Region Name",
+        "OSC Value",
+        "pid_value",
+        "piid_value",
+        456,
+        "Organization"
+    ),
+    new Site(
+        "site_id",
+        "Site Name",
+        "Site Address",
+        1,
+        true,
+        "12345",
+        "Country",
+        "City",
+        123,
+        Date.now(),
+        [], // An array of Remarque instances
+        "Reference",
+        "Region Name",
+        "OSC Value",
+        "pid_value",
+        "piid_value",
+        456,
+        "Organization"
+    )]
 
     beforeEach(() => {
         reduxStoreWO = new ReduxStoreWO();

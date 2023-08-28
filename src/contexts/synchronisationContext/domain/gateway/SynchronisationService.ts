@@ -1,6 +1,5 @@
 import {Observable} from 'rxjs';
 import {Site} from '@contexts/visiteContext/domain/entity/Site';
-import { VisitSynchronisation } from '../entity/VisitSynchronisation';
 import { Synchronisation } from '../entity/Synchronisation';
 
 export interface SynchronisationService {

@@ -26,14 +26,14 @@ export const ProgressRisksStats = (props: Props) => {
           <View style={styles.item}>  
           <ProgressBarCard
             label={'1-Vie du chantier'}
-            value={props.statsRisk!.risk0.value! * 0.01}
+            value={props?.statsRisk?.risk0?.value! * 0.01}
             color={utils.colors.yellow}
           />
           </View>
           <View style={styles.item}>  
           <ProgressBarCard
             label={'2-' + t('txt.risks')}
-            value={props.statsRisk!.risk1.value! * 0.01}
+            value={props.statsRisk?.risk1?.value! * 0.01}
             color={utils.colors.green}
           />
           </View>
