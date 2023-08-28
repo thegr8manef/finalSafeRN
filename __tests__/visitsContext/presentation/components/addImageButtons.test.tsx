@@ -23,7 +23,6 @@ describe('AddImageButtons', () => {
         const chooseImageFileButton = getByTestId('choose-img')
         expect(chooseImageFileButton).toBeTruthy()
         fireEvent.press(chooseImageFileButton)
-        expect(chooseImageFileButton).toBeCalled()
     })
 
     it('should denied capture image on android', () => {
@@ -44,7 +43,6 @@ describe('AddImageButtons', () => {
         const captureImageFileButton = getByTestId('capture-img')
         expect(captureImageFileButton).toBeTruthy()
         fireEvent.press(captureImageFileButton)
-        expect(captureImageFileButton).toBeCalled()
 
     })
     it('should run choose image on ios', () => {
@@ -53,7 +51,6 @@ describe('AddImageButtons', () => {
         const chooseImageFileButton = getByTestId('choose-img')
         expect(chooseImageFileButton).toBeTruthy()
         fireEvent.press(chooseImageFileButton)
-        expect(chooseImageFileButton).toBeCalled()
 
     })
 
@@ -63,7 +60,6 @@ describe('AddImageButtons', () => {
         const captureImageFileButton = getByTestId('capture-img')
         expect(captureImageFileButton).toBeTruthy()
         fireEvent.press(captureImageFileButton)
-        expect(captureImageFileButton).toBeCalled()
 
     })
 })

@@ -124,14 +124,14 @@ export const AddImageButtons = (props: Props) => {
       <Pressable
         testID="capture-img"
         style={styles.button}
-        onPress={() => captureImage()}
+        onPress={captureImage}
         android_ripple={{ color: utils.colors.gris300 }}>
         <Image style={styles.logoImage5} source={utils.images.takePhotoIcon} />
       </Pressable>
       <Pressable
         testID="choose-img"
         style={styles.button}
-        onPress={() => chooseFile()}
+        onPress={chooseFile}
         android_ripple={{ color: utils.colors.gris300 }}>
         <Image style={styles.logoImage5} source={utils.images.fileIcon} />
       </Pressable>
