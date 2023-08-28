@@ -22,8 +22,9 @@ import { Profile } from "@contexts/profileContext/domain/entity/profile";
 import { User } from "@contexts/profileContext/domain/entity/user";
 import { profileRootEpics } from "@contexts/profileContext/configuration/rootEpic";
 import { statisticRootEpics } from "@contexts/statisticContext/configuration/rootEpic";
-import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
-import Remarque from '@contexts/visiteContext/domain/entity/Remarque';
+import { VisitFlash } from '@contexts/visiteContext/domain/entity/VisitFlash';
+import { Remarque } from '@common/adapters/secondaries/db/entity/Remarque';
+import { Visit } from '@common/adapters/secondaries/db/entity/Visit';
 
 export class ReduxStoreWO {
   private static instance: ReduxStoreWO;
@@ -45,7 +46,7 @@ export class ReduxStoreWO {
   private SaveFlash$: Subject<void> = new Subject();
   private SaveVisit$:  Subject<Remarque> = new Subject();
   private loadAllSites$: Subject<Site[]> = new Subject();
-  private loadVisits$: Subject<Visit[]> = new Subject();
+  private loadVisitsDetails$: Subject<Visit[]> = new Subject();
 
   constructor() {
     this.rootEpics = combineEpics<Action>(
@@ -77,9 +78,8 @@ export class ReduxStoreWO {
         visitsService: {
           SaveFlash: (): Subject<void> => this.SaveFlash$,
           LoadAllSites: (): Subject<Site[]> => this.loadAllSites$,
-          loadVisitsDetails: (): Subject<Visit[]> => this.loadVisits$,
+          loadVisitsDetails: (): Subject<Visit[]> => this.loadVisitsDetails$,
           SaveVisit: (): Subject<Remarque> => this.SaveVisit$,
-
         },
         synchronisationService: {
           loadData: (): Subject<Site[]> => this.LoadData$,
@@ -163,7 +163,7 @@ export class ReduxStoreWO {
   saveFlashError = (error: string): void => this.SaveFlash$.error(error)
 
     // laod visit actions
-    loadVisitsNext = (visits:Visit[]): void => this.loadVisits$.next(visits)
-    loadVisitsError = (error: string): void => this.loadVisits$.error(error)
+    loadVisitsNext = (visits:Visit[]): void => this.loadVisitsDetails$.next(visits)
+    loadVisitsError = (error: string): void => this.loadVisitsDetails$.error(error)
   
 }

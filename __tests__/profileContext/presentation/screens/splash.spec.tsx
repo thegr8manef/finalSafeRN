@@ -57,6 +57,7 @@ describe('Test SplashContainer screen', () => {
         act(() => {
             jest.runAllTimers(); // Advance setTimeout
         });
+
         await waitFor(() => expect(updatedProps.loadSychronisationData).toHaveBeenCalledWith(updatedProps?.profile?.accessToken, '-1')); //-1 is lastUpdate
     });
 

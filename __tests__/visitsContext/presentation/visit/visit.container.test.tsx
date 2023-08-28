@@ -45,15 +45,21 @@ describe('VisitsContainer', () => {
   it('renders correctly', () => {
     const { getByTestId } = render(<VisitsContainer {...props()} />);
 
-    // Test TouchableOpacity interaction
-    const syncButton = getByTestId('sync-button');
-    fireEvent.press(syncButton);
+        // Test TouchableOpacity interaction
+        const syncButton = getByTestId('sync-button');
+        fireEvent.press(syncButton);
 
-    expect(getByTestId('img-prevention')).toBeTruthy();
-    expect(getByTestId('img-conformite')).toBeTruthy();
-    expect(getByTestId('img-hierarchical')).toBeTruthy();
-  });
+        expect(getByTestId('img-prevention')).toBeTruthy();
+        expect(getByTestId('img-conformite')).toBeTruthy();
+        expect(getByTestId('img-hierarchical')).toBeTruthy();
+    });
 
+    // Additional tests
+    it('displays the correct number of horizontal lines', () => {
+        const { getAllByTestId } = render(<VisitsContainer {...props()} />);
+        const horizontalLines = getAllByTestId('horizontal-line');
+        expect(horizontalLines.length).toBe(2);
+    });
   // Additional tests
   it('displays the correct number of horizontal lines', () => {
     const { getAllByTestId } = render(<VisitsContainer  {...props()} />);
