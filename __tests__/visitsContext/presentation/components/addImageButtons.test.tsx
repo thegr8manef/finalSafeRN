@@ -20,10 +20,10 @@ describe('AddImageButtons', () => {
         );
 
         const { getByTestId } = render(<AddImageButtons addImage={jest.fn} />)
-        //
         const chooseImageFileButton = getByTestId('choose-img')
         expect(chooseImageFileButton).toBeTruthy()
         fireEvent.press(chooseImageFileButton)
+        expect(chooseImageFileButton).toBeCalled()
     })
 
     it('should denied capture image on android', () => {
@@ -44,23 +44,26 @@ describe('AddImageButtons', () => {
         const captureImageFileButton = getByTestId('capture-img')
         expect(captureImageFileButton).toBeTruthy()
         fireEvent.press(captureImageFileButton)
+        expect(captureImageFileButton).toBeCalled()
+
     })
-    ///////////////////////////////////////////////////////////////////////////////////
     it('should run choose image on ios', () => {
         Platform.OS = 'ios';
         const { getByTestId } = render(<AddImageButtons addImage={jest.fn} />)
-        //
         const chooseImageFileButton = getByTestId('choose-img')
         expect(chooseImageFileButton).toBeTruthy()
         fireEvent.press(chooseImageFileButton)
+        expect(chooseImageFileButton).toBeCalled()
+
     })
 
     it('should capture image on ios', () => {
         Platform.OS = 'ios';
         const { getByTestId } = render(<AddImageButtons addImage={jest.fn} />)
-        //
         const captureImageFileButton = getByTestId('capture-img')
         expect(captureImageFileButton).toBeTruthy()
         fireEvent.press(captureImageFileButton)
+        expect(captureImageFileButton).toBeCalled()
+
     })
 })
