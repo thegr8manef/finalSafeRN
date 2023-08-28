@@ -1,6 +1,5 @@
 import { VisitFlash } from "@contexts/visiteContext/domain/entity/VisitFlash";
-import Realm from "../../../configuration/mocks/realm.mock";
-import { Remarque } from "@common/adapters/secondaries/db/entity/Remarque";
+import { realmInstance } from './../../../configuration/mocks/realm.mock';
 
 jest.mock('Realm', () => require('../../../configuration/mocks/realm.mock'));
 jest.mock("@common/appConfig/ApplicationContext");
@@ -9,7 +8,6 @@ describe('DbVisitsService Tests', () => {
     let visitFlash: VisitFlash
     let remarqueData: any //
 
-    const realmInstance = new Realm({ schema: [Remarque] });
     beforeEach(() => {
 
         visitFlash = new VisitFlash("comment", [], -1, '', 1)
