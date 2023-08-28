@@ -11,12 +11,13 @@ export class VisitMapper {
             visit.id || "",
             visit.codeChantier || "",
             visit.dt || "",
-            this.mapToVisitRemarque(visit.remarques), // Map the visit.remarques using RemarqueMapper
+            this.mapToVisitRemarque(visit.remarques!!), // Map the visit.remarques using RemarqueMapper
             visit.chantier
         ));
     }
 
     static mapToVisitRemarque(remarques: Remarque[]): VisitRemarque[] {
+        
         return remarques.map(remarque => new VisitRemarque(
             remarque.dt,
             remarque.ds,

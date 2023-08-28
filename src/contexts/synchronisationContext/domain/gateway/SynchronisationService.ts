@@ -1,11 +1,12 @@
 import {Observable} from 'rxjs';
 import {Site} from '@contexts/visiteContext/domain/entity/Site';
-import { VisitSynchronisation } from '../entity/VisitSynchronisation';
-import { Synchronisation } from '../entity/Synchronisation';
+import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
 
 export interface SynchronisationService {
-  loadData(accessToken: string, lastUpadet: string): Observable<Site[]>;
+  
+  loadData(accessToken : string, lastUpadet: string): Observable<Site[]>;
+
   sendData( accessToken: string, 
-            lastUpadet: string,
-            synchronisation :Synchronisation): Observable<void>
+            lastUpadet : string,
+            visits     : Visit[]): Observable<void>
 }

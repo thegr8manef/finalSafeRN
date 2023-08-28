@@ -1,5 +1,6 @@
 import { Chantier } from "@common/adapters/secondaries/db/entity/Chantier";
 import { RemarqueDto } from "@contexts/visiteContext/adapters/secondaires/dto/remarque.dto";
+import { VisitRemarque } from "./VisitRemarque";
 
 export class Visit {
 
@@ -8,7 +9,7 @@ export class Visit {
     private _tk?: string,
     private _cdc?: string,
     private _dt?: string,
-    private _rq?: RemarqueDto[],
+    private _rq?: VisitRemarque[],
     private _chantier?: Chantier,
   ) {
   }

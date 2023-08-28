@@ -15,6 +15,10 @@ import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
 export class DbVisitsService implements VisitsService {
 
   SaveFlash(data: VisitFlash): Observable<Remarque> { // Update the return type to Observable<Remarque>
+  
+    const currentDateTime = moment();
+    const formattedCurrentDateTime = currentDateTime.format("YYYY/MM/DD HH:mm:ss");
+
     const saveFlashtoDb = new Promise<Remarque>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
       const name = Date.now().toString() + Math.random().toString();
@@ -22,7 +26,7 @@ export class DbVisitsService implements VisitsService {
         db.then(realm => {
           realm?.write(() => {
             const newRemarque = realm.create<Remarque>('Remarque', {
-              tk: uuidv5(name, NAMESPACE),
+              tk: uuidv5(name, NAMESPACE)+"an"+ moment().valueOf(),
               nbPhoto: data.images.length,
               ds: data.commentaire,
               photos: data.images,
@@ -30,6 +34,7 @@ export class DbVisitsService implements VisitsService {
               lvl: Number(data.type),
               nt: false,
               or: 0,
+              dt: formattedCurrentDateTime,
               idcs: data.site_id,
               levee: false,
               ordreGlobal: 0,
@@ -70,7 +75,7 @@ export class DbVisitsService implements VisitsService {
           realm?.write(() => {
             const newVisit = realm.create<VisitDb>("Visit", {
               // Map Visit properties from data
-              id: uuidv5(name, NAMESPACE),
+              id: uuidv5(name, NAMESPACE)+"an"+ moment().valueOf(),
               dt: formattedCurrentDateTime,
               dtc: formattedCurrentDateTime,
               date: currentDateTimeInMillis,
@@ -148,10 +153,12 @@ export class DbVisitsService implements VisitsService {
       const db = ApplicationContext.getInstance().db();
       try {
         db.then(realm => {
-          const objects = realm.objects('Visit');
+          const visits = realm.objects('Visit');
+          const remarques = realm.objects('Remarque');
           realm.write(() => {
             // Delete all items in the visit schema
-            realm.delete(objects);
+            realm.delete(visits);
+            realm.delete(remarques)
           });
           resolve();
         });

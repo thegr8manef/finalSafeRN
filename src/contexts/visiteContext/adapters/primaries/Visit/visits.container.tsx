@@ -13,7 +13,6 @@ import { visitTypeToImageSource } from '@common/constants';
 import { convertDate } from '@utils/utils';
 import { windowWidth } from '@styles/dimension';
 import { Profile } from '@contexts/profileContext/domain/entity/profile';
-import { Synchronisation } from '@contexts/synchronisationContext/domain/entity/Synchronisation';
 
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
@@ -23,7 +22,7 @@ interface Props {
   profile: Profile | undefined;
 
   // functions
-  sendData: (accessToken: string, lastUpadet: string, synchronisation: Synchronisation) => void;
+  sendData: (accessToken: string, lastUpadet: string, visits: Visit[]) => void;
   loadVisits: () => void;
 }
 
@@ -50,8 +49,12 @@ export const VisitsContainer = (props: Props): JSX.Element => {
 
 
   useEffect(() => {
-  }, [props.visits]);
+   }, [props.visits]);
 
+  const handlSynchronisation = () => {
+      props.sendData(props.profile?.accessToken!!, props.profile?.lastUpdate!!, props.visits!! )
+    }
+  
   const CustomAddNewVisit: React.FC<CustomAddNewVisitProps> = ({ title, icon, testID }) => {
     return (
       <View style={styles.visitContatiner}>
@@ -98,29 +101,6 @@ export const VisitsContainer = (props: Props): JSX.Element => {
     );
   };
 
-  const handlSynchronisation = () => {
-  
-
-  //   const syn = {
-  //     "vs": [
-  //         {
-  //             "tp": 3,
-  //             "tk": "8d5f5bd5-f365-4c2f-b581-af445bdd3dd2acan1692261041336",
-  //             "cdcs": "B98283AB",
-  //             "dt": "2023\/08\/18 15:30:41",
-  //             "rq": {
-  //                 "dt": "2023\/08\/18 15:31:03",
-  //                 "ds": "shitd",
-  //                 "tk": "ac6d4cb0-1dea-4854-a4eb-a2902edd413d3can1692261041340",
-  //                 "lvl": 3,
-  //                 "nt": 0,
-  //                 "md": []
-  //             }
-  //         }
-  //     ]
-  // }
-  //   props.sendData(props.profile?.accessToken!!, props.profile?.lastUpdate!!, syn )
-  }
 
   return (
     <View style={globalStyle.containerStyle}>
@@ -138,7 +118,9 @@ export const VisitsContainer = (props: Props): JSX.Element => {
             testID='sync-button'
             buttonColor={props.visits?.length ? utils.colors.primary : utils.colors.gray90}
             width={'30%'}
-            textButton={t('txt.synchroniser')} />
+            textButton={t('txt.synchroniser')}
+            onPressButton={handlSynchronisation}
+            />
         </View>
         <Divider />
         {props.visits?.length ? (

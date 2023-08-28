@@ -21,7 +21,7 @@ interface StateToPropsType {
 }
 interface DispatchToPropsType {
   loadVisits: () => void;
-  sendData: (accessToken: string, lastUpadet: string, synchronisation: Synchronisation) => void;
+  sendData: (accessToken: string, lastUpadet: string, visits : Visit[]) => void;
   
 }
 
@@ -35,8 +35,8 @@ const mapStateToProps = (state: AppState): StateToPropsType => ({
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => ({
   loadVisits: (): LoadVisitsActionDbTypes => dispatch(LoadVisits()),
-  sendData    : (accessToken : string, lastUpadet : string, synchronisation : Synchronisation): SendDataActionTypes  =>
-   dispatch(sendData(accessToken, lastUpadet, synchronisation)),
+  sendData    : (accessToken : string, lastUpadet : string, visits : Visit[]): SendDataActionTypes  =>
+   dispatch(sendData(accessToken, lastUpadet, visits)),
 
 
 });

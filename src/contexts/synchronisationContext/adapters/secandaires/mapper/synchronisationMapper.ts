@@ -4,6 +4,7 @@ import {SynchronisationDto} from '../dto/synchronisationDto';
 import { VisitSynchronistaionDto } from '../dto/VisitSynchronistaionDto';
 import { Synchronisation } from '@contexts/synchronisationContext/domain/entity/Synchronisation';
 import { VisitSynchronisation } from '@contexts/synchronisationContext/domain/entity/VisitSynchronisation';
+import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
 
 export class SynchronisationMapper {
   static mapperToChanties(synchronisationDto: SynchronisationDto): Site[] {
@@ -91,7 +92,31 @@ export class SynchronisationMapper {
     return {
         vs: visites
     };
+
 }
+
+static mapperToSynchronisationSend(visits : Visit[]) : VisitSynchronistaionDto{
+  const visites = visits.map((visit: Visit) => {
+    return {
+        tp: visit.tp,
+        tk: visit.tk,
+        cdcs: visit.cdc,
+        dt: visit.dt, 
+        rq: {
+            dt : visit.rq!![0].dt, 
+            ds : visit.rq!![0].ds,
+            tk : visit.rq!![0].tk,
+            lvl: visit.rq!![0].lvl,
+            nt : visit.rq!![0].nt,
+            md : []
+        }
+    };
+});
+
+      return {
+                vs: visites
+            };
+ }
 
 
 }

@@ -9,6 +9,7 @@ import {Site} from '@contexts/visiteContext/domain/entity/Site';
 import ws from '@config/ws';
 import { VisitSynchronisation } from '@contexts/synchronisationContext/domain/entity/VisitSynchronisation';
 import { Synchronisation } from '@contexts/synchronisationContext/domain/entity/Synchronisation';
+import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
 
 export class APISynchronisationService implements SynchronisationService {
   loadData(accessToken: string, lastUpdateDate: string): Observable<Site[]> {
@@ -42,7 +43,9 @@ export class APISynchronisationService implements SynchronisationService {
   }
 
  
-  sendData(accessToken: string, lastUpadet: string, synchronisation: Synchronisation): Observable<void> {
+  sendData(accessToken: string, lastUpadet: string, visits: Visit[]): Observable<void> {
+    console.log(JSON.stringify(SynchronisationMapper.mapperToSynchronisationSend(visits)))
+
     const _headers: Record<string, string> = {
 
       'Content-Type': 'application/json',
@@ -50,11 +53,10 @@ export class APISynchronisationService implements SynchronisationService {
     };
     const body: Record<string, string> = {
       lu: lastUpadet,
-      dt : JSON.stringify(SynchronisationMapper.mapperToVisitSynchronisation(synchronisation))
+      dt : JSON.stringify(SynchronisationMapper.mapperToSynchronisationSend(visits))
     };
 
     const URL = ws.baseUrl + 'synchronization';
-
     return new ObservableAjaxHttpClient()
       .put<SynchronisationDto>(URL, body, _headers)
       .pipe(
