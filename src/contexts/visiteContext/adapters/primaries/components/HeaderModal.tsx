@@ -64,7 +64,7 @@ export const HeaderModal = (props: Props) => {
       <View>
         <Text style={globalStyle.fontBoldDark15Style}>{props.title}</Text>
       </View>
-      <View>{renderRightContent()}</View> {/* Render the right content */}
+      <View>{renderRightContent()}</View>
     </View>
   );
 };

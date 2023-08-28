@@ -34,6 +34,7 @@ const images = {
   visitLockIcon: require('../assets/img/icn_lock_visit_list.png'),
   visitConformiteIcon: require('../assets/img/icn_conformite_list.png'),
   flashcon: require('../assets/img/Flash.png'),
-
+  flashONIcon: require('../assets/img/flash_on.png'),
+  flashOffIcon: require('../assets/img/flash_off.png'),
 };
 export default images;

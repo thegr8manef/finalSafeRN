@@ -1,13 +1,13 @@
-import React, { useState, useRef } from 'react';
-import { View, Text, TouchableOpacity, Button, Modal } from 'react-native';
+import React, { useState } from 'react';
+import { View, Modal } from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
-import { RNCamera } from 'react-native-camera';
 import { HeaderModal } from '../HeaderModal';
 import { Site } from '@contexts/visiteContext/domain/entity/Site';
 import { flexBoxStyle } from '@styles/flexBoxStyle';
 import { t } from 'i18next';
 import { windowHeight } from '@styles/dimension';
 import * as utils from '@utils/index';
+import { RNCamera } from 'react-native-camera';
 
 interface Props {
   modalVisible: boolean;
@@ -18,25 +18,38 @@ interface Props {
 }
 
 const SearchSiteWithQrCode = (props: Props) => {
+  // State variables
   const [qrValue, setQrValue] = useState('');
   const [light, setLight] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
-  const scannerRef = useRef(null);
 
+  // Toggle flashlight on/off
   const toggleLight = () => {
     setLight(!light);
   };
 
-  const handleReadQRCode = (e) => {
+  // Handle QR code scanning
+  const handleReadQRCode = (e: { data: string }) => {
     setShowDialog(true);
     setQrValue(e.data);
   };
 
-  const scanAgain = () => {
-    if (scannerRef.current) {
-      scannerRef.current.reactivate();
+  // QR code scanner component with dynamic flash mode
+  const CustomQrCodeScanner = () => (
+    <QRCodeScanner
+      onRead={handleReadQRCode}
+      cameraStyle={{ height: windowHeight }}
+      flashMode={light ? RNCamera.Constants.FlashMode.torch : RNCamera.Constants.FlashMode.auto}
+    />
+  );
+
+  // Handle right icon press (e.g., flashlight)
+  const handleRightIconPress = (index: number) => {
+    if (index === 0) {
+      toggleLight();
+    } else if (index === 1) {
+      console.log('Pressed the second icon');
     }
-    setShowDialog(false);
   };
 
   return (
@@ -44,46 +57,24 @@ const SearchSiteWithQrCode = (props: Props) => {
       animationType="slide"
       transparent={false}
       visible={props.modalVisible}>
+
+      {/* Header */}
       <HeaderModal
-       title={t('txt.scan')}
+        title={t('txt.scan')}
         onLeftPress={props.onClose}
         leftLabel={t('txt.annuler')}
-        rightIcon={[utils.images.flashcon, utils.images.fileIcon]}
-        onRightIconPress={[
-          () => {
-            // Handle the press of the first icon (utils.images.flashcon)
-            console.log('Pressed the first icon');
-          },
-          () => {
-            // Handle the press of the second icon (utils.images.fileIcon)
-            console.log('Pressed the second icon');
-          },
-        ]} />
-      <View style={flexBoxStyle.flexCenter}>
-        <QRCodeScanner
-          ref={scannerRef}
-          onRead={handleReadQRCode}
-          containerStyle={{ backgroundColor: 'yellow' }}
-          cameraStyle={{ height: windowHeight }}
-          flashMode={light ? RNCamera.Constants.FlashMode.torch : RNCamera.Constants.FlashMode.auto}
-          bottomContent={
-            <Button
-              title={`Flash ${light ? 'OFF' : 'ON'}`}
-              onPress={toggleLight}
-            />
-          }
-        />
+        rightIcon={[
+          light ? utils.images.flashOffIcon : utils.images.flashONIcon,
+          utils.images.fileIcon,
+        ]}
+        onRightIconPress={handleRightIconPress}
+      />
 
-        {/* {showDialog && (
-            <View style={{ alignItems: 'center' }}>
-              <Text style={{ fontSize: 25 }}>Scanned QR:</Text>
-              <Text style={{ fontSize: 25 }}>{qrValue}</Text>
-              <TouchableOpacity onPress={scanAgain}>
-                <Text style={{ color: 'blue', fontSize: 20 }}>Scan Again</Text>
-              </TouchableOpacity>
-            </View>
-          )} */}
+      {/* QR code scanner */}
+      <View style={flexBoxStyle.flexCenter}>
+        <CustomQrCodeScanner />
       </View>
+
     </Modal>
   );
 };
