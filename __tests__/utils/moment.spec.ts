@@ -7,11 +7,11 @@ describe('Date Utils', () => {
       const momentLocalMock = jest.spyOn(moment,'locale')
 
       const inputDate = '2023/08/15 12:00:00';
-      const lang = 'fr';
+      const lang = 'en';
       const result = convertDate(inputDate, lang);
+      expect(momentLocalMock).toHaveBeenCalledWith("en-in")
     
-      expect(result).toBe("")
-      expect(momentLocalMock).toHaveBeenCalledWith("fr")
+      expect(result).toBe("15 August 2023")
     });
 
     it('should return original date if an error occurs', () => {
