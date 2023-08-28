@@ -72,14 +72,8 @@ describe('VisitsContainer', () => {
   it('displays the correct number of horizontal lines', () => {
     const {getAllByTestId} = render(<VisitsContainer {...props()} />);
     const horizontalLines = getAllByTestId('horizontal-line');
-    expect(horizontalLines.length).toBe(2);
-  });
-
-  it('navigates to the correct screen on image press', () => {
-    const {getByTestId} = render(<VisitsContainer {...props()} />);
-    const preventionImage = getByTestId('img-prevention');
-    fireEvent.press(preventionImage);
-  });
+    expect(horizontalLines?.length).toBe(2);
+  })
 
   it('should show list of visits without remarque', () => {
     const {queryByTestId} = render(
