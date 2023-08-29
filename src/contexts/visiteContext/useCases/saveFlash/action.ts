@@ -7,8 +7,9 @@ import {
   SAVE_FLASH_SUCCESS,
   SaveFlashAction,
 } from './actionTypes';
+import Remarque from '@contexts/visiteContext/domain/entity/Remarque';
 
-export const SaveFlash = (data: VisitFlash): SaveFlashAction => ({
+export const SaveFlash = (data: Remarque): SaveFlashAction => ({
   type: SAVE_FLASH,
   payload: data,
 });

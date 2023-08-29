@@ -1,3 +1,5 @@
+import Realm from 'realm';
+
 export class Accompagnant extends Realm.Object<Accompagnant> {
   id?: string;
   fn?: string;

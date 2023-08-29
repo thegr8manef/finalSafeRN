@@ -45,7 +45,6 @@ export class SynchronisationMapper {
   }
 
   static mapSiteToChantier(site: Site): Chantier {
-
     return {
       id:site.id,
       no: site.name,

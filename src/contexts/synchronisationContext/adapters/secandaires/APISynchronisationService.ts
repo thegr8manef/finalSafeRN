@@ -7,7 +7,6 @@ import {catchError, map} from 'rxjs/operators';
 import constants from '@common/constants';
 import {Site} from '@contexts/visiteContext/domain/entity/Site';
 import ws from '@config/ws';
-import { VisitSynchronisation } from '@contexts/synchronisationContext/domain/entity/VisitSynchronisation';
 import { Synchronisation } from '@contexts/synchronisationContext/domain/entity/Synchronisation';
 
 export class APISynchronisationService implements SynchronisationService {

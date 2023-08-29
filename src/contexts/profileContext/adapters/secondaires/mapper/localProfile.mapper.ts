@@ -1,5 +1,5 @@
-import {User} from '@common/adapters/secondaries/db/entity/User';
-import {Profile} from '../../../domain/entity/profile';
+import { User } from '@common/adapters/secondaries/db/entity/User';
+import { Profile } from '../../../domain/entity/profile';
 
 export class LocalProfilMapper {
   static mapUserDbToProfile(user: User): Profile {

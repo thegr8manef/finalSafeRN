@@ -1,3 +1,5 @@
+import Realm from 'realm';
+
 export class StatisticUser extends Realm.Object<StatisticUser> {
   tvc?: number;
 

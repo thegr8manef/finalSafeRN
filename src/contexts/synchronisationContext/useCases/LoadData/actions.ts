@@ -11,7 +11,7 @@ export const loadData = (_accessToken: string, _lastUpdate : string): LoadDataAc
   type: LOAD_DATA,
   payload: {
     "accessToken" : _accessToken,
-    "lastUpdate"  : _accessToken
+    "lastUpdate"  : _lastUpdate
   } 
 });
 

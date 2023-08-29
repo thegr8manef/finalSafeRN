@@ -3,7 +3,6 @@ import {catchError, map, switchMap} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {VisitsService} from '../../domain/gateway/visitsService';
 import {AppState} from "@redux/appState";
-import Remarque from '@contexts/visiteContext/domain/entity/Remarque';
 import { DELETE_VISITS } from './actionTypes';
 import { deleteVisitFailed, deleteVisitSuccess } from './actions';
 

@@ -51,7 +51,7 @@ describe('VisitFlashContainer', () => {
         const saveButton = getByTestId('save-btn');
         fireEvent.press(saveButton)
         expect(alertMock).toHaveBeenCalledWith('', 'neg_ou_pos')
-        // Can be disabled ?
+        // Can this button be disabled when level ID is null ?
     });
 
     it('should press save and with positive levelId without comment ', () => {

@@ -7,7 +7,6 @@ import { SearchSiteItem } from './searchSiteItem';
 import { SearchSiteWithCodeModal } from './SearchSiteWithCodeModal';
 import { SearchSiteWithNameModal } from './SearchSiteWithNameModal';
 import { PreviewSite } from './previewSite';
-import { useNavigation } from '@react-navigation/native';
 import SearchSiteWithQrCode from './SearchSiteWithQrCode';
 
 interface Props {
@@ -39,7 +38,6 @@ export const SiteInfo = (props: Props) => {
         onSearch={(site: Site | undefined) => props.setSelectedSite(site)} />
       <SearchSiteWithQrCode modalVisible={searchWithQrCodeVisible} onClose={() => setSearchWithQrCodeVisible(false)} sites={props.sites}
         onSearch={(site: Site | undefined) => props.setSelectedSite(site)} />
-
     </View>
   )
 }

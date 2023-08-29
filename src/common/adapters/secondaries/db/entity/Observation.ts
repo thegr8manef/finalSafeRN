@@ -1,3 +1,4 @@
+import Realm from 'realm';
 import { Photo } from "./Photo";
 
 export class Observation extends Realm.Object<Observation> {

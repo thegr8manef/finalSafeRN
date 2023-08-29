@@ -16,7 +16,7 @@ import { Profile } from '@contexts/profileContext/domain/entity/profile';
 import { Synchronisation } from '@contexts/synchronisationContext/domain/entity/Synchronisation';
 
 interface Props {
-  navigation: StackNavigationProp<StackParamList>;
+  navigation: Partial<StackNavigationProp<StackParamList>>;
   visits: Visit[] | undefined;
   error: string | undefined;
   loading: boolean;
@@ -70,9 +70,9 @@ export const VisitsContainer = (props: Props): JSX.Element => {
     )
   }
   const CustomVistList: React.FC<CustomVistList> = ({ visit }) => {
-    var imageSource = visitTypeToImageSource[visit.tp] || visitTypeToImageSource.default
+    const imageSource = visitTypeToImageSource[visit.tp] || visitTypeToImageSource.default
     return (
-      <View style={flexBoxStyle.flexRowSpace}>
+      <View testID='custom-visit-list' style={flexBoxStyle.flexRowSpace}>
         <View style={flexBoxStyle.m1}>
           <View style={flexBoxStyle.flexRowCenterSpace}>
             <View style={styles.visitRowStyle}>
@@ -90,7 +90,7 @@ export const VisitsContainer = (props: Props): JSX.Element => {
               <CustomVisitOption title={t('txt_Observations')} value={0} />
             }
             <CustomVisitOption title={t('txt.levee')} value={0} />
-            <CustomVisitOption title={t('txt.photos')} value={visit?.rq[0].md.length} />
+            <CustomVisitOption title={t('txt.photos')} value={visit?.rq?.[0]?.md?.length} />
             <Image source={utils.images.visitLockIcon} style={globalStyle.defaultImageStyle} />
           </View>
         </View>
@@ -99,7 +99,7 @@ export const VisitsContainer = (props: Props): JSX.Element => {
   };
 
   const handlSynchronisation = () => {
-    props.sendData(props.profile?.accessToken!!, props.profile?.lastUpdate!!)
+    props.sendData(props.profile?.accessToken!, props.profile?.lastUpdate!)
   }
 
   return (
@@ -118,7 +118,9 @@ export const VisitsContainer = (props: Props): JSX.Element => {
             testID='sync-button'
             buttonColor={props.visits?.length ? utils.colors.primary : utils.colors.gray90}
             width={'30%'}
-            textButton={t('txt.synchroniser')} />
+            textButton={t('txt.synchroniser')} 
+            onPress={handlSynchronisation}
+            />
         </View>
         <Divider />
         {props.visits?.length ? (

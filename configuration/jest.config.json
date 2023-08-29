@@ -7,7 +7,7 @@
   "testRegex": "<rootDir>/__tests__/.*|\\.(test|spec)\\.(ts|tsx)$",
   "testPathIgnorePatterns": [],
   "transformIgnorePatterns": [
-    "node_modules/(?!(react-native|@react-native|react-native-progress|react-native-dropdown-picker)/)"
+    "node_modules/(?!(react-native|@react-native|react-native-progress|react-native-dropdown-picker|uuid)/)"
   ],
   "collectCoverage": true,
   "collectCoverageFrom": ["<rootDir>/src/**/*.{ts,tsx}"],
