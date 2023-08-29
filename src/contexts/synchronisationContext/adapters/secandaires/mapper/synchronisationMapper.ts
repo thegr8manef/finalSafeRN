@@ -4,6 +4,7 @@ import {SynchronisationDto} from '../dto/synchronisationDto';
 import { VisitSynchronistaionDto } from '../dto/VisitSynchronistaionDto';
 import { Synchronisation } from '@contexts/synchronisationContext/domain/entity/Synchronisation';
 import { VisitSynchronisation } from '@contexts/synchronisationContext/domain/entity/VisitSynchronisation';
+import { ChantierDto } from '@contexts/visiteContext/adapters/secondaires/dto/chantier.dto';
 
 export class SynchronisationMapper {
   static mapperToChanties(synchronisationDto: SynchronisationDto): Site[] {
@@ -15,56 +16,54 @@ export class SynchronisationMapper {
     ];
   }
 
-  static mapChantier(chantier: any, synchronisationDto: SynchronisationDto): Site {
+  static mapChantier(chantier: ChantierDto, synchronisationDto: SynchronisationDto): Site {
     const {
-      id, no, ad, ac, cp, py, vl, st, ref, ol_name, osc, pid, piid, sr, org
+      id, no, ac,co,sr, st, cp,ad, rq, ref, org, ol_name,
+      osc, pid, piid
     } = chantier;
-    
+
     return new Site(
       id.toString(),
       no,
       ad || '',
       -1,
       ac,
-      cp ? cp.toString() : '',
-      py || '',
-      vl || '',
+      cp,
+      co,
+      '',
       st,
-      synchronisationDto.rd.lus ? parseInt(synchronisationDto.rd.lus) : -1,
+      -1,
+      rq,
       ref,
       ol_name,
-      osc,
+      osc === 'true', // Convert to boolean
       pid.toString(),
       piid.toString(),
       sr,
-      org || ''
+      org.toString()
     );
   }
 
   static mapSiteToChantier(site: Site): Chantier {
-    const {
-      id, name, address, accepted, code_postal, pays, ville, sr,
-      st, last_update, reference, region_name, osc, pid, piid, org
-    } = site;
-    
+
     return {
-      id,
-      no: name,
-      ad: address,
+      id:site.id,
+      no: site.name,
+      ad: site.address,
       type: -1,
-      ac: accepted,
-      cp: code_postal,
+      ac: site.accepted,
+      cp: site.code_postal,
       co: '',
-      py: pays,
-      vl: ville,
-      sr,
+      py: site.pays.toString(),
+      vl: site.ville.toString(),
+      sr: site.sr,
       cd: '',
       st: site.st === undefined ? 0: site.st,
       lu: site.last_update,
       ref: site.reference,
-      org: site.org ? site.org : "",
+      org: site.org ? site.org.toString() : "",
       ol_name: site.region_name,
-      osc: site.osc,
+      osc: site.osc.toString(),
       pid: site.pid.toString(),
       piid: site.piid.toString(),
     } as Chantier;

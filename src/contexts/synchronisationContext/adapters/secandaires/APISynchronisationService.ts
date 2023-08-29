@@ -12,6 +12,7 @@ import { Synchronisation } from '@contexts/synchronisationContext/domain/entity/
 
 export class APISynchronisationService implements SynchronisationService {
   loadData(accessToken: string, lastUpdateDate: string): Observable<Site[]> {
+
     const _headers: Record<string, string> = {
       'Content-Type': 'application/json',
       //  'token': accessToken
@@ -30,17 +31,21 @@ export class APISynchronisationService implements SynchronisationService {
     };
 
     const URL = ws.baseUrl + 'synchronization';
-
     return new ObservableAjaxHttpClient()
-      .post<SynchronisationDto>(URL, body, _headers)
-      .pipe(
-        map(response =>
-          SynchronisationMapper.mapperToChanties(response.response),
-        ),
-        catchError(err => throwError(err)),
-      );
-  }
-
+    .post<SynchronisationDto>(URL, body, _headers)
+    .pipe(
+      map(response => {
+  
+        // Map the response to Chanties
+        const chanties = SynchronisationMapper.mapperToChanties(response.response);  
+        return chanties;
+      }),
+      catchError(err => {
+        // Log errors
+        return throwError(err);
+      }),
+    );
+    }
  
   sendData(accessToken: string, lastUpadet: string, synchronisation: Synchronisation): Observable<void> {
     const _headers: Record<string, string> = {
