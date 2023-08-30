@@ -8,8 +8,8 @@ import { t } from 'i18next';
 import { windowHeight } from '@styles/dimension';
 import * as utils from '@utils/index';
 import { RNCamera } from 'react-native-camera';
-import { chooseImage } from '@utils/utils';
 import RNQRGenerator from 'rn-qr-generator';
+import { chooseImage } from '@utils/utilsCamera';
 
 // Define the Props interface
 interface Props {
@@ -73,20 +73,26 @@ const SearchSiteWithQrCode = (props: Props) => {
 
   // Function to handle choosing a photo and detecting QR code from it
   const handleChoosePhoto = () => {
-    chooseImage((data) => {
-      RNQRGenerator.detect({
-        uri: data.formData.getParts()[0]?.uri
-      })
-        .then(response => {
-          const { values } = response;
-          if (values.length > 0) {
-            searchSite(values[0]);
-          } else {
-            Alert.alert(t('no_cs_by_ref'));
-          }
+    chooseImage()
+      .then((data) => {
+        // Handle the formData here
+        RNQRGenerator.detect({
+          uri: data.getParts()[0]?.uri
         })
-        .catch(error => Alert.alert(t('no_cs_by_ref')));
-    });
+          .then(response => {
+            const { values } = response;
+            if (values.length > 0) {
+              searchSite(values[0]);
+            } else {
+              Alert.alert(t('no_cs_by_ref'));
+            }
+          })
+          .catch(error => Alert.alert(t('no_cs_by_ref')));
+      })
+      .catch((error) => {
+        // Handle errors here
+        Alert.alert(t('no_cs_by_ref'))
+      });
   };
 
   // Render the component

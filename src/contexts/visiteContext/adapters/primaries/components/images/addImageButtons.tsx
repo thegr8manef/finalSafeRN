@@ -3,6 +3,7 @@ import {
   Pressable,
   Image,
   StyleSheet,
+  Alert
 } from 'react-native';
 import React from 'react';
 import * as utils from '@utils/index';
@@ -15,20 +16,27 @@ interface Props {
 export const AddImageButtons = (props: Props) => {
 
   const captureImage = async () => {
-    launchCamera((data: any) => {
-      console.log('imagge', data)
-      if (data.formData.getParts()?.length > 0) {
-        props.addImage(data.formData.getParts()[0]?.uri);
-      }
-    });
+    launchCamera()
+      .then((data) => {
+        if (
+          data.assets &&
+          data.assets.length > 0 &&
+          data.assets[0].uri
+        )
+          props.addImage(data.assets[0].uri);
+      })
+      .catch((error) => {
+        // Handle errors here
+      });
   };
 
   const chooseFile = () => {
-    chooseImage((data: any) => {
-      if (data.formData.getParts()?.length > 0) {
-        props.addImage(data.formData.getParts()[0]?.uri);
-      }
-    });
+    chooseImage()
+    .then((data) => {
+      if (data.getParts()?.length > 0) {
+        props.addImage(data.getParts()[0]?.uri);
+      }    
+    })
   };
 
   return (
