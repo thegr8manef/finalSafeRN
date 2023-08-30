@@ -22,9 +22,8 @@ import { Profile } from "@contexts/profileContext/domain/entity/profile";
 import { User } from "@contexts/profileContext/domain/entity/user";
 import { profileRootEpics } from "@contexts/profileContext/configuration/rootEpic";
 import { statisticRootEpics } from "@contexts/statisticContext/configuration/rootEpic";
-import { VisitFlash } from '@contexts/visiteContext/domain/entity/VisitFlash';
-import { Remarque } from '@common/adapters/secondaries/db/entity/Remarque';
 import { Visit } from '@common/adapters/secondaries/db/entity/Visit';
+import Remarque from '@contexts/visiteContext/domain/entity/Remarque';
 
 export class ReduxStoreWO {
   private static instance: ReduxStoreWO;
@@ -44,7 +43,7 @@ export class ReduxStoreWO {
   private loadLocalProfile$: Subject<Profile> = new Subject();
   // Visite Services
   private SaveFlash$: Subject<void> = new Subject();
-  private SaveVisit$:  Subject<Remarque> = new Subject();
+  private SaveVisit$: Subject<Remarque> = new Subject();
   private loadAllSites$: Subject<Site[]> = new Subject();
   private loadVisitsDetails$: Subject<Visit[]> = new Subject();
 
@@ -150,7 +149,7 @@ export class ReduxStoreWO {
     this.loadLocalProfile$.error(error);
 
 
-  // Visite actions
+  // visite actions
   loadAllSitesNext = (sites: Site[]): void => this.loadAllSites$.next(sites)
   loadAllSitesError = (error: string): void => this.loadAllSites$.error(error)
 
@@ -158,12 +157,16 @@ export class ReduxStoreWO {
   loadLocalStatsNext = (stat: Stat): void => this.loadLocalStats$.next(stat)
   loadLocalStatsError = (error: string): void => this.loadLocalStats$.error(error)
 
-  // Save Flash actions
+  // save Flash actions
   saveFlashNext = (): void => this.SaveFlash$.next()
   saveFlashError = (error: string): void => this.SaveFlash$.error(error)
 
-    // laod visit actions
-    loadVisitsNext = (visits:Visit[]): void => this.loadVisitsDetails$.next(visits)
-    loadVisitsError = (error: string): void => this.loadVisitsDetails$.error(error)
-  
+  // load visit actions
+  loadVisitsNext = (visits: Visit[]): void => this.loadVisitsDetails$.next(visits)
+  loadVisitsError = (error: string): void => this.loadVisitsDetails$.error(error)
+
+  // save visit actions
+  saveVisitNext = (visit: Remarque): void => this.SaveVisit$.next(visit)
+  saveVisitError = (error: string): void => this.SaveVisit$.error(error)
+
 }

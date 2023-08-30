@@ -1,4 +1,4 @@
-import { Remarque } from "@common/adapters/secondaries/db/entity/Remarque";
+import Remarque from "@contexts/visiteContext/domain/entity/Remarque";
 
 export const SAVE_VISIT = 'SAVE_VISIT';
 export const SAVE_VISIT_SUCCESS = 'SAVE_VISIT_SUCCESS';

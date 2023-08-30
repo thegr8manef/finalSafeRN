@@ -1,4 +1,4 @@
-import { Remarque } from '@common/adapters/secondaries/db/entity/Remarque';
+import Remarque from '@contexts/visiteContext/domain/entity/Remarque';
 import {
     VisitActionFailed,
     VisitActionSuccess,
