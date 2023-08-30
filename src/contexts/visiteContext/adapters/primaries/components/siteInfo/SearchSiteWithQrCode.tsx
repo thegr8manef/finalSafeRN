@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { View, Modal, Alert } from 'react-native';
+import { View, Modal, Alert, Image, StyleSheet } from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import { HeaderModal } from '../HeaderModal';
 import { Site } from '@contexts/visiteContext/domain/entity/Site';
 import { flexBoxStyle } from '@styles/flexBoxStyle';
 import { t } from 'i18next';
-import { windowHeight } from '@styles/dimension';
+import { windowHeight, windowWidth } from '@styles/dimension';
 import * as utils from '@utils/index';
 import { RNCamera } from 'react-native-camera';
 import RNQRGenerator from 'rn-qr-generator';
 import { chooseImage } from '@utils/utilsCamera';
+import globalStyle from '@styles/globalStyle';
 
 // Define the Props interface
 interface Props {
@@ -52,15 +53,7 @@ const SearchSiteWithQrCode = (props: Props) => {
     }
   }
 
-  // QR code scanner component with dynamic flash mode
-  const CustomQrCodeScanner = () => (
-    <QRCodeScanner
-      onRead={handleReadQRCode}
-      cameraStyle={{ height: windowHeight }}
-      flashMode={light ? RNCamera.Constants.FlashMode.torch : RNCamera.Constants.FlashMode.auto}
-      cameraProps={{ type: RNCamera.Constants.Type.back }}
-    />
-  );
+
 
   // Handle right icon press (e.g., flashlight)
   const handleRightIconPress = (index: number) => {
@@ -110,11 +103,31 @@ const SearchSiteWithQrCode = (props: Props) => {
         onRightIconPress={handleRightIconPress}
       />
       {/* Content */}
-      <View style={flexBoxStyle.flexCenter}>
-        <CustomQrCodeScanner />
+      <View style={[flexBoxStyle.flexCenter, globalStyle.containerStyle]}>
+        <QRCodeScanner
+          onRead={handleReadQRCode}
+          cameraStyle={{ height: windowHeight, width: windowWidth }}
+          flashMode={light ? RNCamera.Constants.FlashMode.torch : RNCamera.Constants.FlashMode.off}
+        />
+        <Image
+          source={utils.images.logoWhite}
+          style={styles.cameraLogoStyle}
+        />
       </View>
     </Modal>
   );
 };
 
+const styles = StyleSheet.create({
+
+  cameraLogoStyle: {
+    position: 'absolute',
+    bottom: 10,
+    alignSelf: 'center',
+    width: windowWidth / 3,
+    height: windowWidth / 3,
+    resizeMode: 'contain',
+  }
+
+})
 export default SearchSiteWithQrCode;
