@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { View, Modal, Alert } from 'react-native';
+import { View, Modal, Alert, Image,StyleSheet } from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import { HeaderModal } from '../HeaderModal';
 import { Site } from '@contexts/visiteContext/domain/entity/Site';
 import { flexBoxStyle } from '@styles/flexBoxStyle';
 import { t } from 'i18next';
-import { windowHeight } from '@styles/dimension';
+import { windowHeight, windowWidth } from '@styles/dimension';
 import * as utils from '@utils/index';
 import { RNCamera } from 'react-native-camera';
 import RNQRGenerator from 'rn-qr-generator';
 import { chooseImage } from '@utils/utilsCamera';
+import globalStyle from '@styles/globalStyle';
 
 // Define the Props interface
 interface Props {
@@ -56,9 +57,8 @@ const SearchSiteWithQrCode = (props: Props) => {
   const CustomQrCodeScanner = () => (
     <QRCodeScanner
       onRead={handleReadQRCode}
-      cameraStyle={{ height: windowHeight }}
+      cameraStyle={{ height: windowHeight,width:windowWidth }}
       flashMode={light ? RNCamera.Constants.FlashMode.torch : RNCamera.Constants.FlashMode.auto}
-      cameraProps={{ type: RNCamera.Constants.Type.back }}
     />
   );
 
@@ -110,11 +110,27 @@ const SearchSiteWithQrCode = (props: Props) => {
         onRightIconPress={handleRightIconPress}
       />
       {/* Content */}
-      <View style={flexBoxStyle.flexCenter}>
+      <View style={[flexBoxStyle.flexCenter,globalStyle.containerStyle]}>
         <CustomQrCodeScanner />
+        <Image
+        source={utils.images.logoWhite}
+        style={styles.cameraLogoStyle}
+      />
       </View>
     </Modal>
   );
 };
 
+const styles = StyleSheet.create({
+
+  cameraLogoStyle:{
+    position: 'absolute',
+    bottom: 10,
+    alignSelf: 'center',
+    width: windowWidth / 3,
+    height: windowWidth / 3,
+    resizeMode: 'contain',
+  }
+
+})
 export default SearchSiteWithQrCode;

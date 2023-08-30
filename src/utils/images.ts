@@ -1,4 +1,5 @@
 const images = {
+  logoWhite: require('../assets/img/logo_effage_white.png'),
   sidenavIcon: require('../assets/img/sidenav.png'),
   dashboardFlashIcon: require('../assets/img/icon_flash_dashboard.png'),
   dashboardIcon: require('../assets/img/icn_dashboard.png'),
