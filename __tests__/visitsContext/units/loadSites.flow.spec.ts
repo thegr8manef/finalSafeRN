@@ -10,7 +10,6 @@ import {
 } from "@contexts/visiteContext/useCases/LoadSites/selectors";
 import { Site } from "@contexts/visiteContext/domain/entity/Site";
 import { LoadSites } from "@contexts/visiteContext/useCases/LoadSites/action";
-import { VisitRemarque } from '@contexts/visiteContext/domain/entity/VisitRemarque';
 import { FlashPhotoDto } from '@contexts/visiteContext/adapters/secondaires/dto/flash.photo.dto';
 
 const deepFreeze = require('deep-freeze');

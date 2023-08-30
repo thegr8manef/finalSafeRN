@@ -3,8 +3,6 @@
 import { ReduxStoreWO } from '../../reduxStore.wo';
 import { Store } from 'redux';
 import { AppState } from "@redux/appState";
-import { loadVisitsErrorSelector, loadingVisitsSelector, loadVisitsSelector } from '@contexts/visiteContext/useCases/LoadVisits/selector';
-import { LoadVisits } from '../../../src/contexts/visiteContext/useCases/LoadVisits/action';
 import { saveVisitErrorSelector, saveVisitLoadingSelector } from '@contexts/visiteContext/useCases/SaveVisit/selector';
 import { SaveVisit } from '@contexts/visiteContext/useCases/SaveVisit/action';
 import Remarque from '@contexts/visiteContext/domain/entity/Remarque';
