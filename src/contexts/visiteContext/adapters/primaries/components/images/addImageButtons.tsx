@@ -3,7 +3,6 @@ import {
   Pressable,
   Image,
   StyleSheet,
-  Alert
 } from 'react-native';
 import React from 'react';
 import * as utils from '@utils/index';
