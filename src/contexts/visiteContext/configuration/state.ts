@@ -1,4 +1,4 @@
-import { Remarque } from '@common/adapters/secondaries/db/entity/Remarque';
+import Remarque from '../domain/entity/Remarque';
 import { Site } from '../domain/entity/Site';
 import { Visit } from '../domain/entity/Visit';
 

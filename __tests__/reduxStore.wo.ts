@@ -46,7 +46,8 @@ export class ReduxStoreWO {
   private SaveVisit$: Subject<Remarque> = new Subject();
   private loadAllSites$: Subject<Site[]> = new Subject();
   private loadVisitsDetails$: Subject<Visit[]> = new Subject();
-
+  private loadRemarques$: Subject<Remarque[]> = new Subject();
+  
   constructor() {
     this.rootEpics = combineEpics<Action>(
       profileRootEpics,
@@ -79,6 +80,7 @@ export class ReduxStoreWO {
           LoadAllSites: (): Subject<Site[]> => this.loadAllSites$,
           loadVisitsDetails: (): Subject<Visit[]> => this.loadVisitsDetails$,
           SaveVisit: (): Subject<Remarque> => this.SaveVisit$,
+          loadRemarques: (): Subject<Remarque[]> => this.loadRemarques$
         },
         synchronisationService: {
           loadData: (): Subject<Site[]> => this.LoadData$,
@@ -168,5 +170,9 @@ export class ReduxStoreWO {
   // save visit actions
   saveVisitNext = (visit: Remarque): void => this.SaveVisit$.next(visit)
   saveVisitError = (error: string): void => this.SaveVisit$.error(error)
+
+  // load remarque actions 
+  loadRemarquesNext = (Remarques: Remarque[]): void => this.loadRemarques$.next(Remarques)
+  loadRemarquesError = (error: string): void => this.loadRemarques$.error(error)
 
 }
