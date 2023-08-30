@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Modal, Alert, Image,StyleSheet } from 'react-native';
+import { View, Modal, Alert, Image, StyleSheet } from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import { HeaderModal } from '../HeaderModal';
 import { Site } from '@contexts/visiteContext/domain/entity/Site';
@@ -53,14 +53,7 @@ const SearchSiteWithQrCode = (props: Props) => {
     }
   }
 
-  // QR code scanner component with dynamic flash mode
-  const CustomQrCodeScanner = () => (
-    <QRCodeScanner
-      onRead={handleReadQRCode}
-      cameraStyle={{ height: windowHeight,width:windowWidth }}
-      flashMode={light ? RNCamera.Constants.FlashMode.torch : RNCamera.Constants.FlashMode.auto}
-    />
-  );
+
 
   // Handle right icon press (e.g., flashlight)
   const handleRightIconPress = (index: number) => {
@@ -110,12 +103,16 @@ const SearchSiteWithQrCode = (props: Props) => {
         onRightIconPress={handleRightIconPress}
       />
       {/* Content */}
-      <View style={[flexBoxStyle.flexCenter,globalStyle.containerStyle]}>
-        <CustomQrCodeScanner />
+      <View style={[flexBoxStyle.flexCenter, globalStyle.containerStyle]}>
+        <QRCodeScanner
+          onRead={handleReadQRCode}
+          cameraStyle={{ height: windowHeight, width: windowWidth }}
+          flashMode={light ? RNCamera.Constants.FlashMode.torch : RNCamera.Constants.FlashMode.off}
+        />
         <Image
-        source={utils.images.logoWhite}
-        style={styles.cameraLogoStyle}
-      />
+          source={utils.images.logoWhite}
+          style={styles.cameraLogoStyle}
+        />
       </View>
     </Modal>
   );
@@ -123,7 +120,7 @@ const SearchSiteWithQrCode = (props: Props) => {
 
 const styles = StyleSheet.create({
 
-  cameraLogoStyle:{
+  cameraLogoStyle: {
     position: 'absolute',
     bottom: 10,
     alignSelf: 'center',
