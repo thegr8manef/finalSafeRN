@@ -1,11 +1,15 @@
+import Remarque from "@contexts/visiteContext/domain/entity/Remarque";
+
 export interface ChantierDto {
   id: number;
-  cp: number;
   no: string;
   ac: boolean;
-  py: string;
-  vl: string;
+  co: string;
   sr: number;
+  st: number;
+  cp:string;
+  ad: string;
+  rq: Remarque[];
   ref: string;
   org: number;
   ol_name: string;
@@ -14,7 +18,4 @@ export interface ChantierDto {
   osc: string;
   pid: number;
   piid: number;
-  st: number;
-  idass: number;
-  ad: string;
 }

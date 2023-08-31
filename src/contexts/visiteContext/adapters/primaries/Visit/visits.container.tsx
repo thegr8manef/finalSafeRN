@@ -9,7 +9,7 @@ import ButtonComponent from '@common/adapters/primaries/components/ButtonPrimary
 import { Divider } from '@common/adapters/primaries/components/Divider';
 import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
 import { flexBoxStyle } from '@styles/flexBoxStyle';
-import { visitTypeToImageSource } from '@common/constants';
+import { VISIT_TYPE_TO_IMAGE_SOURCE } from '@common/constants';
 import { convertDate } from '@utils/utils';
 import { windowWidth } from '@styles/dimension';
 import { Profile } from '@contexts/profileContext/domain/entity/profile';
@@ -70,7 +70,7 @@ export const VisitsContainer = (props: Props): JSX.Element => {
     )
   }
   const CustomVistList: React.FC<CustomVistList> = ({ visit }) => {
-    const imageSource = visitTypeToImageSource[visit.tp] || visitTypeToImageSource.default
+    const imageSource = VISIT_TYPE_TO_IMAGE_SOURCE[visit.tp] || VISIT_TYPE_TO_IMAGE_SOURCE.default
     return (
       <View testID='custom-visit-list' style={flexBoxStyle.flexRowSpace}>
         <View style={flexBoxStyle.m1}>

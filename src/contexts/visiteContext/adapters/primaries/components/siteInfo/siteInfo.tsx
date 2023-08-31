@@ -7,17 +7,20 @@ import { SearchSiteItem } from './searchSiteItem';
 import { SearchSiteWithCodeModal } from './SearchSiteWithCodeModal';
 import { SearchSiteWithNameModal } from './SearchSiteWithNameModal';
 import { PreviewSite } from './previewSite';
+import SearchSiteWithQrCode from './SearchSiteWithQrCode';
 
 interface Props {
   sites: Site[] | null;
   selectedSite: Site | undefined
   setSelectedSite: (site: Site | undefined) => void
-  selectedIdSite: string
+  selectedIdSite: string;
 }
 export const SiteInfo = (props: Props) => {
   const { t } = useTranslation();
   const [searchWithCodeVisible, setSearchWithCodeVisible] = useState(false);
   const [searchWithNameVisible, setSearchWithNameVisible] = useState(false);
+  const [searchWithQrCodeVisible, setSearchWithQrCodeVisible] = useState(false);
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
@@ -26,12 +29,14 @@ export const SiteInfo = (props: Props) => {
       <View style={styles.content}>
         <SearchSiteItem label={t('code_chantier_btn')} icon={utils.images.inputIcon} onPress={() => setSearchWithCodeVisible(true)} />
         <SearchSiteItem label={t('chantier_de_mon_perimetre')} icon={utils.images.constructionIcon} onPress={() => setSearchWithNameVisible(true)} />
-        <SearchSiteItem label={t('qr_code')} icon={utils.images.qrCodeIcon} onPress={() => setSearchWithCodeVisible(true)} />
+        <SearchSiteItem label={t('qr_code')} icon={utils.images.qrCodeIcon} onPress={() => setSearchWithQrCodeVisible(true)} />
       </View>
       <PreviewSite site={props.selectedSite} />
       <SearchSiteWithCodeModal modalVisible={searchWithCodeVisible} onClose={() => setSearchWithCodeVisible(false)}
         onSearch={(site: Site | undefined) => props.setSelectedSite(site)} sites={props.sites} />
       <SearchSiteWithNameModal modalVisible={searchWithNameVisible} onClose={() => setSearchWithNameVisible(false)} sites={props.sites}
+        onSearch={(site: Site | undefined) => props.setSelectedSite(site)} />
+      <SearchSiteWithQrCode modalVisible={searchWithQrCodeVisible} onClose={() => setSearchWithQrCodeVisible(false)} sites={props.sites}
         onSearch={(site: Site | undefined) => props.setSelectedSite(site)} />
     </View>
   )

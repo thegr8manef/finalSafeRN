@@ -1,4 +1,5 @@
 const images = {
+  logoWhite: require('../assets/img/logo_effage_white.png'),
   sidenavIcon: require('../assets/img/sidenav.png'),
   dashboardFlashIcon: require('../assets/img/icon_flash_dashboard.png'),
   dashboardIcon: require('../assets/img/icn_dashboard.png'),
@@ -33,5 +34,8 @@ const images = {
   visitpreventionIcon: require('../assets/img/icn_prevention_list.png'),
   visitLockIcon: require('../assets/img/icn_lock_visit_list.png'),
   visitConformiteIcon: require('../assets/img/icn_conformite_list.png'),
+  flashcon: require('../assets/img/Flash.png'),
+  flashONIcon: require('../assets/img/flash_on.png'),
+  flashOffIcon: require('../assets/img/flash_off.png'),
 };
 export default images;
