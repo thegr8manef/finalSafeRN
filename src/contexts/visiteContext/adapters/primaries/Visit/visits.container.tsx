@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity, TouchableNativeFeedback } from 'react-native';
+import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native';
 import React, { useEffect } from 'react';
 import * as utils from '@utils/index';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -15,6 +15,7 @@ import { windowWidth } from '@styles/dimension';
 import { Profile } from '@contexts/profileContext/domain/entity/profile';
 import { Synchronisation } from '@contexts/synchronisationContext/domain/entity/Synchronisation';
 
+// Define the props for the component
 interface Props {
   navigation: Partial<StackNavigationProp<StackParamList>>;
   visits: Visit[] | undefined;
@@ -43,12 +44,13 @@ interface CustomVisitDetailsProps {
   value: number; // You might need to specify the correct type for the icon,
 }
 
+// Define the main component
 export const VisitsContainer = (props: Props): JSX.Element => {
 
+  // Load visits when the component mounts
   useEffect(() => {
     props.loadVisits();
   }, [])
-
 
   useEffect(() => {
   }, [props.visits]);
@@ -101,10 +103,12 @@ export const VisitsContainer = (props: Props): JSX.Element => {
     );
   };
 
+  // Handler for synchronizing data
   const handlSynchronisation = () => {
     props.sendData(props.profile?.accessToken!, props.profile?.lastUpdate!)
   }
 
+  // Render the main component
   return (
     <View style={globalStyle.containerStyle}>
       <View style={styles.mainStyle}>
@@ -142,7 +146,7 @@ export const VisitsContainer = (props: Props): JSX.Element => {
       <Divider />
       <View style={globalStyle.containerStyle}>
         <View style={styles.visitTypesStyle}>
-          <CustomAddNewVisit testID='img-prevention' title={t('txt.prevention')} icon={utils.images.addPrevenationIcon} screenToNavigate='PreventionVisit'/>
+          <CustomAddNewVisit testID='img-prevention' title={t('txt.prevention')} icon={utils.images.addPrevenationIcon} screenToNavigate='PreventionVisit' />
           <CustomAddNewVisit testID='img-conformite' title={t('txt.conformite')} icon={utils.images.addConformite} screenToNavigate='PreventionVisit' />
           <CustomAddNewVisit testID='img-hierarchical' title={t('txt.hierarchique')} icon={utils.images.addhierarchicalIcon} screenToNavigate='PreventionVisit' />
         </View>
@@ -151,6 +155,7 @@ export const VisitsContainer = (props: Props): JSX.Element => {
   );
 };
 
+// Define styles for the component
 const styles = StyleSheet.create({
   visitDetailsStyle: {
     ...globalStyle.fontMedium13Style,

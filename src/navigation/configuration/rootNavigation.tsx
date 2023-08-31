@@ -6,8 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { t } from 'i18next';
 import { HomeNavigation } from '../drawer/homeNavigation';
 import { StackParamList } from './navigation.types';
-import * as utils from '@utils/index';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 import {
   LoginPage,
   ProfilePage,
@@ -15,12 +14,13 @@ import {
 } from '@contexts/profileContext/adapters/primaries';
 import { HeaderOption } from '@common/adapters/primaries/components/HeaderOption';
 import { PreventionVisitPage } from '@contexts/visiteContext/adapters/primaries/PreventionVisit';
+import globalStyle from '@styles/globalStyle';
 
 const Stack = createStackNavigator<StackParamList>();
 
 type ScreenOptionsProps = {
   titleKey: string;
-  buttonText: string;
+  buttonText?: string;
 };
 
 const RootNavigation = () => {
@@ -29,7 +29,7 @@ const RootNavigation = () => {
 
   const CustomHeaderButton = ({ buttonText }: { buttonText: string }) => (
     <TouchableOpacity onPress={() => handleNavigation()}>
-      <Text style={styles.txtNext}>{t(buttonText)}</Text>
+      <Text style={globalStyle.fontMediumDark14Style}>{t(buttonText)}</Text>
     </TouchableOpacity>
   );
 
@@ -68,27 +68,15 @@ const RootNavigation = () => {
           })}
       />
       <Stack.Screen name="Home" component={HomeNavigation} />
-      <Stack.Screen name="PreventionVisit" component={PreventionVisitPage} options={{ headerShown: true }} />
+      <Stack.Screen name="PreventionVisit" component={PreventionVisitPage} options={
+        createScreenOptions({
+          titleKey: 'txt.new.visite.prevention',
+        })
+      } />
 
     </Stack.Navigator>
   );
 };
 
-const styles = StyleSheet.create({
-  headerBarStyle: {
-    backgroundColor: utils.colors.primary,
-  },
-  textCentre: {
-    fontSize: 19,
-    fontWeight: 'bold',
-    color: 'black',
-  },
-  txtNext: {
-    marginRight: 15,
-    fontSize: 15,
-    color: utils.colors.textColor,
-    fontWeight: '600',
-  },
-});
 
 export { RootNavigation };

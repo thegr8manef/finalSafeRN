@@ -26,7 +26,7 @@ const globalStyle = StyleSheet.create({
         fontFamily: utils.fonts.AvenirMedium,
     },
     fontMedium13Style: {
-        fontSize: 13,
+        fontSize: 10,
         fontFamily: utils.fonts.AvenirMedium,
     },
     fontMediumDark15Style: {
