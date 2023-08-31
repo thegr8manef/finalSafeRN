@@ -6,16 +6,16 @@ import { SiteInfo } from '../components/siteInfo/siteInfo';
 import { ObservationInfo } from '../components/observation/observationInfo';
 import { CommentInfo } from '../components/comment/commentInfo';
 import { PreviewImages } from '../components/images/previewImages';
+import { Remarque } from '@common/adapters/secondaries/db/entity/Remarque';
+import { BottomFooter } from '../components/BottomFooter';
+import { chooseImage, launchCamera } from '@utils/utilsCamera';
+import { t } from 'i18next';
 import {
   StyleSheet,
   View,
   ScrollView,
   Alert,
 } from 'react-native';
-import { Remarque } from '@common/adapters/secondaries/db/entity/Remarque';
-import { BottomFooter } from '../components/BottomFooter';
-import { chooseImage, launchCamera } from '@utils/utilsCamera';
-import { t } from 'i18next';
 
 interface Props {
   navigation: any;
@@ -30,6 +30,7 @@ interface Props {
   loadSites: () => void;
   navigationDrawer: any;
 }
+
 export const VisitFlashContainer = (props: Props) => {
 
   const [comment, setComment] = useState<string>('');
@@ -37,8 +38,8 @@ export const VisitFlashContainer = (props: Props) => {
   const [images, setImages] = useState<string[]>([]);
   const [selectedSite, setSelectedSite] = useState<Site | undefined>(undefined)
   const content = [
-    { type: "image", source: utils.images.takePhotoIcon, onPress: () => { captureImage /* Handle image press */ } },
-    { type: "image", source: utils.images.fileIcon, onPress: () => { chooseFile /* Handle image press */ } },
+    { type: "image", source: utils.images.takePhotoIcon, onPress: () => { captureImage() /* Handle image press */ } },
+    { type: "image", source: utils.images.fileIcon, onPress: () => { chooseFile() /* Handle image press */ } },
   ];
 
   useEffect(() => {
@@ -49,7 +50,7 @@ export const VisitFlashContainer = (props: Props) => {
     setImages([...images, image]);
   };
 
-  const captureImage = async () => {
+  const captureImage = () => {
     launchCamera()
       .then((data) => {
         if (
@@ -108,20 +109,15 @@ export const VisitFlashContainer = (props: Props) => {
 
   return (
     <View style={styles.container}>
+
       <ScrollView contentContainerStyle={styles.scrollViewContainer}>
         <SiteInfo sites={props.sites} selectedSite={selectedSite} setSelectedSite={setSelectedSite} selectedIdSite={''} />
-
         <ObservationInfo onSave={(levelId) => {
           setLevelId(levelId)
         }} />
-
         <CommentInfo comment={comment} setComment={(comment: string) => setComment(comment)} />
-
-
         <PreviewImages images={images} />
-
       </ScrollView>
-
 
       <BottomFooter confirmPress={saveVisit} confirmText={t('txt.sauvegarder.remarque')} content={content} />
 

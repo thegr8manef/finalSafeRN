@@ -34,6 +34,7 @@ export class APISynchronisationService implements SynchronisationService {
     .post<SynchronisationDto>(URL, body, _headers)
     .pipe(
       map(response => {
+        console.log('synchronisation dta',response)
         // Map the response to Chanties
         return SynchronisationMapper.mapperToChanties(response.response);  
       }),
