@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image, FlatList } from 'react-native';
+import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity, TouchableNativeFeedback } from 'react-native';
 import React, { useEffect } from 'react';
 import * as utils from '@utils/index';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -30,7 +30,8 @@ interface Props {
 interface CustomAddNewVisitProps {
   title: string;
   icon: any; // You might need to specify the correct type for the icon,
-  testID?: string
+  testID?: string,
+  screenToNavigate: string
 }
 
 interface CustomVistList {
@@ -52,19 +53,21 @@ export const VisitsContainer = (props: Props): JSX.Element => {
   useEffect(() => {
   }, [props.visits]);
 
-  const CustomAddNewVisit: React.FC<CustomAddNewVisitProps> = ({ title, icon, testID }) => {
+  const CustomAddNewVisit: React.FC<CustomAddNewVisitProps> = ({ title, icon, testID, screenToNavigate }) => {
     return (
-      <View style={styles.visitContatiner}>
+      <TouchableOpacity
+        onPress={() => { props.navigation.navigate(screenToNavigate) }}
+        style={styles.visitContatiner}>
         <Image testID={testID} source={icon} style={styles.visitImageStyle} />
         <Text style={globalStyle.fontMediumDark15Style}>{title}</Text>
-      </View>
+      </TouchableOpacity>
     );
   };
 
   const CustomVisitOption: React.FC<CustomVisitDetailsProps> = ({ title, value }) => {
     return (
       <View style={flexBoxStyle.flexColumn}>
-        <Text style={[styles.visitDetailsStyle,flexBoxStyle.mT1]}>{value}</Text>
+        <Text style={[styles.visitDetailsStyle, flexBoxStyle.mT1]}>{value}</Text>
         <Text style={styles.visitDetailsStyle}>{title}</Text>
       </View>
     )
@@ -118,9 +121,9 @@ export const VisitsContainer = (props: Props): JSX.Element => {
             testID='sync-button'
             buttonColor={props.visits?.length ? utils.colors.primary : utils.colors.gray90}
             width={'30%'}
-            textButton={t('txt.synchroniser')} 
+            textButton={t('txt.synchroniser')}
             onPress={handlSynchronisation}
-            />
+          />
         </View>
         <Divider />
         {props.visits?.length ? (
@@ -139,9 +142,9 @@ export const VisitsContainer = (props: Props): JSX.Element => {
       <Divider />
       <View style={globalStyle.containerStyle}>
         <View style={styles.visitTypesStyle}>
-          <CustomAddNewVisit testID='img-prevention' title={t('txt.prevention')} icon={utils.images.addPrevenationIcon} />
-          <CustomAddNewVisit testID='img-conformite' title={t('txt.conformite')} icon={utils.images.addConformite} />
-          <CustomAddNewVisit testID='img-hierarchical' title={t('txt.hierarchique')} icon={utils.images.addhierarchicalIcon} />
+          <CustomAddNewVisit testID='img-prevention' title={t('txt.prevention')} icon={utils.images.addPrevenationIcon} screenToNavigate='PreventionVisit'/>
+          <CustomAddNewVisit testID='img-conformite' title={t('txt.conformite')} icon={utils.images.addConformite} screenToNavigate='PreventionVisit' />
+          <CustomAddNewVisit testID='img-hierarchical' title={t('txt.hierarchique')} icon={utils.images.addhierarchicalIcon} screenToNavigate='PreventionVisit' />
         </View>
       </View>
     </View>
@@ -177,6 +180,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     alignItems: 'center',
     marginBottom: 10,
+
   },
   visitImageStyle: {
     width: '65%',

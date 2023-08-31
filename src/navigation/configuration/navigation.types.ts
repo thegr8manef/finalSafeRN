@@ -3,4 +3,5 @@ export type StackParamList = {
   Profile: undefined;
   Home: undefined;
   Splash: undefined;
+  PreventionVisit: undefined
 };

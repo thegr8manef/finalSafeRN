@@ -45,8 +45,6 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   buttonRight: {
-
-
     flex: 1
   },
   textButton: {

@@ -14,6 +14,7 @@ import {
   SplashPage,
 } from '@contexts/profileContext/adapters/primaries';
 import { HeaderOption } from '@common/adapters/primaries/components/HeaderOption';
+import { PreventionVisitPage } from '@contexts/visiteContext/adapters/primaries/PreventionVisit';
 
 const Stack = createStackNavigator<StackParamList>();
 
@@ -67,6 +68,8 @@ const RootNavigation = () => {
           })}
       />
       <Stack.Screen name="Home" component={HomeNavigation} />
+      <Stack.Screen name="PreventionVisit" component={PreventionVisitPage} options={{ headerShown: true }} />
+
     </Stack.Navigator>
   );
 };
