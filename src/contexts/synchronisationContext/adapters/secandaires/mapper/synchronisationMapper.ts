@@ -1,6 +1,6 @@
-import {Chantier} from '@common/adapters/secondaries/db/entity/Chantier';
-import {Site} from '@contexts/visiteContext/domain/entity/Site';
-import {SynchronisationDto} from '../dto/synchronisationDto';
+import { Chantier } from '@common/adapters/secondaries/db/entity/Chantier';
+import { Site } from '@contexts/visiteContext/domain/entity/Site';
+import { SynchronisationDto } from '../dto/synchronisationDto';
 import { VisitSynchronistaionDto } from '../dto/VisitSynchronistaionDto';
 import { Synchronisation } from '@contexts/synchronisationContext/domain/entity/Synchronisation';
 import { VisitSynchronisation } from '@contexts/synchronisationContext/domain/entity/VisitSynchronisation';
@@ -18,7 +18,7 @@ export class SynchronisationMapper {
 
   static mapChantier(chantier: ChantierDto, synchronisationDto: SynchronisationDto): Site {
     const {
-      id, no, ac,co,sr, st, cp,ad, rq, ref, org, ol_name,
+      id, no, ac, co, sr, st, cp, ad, rq, ref, org, ol_name,
       osc, pid, piid
     } = chantier;
 
@@ -46,7 +46,7 @@ export class SynchronisationMapper {
 
   static mapSiteToChantier(site: Site): Chantier {
     return {
-      id:site.id,
+      id: site.id,
       no: site.name,
       ad: site.address,
       type: -1,
@@ -57,7 +57,7 @@ export class SynchronisationMapper {
       vl: site.ville.toString(),
       sr: site.sr,
       cd: '',
-      st: site.st === undefined ? 0: site.st,
+      st: site.st === undefined ? 0 : site.st,
       lu: site.last_update,
       ref: site.reference,
       org: site.org ? site.org.toString() : "",
@@ -70,25 +70,25 @@ export class SynchronisationMapper {
 
   static mapperToVisitSynchronisation(synchronisation: Synchronisation): VisitSynchronistaionDto {
     const visites = synchronisation.visites.map((visit: VisitSynchronisation) => {
-        return {
-            tp: visit.type,
-            tk: visit.token,
-            cdcs: visit.codeChantie,
-            dt: visit.created_At, 
-            re: {
-                dt: visit.remarque.created_At, 
-                ds: visit.remarque.description,
-                tk: visit.remarque.token,
-                lvl: visit.remarque.level,
-                nt: visit.remarque.note,
-            }
-        };
+      return {
+        tp: visit.type,
+        tk: visit.token,
+        cdcs: visit.codeChantie,
+        dt: visit.created_At,
+        re: {
+          dt: visit.remarque.created_At,
+          ds: visit.remarque.description,
+          tk: visit.remarque.token,
+          lvl: visit.remarque.level,
+          nt: visit.remarque.note,
+        }
+      };
     });
 
     return {
-        vs: visites
+      vs: visites
     };
-}
+  }
 
 
 }
