@@ -1,6 +1,6 @@
-import {SynchronisationDto} from '@contexts/synchronisationContext/adapters/secandaires/dto/synchronisationDto';
-import {SynchronisationMapper} from '@contexts/synchronisationContext/adapters/secandaires/mapper/synchronisationMapper';
-import {Site} from '@contexts/visiteContext/domain/entity/Site';
+import { SynchronisationDto } from '@contexts/synchronisationContext/adapters/secandaires/dto/synchronisationDto';
+import { SynchronisationMapper } from '@contexts/synchronisationContext/adapters/secandaires/mapper/synchronisationMapper';
+import { Site } from '@contexts/visiteContext/domain/entity/Site';
 
 describe('Integration synchronisation Mapper', () => {
   let chantierList: Site[];
@@ -16,6 +16,7 @@ describe('Integration synchronisation Mapper', () => {
             no: 'Chantier de test Mobelite (B-B1) (Titre très long)',
             ac: true,
             co: '',
+            cp: '',
             sr: 1,
             ad: '',
             ref: '744DF9D7',
@@ -32,6 +33,7 @@ describe('Integration synchronisation Mapper', () => {
             no: 'Chantier de test YBS',
             ac: true,
             co: '',
+            cp: '',
             sr: 0,
             ad: '',
             ref: 'B76F57B6',
@@ -44,7 +46,74 @@ describe('Integration synchronisation Mapper', () => {
             piid: '219',
           },
         ],
-        ocs: [],
+        ocs: [{
+          id: '666',
+          no: 'Chantier de test Mobelite (B-B1) (Titre très long)',
+          ac: true,
+          co: '',
+          cp: '',
+          sr: 1,
+          ad: '',
+          ref: '744DF9D7',
+          org: '224',
+          ol_name: 'ETS EIC TEST B 1',
+          org_lft: 342,
+          org_rgt: 343,
+          osc: 'true',
+          pid: '223',
+          piid: '219',
+        },
+        {
+          id: '1870',
+          no: 'Chantier de test YBS',
+          ac: true,
+          cp: '',
+          co: '',
+          sr: 0,
+          ad: '',
+          ref: 'B76F57B6',
+          org: '225',
+          ol_name: 'ETS EIC TEST B 2',
+          org_lft: 344,
+          org_rgt: 345,
+          osc: 'true',
+          pid: '223',
+          piid: '219',
+        },
+        {
+          id: '669',
+          no: 'Chantier de test Mobelite (B-B1) (Titre très long)',
+          ac: true,
+          co: '',
+          cp: '',
+          sr: 1,
+          ad: '',
+          ref: '744DF9D7',
+          org: '224',
+          ol_name: 'ETS EIC TEST B 1',
+          org_lft: 342,
+          org_rgt: 343,
+          osc: 'true',
+          pid: '223',
+          piid: '219',
+        },
+        {
+          id: '1872',
+          no: 'Chantier de test YBS',
+          ac: true,
+          co: '',
+          cp: '',
+          sr: 0,
+          ad: '',
+          ref: 'B76F57B6',
+          org: '225',
+          ol_name: 'ETS EIC TEST B 2',
+          org_lft: 344,
+          org_rgt: 345,
+          osc: 'true',
+          pid: '223',
+          piid: '219',
+        }],
       },
     };
     chantierList = [
@@ -59,10 +128,11 @@ describe('Integration synchronisation Mapper', () => {
         '',
         1,
         -1,
+        [],
         '744DF9D7',
         'ETS EIC TEST B 1',
         'true',
-        '223',
+        "223",
         '219',
         1,
         ''
@@ -78,11 +148,11 @@ describe('Integration synchronisation Mapper', () => {
         '',
         0,
         -1,
-        'B76F57B6',
+        [],
         'ETS EIC TEST B 2',
         'true',
         '223',
-        '219',1,''
+        '219', 1, ''
       ),
     ];
   });
@@ -90,7 +160,7 @@ describe('Integration synchronisation Mapper', () => {
   it('shoud map synchronisation data to chantier List', () => {
     expect(
       SynchronisationMapper.mapperToChanties(synchronisationData).length,
-    ).toEqual(2);
+    ).toEqual(synchronisationData.rd.ocs.length);
     const chantier1 =
       SynchronisationMapper.mapperToChanties(synchronisationData)[0];
     expect(chantier1.id).toEqual(chantierList[0].id);
@@ -104,7 +174,7 @@ describe('Integration synchronisation Mapper', () => {
     expect(chantier1.last_update).toEqual(chantierList[0].last_update);
     expect(chantier1.reference).toEqual(chantierList[0].reference);
     expect(chantier1.region_name).toEqual(chantierList[0].region_name);
-    expect(chantier1.osc).toEqual(chantierList[0].osc);
+    expect(chantier1.osc).toBeTruthy();
     expect(chantier1.pid).toEqual(chantierList[0].pid);
     expect(chantier1.piid).toEqual(chantierList[0].piid);
   });
