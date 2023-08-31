@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet, Image, FlatList } from 'react-native';
-import React, { useEffect } from 'react';
+import { View, Text, StyleSheet, Image, FlatList, ActivityIndicator } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import * as utils from '@utils/index';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { StackParamList } from '@navigConfig/navigation.types';
@@ -13,6 +13,7 @@ import { visitTypeToImageSource } from '@common/constants';
 import { convertDate } from '@utils/utils';
 import { windowWidth } from '@styles/dimension';
 import { Profile } from '@contexts/profileContext/domain/entity/profile';
+import colors from '@assets/colors';
 
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
@@ -42,7 +43,7 @@ interface CustomVisitDetailsProps {
 }
 
 export const VisitsContainer = (props: Props): JSX.Element => {
-
+  const [mount, setMounted] = useState(false);
   useEffect(() => {
     props.loadVisits();
   }, [])
@@ -51,7 +52,15 @@ export const VisitsContainer = (props: Props): JSX.Element => {
   useEffect(() => {
    }, [props.visits]);
 
+   useEffect(() => {
+    if(!props.loading && mount){
+      props.loadVisits();
+      setMounted(false)
+    }  
+  }, [props.loading]);
+
   const handlSynchronisation = () => {
+    setMounted(true)
       props.sendData(props.profile?.accessToken!!, props.profile?.lastUpdate!!, props.visits!! )
     }
   
@@ -144,11 +153,30 @@ export const VisitsContainer = (props: Props): JSX.Element => {
           <CustomAddNewVisit testID='img-hierarchical' title={t('txt.hierarchique')} icon={utils.images.addhierarchicalIcon} />
         </View>
       </View>
+       
+      <View style={mount ? styles.loaderContainer: {}}>    
+        <ActivityIndicator
+          testID='activity-indicator'
+          size="large"
+          color={utils.colors.primary}
+          style={{display:mount ? 'flex' : 'none'}}
+        />
+      </View> 
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  loaderContainer : {
+    position : "absolute",
+    flex : 1,
+    width : "100%",
+    height : "100%",
+    backgroundColor :'rgba(0, 0, 0, 0.5)' ,
+    justifyContent : 'center',
+    alignItems : 'center'
+  },
+ 
   visitDetailsStyle: {
     ...globalStyle.fontMedium13Style,
     ...globalStyle.fontCenterStyle,

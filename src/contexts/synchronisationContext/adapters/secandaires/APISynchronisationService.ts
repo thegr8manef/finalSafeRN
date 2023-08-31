@@ -44,8 +44,6 @@ export class APISynchronisationService implements SynchronisationService {
 
  
   sendData(accessToken: string, lastUpadet: string, visits: Visit[]): Observable<void> {
-    console.log(JSON.stringify(SynchronisationMapper.mapperToSynchronisationSend(visits)))
-
     const _headers: Record<string, string> = {
 
       'Content-Type': 'application/json',

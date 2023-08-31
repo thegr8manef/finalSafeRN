@@ -49,8 +49,6 @@ export class DbVisitsService implements VisitsService {
           reject(error);
         });
       } catch (error) {
-        console.log('error',error)
-
         reject(error);
       }
     });

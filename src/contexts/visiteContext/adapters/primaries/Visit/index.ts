@@ -12,6 +12,7 @@ import { sendData } from '@contexts/synchronisationContext/useCases/SendData/act
 import { Remarque } from '@common/adapters/secondaries/db/entity/Remarque';
 import { Profile } from '@contexts/profileContext/domain/entity/profile';
 import { profileSelector } from '@contexts/profileContext/useCases/Login/selectors';
+import { loadingSendSelector } from '@contexts/synchronisationContext/useCases/SendData/selector';
 
 interface StateToPropsType {
   visits: Visit[] | undefined;
@@ -29,7 +30,7 @@ const mapStateToProps = (state: AppState): StateToPropsType => ({
   profile: profileSelector(state),
   error: loadVisitsErrorSelector(state),
   visits: localVistsSelector(state),
-  loading: loadVisitsSelector(state),
+  loading: loadVisitsSelector(state) || loadingSendSelector(state),
 
 });
 
