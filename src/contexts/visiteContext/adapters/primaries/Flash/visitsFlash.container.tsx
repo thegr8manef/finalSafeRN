@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import * as utils from '@utils/index';
 import { VisitFlash } from '../../../domain/entity/VisitFlash';
-import { useTranslation } from 'react-i18next';
 import { Site } from '../../../domain/entity/Site';
 import { SiteInfo } from '../components/siteInfo/siteInfo';
 import { ObservationInfo } from '../components/observation/observationInfo';
 import { CommentInfo } from '../components/comment/commentInfo';
 import { PreviewImages } from '../components/images/previewImages';
-import { FooterVisitFlash } from '../components/footerVisitFlash';
 import {
   StyleSheet,
   View,
@@ -15,6 +13,9 @@ import {
   Alert,
 } from 'react-native';
 import { Remarque } from '@common/adapters/secondaries/db/entity/Remarque';
+import { BottomFooter } from '../components/BottomFooter';
+import { chooseImage, launchCamera } from '@utils/utilsCamera';
+import { t } from 'i18next';
 
 interface Props {
   navigation: any;
@@ -31,11 +32,14 @@ interface Props {
 }
 export const VisitFlashContainer = (props: Props) => {
 
-  const { t } = useTranslation();
   const [comment, setComment] = useState<string>('');
   const [levelId, setLevelId] = useState<number | null>(null);
   const [images, setImages] = useState<string[]>([]);
   const [selectedSite, setSelectedSite] = useState<Site | undefined>(undefined)
+  const content = [
+    { type: "image", source: utils.images.takePhotoIcon, onPress: () => { captureImage /* Handle image press */ } },
+    { type: "image", source: utils.images.fileIcon, onPress: () => { chooseFile /* Handle image press */ } },
+  ];
 
   useEffect(() => {
     props.loadSites();
@@ -43,6 +47,30 @@ export const VisitFlashContainer = (props: Props) => {
 
   const addImage = (image: string) => {
     setImages([...images, image]);
+  };
+
+  const captureImage = async () => {
+    launchCamera()
+      .then((data) => {
+        if (
+          data.assets &&
+          data.assets.length > 0 &&
+          data.assets[0].uri
+        )
+          addImage(data.assets[0].uri);
+      })
+      .catch((error) => {
+        // Handle errors here
+      });
+  };
+
+  const chooseFile = () => {
+    chooseImage()
+      .then((data) => {
+        if (data.getParts()?.length > 0) {
+          addImage(data.getParts()[0]?.uri);
+        }
+      })
   };
 
   const saveVisit = () => {
@@ -94,7 +122,8 @@ export const VisitFlashContainer = (props: Props) => {
 
       </ScrollView>
 
-      <FooterVisitFlash addImages={addImage} saveVisit={saveVisit} />
+
+      <BottomFooter confirmPress={saveVisit} confirmText={t('txt.sauvegarder.remarque')} content={content} />
 
     </View>
   );
