@@ -25,3 +25,4 @@ export function getLanguageCode(language: string) {
     // If not found in the mapping, default to the provided language name
     return languageCodeMap[language] || language;
 }
+

@@ -1,5 +1,5 @@
 import {View, Text, StyleSheet} from 'react-native';
-import React, { useEffect } from 'react';
+import React from 'react';
 import * as utils from '@utils/index';
 import {ProgressBarCard} from '../../components/ProgressBarCard';
 import {StatVisit} from '../../../../domain/entity/statVisit';

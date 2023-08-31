@@ -1,6 +1,7 @@
 // languageMapping.ts
 const languageCodeMap: any = {
-    Français: 'fr',
+    Français: 'fr', // remove this line
+    fr: 'fr',
     bl: 'nl',
     pl: 'pl',
     al: 'de',

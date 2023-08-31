@@ -7,12 +7,12 @@ import {catchError, map} from 'rxjs/operators';
 import constants from '@common/constants';
 import {Site} from '@contexts/visiteContext/domain/entity/Site';
 import ws from '@config/ws';
-import { VisitSynchronisation } from '@contexts/synchronisationContext/domain/entity/VisitSynchronisation';
 import { Synchronisation } from '@contexts/synchronisationContext/domain/entity/Synchronisation';
 import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
 
 export class APISynchronisationService implements SynchronisationService {
   loadData(accessToken: string, lastUpdateDate: string): Observable<Site[]> {
+
     const _headers: Record<string, string> = {
       'Content-Type': 'application/json',
       //  'token': accessToken
@@ -31,17 +31,19 @@ export class APISynchronisationService implements SynchronisationService {
     };
 
     const URL = ws.baseUrl + 'synchronization';
-
     return new ObservableAjaxHttpClient()
-      .post<SynchronisationDto>(URL, body, _headers)
-      .pipe(
-        map(response =>
-          SynchronisationMapper.mapperToChanties(response.response),
-        ),
-        catchError(err => throwError(err)),
-      );
-  }
-
+    .post<SynchronisationDto>(URL, body, _headers)
+    .pipe(
+      map(response => {
+        // Map the response to Chanties
+        return SynchronisationMapper.mapperToChanties(response.response);  
+      }),
+      catchError(err => {
+        // Log errors
+        return throwError(err);
+      }),
+    );
+    }
  
   sendData(accessToken: string, lastUpadet: string, visits: Visit[]): Observable<void> {
     const _headers: Record<string, string> = {

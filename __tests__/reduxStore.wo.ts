@@ -38,15 +38,13 @@ export class ReduxStoreWO {
   private checkUserConnected$: Subject<boolean> = new Subject();
   private loadProfileDetails$: Subject<User> = new Subject();
   private updateLocalProfile$: Subject<User> = new Subject();
-  private SaveFlash$: Subject<void> = new Subject();
   private LoadData$: Subject<Site[]> = new Subject();
   private saveData$: Subject<void> = new Subject();
   private loadLastUpdateDate$: Subject<string> = new Subject();
   private loadLocalProfile$: Subject<Profile> = new Subject();
   // Visite Services
-  private SaveVisit$: Subject<Remarque> = new Subject()
-  // private SaveFlash$: Subject<Flash> = new Subject();
-
+  private SaveFlash$: Subject<void> = new Subject();
+  private SaveVisit$:  Subject<Remarque> = new Subject();
   private loadAllSites$: Subject<Site[]> = new Subject();
   private loadVisitsDetails$: Subject<Visit[]> = new Subject();
 
@@ -80,8 +78,8 @@ export class ReduxStoreWO {
         visitsService: {
           SaveFlash: (): Subject<void> => this.SaveFlash$,
           LoadAllSites: (): Subject<Site[]> => this.loadAllSites$,
-          SaveVisit: ():Subject<Remarque> => this.SaveVisit$,
-          loadVisitsDetails: (): Subject<Visit[]> => this.loadVisitsDetails$
+          loadVisitsDetails: (): Subject<Visit[]> => this.loadVisitsDetails$,
+          SaveVisit: (): Subject<Remarque> => this.SaveVisit$,
         },
         synchronisationService: {
           loadData: (): Subject<Site[]> => this.LoadData$,
@@ -153,15 +151,19 @@ export class ReduxStoreWO {
 
 
   // Visite actions
-
   loadAllSitesNext = (sites: Site[]): void => this.loadAllSites$.next(sites)
   loadAllSitesError = (error: string): void => this.loadAllSites$.error(error)
 
-  loadLocalStatsError = (error: string): void => this.loadLocalStats$.error(error)
+  // load local actions
   loadLocalStatsNext = (stat: Stat): void => this.loadLocalStats$.next(stat)
+  loadLocalStatsError = (error: string): void => this.loadLocalStats$.error(error)
+
+  // Save Flash actions
+  saveFlashNext = (): void => this.SaveFlash$.next()
+  saveFlashError = (error: string): void => this.SaveFlash$.error(error)
+
+    // laod visit actions
+    loadVisitsNext = (visits:Visit[]): void => this.loadVisitsDetails$.next(visits)
+    loadVisitsError = (error: string): void => this.loadVisitsDetails$.error(error)
   
-   // Save Flash actions
-   saveFlashNext = (): void => this.SaveFlash$.next()
-   saveFlashError = (error: string): void => this.SaveFlash$.error(error)
- 
 }

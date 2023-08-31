@@ -9,14 +9,14 @@ import ButtonComponent from '@common/adapters/primaries/components/ButtonPrimary
 import { Divider } from '@common/adapters/primaries/components/Divider';
 import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
 import { flexBoxStyle } from '@styles/flexBoxStyle';
-import { visitTypeToImageSource } from '@common/constants';
+import { VISIT_TYPE_TO_IMAGE_SOURCE } from '@common/constants';
 import { convertDate } from '@utils/utils';
 import { windowWidth } from '@styles/dimension';
 import { Profile } from '@contexts/profileContext/domain/entity/profile';
 import colors from '@assets/colors';
 
 interface Props {
-  navigation: StackNavigationProp<StackParamList>;
+  navigation: Partial<StackNavigationProp<StackParamList>>;
   visits: Visit[] | undefined;
   error: string | undefined;
   loading: boolean;
@@ -82,9 +82,9 @@ export const VisitsContainer = (props: Props): JSX.Element => {
     )
   }
   const CustomVistList: React.FC<CustomVistList> = ({ visit }) => {
-    var imageSource = visitTypeToImageSource[visit.tp] || visitTypeToImageSource.default
+    const imageSource = VISIT_TYPE_TO_IMAGE_SOURCE[visit.tp] || VISIT_TYPE_TO_IMAGE_SOURCE.default
     return (
-      <View style={flexBoxStyle.flexRowSpace}>
+      <View testID='custom-visit-list' style={flexBoxStyle.flexRowSpace}>
         <View style={flexBoxStyle.m1}>
           <View style={flexBoxStyle.flexRowCenterSpace}>
             <View style={styles.visitRowStyle}>
@@ -102,7 +102,7 @@ export const VisitsContainer = (props: Props): JSX.Element => {
               <CustomVisitOption title={t('txt_Observations')} value={0} />
             }
             <CustomVisitOption title={t('txt.levee')} value={0} />
-            <CustomVisitOption title={t('txt.photos')} value={visit?.rq[0].md.length} />
+            <CustomVisitOption title={t('txt.photos')} value={visit?.rq?.[0]?.md?.length} />
             <Image source={utils.images.visitLockIcon} style={globalStyle.defaultImageStyle} />
           </View>
         </View>
@@ -110,6 +110,7 @@ export const VisitsContainer = (props: Props): JSX.Element => {
     );
   };
 
+  
 
   return (
     <View style={globalStyle.containerStyle}>

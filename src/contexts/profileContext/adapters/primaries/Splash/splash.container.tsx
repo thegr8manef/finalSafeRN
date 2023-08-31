@@ -34,7 +34,7 @@ export const SplashContainer = (props: Props) => {
         if (props.connectionStatus) {
           if (!mountedSyn) {
             setMountedSyn(true);
-            props.loadSychronisationData(props.profile?.accessToken!, props.profile?.lastUpdate);
+            props.loadSychronisationData(props.profile?.accessToken, props.profile?.lastUpdate);
           }
           if (props.loading == false && mountedSyn) {
             resetNavigation('Home');

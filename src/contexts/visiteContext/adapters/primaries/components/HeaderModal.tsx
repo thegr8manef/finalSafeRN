@@ -1,87 +1,81 @@
-import { View, Text, StyleSheet, Pressable } from 'react-native';
-import * as utils from '@utils/index';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { View, Text, StyleSheet, Pressable, Image } from 'react-native';
+import { ImageSourcePropType } from 'react-native';
+import * as utils from '@utils/index'; // Import utility functions
+import globalStyle from '@styles/globalStyle'; // Import global styles
+import { flexBoxStyle } from '@styles/flexBoxStyle'; // Import flexbox styles
 
+// Define the expected props for the HeaderModal component
 interface Props {
-  title: string;
-  onRightPress?: () => void;
-  onLeftPress: () => void;
-  leftLabel: string
-  rightLabel?: string
+  title: string; // Header title
+  onRightPress?: () => void; // Function to handle the press of a right button (optional)
+  onLeftPress?: () => void; // Function to handle the press of a left button (optional)
+  leftLabel: string; // Label for the left button
+  rightLabel?: string; // Label for the right button (optional)
+  rightIcon?: ImageSourcePropType[]; // Array of images/icons for the right buttons (optional)
+  onRightIconPress?: (index: number) => void; // Function to handle the press of an icon button (optional)
 }
+
+// Define the HeaderModal component
 export const HeaderModal = (props: Props) => {
-  const { t } = useTranslation();
+  // Helper function to render the content on the right side of the header
+  const renderRightContent = () => {
+    if (props.rightIcon) {
+      // If there are right icons, render them
+      return (
+        <View style={flexBoxStyle.flexRow}>
+          {props.rightIcon.map((icons: ImageSourcePropType, index: number) => (
+            <Pressable
+              key={index}
+              testID='header-modal-right-button'
+              onPress={() => props.onRightIconPress && props.onRightIconPress(index)}
+              android_ripple={styles.androidRipple}>
+              <Image source={icons} style={globalStyle.defaultImageStyle} />
+            </Pressable>
+          ))}
+        </View>
+      );
+    } else if (props.rightLabel) {
+      // If there is a right label, render it
+      return (
+        <Pressable
+          testID='header-modal-right-button'
+          onPress={props.onRightPress}
+          android_ripple={styles.androidRipple}>
+          <Text style={globalStyle.fontBoldDark15Style}>{props.rightLabel}</Text>
+        </Pressable>
+      );
+    }
+
+    return null; // Return null if there is no right content to render
+  };
+
+  // Render the HeaderModal component
   return (
-    <View style={styles.container}>
-      <View style={styles.left}>
+    <View style={[flexBoxStyle.flexRowCenterSpace, styles.container, flexBoxStyle.p1]}>
+      <View>
         <Pressable
           testID='header-modal-left-button'
           onPress={props.onLeftPress}
           android_ripple={styles.androidRipple}>
-          <Text style={styles.text}>{props.leftLabel}</Text>
+          <Text style={globalStyle.fontBoldDark15Style}>{props.leftLabel}</Text>
         </Pressable>
       </View>
-      <View style={styles.center}>
-        <Text style={styles.title}>{props.title}</Text>
+      <View>
+        <Text style={globalStyle.fontBoldDark15Style}>{props.title}</Text>
       </View>
-      <View style={styles.right}>
-        {props.rightLabel ? <Pressable
-          testID='header-modal-right-button'
-          onPress={props.onRightPress}
-          android_ripple={styles.androidRipple}>
-          <Text style={styles.textRight}>{props.rightLabel}</Text>
-        </Pressable>
-          : <View />}
-      </View>
+      <View>{renderRightContent()}</View>
     </View>
   );
 };
 
+// Define styles for the HeaderModal component
 const styles = StyleSheet.create({
   androidRipple: {
-    color: utils.colors.gris300
+    color: utils.colors.gris300, // Ripple effect color
   },
   container: {
-    height: 50,
-    backgroundColor: utils.colors.primary,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: 'black',
-    textAlign: 'center',
-  },
-  text: {
-    fontSize: 14,
-    color: 'black',
-    marginStart: 5,
-  },
-  textRight: {
-    fontSize: 14,
-    color: 'black',
-    marginEnd: 5,
-    textAlign: 'right',
-  },
-  right: {
-    flex: 1,
-    height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  center: {
-    flex: 4,
-    height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  left: {
-    flex: 1,
-    height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
+    height: 50, // Header container height
+    backgroundColor: utils.colors.primary, // Header background color
   },
 });

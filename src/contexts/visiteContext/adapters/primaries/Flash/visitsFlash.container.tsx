@@ -81,7 +81,7 @@ export const VisitFlashContainer = (props: Props) => {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollViewContainer}>
-        <SiteInfo sites={props.sites} selectedSite={selectedSite} setSelectedSite={setSelectedSite} />
+        <SiteInfo sites={props.sites} selectedSite={selectedSite} setSelectedSite={setSelectedSite} selectedIdSite={''} />
 
         <ObservationInfo onSave={(levelId) => {
           setLevelId(levelId)

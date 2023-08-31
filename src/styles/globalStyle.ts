@@ -54,7 +54,7 @@ const globalStyle = StyleSheet.create({
     },
     defaultImageStyle: {
         width: windowWidth / 12,
-        height: windowWidth / 15,
+        height: windowWidth / 20,
         resizeMode: 'contain',
     },
 })
