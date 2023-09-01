@@ -43,7 +43,6 @@ interface CustomVisitDetailsProps {
 }
 
 export const VisitsContainer = (props: Props): JSX.Element => {
-  const [mount, setMounted] = useState(false);
   useEffect(() => {
     props.loadVisits();
   }, [])
@@ -52,15 +51,8 @@ export const VisitsContainer = (props: Props): JSX.Element => {
   useEffect(() => {
    }, [props.visits]);
 
-   useEffect(() => {
-    if(!props.loading && mount){
-      props.loadVisits();
-      setMounted(false)
-    }  
-  }, [props.loading]);
 
   const handlSynchronisation = () => {
-    setMounted(true)
       props.sendData(props.profile?.accessToken!!, props.profile?.lastUpdate!!, props.visits!! )
     }
   
@@ -155,12 +147,12 @@ export const VisitsContainer = (props: Props): JSX.Element => {
         </View>
       </View>
        
-      <View style={mount ? styles.loaderContainer: {}}>    
+      <View style={props.loading ? styles.loaderContainer: {}}>    
         <ActivityIndicator
           testID='activity-indicator'
           size="large"
           color={utils.colors.primary}
-          style={{display:mount ? 'flex' : 'none'}}
+          style={{display:props.loading ? 'flex' : 'none'}}
         />
       </View> 
     </View>

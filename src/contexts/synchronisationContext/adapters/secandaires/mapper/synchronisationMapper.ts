@@ -65,7 +65,7 @@ export class SynchronisationMapper {
       st: site.st === undefined ? 0 : site.st,
       lu: site.last_update,
       ref: site.reference,
-      org: site.org ? site.org+"" : "",
+      org: site.org ? site.org.toString() : "",
       ol_name: site.region_name,
       osc: site.osc,
       pid: site.pid.toString(),
