@@ -104,17 +104,16 @@ export class DbVisitsService implements VisitsService {
     return from(saveVisitToDb);
   }
 
+
+  
+
   loadVisitsDetails(): Observable<Visit[]> {
     const LoadVisitDb = new Promise<Visit[]>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
-      try {
-        db.then(realm => {
-          const objects = realm.objects('Visit');
-          resolve(VisitMapper.mapToVisit(objects));
-        });
-      } catch (error) {
-        reject(error);
-      }
+      db.then(realm => {
+        const objects = realm.objects('Visit');
+        resolve(VisitMapper.mapToVisit(objects));
+      }).catch((error) => reject(error))
     });
     return from(LoadVisitDb);
   }
@@ -122,14 +121,10 @@ export class DbVisitsService implements VisitsService {
   LoadAllSites(): Observable<Site[]> {
     const LoadChantierInDb = new Promise<Site[]>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
-      try {
-        db.then(realm => {
-          const objects = realm.objects('Chantier')
-          resolve(SiteMapper.maptoSites(objects));
-        });
-      } catch (error) {
-        reject(error);
-      }
+      db.then(realm => {
+        const objects = realm.objects('Chantier')
+        resolve(SiteMapper.maptoSites(objects));
+      }).catch(error => reject(error))
     });
     return from(LoadChantierInDb);
   }
@@ -137,18 +132,13 @@ export class DbVisitsService implements VisitsService {
   loadRemarques(): Observable<CustomRemarque[]> {
     const LoadRemarqueDB = new Promise<CustomRemarque[]>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
-      try {
-        db.then(realm => {
-          const objects = realm.objects('Remarque')
-          resolve(RemarqueMapper.mapperToRemarques(objects));
-        });
-      } catch (error) {
-        reject(error);
-      }
+      db.then(realm => {
+        const objects = realm.objects('Remarque')
+        resolve(RemarqueMapper.mapperToRemarques(objects));
+      }).catch(error => reject(error))
     });
     return from(LoadRemarqueDB);
   }
-
 
   deleteVisits(): Observable<void> {
     const LoadRemarqueDB = new Promise<void>((resolve, reject) => {
@@ -174,6 +164,10 @@ export class DbVisitsService implements VisitsService {
   private generateUUID(name : string, namespace : string) : string {
     return uuidv5(name, namespace)+"an"+ moment().valueOf()
   }
- 
+
 }
+
+
+ 
+
 

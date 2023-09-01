@@ -1,4 +1,4 @@
-import Realm from "realm";
+import Realm from 'realm';
 import {Accompagnant} from '@common/adapters/secondaries/db/entity/Accompagnant';
 import {Chantier} from '@common/adapters/secondaries/db/entity/Chantier';
 import {Photo} from '@common/adapters/secondaries/db/entity/Photo';
@@ -10,7 +10,11 @@ import {StatisticRiskObject} from '@common/adapters/secondaries/db/entity/Statis
 import {StatisticUser} from '@common/adapters/secondaries/db/entity/StatisticUser';
 import {StatisticVisit} from '@common/adapters/secondaries/db/entity/StatisticVisit';
 import {Zone} from '@common/adapters/secondaries/db/entity/Zone';
-import { User } from "@common/adapters/secondaries/db/entity/User"
+import {User} from '@common/adapters/secondaries/db/entity/User';
+import {Visit} from '@common/adapters/secondaries/db/entity/Visit';
+import {Observation} from '@common/adapters/secondaries/db/entity/Observation';
+import {PointToImprove} from '@common/adapters/secondaries/db/entity/PointToImprove';
+import {StrongPoint} from '@common/adapters/secondaries/db/entity/StrongPoint';
 
 export const realmInstance = new Realm({
   schema: [
@@ -26,5 +30,9 @@ export const realmInstance = new Realm({
     StatisticObservation,
     StatisticUser,
     StatisticRiskObject,
+    Visit,
+    Observation,
+    PointToImprove,
+    StrongPoint,
   ],
 });
