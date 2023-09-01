@@ -9,7 +9,6 @@ interface Props {
 }
 export const PreviewImages = (props: Props) => {
   const { t } = useTranslation();
-  const image = props.images;
   return (
     <View style={styles.container}>
       {Object.keys(props.images).length === 0 ? (
@@ -21,7 +20,7 @@ export const PreviewImages = (props: Props) => {
           testID='image-flatlist'
           horizontal={true}
           showsHorizontalScrollIndicator={false}
-          data={image}
+          data={props.images}
           renderItem={({ item, index }) => (
             <Image
               testID='img'

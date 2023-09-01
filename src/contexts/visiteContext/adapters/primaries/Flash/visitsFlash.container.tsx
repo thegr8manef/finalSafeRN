@@ -16,6 +16,8 @@ import {
 } from 'react-native';
 import { Remarque } from '@common/adapters/secondaries/db/entity/Remarque';
 import { Photo } from '@contexts/visiteContext/domain/entity/Photo';
+import { v5 as uuidv5 } from 'uuid';
+import { NAMESPACE } from '@common/constants';
 
 interface Props {
   navigation: any;
@@ -34,13 +36,21 @@ export const VisitFlashContainer = (props: Props) => {
 
   const { t } = useTranslation();
   const [comment, setComment] = useState<string>('');
+  const [idRemarque, setIdRemarque] = useState<string>();
+  const [idVisits, setIdVisits] = useState<string>();
   const [levelId, setLevelId] = useState<number | null>(null);
   const [images, setImages] = useState<Photo[]>([]);
   const [selectedSite, setSelectedSite] = useState<Site | undefined>(undefined)
 
   useEffect(() => {
     props.loadSites();
+    const name_id_remarque = Date.now().toString() + Math.random().toString();
+    setIdRemarque(uuidv5(name_id_remarque, NAMESPACE))
+  
+    const name_id_visits = Date.now().toString() + Math.random().toString();
+    setIdVisits(uuidv5(name_id_visits, NAMESPACE))
   }, [])
+
 
   const addImage = (image: Photo) => {
     setImages([...images, image]);
@@ -48,7 +58,7 @@ export const VisitFlashContainer = (props: Props) => {
 
   const saveVisit = () => {
     if (validVisit()) {
-      const flash = new VisitFlash(comment, images, levelId!!, selectedSite?.reference!!, 4);
+      const flash = new VisitFlash(idRemarque!!,comment, images, levelId!!, selectedSite?.reference!!, 4);
       Alert.alert('', t('etes_vous_sur_de_vouloir_sauvegarder')!, [
         {
           text: 'NON',
@@ -95,7 +105,7 @@ export const VisitFlashContainer = (props: Props) => {
 
       </ScrollView>
 
-      <FooterVisitFlash addImages={addImage} saveVisit={saveVisit} />
+      <FooterVisitFlash addImages={addImage} saveVisit={saveVisit} id_remarque={idRemarque!!} id_visits={idVisits!!} />
 
     </View>
   );

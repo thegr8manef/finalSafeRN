@@ -11,6 +11,8 @@ import { Photo } from '@contexts/visiteContext/domain/entity/Photo';
 
 interface Props {
   addImage: (image: Photo) => void;
+  id_remarque : string;
+  id_visits : string;
 }
 
 export const AddImageButtons = (props: Props) => {
@@ -41,7 +43,7 @@ export const AddImageButtons = (props: Props) => {
           data.assets.length > 0 &&
           data.assets[0].uri
         )
-        var image = new Photo( generateID(),data.assets[0].fileName,data.assets[0].uri,"test-id-remarque","test-id-visit",false,0,"test-id-formation",false,false,0);
+        var image = new Photo( generateID(),data.assets[0].fileName,data.assets[0].uri,props.id_remarque,props.id_visits,false,0,"test-id-formation",false,false,0);
           props.addImage(image!!);
       })
       .catch((error) => {
@@ -53,7 +55,7 @@ export const AddImageButtons = (props: Props) => {
     chooseImage()
     .then((data) => {
       if (data.getParts()?.length > 0) {
-        var image = new Photo( generateID(),data.getParts()[0]?.fileName,data.getParts()[0]?.uri,"test-id-remarque","test-id-visit",false,0,"test-id-formation",false,false,0);
+        var image = new Photo( generateID(),data.getParts()[0]?.fileName,data.getParts()[0]?.uri,props.id_remarque,props.id_visits,false,0,"test-id-formation",false,false,0);
         props.addImage(image!!);
       }    
     })
