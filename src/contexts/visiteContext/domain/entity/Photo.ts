@@ -1,5 +1,5 @@
 export class Photo {
-  // id?: string;
+  id?: string;
   Name?: string; // empty
   path?: string; // empty
   idRemarque?: string; // id remarque
@@ -12,6 +12,7 @@ export class Photo {
   synchEtat?: number;
 
   constructor(
+    id:string,
     Name?: string,
     path?: string,
     idRemarque?: string,
@@ -23,6 +24,7 @@ export class Photo {
     deleted?: boolean,
     synchEtat?: number
   ) {
+    this.id = id;
     this.Name = Name;
     this.path = path;
     this.idRemarque = idRemarque;

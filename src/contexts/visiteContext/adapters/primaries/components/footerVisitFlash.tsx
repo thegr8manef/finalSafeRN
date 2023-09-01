@@ -3,16 +3,19 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useTranslation } from "react-i18next";
 import * as utils from '@utils/index';
 import { AddImageButtons } from "./images/addImageButtons";
+import { Photo } from "@contexts/visiteContext/domain/entity/Photo";
 interface Props {
-  addImages: (image: string) => void
-  saveVisit: () => void
+  addImages: (image: Photo) => void;
+  saveVisit: () => void;
+  id_remarque : string;
+  id_visits : string;
 }
 export const FooterVisitFlash = (props: Props) => {
   const { t } = useTranslation();
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        <AddImageButtons addImage={props.addImages} />
+        <AddImageButtons addImage={props.addImages} id_remarque={props.id_remarque} id_visits={props.id_visits} />
         <Pressable 
           testID="save-btn"
           style={styles.buttonRight}
