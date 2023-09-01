@@ -5,8 +5,11 @@ import { VisitSynchronistaionDto } from '../dto/VisitSynchronistaionDto';
 import { Synchronisation } from '@contexts/synchronisationContext/domain/entity/Synchronisation';
 import { VisitSynchronisation } from '@contexts/synchronisationContext/domain/entity/VisitSynchronisation';
 import { ChantierDto } from '@contexts/visiteContext/adapters/secondaires/dto/chantier.dto';
+import { AccompagnantMapper } from '@contexts/visiteContext/adapters/secondaires/mapper/accompagnant.mapper';
+import { Accompagnant } from '@contexts/visiteContext/domain/entity/Accompagnant';
 
 export class SynchronisationMapper {
+
   static mapperToChanties(synchronisationDto: SynchronisationDto): Site[] {
     return [
       ...synchronisationDto.rd.cs.map(chantier => this.mapChantier(chantier, synchronisationDto)),
@@ -16,7 +19,11 @@ export class SynchronisationMapper {
     ];
   }
 
-  static mapChantier(chantier: ChantierDto, synchronisationDto: SynchronisationDto): Site {
+  static mapperToAccompangnant(synchronisationDto: SynchronisationDto): Accompagnant[] {
+    return synchronisationDto.rd.au.map(acc => AccompagnantMapper.mapAccompagnant(acc));
+  }
+
+  static mapChantier(chantier: ChantierDto): Site {
     const {
       id, no, ac, co, sr, st, cp, ad, rq, ref, org, ol_name,
       osc, pid, piid

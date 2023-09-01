@@ -3,8 +3,11 @@ import { SynchronisationRepository } from '../../domain/gateway/SynchronisationR
 import ApplicationContext from '@common/appConfig/ApplicationContext';
 import { SynchronisationMapper } from './mapper/synchronisationMapper';
 import { Site } from '@contexts/visiteContext/domain/entity/Site';
+import { Accompagnant } from '@contexts/visiteContext/domain/entity/Accompagnant';
+import { AccompagnantMapper } from '@contexts/visiteContext/adapters/secondaires/mapper/accompagnant.mapper';
 
 export class DBSynchronisationRepository implements SynchronisationRepository {
+  
   saveData(sites: Site[]): Observable<void> {
     const promisSaveData = new Promise<void>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
@@ -19,6 +22,27 @@ export class DBSynchronisationRepository implements SynchronisationRepository {
               );
             });
             updt[0].lu = sites[0].last_update?.toString();
+          });
+        }).catch(error => reject(error));
+      }
+      resolve();
+    });
+
+    return from(promisSaveData);
+  }
+
+  saveAccompagnant(accompagnant: Accompagnant[]): Observable<void> {
+    const promisSaveData = new Promise<void>((resolve, reject) => {
+      const db = ApplicationContext.getInstance().db();
+      if (accompagnant.length > 0) {
+        db.then(realm => {
+          realm?.write(() => {
+            accompagnant.forEach(accompagnant => {
+              realm.create(
+                'Accompagnant',
+                AccompagnantMapper.mapAccompanantToAccompanantDB(accompagnant),
+              );
+            });
           });
         }).catch(error => reject(error));
       }
