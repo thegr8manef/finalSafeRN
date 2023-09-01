@@ -53,7 +53,7 @@ export class APISynchronisationService implements SynchronisationService {
     };
     const body: Record<string, string> = {
       lu: lastUpadet,
-      dt : JSON.stringify(SynchronisationMapper.mapperToSynchronisationSend(visits))
+      dt : JSON.stringify(SynchronisationMapper.mapToRemoteVisitDto(visits))
     };
 
     const URL = ws.baseUrl + 'synchronization';

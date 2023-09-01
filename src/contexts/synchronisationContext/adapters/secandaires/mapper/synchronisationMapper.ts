@@ -95,7 +95,7 @@ export class SynchronisationMapper {
 
 }
 
-static mapperToSynchronisationSend(visits : Visit[]) : VisitSynchronistaionDto{
+static mapToRemoteVisitDto(visits : Visit[]) : VisitSynchronistaionDto{
   const visites = visits.map((visit: Visit) => {
     return {
         tp: visit.tp,

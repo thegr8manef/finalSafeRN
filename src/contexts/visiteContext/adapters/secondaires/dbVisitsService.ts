@@ -11,6 +11,9 @@ import { Remarque } from '@common/adapters/secondaries/db/entity/Remarque';
 import { v5 as uuidv5 } from 'uuid';
 import { NAMESPACE } from '@common/constants';
 import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
+import CustomRemarque  from "@contexts/visiteContext/domain/entity/Remarque";
+import { RemarqueMapper } from './mapper/remarque.mapper';
+
 
 export class DbVisitsService implements VisitsService {
 
@@ -73,7 +76,7 @@ export class DbVisitsService implements VisitsService {
           realm?.write(() => {
             const newVisit = realm.create<VisitDb>("Visit", {
               // Map Visit properties from data
-              id: uuidv5(name, NAMESPACE)+"an"+ moment().valueOf(),
+              id: this.generateUUID(name, NAMESPACE),
               dt: formattedCurrentDateTime,
               dtc: formattedCurrentDateTime,
               date: currentDateTimeInMillis,
@@ -146,6 +149,7 @@ export class DbVisitsService implements VisitsService {
     return from(LoadRemarqueDB);
   }
 
+
   deleteVisits(): Observable<void> {
     const LoadRemarqueDB = new Promise<void>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
@@ -165,6 +169,10 @@ export class DbVisitsService implements VisitsService {
       }
     });
     return from(LoadRemarqueDB);
+  }
+
+  private generateUUID(name : string, namespace : string) : string {
+    return uuidv5(name, namespace)+"an"+ moment().valueOf()
   }
  
 }
