@@ -7,12 +7,31 @@ import {
 import React from 'react';
 import * as utils from '@utils/index';
 import { chooseImage, launchCamera } from '@utils/utilsCamera';
+import { Photo } from '@contexts/visiteContext/domain/entity/Photo';
 
 interface Props {
-  addImage: (image: string) => void;
+  addImage: (image: Photo) => void;
 }
 
 export const AddImageButtons = (props: Props) => {
+
+  function generateID() {
+    const characters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let ID = "";
+    
+    for (let i = 0; i < 4; i++) {
+      for (let j = 0; j < 4; j++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        ID += characters[randomIndex];
+      }
+      
+      if (i < 3) {
+        ID += "-";
+      }
+    }
+    
+    return ID;
+  }
 
   const captureImage = async () => {
     launchCamera()
@@ -22,7 +41,8 @@ export const AddImageButtons = (props: Props) => {
           data.assets.length > 0 &&
           data.assets[0].uri
         )
-          props.addImage(data.assets[0].uri);
+        var image = new Photo( generateID(),data.assets[0].fileName,data.assets[0].uri,"test-id-remarque","test-id-visit",false,0,"test-id-formation",false,false,0);
+          props.addImage(image!!);
       })
       .catch((error) => {
         // Handle errors here
@@ -33,7 +53,8 @@ export const AddImageButtons = (props: Props) => {
     chooseImage()
     .then((data) => {
       if (data.getParts()?.length > 0) {
-        props.addImage(data.getParts()[0]?.uri);
+        var image = new Photo( generateID(),data.getParts()[0]?.fileName,data.getParts()[0]?.uri,"test-id-remarque","test-id-visit",false,0,"test-id-formation",false,false,0);
+        props.addImage(image!!);
       }    
     })
   };

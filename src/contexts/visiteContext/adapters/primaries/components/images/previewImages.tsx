@@ -2,12 +2,14 @@ import React from 'react'
 import { FlatList, Image, StyleSheet, Text, View } from 'react-native'
 import * as utils from '@utils/index';
 import { useTranslation } from 'react-i18next';
+import { Photo } from '@contexts/visiteContext/domain/entity/Photo';
 
 interface Props {
-  images: string[]
+  images: Photo
 }
 export const PreviewImages = (props: Props) => {
   const { t } = useTranslation();
+  const image = props.images;
   return (
     <View style={styles.container}>
       {Object.keys(props.images).length === 0 ? (
@@ -19,11 +21,11 @@ export const PreviewImages = (props: Props) => {
           testID='image-flatlist'
           horizontal={true}
           showsHorizontalScrollIndicator={false}
-          data={props.images}
+          data={image}
           renderItem={({ item, index }) => (
             <Image
               testID='img'
-              source={{ uri: item }}
+              source={{ uri: item.path }}
               key={index}
               style={styles.image}
             />

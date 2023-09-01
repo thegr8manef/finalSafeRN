@@ -3,8 +3,9 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useTranslation } from "react-i18next";
 import * as utils from '@utils/index';
 import { AddImageButtons } from "./images/addImageButtons";
+import { Photo } from "@contexts/visiteContext/domain/entity/Photo";
 interface Props {
-  addImages: (image: string) => void
+  addImages: (image: Photo) => void
   saveVisit: () => void
 }
 export const FooterVisitFlash = (props: Props) => {

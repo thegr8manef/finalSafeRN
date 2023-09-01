@@ -15,6 +15,7 @@ import {
   Alert,
 } from 'react-native';
 import { Remarque } from '@common/adapters/secondaries/db/entity/Remarque';
+import { Photo } from '@contexts/visiteContext/domain/entity/Photo';
 
 interface Props {
   navigation: any;
@@ -34,20 +35,20 @@ export const VisitFlashContainer = (props: Props) => {
   const { t } = useTranslation();
   const [comment, setComment] = useState<string>('');
   const [levelId, setLevelId] = useState<number | null>(null);
-  const [images, setImages] = useState<string[]>([]);
+  const [images, setImages] = useState<Photo[]>([]);
   const [selectedSite, setSelectedSite] = useState<Site | undefined>(undefined)
 
   useEffect(() => {
     props.loadSites();
   }, [])
 
-  const addImage = (image: string) => {
+  const addImage = (image: Photo) => {
     setImages([...images, image]);
   };
 
   const saveVisit = () => {
     if (validVisit()) {
-      const flash = new VisitFlash(comment, images, levelId, selectedSite?.reference, 4);
+      const flash = new VisitFlash(comment, images, levelId!!, selectedSite?.reference!!, 4);
       Alert.alert('', t('etes_vous_sur_de_vouloir_sauvegarder')!, [
         {
           text: 'NON',
