@@ -1,7 +1,9 @@
 import { Site } from '@contexts/visiteContext/domain/entity/Site'
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next';
 import { Text, FlatList, View, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import * as utils from '@utils/index';
+import { flexBoxStyle } from '@styles/flexBoxStyle';
 
 interface Props {
     sites: Site[] | undefined
@@ -9,7 +11,7 @@ interface Props {
 }
 export const SearchResultSites = (props: Props) => {
     const [selectedItem, setSelectedItem] = useState<Site | undefined>(undefined);
-  
+    const { t } = useTranslation();
     const renderItem = ({ item }: { item: Site }) => {
       const isSelected = selectedItem && selectedItem.id === item.id;
       if(selectedItem !== undefined){
@@ -32,11 +34,13 @@ export const SearchResultSites = (props: Props) => {
     };
   
     return (
-      <FlatList
+      <View>
+{ props.sites !== undefined  ?   <FlatList
         data={props.sites}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
-      />
+      /> : <Text style={styles.no_Site_text}>{t('msg.no.cs.is.affected')}</Text>}
+      </View>
     );
   };
 const styles = StyleSheet.create({
@@ -58,5 +62,12 @@ const styles = StyleSheet.create({
     image: {
         width: 30,
         height: 30,
-    }
+    },
+    no_Site_text:{
+      marginTop: '25%',
+      textAlign : 'center',
+      fontSize: 17,
+      fontWeight: 'bold',
+      color: utils.colors.gris300
+    },
 })
