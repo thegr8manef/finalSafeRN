@@ -21,45 +21,35 @@ export const loadDataEpic: Epic = (
   action$.pipe(
     ofType(LOAD_DATA),
     switchMap(action => {
-      console.log('LOAD_DATA action received:', action);
-
       return synchronisationRepository.loadLastUpdateDate().pipe(
         mergeMap((lastUpdateDate: string) => {
-          console.log('Last update date:', lastUpdateDate);
-
           return synchronisationService.loadData(action.payload, lastUpdateDate).pipe(
             mergeMap((data: LoadDataResponse) => {
               // Use mergeMap to save the data and return the success action
               return synchronisationRepository.saveData(data.chanties).pipe(
                 mergeMap(() => {
-                  console.log('Data saved successfully.');
-                  
+
                   // Now, save accompagnant data
                   return synchronisationRepository.saveAccompagnant(data.accompagnant).pipe(
                     map(() => {
-                      console.log('Accompagnant data saved successfully.');
                       return loadDataSuccess();
                     }),
                     catchError(error => {
-                      console.error('Error while saving accompagnant data:', error);
                       return of(loadDataFailed(error));
                     })
                   );
                 }),
                 catchError(error => {
-                  console.error('Error while saving data:', error);
                   return of(loadDataFailed(error));
                 })
               );
             }),
             catchError(error => {
-              console.error('Error while loading data:', error);
               return of(loadDataFailed(error));
             })
           );
         }),
         catchError(error => {
-          console.error('Error while loading last update date:', error);
           return of(loadDataFailed(error));
         })
       );
