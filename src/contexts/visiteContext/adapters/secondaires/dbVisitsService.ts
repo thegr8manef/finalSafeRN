@@ -61,7 +61,7 @@ export class DbVisitsService implements VisitsService {
       const db = ApplicationContext.getInstance().db();
       const name = Date.now().toString() + Math.random().toString();
       // Find the chantier based on createdRemarque.idcs
-      try {
+    
         db.then((realm) => {
           const user = realm.objects('User');
           const chantier = realm
@@ -90,9 +90,7 @@ export class DbVisitsService implements VisitsService {
         }).catch((error) => {
           reject(error);
         });
-      } catch (error) {
-        reject(error);
-      }
+     
     });
 
     return from(saveVisitToDb);
@@ -137,7 +135,7 @@ export class DbVisitsService implements VisitsService {
   deleteVisits(): Observable<void> {
     const LoadRemarqueDB = new Promise<void>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
-      try {
+   
         db.then(realm => {
           const visits = realm.objects('Visit');
           const remarques = realm.objects('Remarque');
@@ -147,10 +145,10 @@ export class DbVisitsService implements VisitsService {
             realm.delete(remarques)
           });
           resolve();
-        });
-      } catch (error) {
-        reject(error);
-      }
+        }).catch(error => reject(error))
+          
+       
+      
     });
     return from(LoadRemarqueDB);
   }
