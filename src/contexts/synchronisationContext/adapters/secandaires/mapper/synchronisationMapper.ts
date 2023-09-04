@@ -4,9 +4,18 @@ import { SynchronisationDto } from '../dto/synchronisationDto';
 import { VisitSynchronistaionDto } from '../dto/VisitSynchronistaionDto';
 import { Synchronisation } from '@contexts/synchronisationContext/domain/entity/Synchronisation';
 import { VisitSynchronisation } from '@contexts/synchronisationContext/domain/entity/VisitSynchronisation';
+import { ChantierDto } from '@contexts/visiteContext/adapters/secondaires/dto/chantier.dto';
+import { AccompagnantMapper } from '@contexts/visiteContext/adapters/secondaires/mapper/accompagnant.mapper';
+import { Accompagnant } from '@contexts/visiteContext/domain/entity/Accompagnant';
 import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
 
 export class SynchronisationMapper {
+
+
+  static mapperToAccompangnant(synchronisationDto: SynchronisationDto): Accompagnant[] {
+    return synchronisationDto.rd.au.map(acc => AccompagnantMapper.mapAccompagnant(acc));
+  }
+  
   static mapperToChanties(synchronisationDto: SynchronisationDto): Site[] {
     return [
       ...synchronisationDto.rd.cs.map(chantier => this.mapChantier(chantier, synchronisationDto)),
@@ -16,7 +25,7 @@ export class SynchronisationMapper {
     ];
   }
 
-  static mapChantier(chantier: any, synchronisationDto: SynchronisationDto): Site {
+  static mapChantier(chantier: ChantierDto, synchronisationDto: SynchronisationDto): Site {
     const {
       id, no, ad, ac, cp, py, vl, st, ref, ol_name, osc, pid, piid, sr, org
     } = chantier;

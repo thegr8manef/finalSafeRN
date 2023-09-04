@@ -53,8 +53,6 @@ const SearchSiteWithQrCode = (props: Props) => {
     }
   }
 
-
-
   // Handle right icon press (e.g., flashlight)
   const handleRightIconPress = (index: number) => {
     if (index === 0) {

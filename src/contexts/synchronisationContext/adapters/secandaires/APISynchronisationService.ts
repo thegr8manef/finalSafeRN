@@ -1,24 +1,23 @@
-import {Observable, throwError} from 'rxjs';
-import {SynchronisationService} from '../../domain/gateway/SynchronisationService';
-import {ObservableAjaxHttpClient} from '@common/adapters/secondaries/real/observableAjaxHttpClient';
-import {SynchronisationDto} from './dto/synchronisationDto';
-import {SynchronisationMapper} from './mapper/synchronisationMapper';
-import {catchError, map} from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { LoadDataResponse, SynchronisationService } from '../../domain/gateway/SynchronisationService';
+import { ObservableAjaxHttpClient } from '@common/adapters/secondaries/real/observableAjaxHttpClient';
+import { SynchronisationDto } from './dto/synchronisationDto';
+import { SynchronisationMapper } from './mapper/synchronisationMapper';
+import { catchError, map } from 'rxjs/operators';
 import constants from '@common/constants';
-import {Site} from '@contexts/visiteContext/domain/entity/Site';
+import { Site } from '@contexts/visiteContext/domain/entity/Site';
 import ws from '@config/ws';
 import { Synchronisation } from '@contexts/synchronisationContext/domain/entity/Synchronisation';
 import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
+import { Accompagnant } from '@contexts/visiteContext/domain/entity/Accompagnant';
+
 
 export class APISynchronisationService implements SynchronisationService {
-  loadData(accessToken: string, lastUpdateDate: string): Observable<Site[]> {
+
+  loadData(accessToken: string, lastUpdateDate: string): Observable<LoadDataResponse> {
 
     const _headers: Record<string, string> = {
       'Content-Type': 'application/json',
-      //  'token': accessToken
-      /**
-       * We are using a static token because we don't have access to FinalSafe msal
-       */
       token: constants.accessToken,
     };
 
@@ -31,20 +30,28 @@ export class APISynchronisationService implements SynchronisationService {
     };
 
     const URL = ws.baseUrl + 'synchronization';
+
     return new ObservableAjaxHttpClient()
     .post<SynchronisationDto>(URL, body, _headers)
-    .pipe(
-      map(response => {
-        // Map the response to Chanties
-        return SynchronisationMapper.mapperToChanties(response.response);  
-      }),
-      catchError(err => {
-        // Log errors
-        return throwError(err);
-      }),
-    );
-    }
- 
+      .pipe(
+        map(response => {
+          const chanties: Site[] = SynchronisationMapper.mapperToChanties(response.response);
+          const accompagnant: Accompagnant[] = SynchronisationMapper.mapperToAccompangnant(response.response);
+
+          const loadDataResponse: LoadDataResponse = {
+            chanties,
+            accompagnant,
+          };
+
+          return loadDataResponse;
+        }),
+        catchError(err => {
+          // Log errors
+          return throwError(err);
+        })
+      );
+  }
+
   sendData(accessToken: string, lastUpadet: string, visits: Visit[]): Observable<void> {
     const _headers: Record<string, string> = {
 
@@ -62,7 +69,7 @@ export class APISynchronisationService implements SynchronisationService {
       .pipe(
         map(response =>
           response.response
-          ),
+        ),
         catchError(err => throwError(err)),
       );
   }

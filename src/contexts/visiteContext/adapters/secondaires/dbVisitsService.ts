@@ -24,36 +24,30 @@ export class DbVisitsService implements VisitsService {
 
     const saveFlashtoDb = new Promise<Remarque>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
-      const name = Date.now().toString() + Math.random().toString();
-      try {
-        db.then(realm => {
-          realm?.write(() => {
-            const newRemarque = realm.create<Remarque>('Remarque', {
-              tk: uuidv5(name, NAMESPACE)+"an"+ moment().valueOf(),
-              nbPhoto: data.images.length,
-              ds: data.commentaire,
-              photos: data.images,
-              ti: data.commentaire,
-              lvl: Number(data.type),
-              nt: false,
-              or: 0,
-              dt: formattedCurrentDateTime,
-              idcs: data.site_id,
-              levee: false,
-              ordreGlobal: 0,
-              fromObs: false,
-              completed: false,
-              unq: false,
-              tg: 1,
-            });
-            resolve(newRemarque);
+      db.then(realm => {
+        realm?.write(() => {
+          const newRemarque = realm.create<Remarque>('Remarque', {
+            tk: data.id,
+            nbPhoto: data.images.length,
+            ds: data.commentaire,
+            photos: data.images,
+            ti: data.commentaire,
+            lvl: Number(data.type),
+            nt: false,
+            or: 0,
+            idcs: data.site_id,
+            levee: false,
+            ordreGlobal: 0,
+            fromObs: false,
+            completed: false,
+            unq: false,
+            tg: 1,
           });
-        }).catch(error => {
-          reject(error);
+          resolve(newRemarque);
         });
-      } catch (error) {
+      }).catch(error => {
         reject(error);
-      }
+      });
     });
 
     return from(saveFlashtoDb);

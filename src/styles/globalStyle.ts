@@ -26,7 +26,7 @@ const globalStyle = StyleSheet.create({
         fontFamily: utils.fonts.AvenirMedium,
     },
     fontMedium13Style: {
-        fontSize: 13,
+        fontSize: 10,
         fontFamily: utils.fonts.AvenirMedium,
     },
     fontMediumDark15Style: {
@@ -54,8 +54,11 @@ const globalStyle = StyleSheet.create({
     },
     defaultImageStyle: {
         width: windowWidth / 12,
-        height: windowWidth / 20,
+        height: windowWidth / 19,
         resizeMode: 'contain',
     },
+    androidRipple: {
+        color: utils.colors.gris300
+      },
 })
 export default globalStyle;
