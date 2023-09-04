@@ -107,7 +107,7 @@ export const VisitFlashContainer = (props: Props) => {
 
   const saveVisit = () => {
     if (validVisit()) {
-      const flash = new VisitFlash(idRemarque!!, comment, images, levelId!!, selectedSite?.reference!!, 4);
+      const flash = new VisitFlash(idRemarque!!, comment, images, levelId!!, selectedSite?.reference!!, 3);
       Alert.alert('', t('etes_vous_sur_de_vouloir_sauvegarder')!, [
         {
           text: 'NON',

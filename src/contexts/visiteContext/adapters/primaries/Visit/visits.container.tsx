@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
 import React, { useEffect } from 'react';
 import * as utils from '@utils/index';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -13,7 +13,6 @@ import { VISIT_TYPE_TO_IMAGE_SOURCE } from '@common/constants';
 import { convertDate } from '@utils/utils';
 import { windowWidth } from '@styles/dimension';
 import { Profile } from '@contexts/profileContext/domain/entity/profile';
-import { Synchronisation } from '@contexts/synchronisationContext/domain/entity/Synchronisation';
 
 // Define the props for the component
 interface Props {
@@ -23,9 +22,9 @@ interface Props {
   loading: boolean;
   profile: Profile | undefined;
 
-  // functions
-  sendData: (accessToken: string, lastUpadet: string, synchronisation: Synchronisation) => void;
+  sendData: (accessToken: string, lastUpadet: string, visits: Visit[]) => void;
   loadVisits: () => void;
+
 }
 
 interface CustomAddNewVisitProps {
@@ -54,6 +53,7 @@ export const VisitsContainer = (props: Props): JSX.Element => {
 
   useEffect(() => {
   }, [props.visits]);
+
 
   const CustomAddNewVisit: React.FC<CustomAddNewVisitProps> = ({ title, icon, testID, screenToNavigate }) => {
     return (
@@ -105,8 +105,10 @@ export const VisitsContainer = (props: Props): JSX.Element => {
 
   // Handler for synchronizing data
   const handlSynchronisation = () => {
-    props.sendData(props.profile?.accessToken!, props.profile?.lastUpdate!)
+    props.sendData(props.profile?.accessToken!!, props.profile?.lastUpdate!!, props.visits!! )
   }
+
+
 
   // Render the main component
   return (
@@ -126,7 +128,7 @@ export const VisitsContainer = (props: Props): JSX.Element => {
             buttonColor={props.visits?.length ? utils.colors.primary : utils.colors.gray90}
             width={'30%'}
             textButton={t('txt.synchroniser')}
-            onPress={handlSynchronisation}
+            onPressButton={handlSynchronisation}
           />
         </View>
         <Divider />
@@ -151,12 +153,31 @@ export const VisitsContainer = (props: Props): JSX.Element => {
           <CustomAddNewVisit testID='img-hierarchical' title={t('txt.hierarchique')} icon={utils.images.addhierarchicalIcon} screenToNavigate='PreventionVisit' />
         </View>
       </View>
+      <View style={props.loading ? styles.loaderContainer: {}}>    
+        <ActivityIndicator
+          testID='activity-indicator'
+          size="large"
+          color={utils.colors.primary}
+          style={{display:props.loading ? 'flex' : 'none'}}
+        />
+      </View>
+
     </View>
   );
 };
 
 // Define styles for the component
 const styles = StyleSheet.create({
+  loaderContainer : {
+    position : "absolute",
+    flex : 1,
+    width : "100%",
+    height : "100%",
+    backgroundColor :'rgba(0, 0, 0, 0.5)' ,
+    justifyContent : 'center',
+    alignItems : 'center'
+  },
+ 
   visitDetailsStyle: {
     ...globalStyle.fontMedium13Style,
     ...globalStyle.fontCenterStyle,

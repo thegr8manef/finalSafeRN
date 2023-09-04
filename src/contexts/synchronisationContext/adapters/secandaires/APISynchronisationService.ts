@@ -8,6 +8,7 @@ import constants from '@common/constants';
 import { Site } from '@contexts/visiteContext/domain/entity/Site';
 import ws from '@config/ws';
 import { Synchronisation } from '@contexts/synchronisationContext/domain/entity/Synchronisation';
+import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
 import { Accompagnant } from '@contexts/visiteContext/domain/entity/Accompagnant';
 
 
@@ -31,7 +32,7 @@ export class APISynchronisationService implements SynchronisationService {
     const URL = ws.baseUrl + 'synchronization';
 
     return new ObservableAjaxHttpClient()
-      .post<SynchronisationDto>(URL, body, _headers)
+    .post<SynchronisationDto>(URL, body, _headers)
       .pipe(
         map(response => {
           const chanties: Site[] = SynchronisationMapper.mapperToChanties(response.response);
@@ -51,8 +52,7 @@ export class APISynchronisationService implements SynchronisationService {
       );
   }
 
-
-  sendData(accessToken: string, lastUpadet: string, synchronisation: Synchronisation): Observable<void> {
+  sendData(accessToken: string, lastUpadet: string, visits: Visit[]): Observable<void> {
     const _headers: Record<string, string> = {
 
       'Content-Type': 'application/json',
@@ -60,11 +60,10 @@ export class APISynchronisationService implements SynchronisationService {
     };
     const body: Record<string, string> = {
       lu: lastUpadet,
-      dt: JSON.stringify(SynchronisationMapper.mapperToVisitSynchronisation(synchronisation))
+      dt : JSON.stringify(SynchronisationMapper.mapToRemoteVisitDto(visits))
     };
 
     const URL = ws.baseUrl + 'synchronization';
-
     return new ObservableAjaxHttpClient()
       .put<SynchronisationDto>(URL, body, _headers)
       .pipe(

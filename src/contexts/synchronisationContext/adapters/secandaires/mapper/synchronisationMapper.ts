@@ -7,9 +7,15 @@ import { VisitSynchronisation } from '@contexts/synchronisationContext/domain/en
 import { ChantierDto } from '@contexts/visiteContext/adapters/secondaires/dto/chantier.dto';
 import { AccompagnantMapper } from '@contexts/visiteContext/adapters/secondaires/mapper/accompagnant.mapper';
 import { Accompagnant } from '@contexts/visiteContext/domain/entity/Accompagnant';
+import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
 
 export class SynchronisationMapper {
 
+
+  static mapperToAccompangnant(synchronisationDto: SynchronisationDto): Accompagnant[] {
+    return synchronisationDto.rd.au.map(acc => AccompagnantMapper.mapAccompagnant(acc));
+  }
+  
   static mapperToChanties(synchronisationDto: SynchronisationDto): Site[] {
     return [
       ...synchronisationDto.rd.cs.map(chantier => this.mapChantier(chantier, synchronisationDto)),
@@ -19,57 +25,58 @@ export class SynchronisationMapper {
     ];
   }
 
-  static mapperToAccompangnant(synchronisationDto: SynchronisationDto): Accompagnant[] {
-    return synchronisationDto.rd.au.map(acc => AccompagnantMapper.mapAccompagnant(acc));
-  }
-
-  static mapChantier(chantier: ChantierDto): Site {
+  static mapChantier(chantier: ChantierDto, synchronisationDto: SynchronisationDto): Site {
     const {
-      id, no, ac, co, sr, st, cp, ad, rq, ref, org, ol_name,
-      osc, pid, piid
+      id, no, ad, ac, cp, py, vl, st, ref, ol_name, osc, pid, piid, sr, org
     } = chantier;
 
+    
     return new Site(
       id.toString(),
       no,
       ad || '',
       -1,
       ac,
-      cp,
-      co,
-      '',
+      cp ? cp.toString() : '',
+      py || '',
+      vl || '',
       st,
-      -1,
-      rq,
+      synchronisationDto.rd.lus ? parseInt(synchronisationDto.rd.lus) : -1,
+      [],
       ref,
       ol_name,
-      osc === 'true', // Convert to boolean
+      osc,
       pid.toString(),
       piid.toString(),
       sr,
-      org.toString()
+      org || ''
     );
   }
 
   static mapSiteToChantier(site: Site): Chantier {
+    const {
+      id, name, address, accepted, code_postal, pays, ville, sr,
+      st, last_update, reference, region_name, osc, pid, piid, org
+    } = site;
+    
     return {
       id: site.id,
       no: site.name,
       ad: site.address,
       type: -1,
-      ac: site.accepted,
-      cp: site.code_postal,
+      ac: accepted,
+      cp: code_postal,
       co: '',
-      py: site.pays.toString(),
-      vl: site.ville.toString(),
-      sr: site.sr,
+      py: pays,
+      vl: ville,
+      sr,
       cd: '',
       st: site.st === undefined ? 0 : site.st,
       lu: site.last_update,
       ref: site.reference,
       org: site.org ? site.org.toString() : "",
       ol_name: site.region_name,
-      osc: site.osc.toString(),
+      osc: site.osc,
       pid: site.pid.toString(),
       piid: site.piid.toString(),
     } as Chantier;
@@ -96,6 +103,29 @@ export class SynchronisationMapper {
       vs: visites
     };
   }
+
+static mapToRemoteVisitDto(visits : Visit[]) : VisitSynchronistaionDto{
+  const visites = visits.map((visit: Visit) => {
+    return {
+        tp: visit.tp,
+        tk: visit.tk,
+        cdcs: visit.cdc,
+        dt: visit.dt, 
+        rq: {
+            dt : visit.rq!![0].dt, 
+            ds : visit.rq!![0].ds,
+            tk : visit.rq!![0].tk,
+            lvl: visit.rq!![0].lvl,
+            nt : visit.rq!![0].nt,
+            md : []
+        }
+    };
+});
+
+      return {
+                vs: visites
+            };
+ }
 
 
 }

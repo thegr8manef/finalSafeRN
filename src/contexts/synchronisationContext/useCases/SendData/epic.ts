@@ -8,6 +8,8 @@ import { sendDataFailed, sendDataSucccess } from "./actions";
 import { of } from 'rxjs';
 import { loadData } from "../LoadData/actions";
 import { deleteVisit } from "@contexts/visiteContext/useCases/DeleteVisits/actions";
+import { LoadSites } from "@contexts/visiteContext/useCases/LoadSites/action";
+import { LoadVisits } from "@contexts/visiteContext/useCases/LoadVisits/action";
 
 
 export const sendDataEpic: Epic = (
@@ -24,25 +26,26 @@ export const sendDataEpic: Epic = (
 
     action$.pipe(
         ofType(SEND_DATA),
-        switchMap(action =>
-            synchronisationRepository.loadLastUpdateDate().pipe(
-                mergeMap((lastUpdate: string) =>
-                    synchronisationService.sendData(
-                        action.payload.accessToken,
-                        lastUpdate,
-                        action.payload.visitSynchronisation
-                    )
-                        .pipe(concatMap(() => [
+            switchMap(action =>
+                    synchronisationRepository.loadLastUpdateDate().pipe(
+                        mergeMap((lastUpdate : string) =>
+                            synchronisationService.sendData(
+                                action.payload.accessToken,
+                                lastUpdate,
+                                action.payload.visits
+                                )
+                                .pipe(concatMap(()=> [
 
-                            sendDataSucccess(),
-                            loadData(action.payload.accessToken, lastUpdate),
-                            deleteVisit()
-                        ]
+                                      sendDataSucccess(),
+                                      loadData(action.payload.accessToken, lastUpdate),
+                                      deleteVisit(),
+                                      LoadVisits()
+                                     ]
+                                ),
+                        catchError(error => of(sendDataFailed(error)))
+                            ),
                         ),
-                            catchError(error => of(sendDataFailed(error)))
-                        ),
-                ),
-                catchError(error => of(sendDataFailed(error)))
-            )
-        )
-    )
+        catchError(error => of(sendDataFailed(error)))
+                    )
+                )
+      )

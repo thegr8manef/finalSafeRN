@@ -11,12 +11,17 @@ import { Remarque } from '@common/adapters/secondaries/db/entity/Remarque';
 import { v5 as uuidv5 } from 'uuid';
 import { NAMESPACE } from '@common/constants';
 import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
+import CustomRemarque  from "@contexts/visiteContext/domain/entity/Remarque";
 import { RemarqueMapper } from './mapper/remarque.mapper';
-import CustomRemarque from "@contexts/visiteContext/domain/entity/Remarque";
+
 
 export class DbVisitsService implements VisitsService {
 
   SaveFlash(data: VisitFlash): Observable<Remarque> { // Update the return type to Observable<Remarque>
+  
+    const currentDateTime = moment();
+    const formattedCurrentDateTime = currentDateTime.format("YYYY/MM/DD HH:mm:ss");
+
     const saveFlashtoDb = new Promise<Remarque>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
       db.then(realm => {
@@ -56,38 +61,43 @@ export class DbVisitsService implements VisitsService {
       const db = ApplicationContext.getInstance().db();
       const name = Date.now().toString() + Math.random().toString();
       // Find the chantier based on createdRemarque.idcs
-      db.then((realm) => {
-        const user = realm.objects('User');
-        const chantier = realm
-          .objects('Chantier')
-          .filtered(`ref = "${createdRemarque.idcs}"`)[0];
-        realm?.write(() => {
-          const newVisit = realm.create<VisitDb>("Visit", {
-            // Map Visit properties from data
-            id: uuidv5(name, NAMESPACE),
-            dt: formattedCurrentDateTime,
-            dtc: formattedCurrentDateTime,
-            date: currentDateTimeInMillis,
-            timeStamp: currentDateTime.format("DD MMMM YYYY"),
-            chantier: chantier,
-            codeChantier: createdRemarque.idcs,
-            V_enCours: 0,
-            ordre: 0,
-            userId: user[0]?.id,
-            type: createdRemarque.lvl,
+    
+        db.then((realm) => {
+          const user = realm.objects('User');
+          const chantier = realm
+            .objects('Chantier')
+            .filtered(`ref = "${createdRemarque.idcs}"`)[0];
+          realm?.write(() => {
+            const newVisit = realm.create<VisitDb>("Visit", {
+              // Map Visit properties from data
+              id: this.generateUUID(name, NAMESPACE),
+              dt: formattedCurrentDateTime,
+              dtc: formattedCurrentDateTime,
+              date: currentDateTimeInMillis,
+              timeStamp: currentDateTime.format("DD MMMM YYYY"),
+              chantier: chantier,
+              codeChantier: createdRemarque.idcs,
+              V_enCours: 0,
+              ordre: 0,
+              userId: user[0]?.id,
+              type: createdRemarque.lvl,
+            });
+            if (newVisit.remarques) {
+              newVisit.remarques.push(createdRemarque);
+            }
+            resolve();
           });
-          if (newVisit.remarques) {
-            newVisit.remarques.push(createdRemarque);
-          }
-          resolve();
+        }).catch((error) => {
+          reject(error);
         });
-      }).catch((error) => {
-        reject(error);
-      });
+     
     });
 
     return from(saveVisitToDb);
   }
+
+
+  
 
   loadVisitsDetails(): Observable<Visit[]> {
     const LoadVisitDb = new Promise<Visit[]>((resolve, reject) => {
@@ -125,16 +135,31 @@ export class DbVisitsService implements VisitsService {
   deleteVisits(): Observable<void> {
     const LoadRemarqueDB = new Promise<void>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
-      db.then(realm => {
-        const objects = realm.objects('Visit');
-        realm.write(() => {
-          // Delete all items in the visit schema
-          realm.delete(objects);
-        });
-        resolve();
-      }).catch(error => reject(error))
+   
+        db.then(realm => {
+          const visits = realm.objects('Visit');
+          const remarques = realm.objects('Remarque');
+          realm.write(() => {
+            // Delete all items in the visit schema
+            realm.delete(visits);
+            realm.delete(remarques)
+          });
+          resolve();
+        }).catch(error => reject(error))
+          
+       
+      
     });
     return from(LoadRemarqueDB);
   }
+
+  private generateUUID(name : string, namespace : string) : string {
+    return uuidv5(name, namespace)+"an"+ moment().valueOf()
+  }
+
 }
+
+
+ 
+
 

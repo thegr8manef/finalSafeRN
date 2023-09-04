@@ -1,15 +1,15 @@
+import { Visit } from "@contexts/visiteContext/domain/entity/Visit";
 import { SEND_DATA, SEND_DATA_FAILED, SEND_DATA_SUCCESS, SendDataAction, SendDataActionSuccess } from "./actionTypes";
-import { Synchronisation } from "@contexts/synchronisationContext/domain/entity/Synchronisation";
 
 export const sendData = (_accessToken: string,
                          _lastupdate:string,
-                        _synchronisation : Synchronisation
+                        _visits : Visit[]
      ) : SendDataAction => ({
     type : SEND_DATA,
     payload : 
     {
         'accessToken': _accessToken,
-        'synchronisation' : _synchronisation,
+        'visits' : _visits,
         'lastUpdate': _lastupdate
     }
 })
