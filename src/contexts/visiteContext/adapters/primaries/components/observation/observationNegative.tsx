@@ -1,34 +1,40 @@
-import React from 'react'
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import * as utils from '@utils/index';
 
 interface Props {
-    status: boolean
-    onPress: () => void
+    status: boolean;
+    onPress: () => void;
 }
 export const ObservationNegative = (props: Props) => {
     const { t } = useTranslation();
     return (
-        <TouchableOpacity onPress={props.onPress} style={styles.container}>
+        <TouchableOpacity
+            testID="negative-observation-btn"
+            onPress={props.onPress}
+            style={styles.container}>
             <View style={styles.imageContent}>
                 <Image
+                    testID="negative-img-observation-btn"
                     source={utils.images.NegDisabledIcon}
                     style={props.status ? styles.activeLogo : styles.inactiveLogo}
                 />
             </View>
             <View style={styles.description}>
-                <Text style={props.status ? styles.activeText : styles.inactiveText}>{t('observation_negative')}</Text>
+                <Text style={props.status ? styles.activeText : styles.inactiveText}>
+                    {t('observation_negative')}
+                </Text>
             </View>
         </TouchableOpacity>
-    )
-}
+    );
+};
 const styles = StyleSheet.create({
     imageContent: {
-        flex: 2
+        flex: 2,
     },
     description: {
-        flex: 1
+        flex: 1,
     },
     inactiveLogo: {
         height: '40%',
