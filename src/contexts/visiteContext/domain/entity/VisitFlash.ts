@@ -3,13 +3,19 @@ import { Photo } from './Photo';
 export class VisitFlash {
 
   constructor(
+    private _id : string,
     private _commentaire: string,
     private _images: Photo[],
     private _level: number,
     private _site_id: string,
     private _type: number,
   ) { }
-
+  public get id(): string {
+    return this._id;
+  }
+  public set id(value: string) {
+    this._id = value;
+  }
   public get site_id(): string {
     return this._site_id;
   }
