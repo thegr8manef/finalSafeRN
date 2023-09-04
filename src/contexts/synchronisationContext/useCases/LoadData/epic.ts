@@ -31,9 +31,20 @@ export const loadDataEpic: Epic = (
             mergeMap((data: LoadDataResponse) => {
               // Use mergeMap to save the data and return the success action
               return synchronisationRepository.saveData(data.chanties).pipe(
-                map(() => {
+                mergeMap(() => {
                   console.log('Data saved successfully.');
-                  return loadDataSuccess();
+                  
+                  // Now, save accompagnant data
+                  return synchronisationRepository.saveAccompagnant(data.accompagnant).pipe(
+                    map(() => {
+                      console.log('Accompagnant data saved successfully.');
+                      return loadDataSuccess();
+                    }),
+                    catchError(error => {
+                      console.error('Error while saving accompagnant data:', error);
+                      return of(loadDataFailed(error));
+                    })
+                  );
                 }),
                 catchError(error => {
                   console.error('Error while saving data:', error);
