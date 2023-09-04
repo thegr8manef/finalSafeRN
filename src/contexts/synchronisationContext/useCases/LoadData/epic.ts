@@ -1,12 +1,11 @@
-import {Epic, StateObservable, ofType} from 'redux-observable';
-import {AppState} from '@redux/appState';
-import {SynchronisationService} from '../../domain/gateway/SynchronisationService';
-import {LOAD_DATA} from './actionTypes';
-import {map, switchMap, mergeMap, catchError} from 'rxjs/operators';
-import {loadDataFailed, loadDataSuccess} from './actions';
-import {of} from 'rxjs';
-import {SynchronisationRepository} from '../../domain/gateway/SynchronisationRepository';
-import {Site} from '@contexts/visiteContext/domain/entity/Site';
+import { Epic, StateObservable, ofType } from 'redux-observable';
+import { SynchronisationRepository } from '@contexts/synchronisationContext/domain/gateway/SynchronisationRepository';
+import { LoadDataResponse, SynchronisationService } from '@contexts/synchronisationContext/domain/gateway/SynchronisationService';
+import { AppState } from '@redux/appState';
+import { LOAD_DATA } from './actionTypes';
+import { map, switchMap, mergeMap, catchError } from 'rxjs/operators';
+import { loadDataFailed, loadDataSuccess } from './actions';
+import { of } from 'rxjs';
 
 export const loadDataEpic: Epic = (
   action$,
@@ -21,20 +20,38 @@ export const loadDataEpic: Epic = (
 ) =>
   action$.pipe(
     ofType(LOAD_DATA),
-    switchMap(action =>
-      synchronisationRepository.loadLastUpdateDate().pipe(
-        mergeMap((lastUpdateDate: string) =>
-          synchronisationService.loadData(action.payload, lastUpdateDate).pipe(
-            mergeMap((sites: Site[]) =>
-              synchronisationRepository.saveData(sites).pipe(
-                map(() => loadDataSuccess()),
-                catchError(error => of(loadDataFailed(error))),
-              ),
-            ),
-            catchError(error => of(loadDataFailed(error))),
-          ),
-        ),
-        catchError(error => of(loadDataFailed(error))),
-      ),
-    ),
+    switchMap(action => {
+      return synchronisationRepository.loadLastUpdateDate().pipe(
+        mergeMap((lastUpdateDate: string) => {
+          return synchronisationService.loadData(action.payload, lastUpdateDate).pipe(
+            mergeMap((data: LoadDataResponse) => {
+              // Use mergeMap to save the data and return the success action
+              return synchronisationRepository.saveData(data.chanties).pipe(
+                mergeMap(() => {
+
+                  // Now, save accompagnant data
+                  return synchronisationRepository.saveAccompagnant(data.accompagnant).pipe(
+                    map(() => {
+                      return loadDataSuccess();
+                    }),
+                    catchError(error => {
+                      return of(loadDataFailed(error));
+                    })
+                  );
+                }),
+                catchError(error => {
+                  return of(loadDataFailed(error));
+                })
+              );
+            }),
+            catchError(error => {
+              return of(loadDataFailed(error));
+            })
+          );
+        }),
+        catchError(error => {
+          return of(loadDataFailed(error));
+        })
+      );
+    })
   );

@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import * as utils from '@utils/index';
 import { VisitFlash } from '../../../domain/entity/VisitFlash';
-import { useTranslation } from 'react-i18next';
 import { Site } from '../../../domain/entity/Site';
 import { SiteInfo } from '../components/siteInfo/siteInfo';
 import { ObservationInfo } from '../components/observation/observationInfo';
 import { CommentInfo } from '../components/comment/commentInfo';
 import { PreviewImages } from '../components/images/previewImages';
-import { FooterVisitFlash } from '../components/footerVisitFlash';
+import { BottomFooter } from '../components/BottomFooter';
+import { chooseImage, launchCamera } from '@utils/utilsCamera';
+import { t } from 'i18next';
 import {
   StyleSheet,
   View,
@@ -17,7 +18,7 @@ import {
 import { Remarque } from '@common/adapters/secondaries/db/entity/Remarque';
 import { Photo } from '@contexts/visiteContext/domain/entity/Photo';
 import { v5 as uuidv5 } from 'uuid';
-import { NAMESPACE } from '@common/constants';
+import { CHARACTERS, NAMESPACE } from '@common/constants';
 
 interface Props {
   navigation: any;
@@ -32,33 +33,81 @@ interface Props {
   loadSites: () => void;
   navigationDrawer: any;
 }
+
 export const VisitFlashContainer = (props: Props) => {
 
-  const { t } = useTranslation();
   const [comment, setComment] = useState<string>('');
   const [idRemarque, setIdRemarque] = useState<string>();
   const [idVisits, setIdVisits] = useState<string>();
   const [levelId, setLevelId] = useState<number | null>(null);
   const [images, setImages] = useState<Photo[]>([]);
   const [selectedSite, setSelectedSite] = useState<Site | undefined>(undefined)
+  const content = [
+    { type: "image", source: utils.images.takePhotoIcon, onPress: () => { captureImage() /* Handle image press */ } },
+    { type: "image", source: utils.images.fileIcon, onPress: () => { chooseFile() /* Handle image press */ } },
+  ];
 
   useEffect(() => {
     props.loadSites();
     const name_id_remarque = Date.now().toString() + Math.random().toString();
     setIdRemarque(uuidv5(name_id_remarque, NAMESPACE))
-  
+
     const name_id_visits = Date.now().toString() + Math.random().toString();
     setIdVisits(uuidv5(name_id_visits, NAMESPACE))
   }, [])
 
 
+  function generateID() {
+    let ID = "";
+
+    for (let i = 0; i < 4; i++) {
+      for (let j = 0; j < 4; j++) {
+        const randomIndex = Math.floor(Math.random() * CHARACTERS.length);
+        ID += CHARACTERS[randomIndex];
+      }
+
+      if (i < 3) {
+        ID += "-";
+      }
+    }
+
+    return ID;
+  }
+
   const addImage = (image: Photo) => {
     setImages([...images, image]);
   };
 
+
+  const captureImage = async () => {
+    launchCamera()
+      .then((data) => {
+        if (
+          data.assets &&
+          data.assets.length > 0 &&
+          data.assets[0].uri
+        )
+          var image = new Photo(generateID(), data.assets[0].fileName, data.assets[0].uri, idRemarque, idVisits, false, 0, "test-id-formation", false, false, 0);
+        addImage(image!!);
+      })
+      .catch((error) => {
+        // Handle errors here
+      });
+  };
+
+  const chooseFile = () => {
+    chooseImage()
+      .then((data) => {
+        if (data.getParts()?.length > 0) {
+          var image = new Photo(generateID(), data.getParts()[0]?.fileName, data.getParts()[0]?.uri, idRemarque, idVisits, false, 0, "test-id-formation", false, false, 0);
+          addImage(image!!);
+        }
+      })
+  };
+
   const saveVisit = () => {
     if (validVisit()) {
-      const flash = new VisitFlash(idRemarque!!,comment, images, levelId!!, selectedSite?.reference!!, 4);
+      const flash = new VisitFlash(idRemarque!!, comment, images, levelId!!, selectedSite?.reference!!, 4);
       Alert.alert('', t('etes_vous_sur_de_vouloir_sauvegarder')!, [
         {
           text: 'NON',
@@ -91,21 +140,17 @@ export const VisitFlashContainer = (props: Props) => {
 
   return (
     <View style={styles.container}>
+
       <ScrollView contentContainerStyle={styles.scrollViewContainer}>
         <SiteInfo sites={props.sites} selectedSite={selectedSite} setSelectedSite={setSelectedSite} selectedIdSite={''} />
-
         <ObservationInfo onSave={(levelId) => {
           setLevelId(levelId)
         }} />
-
         <CommentInfo comment={comment} setComment={(comment: string) => setComment(comment)} />
-
-
         <PreviewImages images={images} />
-
       </ScrollView>
 
-      <FooterVisitFlash addImages={addImage} saveVisit={saveVisit} id_remarque={idRemarque!!} id_visits={idVisits!!} />
+      <BottomFooter confirmPress={saveVisit} confirmText={t('txt.sauvegarder.remarque')} content={content} />
 
     </View>
   );

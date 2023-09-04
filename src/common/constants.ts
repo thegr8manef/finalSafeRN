@@ -1,5 +1,5 @@
 
-import * as utils from '@utils';
+import * as utils from '@utils/index';
 import * as ImagePicker from 'react-native-image-picker';
 
 export default {
@@ -8,16 +8,16 @@ export default {
 };
 
 export const LANGUAGE_CONSTANTS = [
-  {label: 'Français', value: 'fr'},
-  {label: 'Néelandais', value: 'bl'},
-  {label: 'Polonais', value: 'pl'},
-  {label: 'Allemand', value: 'al'},
-  {label: 'Anglais', value: 'en'},
+  { label: 'Français', value: 'fr' },
+  { label: 'Néelandais', value: 'bl' },
+  { label: 'Polonais', value: 'pl' },
+  { label: 'Allemand', value: 'al' },
+  { label: 'Anglais', value: 'en' },
 ];
 
 export const NAMESPACE = '1b671a64-40d5-491e-99b0-da01ff1f3341'; // UUID of the "namespace"
-export const NAME = Date.now().toString() + Math.random().toString();
 
+export const NAME = Date.now().toString() + Math.random().toString();
 
 export const VISIT_TYPE_TO_IMAGE_SOURCE = {
   0: utils.images.visitpreventionIcon,
@@ -28,6 +28,8 @@ export const VISIT_TYPE_TO_IMAGE_SOURCE = {
   // Add more mappings for different types as needed
   default: utils.images.visitFlasIcon, // Default image for unknown types
 };
+
+export const CHARACTERS: string = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 export const IMAGE_OPTION: ImagePicker.CameraOptions = {
   mediaType: 'photo',
