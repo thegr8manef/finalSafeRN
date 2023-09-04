@@ -19,11 +19,10 @@ export class DbVisitsService implements VisitsService {
   SaveFlash(data: VisitFlash): Observable<Remarque> { // Update the return type to Observable<Remarque>
     const saveFlashtoDb = new Promise<Remarque>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
-      const name = Date.now().toString() + Math.random().toString();
       db.then(realm => {
         realm?.write(() => {
           const newRemarque = realm.create<Remarque>('Remarque', {
-            tk: uuidv5(name, NAMESPACE),
+            tk: data.id,
             nbPhoto: data.images.length,
             ds: data.commentaire,
             photos: data.images,

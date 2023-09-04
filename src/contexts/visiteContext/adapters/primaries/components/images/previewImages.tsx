@@ -2,9 +2,10 @@ import React from 'react'
 import { FlatList, Image, StyleSheet, Text, View } from 'react-native'
 import * as utils from '@utils/index';
 import { useTranslation } from 'react-i18next';
+import { Photo } from '@contexts/visiteContext/domain/entity/Photo';
 
 interface Props {
-  images: string[]
+  images: Photo
 }
 export const PreviewImages = (props: Props) => {
   const { t } = useTranslation();
@@ -23,7 +24,7 @@ export const PreviewImages = (props: Props) => {
           renderItem={({ item, index }) => (
             <Image
               testID='img'
-              source={{ uri: item }}
+              source={{ uri: item.path }}
               key={index}
               style={styles.image}
             />

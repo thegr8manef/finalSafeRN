@@ -12,7 +12,7 @@ type Props = {
 };
 // Custom header component
 const CustomHeader: React.FC<{ title: string }> = ({ title }) => (
-    <Text style={globalStyle.fontMediumDark15Style}>{title}</Text>
+    <Text style={globalStyle.fontMediumDark17Style}>{title}</Text>
 );
 
 // Function to create customized screen options

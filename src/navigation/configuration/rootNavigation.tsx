@@ -29,7 +29,7 @@ const RootNavigation = () => {
 
   const CustomHeaderButton = ({ buttonText }: { buttonText: string }) => (
     <TouchableOpacity onPress={() => handleNavigation()}>
-      <Text style={globalStyle.fontMediumDark14Style}>{t(buttonText)}</Text>
+      <Text style={globalStyle.fontMediumDark15Style}>{t(buttonText)}</Text>
     </TouchableOpacity>
   );
 

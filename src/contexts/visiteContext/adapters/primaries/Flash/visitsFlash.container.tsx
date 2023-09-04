@@ -6,7 +6,6 @@ import { SiteInfo } from '../components/siteInfo/siteInfo';
 import { ObservationInfo } from '../components/observation/observationInfo';
 import { CommentInfo } from '../components/comment/commentInfo';
 import { PreviewImages } from '../components/images/previewImages';
-import { Remarque } from '@common/adapters/secondaries/db/entity/Remarque';
 import { BottomFooter } from '../components/BottomFooter';
 import { chooseImage, launchCamera } from '@utils/utilsCamera';
 import { t } from 'i18next';
@@ -16,6 +15,10 @@ import {
   ScrollView,
   Alert,
 } from 'react-native';
+import { Remarque } from '@common/adapters/secondaries/db/entity/Remarque';
+import { Photo } from '@contexts/visiteContext/domain/entity/Photo';
+import { v5 as uuidv5 } from 'uuid';
+import { CHARACTERS, NAMESPACE } from '@common/constants';
 
 interface Props {
   navigation: any;
@@ -34,8 +37,10 @@ interface Props {
 export const VisitFlashContainer = (props: Props) => {
 
   const [comment, setComment] = useState<string>('');
+  const [idRemarque, setIdRemarque] = useState<string>();
+  const [idVisits, setIdVisits] = useState<string>();
   const [levelId, setLevelId] = useState<number | null>(null);
-  const [images, setImages] = useState<string[]>([]);
+  const [images, setImages] = useState<Photo[]>([]);
   const [selectedSite, setSelectedSite] = useState<Site | undefined>(undefined)
   const content = [
     { type: "image", source: utils.images.takePhotoIcon, onPress: () => { captureImage() /* Handle image press */ } },
@@ -44,13 +49,37 @@ export const VisitFlashContainer = (props: Props) => {
 
   useEffect(() => {
     props.loadSites();
+    const name_id_remarque = Date.now().toString() + Math.random().toString();
+    setIdRemarque(uuidv5(name_id_remarque, NAMESPACE))
+
+    const name_id_visits = Date.now().toString() + Math.random().toString();
+    setIdVisits(uuidv5(name_id_visits, NAMESPACE))
   }, [])
 
-  const addImage = (image: string) => {
+
+  function generateID() {
+    let ID = "";
+
+    for (let i = 0; i < 4; i++) {
+      for (let j = 0; j < 4; j++) {
+        const randomIndex = Math.floor(Math.random() * CHARACTERS.length);
+        ID += CHARACTERS[randomIndex];
+      }
+
+      if (i < 3) {
+        ID += "-";
+      }
+    }
+
+    return ID;
+  }
+
+  const addImage = (image: Photo) => {
     setImages([...images, image]);
   };
 
-  const captureImage = () => {
+
+  const captureImage = async () => {
     launchCamera()
       .then((data) => {
         if (
@@ -58,7 +87,8 @@ export const VisitFlashContainer = (props: Props) => {
           data.assets.length > 0 &&
           data.assets[0].uri
         )
-          addImage(data.assets[0].uri);
+          var image = new Photo(generateID(), data.assets[0].fileName, data.assets[0].uri, idRemarque, idVisits, false, 0, "test-id-formation", false, false, 0);
+        addImage(image!!);
       })
       .catch((error) => {
         // Handle errors here
@@ -69,14 +99,15 @@ export const VisitFlashContainer = (props: Props) => {
     chooseImage()
       .then((data) => {
         if (data.getParts()?.length > 0) {
-          addImage(data.getParts()[0]?.uri);
+          var image = new Photo(generateID(), data.getParts()[0]?.fileName, data.getParts()[0]?.uri, idRemarque, idVisits, false, 0, "test-id-formation", false, false, 0);
+          addImage(image!!);
         }
       })
   };
 
   const saveVisit = () => {
     if (validVisit()) {
-      const flash = new VisitFlash(comment, images, levelId, selectedSite?.reference, 4);
+      const flash = new VisitFlash(idRemarque!!, comment, images, levelId!!, selectedSite?.reference!!, 4);
       Alert.alert('', t('etes_vous_sur_de_vouloir_sauvegarder')!, [
         {
           text: 'NON',
