@@ -49,7 +49,7 @@ export const DashboardHeader = (props: Props): JSX.Element => {
         <View style={styles.statics}>
           <Image source={utils.images.infoIcon} style={styles.ImageInfo} />
           <Text style={[styles.textStat, { fontSize: 12 }]}>
-            {t('txt.dashboard.message')} {props.dateDebut} {t('au')}
+            {t('txt.dashboard.message')} {props.dateDebut} {t('au')} {""}
             {props.dateFinale}
           </Text>
         </View>

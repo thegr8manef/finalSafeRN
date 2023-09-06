@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image, FlatList } from 'react-native';
+import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
 import React, { useEffect } from 'react';
 import * as utils from '@utils/index';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -13,8 +13,8 @@ import { VISIT_TYPE_TO_IMAGE_SOURCE } from '@common/constants';
 import { convertDate } from '@utils/utils';
 import { windowWidth } from '@styles/dimension';
 import { Profile } from '@contexts/profileContext/domain/entity/profile';
-import { Synchronisation } from '@contexts/synchronisationContext/domain/entity/Synchronisation';
 
+// Define the props for the component
 interface Props {
   navigation: Partial<StackNavigationProp<StackParamList>>;
   visits: Visit[] | undefined;
@@ -22,15 +22,16 @@ interface Props {
   loading: boolean;
   profile: Profile | undefined;
 
-  // functions
-  sendData: (accessToken: string, lastUpadet: string, synchronisation: Synchronisation) => void;
+  sendData: (accessToken: string, lastUpadet: string, visits: Visit[]) => void;
   loadVisits: () => void;
+
 }
 
 interface CustomAddNewVisitProps {
   title: string;
   icon: any; // You might need to specify the correct type for the icon,
-  testID?: string
+  testID?: string,
+  screenToNavigate: string
 }
 
 interface CustomVistList {
@@ -42,29 +43,33 @@ interface CustomVisitDetailsProps {
   value: number; // You might need to specify the correct type for the icon,
 }
 
+// Define the main component
 export const VisitsContainer = (props: Props): JSX.Element => {
 
+  // Load visits when the component mounts
   useEffect(() => {
     props.loadVisits();
   }, [])
 
-
   useEffect(() => {
   }, [props.visits]);
 
-  const CustomAddNewVisit: React.FC<CustomAddNewVisitProps> = ({ title, icon, testID }) => {
+
+  const CustomAddNewVisit: React.FC<CustomAddNewVisitProps> = ({ title, icon, testID, screenToNavigate }) => {
     return (
-      <View style={styles.visitContatiner}>
+      <TouchableOpacity
+        onPress={() => { props.navigation.navigate(screenToNavigate) }}
+        style={styles.visitContatiner}>
         <Image testID={testID} source={icon} style={styles.visitImageStyle} />
         <Text style={globalStyle.fontMediumDark15Style}>{title}</Text>
-      </View>
+      </TouchableOpacity>
     );
   };
 
   const CustomVisitOption: React.FC<CustomVisitDetailsProps> = ({ title, value }) => {
     return (
       <View style={flexBoxStyle.flexColumn}>
-        <Text style={[styles.visitDetailsStyle,flexBoxStyle.mT1]}>{value}</Text>
+        <Text style={[styles.visitDetailsStyle, flexBoxStyle.mT1]}>{value}</Text>
         <Text style={styles.visitDetailsStyle}>{title}</Text>
       </View>
     )
@@ -98,10 +103,14 @@ export const VisitsContainer = (props: Props): JSX.Element => {
     );
   };
 
+  // Handler for synchronizing data
   const handlSynchronisation = () => {
-    props.sendData(props.profile?.accessToken!, props.profile?.lastUpdate!)
+    props.sendData(props.profile?.accessToken!!, props.profile?.lastUpdate!!, props.visits!! )
   }
 
+
+
+  // Render the main component
   return (
     <View style={globalStyle.containerStyle}>
       <View style={styles.mainStyle}>
@@ -118,9 +127,9 @@ export const VisitsContainer = (props: Props): JSX.Element => {
             testID='sync-button'
             buttonColor={props.visits?.length ? utils.colors.primary : utils.colors.gray90}
             width={'30%'}
-            textButton={t('txt.synchroniser')} 
-            onPress={handlSynchronisation}
-            />
+            textButton={t('txt.synchroniser')}
+            onPressButton={handlSynchronisation}
+          />
         </View>
         <Divider />
         {props.visits?.length ? (
@@ -139,16 +148,36 @@ export const VisitsContainer = (props: Props): JSX.Element => {
       <Divider />
       <View style={globalStyle.containerStyle}>
         <View style={styles.visitTypesStyle}>
-          <CustomAddNewVisit testID='img-prevention' title={t('txt.prevention')} icon={utils.images.addPrevenationIcon} />
-          <CustomAddNewVisit testID='img-conformite' title={t('txt.conformite')} icon={utils.images.addConformite} />
-          <CustomAddNewVisit testID='img-hierarchical' title={t('txt.hierarchique')} icon={utils.images.addhierarchicalIcon} />
+          <CustomAddNewVisit testID='img-prevention' title={t('txt.prevention')} icon={utils.images.addPrevenationIcon} screenToNavigate='PreventionVisit' />
+          <CustomAddNewVisit testID='img-conformite' title={t('txt.conformite')} icon={utils.images.addConformite} screenToNavigate='PreventionVisit' />
+          <CustomAddNewVisit testID='img-hierarchical' title={t('txt.hierarchique')} icon={utils.images.addhierarchicalIcon} screenToNavigate='PreventionVisit' />
         </View>
       </View>
+      <View style={props.loading ? styles.loaderContainer: {}}>    
+        <ActivityIndicator
+          testID='activity-indicator'
+          size="large"
+          color={utils.colors.primary}
+          style={{display:props.loading ? 'flex' : 'none'}}
+        />
+      </View>
+
     </View>
   );
 };
 
+// Define styles for the component
 const styles = StyleSheet.create({
+  loaderContainer : {
+    position : "absolute",
+    flex : 1,
+    width : "100%",
+    height : "100%",
+    backgroundColor :'rgba(0, 0, 0, 0.5)' ,
+    justifyContent : 'center',
+    alignItems : 'center'
+  },
+ 
   visitDetailsStyle: {
     ...globalStyle.fontMedium13Style,
     ...globalStyle.fontCenterStyle,
@@ -177,6 +206,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     alignItems: 'center',
     marginBottom: 10,
+
   },
   visitImageStyle: {
     width: '65%',

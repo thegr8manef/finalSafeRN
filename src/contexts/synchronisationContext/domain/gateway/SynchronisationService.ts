@@ -1,10 +1,21 @@
-import {Observable} from 'rxjs';
-import {Site} from '@contexts/visiteContext/domain/entity/Site';
+import { Observable } from 'rxjs';
+import { Site } from '@contexts/visiteContext/domain/entity/Site';
 import { Synchronisation } from '../entity/Synchronisation';
+import { Accompagnant } from '@contexts/visiteContext/domain/entity/Accompagnant';
+import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
+
+
+export interface LoadDataResponse {
+  chanties: Site[];
+  accompagnant: Accompagnant[];
+}
+
 
 export interface SynchronisationService {
-  loadData(accessToken: string, lastUpadet: string): Observable<Site[]>;
+  
+  loadData(accessToken : string, lastUpadet: string): Observable<Site[]>;
+
   sendData( accessToken: string, 
-            lastUpadet: string,
-            synchronisation :Synchronisation): Observable<void>
+            lastUpadet : string,
+            visits     : Visit[]): Observable<void>
 }

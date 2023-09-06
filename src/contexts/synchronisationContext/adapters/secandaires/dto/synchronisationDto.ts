@@ -42,6 +42,13 @@ export interface SynchronisationDto {
       idass: number;
       ad: string;
     }[];
+    au: {
+      ac: boolean;
+      em: string;
+      fn: string;
+      id: number;
+      ln: string;
+    }[];
     lus: string;
   };
 }

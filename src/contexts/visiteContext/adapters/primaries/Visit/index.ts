@@ -11,31 +11,32 @@ import { SendDataActionTypes } from '@contexts/synchronisationContext/useCases/S
 import { sendData } from '@contexts/synchronisationContext/useCases/SendData/actions';
 import { Profile } from '@contexts/profileContext/domain/entity/profile';
 import { profileSelector } from '@contexts/profileContext/useCases/Login/selectors';
+import { loadingSendSelector } from '@contexts/synchronisationContext/useCases/SendData/selector';
 
 interface StateToPropsType {
-  visits: Visit[] | undefined;
-  error: string | undefined;
-  loading: boolean;
-  profile: Profile | undefined;
+  visits  : Visit[] | undefined;
+  error   : string | undefined;
+  loading : boolean;
+  profile : Profile | undefined;
 }
 interface DispatchToPropsType {
-  loadVisits: () => void;
-  sendData: (accessToken: string, lastUpadet: string, synchronisation: Synchronisation) => void;
+  loadVisits : () => void;
+  sendData   : (accessToken: string, lastUpadet: string, visits : Visit[]) => void;
   
 }
 
 const mapStateToProps = (state: AppState): StateToPropsType => ({
-  profile: profileSelector(state),
-  error: loadVisitsErrorSelector(state),
-  visits: loadVisitsSelector(state),
-  loading: loadingVisitsSelector(state),
+  profile : profileSelector(state),
+  error   : loadVisitsErrorSelector(state),
+  visits  : loadVisitsSelector(state),
+  loading : loadingVisitsSelector(state) || loadingSendSelector(state),
 
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => ({
   loadVisits: (): LoadVisitsActionDbTypes => dispatch(LoadVisits()),
-  sendData    : (accessToken : string, lastUpadet : string, synchronisation : Synchronisation): SendDataActionTypes  =>
-   dispatch(sendData(accessToken, lastUpadet, synchronisation)),
+  sendData    : (accessToken : string, lastUpadet : string, visits : Visit[]): SendDataActionTypes  =>
+   dispatch(sendData(accessToken, lastUpadet, visits)),
 
 
 });

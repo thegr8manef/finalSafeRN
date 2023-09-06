@@ -1,13 +1,15 @@
 import { AppState } from "@redux/appState";
-import {Epic, StateObservable, ofType} from 'redux-observable';
-import {switchMap, mergeMap, concatMap ,catchError} from 'rxjs/operators';
-import {SynchronisationService} from '../../domain/gateway/SynchronisationService';
-import {SynchronisationRepository} from '../../domain/gateway/SynchronisationRepository';
+import { Epic, StateObservable, ofType } from 'redux-observable';
+import { switchMap, mergeMap, concatMap, catchError } from 'rxjs/operators';
+import { SynchronisationService } from '../../domain/gateway/SynchronisationService';
+import { SynchronisationRepository } from '../../domain/gateway/SynchronisationRepository';
 import { SEND_DATA } from "./actionTypes";
 import { sendDataFailed, sendDataSucccess } from "./actions";
-import {of} from 'rxjs';
+import { of } from 'rxjs';
 import { loadData } from "../LoadData/actions";
 import { deleteVisit } from "@contexts/visiteContext/useCases/DeleteVisits/actions";
+import { LoadSites } from "@contexts/visiteContext/useCases/LoadSites/action";
+import { LoadVisits } from "@contexts/visiteContext/useCases/LoadVisits/action";
 
 
 export const sendDataEpic: Epic = (
@@ -16,13 +18,13 @@ export const sendDataEpic: Epic = (
     {
         synchronisationService,
         synchronisationRepository,
-      }: {
+    }: {
         synchronisationService: SynchronisationService;
         synchronisationRepository: SynchronisationRepository;
-      }
-) => 
+    }
+) =>
 
-      action$.pipe(
+    action$.pipe(
         ofType(SEND_DATA),
             switchMap(action =>
                     synchronisationRepository.loadLastUpdateDate().pipe(
@@ -30,13 +32,14 @@ export const sendDataEpic: Epic = (
                             synchronisationService.sendData(
                                 action.payload.accessToken,
                                 lastUpdate,
-                                action.payload.visitSynchronisation
+                                action.payload.visits
                                 )
                                 .pipe(concatMap(()=> [
 
                                       sendDataSucccess(),
                                       loadData(action.payload.accessToken, lastUpdate),
-                                     deleteVisit()
+                                      deleteVisit(),
+                                      LoadVisits()
                                      ]
                                 ),
                         catchError(error => of(sendDataFailed(error)))

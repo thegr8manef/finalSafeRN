@@ -20,8 +20,10 @@ import { VisitsPage } from '@contexts/visiteContext/adapters/primaries/Visit';
 
 // Create a Drawer navigator
 const Drawer = createDrawerNavigator();
-
-export const HomeNavigation = () => {
+interface Props {
+  navigation: any;
+}
+export const HomeNavigation = (props: Props) => {
   // Define types for screen options
   type ScreenOptionsProps = {
     titleKey: string;
@@ -44,7 +46,8 @@ export const HomeNavigation = () => {
   });
 
   const headerRightContent = (
-    <TouchableOpacity>
+    <TouchableOpacity
+    onPress={() => props.navigation.navigate('visit.flash')}>
       <Image
         style={styles.flashIcon}
         source={utils.images.dashboardFlashIcon}
