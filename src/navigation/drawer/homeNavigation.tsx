@@ -17,6 +17,7 @@ import {
 } from 'react-native';
 import { LocalProfilePage } from '@contexts/profileContext/adapters/primaries/LocalProfile';
 import { VisitsPage } from '@contexts/visiteContext/adapters/primaries/Visit';
+import { SettingsPage } from '@contexts/profileContext/adapters/primaries/Settings';
 
 // Create a Drawer navigator
 const Drawer = createDrawerNavigator();
@@ -102,7 +103,7 @@ export const HomeNavigation = (props: Props) => {
       />
       <Drawer.Screen
         name={'settings'}
-        component={DashboardPage}
+        component={SettingsPage}
         options={createScreenOptions({
           titleKey: 'txt.settings',
           drawerIconPath: utils.images.settingsIcon,

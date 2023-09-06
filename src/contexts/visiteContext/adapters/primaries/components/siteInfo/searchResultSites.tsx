@@ -3,8 +3,6 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next';
 import { Text, FlatList, View, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import * as utils from '@utils/index';
-import { flexBoxStyle } from '@styles/flexBoxStyle';
-
 interface Props {
     sites: Site[] | undefined
     onSelect: (site: Site) => void
