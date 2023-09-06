@@ -1,10 +1,10 @@
 import { AppState } from "@redux/appState";
 
 
-export const deleteErrorSelector = (appState: AppState): string | undefined => 
+export const deleteVisitsErrorSelector = (appState: AppState): string | undefined => 
   appState.visits.deleteVisits.error;
 
-export const loadingDeleteVisitsSelector = (appState: AppState): boolean =>
+export const deleteVisitsLoadingSelector = (appState: AppState): boolean =>
   appState.visits.deleteVisits.loading;
 
 

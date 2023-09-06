@@ -5,7 +5,7 @@ import { Store } from 'redux';
 import { AppState } from "@redux/appState";
 import { Photo } from '@contexts/visiteContext/domain/entity/Photo';
 import { saveFashErrorSelector, saveFlashLoadingSelector } from '@contexts/visiteContext/useCases/saveFlash/selectors';
-import { SaveFlash, SaveFlashSuccess } from '@contexts/visiteContext/useCases/saveFlash/action';
+import { SaveFlash } from '@contexts/visiteContext/useCases/saveFlash/action';
 import Remarque from '@contexts/visiteContext/domain/entity/Remarque';
 
 const deepFreeze = require('deep-freeze');

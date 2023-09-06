@@ -85,7 +85,7 @@ describe('dbVisitsService Tests', () => {
 
     beforeEach(() => {
         visitsService = new DbVisitsService()
-        flash = new VisitFlash("comment", images, 1, "site_id", 4);
+        flash = new VisitFlash('0',"comment", images, 1, "site_id", 4);
         synchronisationRepository = new DBSynchronisationRepository();
     })
 
