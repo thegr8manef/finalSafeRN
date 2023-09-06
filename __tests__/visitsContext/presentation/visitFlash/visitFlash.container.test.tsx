@@ -47,7 +47,7 @@ describe('VisitFlashContainer', () => {
 
 
     it('should show Alert when press save and levelId is null ', () => {
-        const { getByTestId } = render(<VisitFlashContainer loadSites={jest.fn} {...props} />)
+        const { getByTestId } = render(<VisitFlashContainer {...props} />)
 
         const saveButton = getByTestId('save-btn');
         fireEvent.press(saveButton)
@@ -56,7 +56,7 @@ describe('VisitFlashContainer', () => {
     });
 
     it('should press save and with positive levelId without comment ', () => {
-        const { getByTestId, queryByTestId } = render(<VisitFlashContainer loadSites={jest.fn} {...props} />)
+        const { getByTestId, queryByTestId } = render(<VisitFlashContainer  {...props} />)
 
 
         // Press Positive to select level id
@@ -72,7 +72,7 @@ describe('VisitFlashContainer', () => {
     });
 
     it('should press save and with positive levelId & comment ', () => {
-        const { getByTestId, queryByTestId } = render(<VisitFlashContainer loadSites={jest.fn} {...props} />)
+        const { getByTestId, queryByTestId } = render(<VisitFlashContainer {...props} />)
 
 
         // Press Positive to select level id
