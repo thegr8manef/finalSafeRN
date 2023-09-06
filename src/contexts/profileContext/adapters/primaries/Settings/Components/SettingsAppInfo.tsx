@@ -10,13 +10,14 @@ import { sendData } from '@contexts/synchronisationContext/useCases/SendData/act
 interface Props {
     visits: Visit[] | undefined;
     sendData: () => void;
+    lastUpdateDate : string;
 }
-export const AppInfo = (props: Props): JSX.Element => {
+export const SettingsAppInfo = (props: Props): JSX.Element => {
   return (
     <View style={styles.container}>
         <Image style={styles.logo_splash} source={utils.images.splashSLogo} />
         <Text style={styles.version_text}>{DeviceInfo.getVersion()} {'('} {DeviceInfo.getBuildNumber()} {')'}</Text>
-        <Text style={styles.last_update_text}>Last update on 05 September 2023 15:34</Text>
+        <Text style={styles.last_update_text}>{props.lastUpdateDate}</Text>
         <View style={styles.syncho_container}>
         <ButtonComponent
             testID='sync-button'

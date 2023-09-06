@@ -2,34 +2,36 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, ImageSourcePropType, A
 import React from 'react';
 import * as utils from '@utils/index';
 import { useHandler } from 'react-native-reanimated';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
-Sub_title : string;
-date_last_update? : string;
-rightIcon: ImageSourcePropType[];
+Subtitle : string;
+lastUpdateDate? : string;
+icon: ImageSourcePropType[];
 style_image: string[];
 notNull : boolean;
 onSelect: () => void;
 }
 export const ItemListContent= (props: Props): JSX.Element => {
+        const { t } = useTranslation();
     return (
  <TouchableOpacity style={styles.container} 
     onPress={() => props.onSelect() }>
                 {props.notNull ?  ( 
                 <>
-                    <Text style={styles.title}>{props.Sub_title}</Text>
+                    <Text style={styles.title}>{props.Subtitle}</Text>
                         <View style={{ flex: 0.5 }}>
-                            <Text style={styles.last_update}>Last update on</Text>
-                            <Text style={styles.last_update}>{props.date_last_update}</Text>
+                            <Text style={styles.last_update}>{t('txt.last.update.at')}</Text>
+                            <Text style={styles.last_update}>{props.lastUpdateDate}</Text>
                         </View>
                 </> )
                  : (
                 <>
-                    <Text style={styles. title_all_width}>{props.Sub_title}</Text>
+                    <Text style={styles. title_all_width}>{props.Subtitle}</Text>
                 </>) 
                 }
                 
-        {props.rightIcon.map((icons: ImageSourcePropType) => (
+        {props.icon.map((icons: ImageSourcePropType) => (
                <Image source={icons} style={props.style_image} />
               ))}
     </TouchableOpacity>
