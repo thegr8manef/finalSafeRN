@@ -32,6 +32,7 @@ describe('Photo', () => {
     };
 
     const photo = new Photo(
+       '1',
         "Test Photo",
         "/images/test.jpg",
         "12345",
