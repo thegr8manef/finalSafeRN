@@ -2,22 +2,22 @@
 import React from 'react'
 import { fireEvent, render } from '@testing-library/react-native';
 import { Site } from '@contexts/visiteContext/domain/entity/Site';
-import { Flash } from '@contexts/visiteContext/domain/entity/Flash';
 import { VisitFlashContainer } from '@contexts/visiteContext/adapters/primaries/Flash/visitsFlash.container';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { StackParamList } from '@navigConfig/navigation.types';
 import { Alert } from 'react-native';
+import { Remarque } from '@common/adapters/secondaries/db/entity/Remarque';
+import { VisitFlash } from '@contexts/visiteContext/domain/entity/VisitFlash';
 
 interface Props {
-    navigation: Partial<StackNavigationProp<StackParamList>>;
+    navigation: any;
     loadingVisits: boolean;
     errorVisits: string | undefined;
-    flash: Flash | undefined;
-    saveFlash: (data: Flash) => void;
+    flash: VisitFlash | undefined;
+    saveFlash: (data: VisitFlash) => void;
+    saveVisit: (data: Remarque) => void;
     error: string | undefined;
     sites: Site[] | null;
     loading: boolean;
-    LoadSites: () => void;
+    loadSites: () => void;
     navigationDrawer: any;
 }
 
@@ -32,16 +32,17 @@ describe('VisitFlashContainer', () => {
         errorVisits: undefined,
         flash: undefined,
         saveFlash: jest.fn(),
+        saveVisit: jest.fn(),
         error: undefined,
         sites: null,
         loading: true,
-        LoadSites: jest.fn(),
+        loadSites: jest.fn(),
         navigationDrawer: jest.fn(),
     };
 
     it('should render the component correctly', () => {
 
-        expect(render(<VisitFlashContainer loadSites={jest.fn} {...props} />)).toBeTruthy();
+        expect(render(<VisitFlashContainer {...props} />)).toBeTruthy();
     });
 
 
@@ -92,9 +93,9 @@ describe('VisitFlashContainer', () => {
         const saveCommentButton = queryByTestId('header-modal-right-button')
         expect(saveCommentButton).toBeTruthy()
         saveCommentButton && fireEvent.press(saveCommentButton)
-        
+
         // Add images
-        
+
         // Press Save
         const saveButton = getByTestId('save-btn');
         fireEvent.press(saveButton)
