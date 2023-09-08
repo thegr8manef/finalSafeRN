@@ -22,7 +22,7 @@
           }else{
             DateNow = props.lastUpDate
           }
-    const DATA = [
+    const SettingsListItem = [
       {
         title: t('txt.chantiers'),
         data:[
@@ -92,10 +92,9 @@
     ];
     return (
       <View style={styles.f1}>
-      {/* <SettingsAppInfo visits={props.visits} sendData={handlSynchronisation} lastUpdateDate={t('txt.last.update.at')+' '+DateNow} /> */}
   <SafeAreaView style={styles.container}>
           <SectionList
-            sections={DATA}
+            sections={SettingsListItem}
             keyExtractor={(item, index) => item.label + index}
             renderItem={({ item }) => (
               <TouchableOpacity onPress={()=>setSelectedItemID(item.id)}>
@@ -108,15 +107,10 @@
                         </View>
                           )}
                           <View style={{flex:0.2}}>
-{item.id===2 ||item.id===6 ||item.id===7  ?                  (       <Image
-                              style={styles.Image_arrow}
-                              source={item.icon}
-                              />):(
                                 <Image
                                 style={styles.Image}
                                 source={item.icon}
                                 />
-                              )}
                 </View>
               </View>
               </TouchableOpacity>
@@ -163,12 +157,6 @@
       Image:{
         width: 35,
         height: 30,
-        alignSelf: 'center',
-        resizeMode:'center',
-      },
-      Image_arrow:{
-        width: 10,
-        height: 20,
         alignSelf: 'center',
         resizeMode:'center',
       },
