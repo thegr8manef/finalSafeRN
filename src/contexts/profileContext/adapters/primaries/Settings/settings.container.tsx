@@ -28,8 +28,7 @@ export const SettingsContainer = (props: Props) => {
     const { t } = useTranslation();
     const [modalVisible, setModalVisible] = useState<boolean>(false);
     const [selectedItemID, setSelectedItemID] = useState<number>();
-    console.log("🚀 ~ file: settings.container.tsx:31 ~ SettingsContainer ~ selectedItemID02:", selectedItemID)
-
+    
     var DateNow: string;
     const handlSynchronisation = () => {
         props.sendData(props.profile?.accessToken!!, props.profile?.lastUpdate!!, props.visits!! )
