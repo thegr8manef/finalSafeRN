@@ -37,5 +37,8 @@ const images = {
   flashcon: require('../assets/img/Flash.png'),
   flashONIcon: require('../assets/img/flash_on.png'),
   flashOffIcon: require('../assets/img/flash_off.png'),
+  mediaSyncho: require('../assets/img/btn_synchroniser_photos_highlighted.png'),
+  synchoLogo: require('../assets/img/icn_synchroniser_parametres.png'),
+  arrow_right: require('../assets/img/arrow_right.png'),
 };
 export default images;

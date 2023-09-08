@@ -15,6 +15,7 @@ import {
 import { HeaderOption } from '@common/adapters/primaries/components/HeaderOption';
 import { PreventionVisitPage } from '@contexts/visiteContext/adapters/primaries/PreventionVisit';
 import globalStyle from '@styles/globalStyle';
+import { SettingsPage } from '@contexts/profileContext/adapters/primaries/Settings';
 
 const Stack = createStackNavigator<StackParamList>();
 
@@ -73,7 +74,7 @@ const RootNavigation = () => {
           titleKey: 'txt.new.visite.prevention',
         })
       } />
-
+      <Stack.Screen name="Settings" component={SettingsPage} />
     </Stack.Navigator>
   );
 };

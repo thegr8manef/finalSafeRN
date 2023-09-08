@@ -40,3 +40,5 @@ export const IMAGE_OPTION: ImagePicker.CameraOptions = {
   durationLimit: 30,
   saveToPhotos: true,
 };
+export const URL_POLICY : string = 'https://finalsafe.eiffage.com/politique-confidentialite';
+export const URL_NOTICE : string = 'https://finalsafe.eiffage.com/mentions-legales';

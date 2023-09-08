@@ -35,6 +35,7 @@
     "react-native-azure-ad": "^0.2.4",
     "react-native-camera": "^4.2.1",
     "react-native-chart-kit": "^6.12.0",
+    "react-native-device-info": "^10.9.0",
     "react-native-dropdown-picker": "^5.4.6",
     "react-native-fs": "^2.20.0",
     "react-native-gesture-handler": "^2.10.0",
