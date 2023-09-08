@@ -160,7 +160,7 @@
         color: utils.colors.black,
       },
       Image:{
-        backgroundColor:'blue',
+        flex:0.5,
         width: 30,
         height: 30,
         alignSelf: 'center'
