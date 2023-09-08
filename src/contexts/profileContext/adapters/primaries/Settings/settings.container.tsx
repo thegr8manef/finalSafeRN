@@ -10,7 +10,7 @@ import { Profile } from '@contexts/profileContext/domain/entity/profile';
 import { URL_NOTICE, URL_POLICY } from '@common/constants';
 import { SettingsAppInfo } from '../Settings/Components/SettingsAppInfo';
 import { LanguageModal } from '../Settings/Components/languageModal';
-import { SettingsItemsGroup } from './Components/SettingsItemGroup';
+import { SettingsContents } from './Components/SettingsContents';
 
 
 interface Props {
@@ -27,8 +27,8 @@ interface Props {
 export const SettingsContainer = (props: Props) => {
     const { t } = useTranslation();
     const [modalVisible, setModalVisible] = useState<boolean>(false);
-    const [selectedItemID, setSelectedItemID] = useState<number>();
-    
+    const [pressedItemID, setPressedItemID] = useState<number>();
+
     var DateNow: string;
     const handlSynchronisation = () => {
         props.sendData(props.profile?.accessToken!!, props.profile?.lastUpdate!!, props.visits!! )
@@ -45,9 +45,8 @@ export const SettingsContainer = (props: Props) => {
       const loadInBrowserNotice = () => {
         Linking.openURL(URL_NOTICE).catch(err => console.error("Couldn't load page", err));
       };
-
-       useEffect(() => {
-        switch(selectedItemID) { 
+      const onPressItem = (pressedItemID : number) => {
+        switch(pressedItemID) { 
           case 1: { 
             handlSynchronisation();
              break; 
@@ -80,14 +79,17 @@ export const SettingsContainer = (props: Props) => {
             break; 
           } 
        }
+      };
 
-       },[selectedItemID])
+       useEffect(() => {
+        onPressItem(pressedItemID!!)
+       },[pressedItemID])
 
   return (
     <View style={styles.f1}>
         <ScrollView style={styles.f1}>
           <SettingsAppInfo visits={props.visits} sendData={handlSynchronisation} lastUpdateDate={t('txt.last.update.at')+' '+DateNow} />
-          <SettingsItemsGroup lastUpDate={props.profile?.lastUpdate!!.toString()!!} selectedItemID={selectedItemID} setSelectedItemID={setSelectedItemID}  />
+          <SettingsContents lastUpDate={props.profile?.lastUpdate!!.toString()!!} pressedItemID={pressedItemID} setPressedItemID={setPressedItemID}  />
           <LanguageModal visible={modalVisible} onClose={() => setModalVisible(false)}/>
         </ScrollView>
     </View>
