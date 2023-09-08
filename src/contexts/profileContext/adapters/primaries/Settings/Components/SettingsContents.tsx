@@ -19,9 +19,9 @@ import { SettingsList } from './SettingsList';
     const { t } = useTranslation();
     return (
       <View style={styles.f1}>
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
           <SettingsList lastUpDate={props.lastUpDate} pressedItemID={pressedItemID} setPressedItemID={setPressedItemID} />
-        </SafeAreaView>
+        </View>
       </View>
     );
   };
