@@ -1,8 +1,7 @@
-  import { View, StyleSheet, SafeAreaView, Text, SectionList, TouchableOpacity, ImageSourcePropType } from 'react-native';
+  import { View, StyleSheet, SafeAreaView, Text, SectionList, TouchableOpacity, Image } from 'react-native';
   import React, { useState } from 'react';
   import { useTranslation } from 'react-i18next';
   import * as utils from '@utils/index';
-  import { Image } from 'react-native-svg';
 
 
   interface Props {
@@ -91,7 +90,6 @@
       ]
       },
     ];
-    const allIcons = DATA.flatMap(item => item.data.map(subItem => subItem.icon));
     return (
       <View style={styles.f1}>
       {/* <SettingsAppInfo visits={props.visits} sendData={handlSynchronisation} lastUpdateDate={t('txt.last.update.at')+' '+DateNow} /> */}
@@ -110,12 +108,15 @@
                         </View>
                           )}
                           <View style={{flex:0.2}}>
-                          {item.icon && (
-                            <Image
+{item.id===2 ||item.id===6 ||item.id===7  ?                  (       <Image
+                              style={styles.Image_arrow}
                               source={item.icon}
-                              style={styles.Image}
-                            />
-                          )}
+                              />):(
+                                <Image
+                                style={styles.Image}
+                                source={item.icon}
+                                />
+                              )}
                 </View>
               </View>
               </TouchableOpacity>
@@ -160,15 +161,16 @@
         color: utils.colors.black,
       },
       Image:{
-        flex:0.5,
-        width: 30,
+        width: 35,
         height: 30,
-        alignSelf: 'center'
+        alignSelf: 'center',
+        resizeMode:'center',
       },
       Image_arrow:{
         width: 10,
         height: 20,
-        alignSelf: 'center'
+        alignSelf: 'center',
+        resizeMode:'center',
       },
       Headertitle:{
         fontSize: 14,
