@@ -3,8 +3,7 @@ import * as utils from '@utils/index';
 import { StackParamList } from '@navigConfig/navigation.types';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Site } from '@contexts/visiteContext/domain/entity/Site';
-import { SiteInfo } from '../components/siteInfo/siteInfo';
-import { BottomFooter } from '../components/BottomFooter';
+
 import { t } from 'i18next';
 import {
     StyleSheet,
@@ -12,6 +11,8 @@ import {
     Alert,
     Text
 } from 'react-native';
+import { SiteInfo } from '../siteInfo/siteInfo';
+import { BottomFooter } from '../BottomFooter';
 
 interface Props {
     error: string | undefined;
@@ -21,7 +22,7 @@ interface Props {
     navigation: StackNavigationProp<StackParamList>;
 }
 
-export const PreventionVisitContainer = (props: Props) => {
+export const ConformityVisitContainer = (props: Props) => {
 
     const [selectedSite, setSelectedSite] = useState<Site | undefined>(undefined)
 
@@ -47,7 +48,8 @@ export const PreventionVisitContainer = (props: Props) => {
 
     return (
         <View style={styles.container}>
-            <Text>Prevention visit</Text>
+            <Text>conformity visit</Text>
+
         </View>
     );
 };

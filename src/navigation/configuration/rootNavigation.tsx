@@ -16,6 +16,8 @@ import { HeaderOption } from '@common/adapters/primaries/components/HeaderOption
 import { PreventionVisitPage } from '@contexts/visiteContext/adapters/primaries/PreventionVisit';
 import globalStyle from '@styles/globalStyle';
 import { SettingsPage } from '@contexts/profileContext/adapters/primaries/Settings';
+import { HierarchicalVisitPage } from '@contexts/visiteContext/adapters/primaries/components/HierarchicalVisit';
+import { ConformityVisitPage } from '@contexts/visiteContext/adapters/primaries/components/ConformityVisit';
 
 const Stack = createStackNavigator<StackParamList>();
 
@@ -72,6 +74,16 @@ const RootNavigation = () => {
       <Stack.Screen name="PreventionVisit" component={PreventionVisitPage} options={
         createScreenOptions({
           titleKey: 'txt.new.visite.prevention',
+        })
+      } />
+      <Stack.Screen name="HierarchicalVisit" component={HierarchicalVisitPage} options={
+        createScreenOptions({
+          titleKey: 'txt.new.visite.hiearchique',
+        })
+      } />
+      <Stack.Screen name="ConformityVisit" component={ConformityVisitPage} options={
+        createScreenOptions({
+          titleKey: 'txt.new.visite.conformité',
         })
       } />
       <Stack.Screen name="Settings" component={SettingsPage} />

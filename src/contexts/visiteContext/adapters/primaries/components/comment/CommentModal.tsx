@@ -8,6 +8,8 @@ interface Props {
   setComment: (text: string) => void;
   visible: boolean;
   onClose: () => void;
+  title: string;
+  label: string;
 }
 
 export const CommentModal = (props: Props) => {
@@ -29,7 +31,8 @@ export const CommentModal = (props: Props) => {
       visible={props.visible}>
       <View style={styles.container}>
         <HeaderModal
-          title={t('txt.commentaires.without.start')}
+          //title={t('txt.commentaires.without.start')}
+          title={props.title}
           leftLabel={t('txt.annuler')}
           rightLabel={t('txt.valider')!}
           onRightPress={() => saveComment()}
@@ -41,7 +44,7 @@ export const CommentModal = (props: Props) => {
           onChangeText={text => setComment(text)}
           value={comment}
           cursorColor={utils.colors.primary}
-          placeholder={t('txt.commentaires')!}
+          placeholder={props.label}
           keyboardType="web-search"
         />
       </View>

@@ -40,5 +40,7 @@ const images = {
   mediaSyncho: require('../assets/img/btn_synchroniser_photos_highlighted.png'),
   synchoLogo: require('../assets/img/icn_synchroniser_parametres.png'),
   arrow_right: require('../assets/img/arrow_right.png'),
+  date_picker: require('../assets/img/icn_date.png'),
+  arrow_down: require('../assets/img/arrow_down.png'),
 };
 export default images;

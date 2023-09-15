@@ -146,7 +146,7 @@ export const VisitFlashContainer = (props: Props) => {
         <ObservationInfo onSave={(levelId) => {
           setLevelId(levelId)
         }} />
-        <CommentInfo comment={comment} setComment={(comment: string) => setComment(comment)} />
+        <CommentInfo comment={comment} setComment={(comment: string) => setComment(comment)} title={t('txt.commentaires.without.start')} label={t('txt.commentaires')} />
         <PreviewImages images={images} />
       </ScrollView>
 

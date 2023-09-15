@@ -6,7 +6,9 @@ import { useTranslation } from "react-i18next";
 
 interface Props {
   comment: string
-  setComment: (comment: string) => void
+  setComment: (comment: string) => void;
+  title: string;
+  label:string;
 }
 export const CommentInfo = (props: Props) => {
   const { t } = useTranslation();
@@ -14,7 +16,7 @@ export const CommentInfo = (props: Props) => {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   return (
     <View style={styles.container}>
-      <Text>{t('txt.commentaires')} :</Text>
+      <Text>{props.label} :</Text>
       <Pressable
         testID="comment-input"
         style={styles.button}
@@ -31,9 +33,8 @@ export const CommentInfo = (props: Props) => {
         <Image testID="divider-img" source={utils.images.dividerIcon} style={styles.logoImage4} />
       </Pressable>
       <CommentModal key={'comment-modal'} visible={modalVisible} onClose={() => setModalVisible(false)}
-        comment={props.comment}
-        setComment={props.setComment}
-      />
+      comment={props.comment}
+      setComment={props.setComment} title={props.title} label={props.label}      />
     </View>
   )
 }

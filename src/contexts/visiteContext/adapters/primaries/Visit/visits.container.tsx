@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as utils from '@utils/index';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { StackParamList } from '@navigConfig/navigation.types';
@@ -13,6 +13,8 @@ import { VISIT_TYPE_TO_IMAGE_SOURCE } from '@common/constants';
 import { convertDate } from '@utils/utils';
 import { windowWidth } from '@styles/dimension';
 import { Profile } from '@contexts/profileContext/domain/entity/profile';
+import { VisitModal } from '../components/commonComponentsVisits/VisitModal';
+import { Site } from '@contexts/visiteContext/domain/entity/Site';
 
 // Define the props for the component
 interface Props {
@@ -21,9 +23,11 @@ interface Props {
   error: string | undefined;
   loading: boolean;
   profile: Profile | undefined;
+  sites: Site[] | null;
 
   sendData: (accessToken: string, lastUpadet: string, visits: Visit[]) => void;
   loadVisits: () => void;
+  loadSites: () => void;
 
 }
 
@@ -45,20 +49,48 @@ interface CustomVisitDetailsProps {
 
 // Define the main component
 export const VisitsContainer = (props: Props): JSX.Element => {
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [screenToNavigate, setscreenToNavigate] = useState<string>('');
+  const [title, settitle] = useState<string>('');
+
+  const changeTitle = () => {
+    if(screenToNavigate !== ''){
+switch(screenToNavigate){
+  case 'PreventionVisit': { 
+    settitle('txt.new.visite.prevention');
+    break; 
+  } 
+  case 'ConformityVisit': { 
+    settitle('txt.new.visite.conformité');
+    break; 
+  } 
+  case 'HierarchicalVisit': { 
+    settitle('txt.new.visite.hiearchique');
+    break; 
+  } 
+  default: {
+    break; 
+  } 
+}
+    }
+
+  }
 
   // Load visits when the component mounts
   useEffect(() => {
     props.loadVisits();
+    props.loadSites();
   }, [])
 
   useEffect(() => {
-  }, [props.visits]);
+    changeTitle();
+  }, [props.visits,screenToNavigate]);
 
 
   const CustomAddNewVisit: React.FC<CustomAddNewVisitProps> = ({ title, icon, testID, screenToNavigate }) => {
     return (
       <TouchableOpacity
-        onPress={() => { props.navigation.navigate(screenToNavigate) }}
+        onPress={() => { [setModalVisible(true),setscreenToNavigate(screenToNavigate)] }}
         style={styles.visitContatiner}>
         <Image testID={testID} source={icon} style={styles.visitImageStyle} />
         <Text style={globalStyle.fontMediumDark15Style}>{title}</Text>
@@ -102,6 +134,7 @@ export const VisitsContainer = (props: Props): JSX.Element => {
       </View>
     );
   };
+
 
   // Handler for synchronizing data
   const handlSynchronisation = () => {
@@ -149,9 +182,10 @@ export const VisitsContainer = (props: Props): JSX.Element => {
       <View style={globalStyle.containerStyle}>
         <View style={styles.visitTypesStyle}>
           <CustomAddNewVisit testID='img-prevention' title={t('txt.prevention')} icon={utils.images.addPrevenationIcon} screenToNavigate='PreventionVisit' />
-          <CustomAddNewVisit testID='img-conformite' title={t('txt.conformite')} icon={utils.images.addConformite} screenToNavigate='PreventionVisit' />
-          <CustomAddNewVisit testID='img-hierarchical' title={t('txt.hierarchique')} icon={utils.images.addhierarchicalIcon} screenToNavigate='PreventionVisit' />
+          <CustomAddNewVisit testID='img-conformite' title={t('txt.conformite')} icon={utils.images.addConformite} screenToNavigate='ConformityVisit' />
+          <CustomAddNewVisit testID='img-hierarchical' title={t('txt.hierarchique')} icon={utils.images.addhierarchicalIcon} screenToNavigate='HierarchicalVisit' />
         </View>
+        <VisitModal onClose={() => setModalVisible(false)} sites={props.sites} visible={modalVisible} title={title} NextStep={() => props.navigation.navigate(screenToNavigate)} />
       </View>
       <View style={props.loading ? styles.loaderContainer: {}}>    
         <ActivityIndicator
