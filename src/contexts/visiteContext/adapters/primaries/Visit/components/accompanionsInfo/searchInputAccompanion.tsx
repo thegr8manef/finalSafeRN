@@ -9,25 +9,13 @@ interface Props {
 }
 export const SearchInputAccompanion = (props: Props)=>{
     return(
-        <View>
-            <View style={styles.container}>
-            <View style={styles.filter}>
-                <Text style={styles.textFiletr}> {t('choisir_un_chantier')}</Text>
-                <View style={styles.btnFilter}>
-                    <Text style={styles.textFiletr}> {t('txt.mes.chantier')}</Text>
-                    <Image
-                        source={utils.images.filterArrowIcon}
-                        style={styles.filterIcon} />
-                </View>
-            </View>
-        </View>
         <View style={styles.filterContainer}>
                 <Image source={utils.images.searchIcon} style={styles.searchIcon} />
                 <TextInput
                     style={styles.input} value={props.keyword} onChangeText={props.searchSites}
                     placeholder={t('txt.filter')!}
                     cursorColor={utils.colors.primary} />
-            </View></View>
+            </View>
     )
 }
 

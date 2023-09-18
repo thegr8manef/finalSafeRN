@@ -12,11 +12,11 @@ import { Site } from '@contexts/visiteContext/domain/entity/Site';
 import { t } from 'i18next';
 interface Props {
     selectAccompanions : Site | undefined;
-    ShowListAccompanions: () => void;
+    ShowAddAccompanionsModal: () => void;
 }
-export const AccompanionsInput= (props: Props) => {
+export const AddAccompanionsInput= (props: Props) => {
     return (
-                <TouchableOpacity onPress={props.ShowListAccompanions} style={styles.ContainerInput}>
+                <TouchableOpacity onPress={props.ShowAddAccompanionsModal} style={styles.ContainerInput}>
 {props.selectAccompanions === undefined         ?           (<View style={styles.InputTextView}>
                         <Text style={styles.InputText}>{t('txt.selectionnez.accompagnat')}</Text>
                     </View>) : (
@@ -25,7 +25,7 @@ export const AccompanionsInput= (props: Props) => {
                     </View>
                     )}
                     <View style={styles.InputIconView}>
-                        <Image style={styles.Icon} source={utils.images.arrow_right}></Image>
+                        <Image style={styles.Icon} source={utils.images.btn_add}></Image>
                     </View>
                     </TouchableOpacity>
     );
@@ -35,8 +35,8 @@ const styles = StyleSheet.create({
     ContainerInput:{
         height:50,
         borderColor : utils.colors.gris100,
-        borderWidth: 2,
-        marginHorizontal:10,
+        borderTopWidth: 1,
+        borderBottomWidth: 1,
         flexDirection:'row',
         borderRadius:5,
         alignItems: 'center'
@@ -46,16 +46,15 @@ const styles = StyleSheet.create({
         marginStart:10,
         },
     Icon :{
-        width: 10,
-        height:20
+        width: '100%',
+        height:'100%'
     },
     InputText: {
-        color: utils.colors.black,
+        color: utils.colors.gris100,
         fontWeight:'400',
-        fontSize:17,
+        fontSize:15,
         },
     InputIconView :{
-    flex:0.1,
-    marginEnd: 10
+    flex:0.25,
     }
 });

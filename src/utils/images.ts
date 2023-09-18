@@ -42,5 +42,9 @@ const images = {
   arrow_right: require('../assets/img/arrow_right.png'),
   date_picker: require('../assets/img/icn_date.png'),
   arrow_down: require('../assets/img/arrow_down.png'),
+  btn_add: require('../assets/img/btn_add.png'),
+  icn_expand: require('../assets/img/icn_expand.png'),
+  icn_collapse: require('../assets/img/icn_collapse.png'),
+
 };
 export default images;

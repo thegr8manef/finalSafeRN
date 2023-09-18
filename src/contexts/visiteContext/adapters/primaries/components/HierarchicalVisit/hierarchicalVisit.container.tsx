@@ -16,6 +16,7 @@ import { WarringTextView } from '../../Visit/components/warringTextView';
 import { DatePicker } from '../../Visit/components/DatePicker';
 import { CommentInfo } from '../comment/commentInfo';
 import { AccompanionsSelect } from '../../Visit/components/accompanionsInfo/accompanionsSelect';
+import { BottomFooter } from '../BottomFooter';
 
 interface Props {
     error: string | undefined;
@@ -36,31 +37,19 @@ export const HierarchicalVisitContainer = (props: Props) => {
     }, [])
 
     const NextStep = () => {
-        if (validVisit()) {
-        }
+            props.navigation.navigate('CurrentVisit');
     }
-    const OpenDatePicker = async () =>{
-
-    }
-
-    const validVisit = (): boolean => {
-
-        if (selectedSite === undefined) {
-            Alert.alert('', t('txt.qr.code.empty')!);
-            return false
-        } else {
-            return true
-        }
-    };
+    console.log("🚀 ~ file: hierarchicalVisit.container.tsx:63 ~ HierarchicalVisitContainer ~ selectedSite005:", selectedSite)
 
     return (
         <View style={styles.container}>
-            <WarringTextView />
-            <AccompanionsInfo ShowListAccompanions={() => setSearchWithNameVisible(true)} />
+            <WarringTextView WarringTest={t('txt.completer.info')} />
+            <AccompanionsInfo ShowListAccompanions={() => setSearchWithNameVisible(true)} selectAccompanions={selectedSite} />
             <DatePicker />
             <CommentInfo comment={comment} setComment={(comment: string) => setComment(comment)} title={('txt.informations.complementaires')} label={t('txt.informations.complementaires')} />   
-            <AccompanionsSelect sites={props.sites} selectedSite={selectedSite} setSelectedSite={setSelectedSite} selectedIdSite={''} searchWithNameVisible={searchWithNameVisible} setSearchWithNameVisible={() => setSearchWithNameVisible(false)} />
+            <AccompanionsSelect sites={props.sites} selectedSite={selectedSite} setSelectedSite={setSelectedSite} selectedIdSite={''} searchWithNameVisible={searchWithNameVisible} setSearchWithNameVisible={() => setSearchWithNameVisible(false)}  />
             <View style={{flex:2}}></View>
+            <BottomFooter confirmText={t('txt.creez.la.visite')} confirmPress={()=> NextStep()} />
         </View>
     );
 };

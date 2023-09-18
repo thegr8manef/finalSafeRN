@@ -6,11 +6,13 @@ import {
     Alert,
     Text
 } from 'react-native';
-interface Props {}
+interface Props {
+    WarringTest: string;
+}
 export const WarringTextView= (props: Props) => {
     return (
             <View style={styles.warringContainer}>
-                <Text style={styles.warringText}>Fill in the information</Text>
+                <Text style={styles.warringText}>{props.WarringTest}</Text>
             </View>
     );
 };

@@ -6,5 +6,6 @@ export type StackParamList = {
   PreventionVisit: undefined;
   HierarchicalVisit: undefined;
   ConformityVisit: undefined;
+  CurrentVisit: undefined;
   Settings: undefined;
 };

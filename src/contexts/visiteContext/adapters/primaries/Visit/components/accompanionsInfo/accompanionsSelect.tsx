@@ -5,6 +5,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import * as utils from '@utils/index';
 import { SearchAccompanionWithNameModal } from './searchAccompanionWithNameModal';
 import { PreviewAccompanion } from './previewAccompanion';
+import { onChange } from 'react-native-reanimated';
+import { CommentModal } from '../../../components/comment/CommentModal';
 
 interface Props {
   sites: Site[] | null;
@@ -15,13 +17,11 @@ interface Props {
   setSearchWithNameVisible : (visible : boolean) => void;
 }
 export const AccompanionsSelect = (props: Props) => {
-
-
   return (
     <View style={styles.container}>
-      <PreviewAccompanion site={props.selectedSite} />
+      {/* <PreviewAccompanion site={props.selectedSite} /> */}
       <SearchAccompanionWithNameModal modalVisible={props.searchWithNameVisible} onClose={() => props.setSearchWithNameVisible(false)} sites={props.sites}
-        onSearch={(site: Site | undefined) => props.setSelectedSite(site)} />
+      onSearch={(site: Site | undefined) => props.setSelectedSite(site)} ShowAddAccompanionsModal={() => console.log('ff')} />
     </View>
   )
 }

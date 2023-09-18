@@ -6,12 +6,17 @@ import { Site } from '@contexts/visiteContext/domain/entity/Site';
 import { SearchResultAccompanion } from './searchResultAccompanion';
 import { HeaderModal } from '../../../components/HeaderModal';
 import { SearchInputAccompanion } from './searchInputAccompanion';
+import { WarringTextView } from '../warringTextView';
+import { AddAccompanionsInput } from './addAccompanionsInput';
+import { CommentInfo } from '../../../components/comment/commentInfo';
 
 interface Props {
   modalVisible: boolean;
   onClose: () => void;
   sites: Site[] | null;
   onSearch: (site: Site) => void;
+  ShowAddAccompanionsModal: () => void;
+
 
 }
 export const SearchAccompanionWithNameModal = (props: Props) => {
@@ -39,11 +44,14 @@ export const SearchAccompanionWithNameModal = (props: Props) => {
       transparent={false}
       visible={props.modalVisible}>
       <View style={styles.centeredView}>
-        <HeaderModal title={t('choisir_un_chantier')}  onLeftPress={props.onClose} leftLabel='back' onRightPress={onSelectSite} rightLabel='Confirm' />
+        <HeaderModal title={t('txt.accompagnats')}  onLeftPress={props.onClose} leftLabel='back' onRightPress={onSelectSite} rightLabel='Confirm' />
+        <WarringTextView WarringTest={t('txt.selectionnez.plusisieurs.accompagnat')} />
+        <AddAccompanionsInput selectAccompanions={selectedSite} ShowAddAccompanionsModal={props.ShowAddAccompanionsModal}  />
         <SearchInputAccompanion keyword={keyword} searchSites={searchSite} />
         <SearchResultAccompanion sites={sites} onSelect={(site: Site | undefined) => setSelectedSite(site)} />
       </View>
     </Modal>
+    
   );
 };
 
