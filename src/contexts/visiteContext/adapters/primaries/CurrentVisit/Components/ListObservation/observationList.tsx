@@ -5,23 +5,25 @@ import { t } from 'i18next';
 import { ObservationListItem } from './observationListItem';
 
 interface Props {
+  onClickObservation: () => void;
+  onClickObvLifted: () => void;
 
 }
 export const ObservationList = (props: Props) => {
-        return (
-          <View style={styles.container}>
-          <ObservationListItem title={'Observations'} listLenght={0} />
-          <ObservationListItem title={'Observations to be lifted'} listLenght={16} />
-          </View>
-        );
-    
+  return (
+    <View style={styles.container}>
+      <ObservationListItem title={t('txt_Observations')} listLenght={0} onClick={props.onClickObservation} />
+      <ObservationListItem title={t('txt.my.remarks')} listLenght={16} onClick={props.onClickObvLifted} />
+    </View>
+  );
+
 };
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection:'column',
-        flexWrap:'nowrap'
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    flexWrap: 'nowrap'
 
-    },
+  },
 
 });

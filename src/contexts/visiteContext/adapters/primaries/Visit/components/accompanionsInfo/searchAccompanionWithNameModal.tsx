@@ -44,14 +44,14 @@ export const SearchAccompanionWithNameModal = (props: Props) => {
       transparent={false}
       visible={props.modalVisible}>
       <View style={styles.centeredView}>
-        <HeaderModal title={t('txt.accompagnats')}  onLeftPress={props.onClose} leftLabel='back' onRightPress={onSelectSite} rightLabel='Confirm' />
+        <HeaderModal title={t('txt.accompagnats')} onLeftPress={props.onClose} leftLabel='back' onRightPress={onSelectSite} rightLabel='Confirm' />
         <WarringTextView WarringTest={t('txt.selectionnez.plusisieurs.accompagnat')} />
-        <AddAccompanionsInput selectAccompanions={selectedSite} ShowAddAccompanionsModal={props.ShowAddAccompanionsModal}  />
+        <AddAccompanionsInput selectAccompanions={selectedSite} ShowAddAccompanionsModal={props.ShowAddAccompanionsModal} />
         <SearchInputAccompanion keyword={keyword} searchSites={searchSite} />
         <SearchResultAccompanion sites={sites} onSelect={(site: Site | undefined) => setSelectedSite(site)} />
       </View>
     </Modal>
-    
+
   );
 };
 

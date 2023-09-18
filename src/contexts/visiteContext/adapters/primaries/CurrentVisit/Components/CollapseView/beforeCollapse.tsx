@@ -3,13 +3,13 @@ import { View, Text, TouchableOpacity, StyleSheet, Image, ImageSourcePropType } 
 import * as utils from '@utils/index';
 import { ButtonCollapse } from './buttonCollapse';
 interface Props {
-toggleCollapse : () => void;
+    toggleCollapse: () => void;
 }
 export const BeforeCollapse = (props: Props) => {
-        return (
-          <View style={styles.container}>
+    return (
+        <View style={styles.container}>
             <View>
-                <Image source={utils.images.addhierarchicalIcon} style={styles.image}/>
+                <Image source={utils.images.addhierarchicalIcon} style={styles.image} />
             </View>
             <View>
                 <Text style={styles.text}>Hierarchical Visit</Text>
@@ -19,32 +19,32 @@ export const BeforeCollapse = (props: Props) => {
             </View>
             <View></View>
             <ButtonCollapse toggleCollapse={props.toggleCollapse} stat={'expand'} />
-          </View>
-        );
-    
+        </View>
+    );
+
 };
 const styles = StyleSheet.create({
     container: {
         flex: 0.5,
-        flexDirection:'column'
+        flexDirection: 'column'
     },
     image: {
-        width:35,
-        height:35,
-        alignSelf:'center',
+        width: 35,
+        height: 35,
+        alignSelf: 'center',
         marginTop: 10,
     },
-    text:{
-        alignSelf:'center',
+    text: {
+        alignSelf: 'center',
         marginTop: 10,
-        fontWeight:'700',
-        fontSize:16,
+        fontWeight: '700',
+        fontSize: 16,
         color: utils.colors.black
     },
-    textDescription:{
-        alignSelf:'center',
+    textDescription: {
+        alignSelf: 'center',
         marginTop: 10,
-        fontSize:14,
+        fontSize: 14,
         color: utils.colors.gray700
     }
 });

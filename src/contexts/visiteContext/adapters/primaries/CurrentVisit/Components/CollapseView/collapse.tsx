@@ -9,30 +9,30 @@ interface Props {
 }
 export const Collapse = (props: Props) => {
     const [selectedSite, setSelectedSite] = useState<boolean>(false)
-    const toggleCollapse =()=>{
+    const toggleCollapse = () => {
         setSelectedSite(!selectedSite)
     }
 
-        return (
-          <View style={styles.container}>
-{selectedSite ? (            
-                    <View style={{flex:5}}>
-                        <AfterCollapse toggleCollapse={()=> toggleCollapse()} />
-                    </View>
-            ):( 
+    return (
+        <View style={styles.container}>
+            {selectedSite ? (
+                <View style={{ flex: 5 }}>
+                    <AfterCollapse toggleCollapse={() => toggleCollapse()} />
+                </View>
+            ) : (
                 <View style={styles.container}>
-                <BeforeCollapse toggleCollapse={() => toggleCollapse()} />
+                    <BeforeCollapse toggleCollapse={() => toggleCollapse()} />
                 </View>
             )
             }
-          </View>
-        );
-    
+        </View>
+    );
+
 };
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        flexDirection:'column',
+        flexDirection: 'column',
 
     },
 });
