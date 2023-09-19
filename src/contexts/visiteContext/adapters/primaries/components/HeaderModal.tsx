@@ -93,7 +93,7 @@ export const HeaderModal = (props: Props) => {
           <Text style={globalStyle.fontBoldDark15Style}>{props.leftLabel}</Text>
         </Pressable>
       </View> */}
-        <View>{renderLeftContent()}</View>
+      <View>{renderLeftContent()}</View>
       <View>
         <Text style={globalStyle.fontBoldDark15Style}>{props.title}</Text>
       </View>

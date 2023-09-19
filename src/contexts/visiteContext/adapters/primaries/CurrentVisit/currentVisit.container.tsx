@@ -7,6 +7,8 @@ import { BottomFooter } from '../components/BottomFooter';
 import { t } from 'i18next';
 import { ObservationToBeLiftedModal } from './Components/ListObservation/observationToBeLiftedModal';
 import { ObservationModal } from './Components/ListObservation/observationModal';
+import { observations, observationsToBeLifted } from "@utils/utils";
+
 interface Props {
 
 }
@@ -18,15 +20,15 @@ const content = [
 export const CurrentVisitContainer = (props: Props) => {
   const [observationToBeLiftedVisible, setObservationToBeLiftedVisible] = useState(false);
   const [observationVisible, setObservationVisible] = useState(false);
-
+  const ObservationToBeLiftedTitle = t('txt.my.remarks') +' '+'('+observationsToBeLifted.length.toString()+')';
 
   return (
     <View style={styles.container}>
       <Collapse />
-      <ObservationList onClickObservation={() => setObservationVisible(true)} onClickObvLifted={() => setObservationToBeLiftedVisible(true)} />
+      <ObservationList onClickObservation={() => setObservationVisible(true)} onClickObvLifted={() => setObservationToBeLiftedVisible(true)} NumObservation={observations.length} NumObservationTobeLifted={observationsToBeLifted.length} />
       <BottomFooter confirmPress={() => console.log('bottomButton')} confirmText={t('flash_alert_button')} content={content} />
-      <ObservationToBeLiftedModal visible={observationToBeLiftedVisible} onClose={() => setObservationToBeLiftedVisible(false)} title={t('txt.my.remarks')} />
-      <ObservationModal visible={observationVisible} onClose={() => setObservationVisible(false)} title={t('txt.title.ajout.observations')} />
+      <ObservationToBeLiftedModal visible={observationToBeLiftedVisible} onClose={() => setObservationToBeLiftedVisible(false)} title={ObservationToBeLiftedTitle} observation={observationsToBeLifted} />
+      <ObservationModal visible={observationVisible} onClose={() => setObservationVisible(false)} title={t('txt.title.ajout.observations')} observation={observations} />
     </View>
 
   );

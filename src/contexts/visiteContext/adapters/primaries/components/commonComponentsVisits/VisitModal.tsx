@@ -12,6 +12,7 @@ interface Props {
   NextStep: () => void;
   sites: Site[] | null;
   title: string;
+  selectedSite: string;
 }
 
 export const VisitModal = (props: Props) => {
@@ -38,12 +39,10 @@ const validVisit = (): boolean => {
         <HeaderModal
           title={t(title)}
           leftLabel={t('txt.annuler')}
-          rightLabel={''}
-          onRightPress={() => console.log('test')}
           onLeftPress={() => props.onClose()}
         />
-            <SiteInfo sites={props.sites} selectedSite={selectedSite} setSelectedSite={setSelectedSite} selectedIdSite={''} />
-            <BottomFooter confirmPress={props.NextStep} confirmText={t('txt.swivant')} />
+            <SiteInfo sites={props.sites} selectedSite={selectedSite} setSelectedSite={setSelectedSite} selectedIdSite={selectedSite} />
+            <BottomFooter confirmPress={props.NextStep} confirmText={t('txt.swivant')} contentText={selectedSite?.name } />
         </View>
     </Modal>
   );

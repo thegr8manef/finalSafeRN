@@ -1,24 +1,36 @@
 import React, { useState } from 'react';
-import { Modal, StyleSheet, View, TextInput, Alert } from 'react-native';
+import { Modal, StyleSheet, View, TextInput, Alert, Text, Image, Pressable, FlatList } from 'react-native';
 import * as utils from '@utils/index';
 import { useTranslation } from 'react-i18next';
 import { HeaderModal } from '../../../components/HeaderModal';
 import { WarringTextView } from '../../../Visit/components/warringTextView';
 import { SearchInputAccompanion } from '../../../Visit/components/accompanionsInfo/searchInputAccompanion';
+import { TypeSelectionSites } from '../../../components/siteInfo/TypeSelectionSites';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 interface Props {
     visible: boolean;
     onClose: () => void;
     title: string;
+    observation: any[]
 }
-
 export const ObservationModal = (props: Props) => {
     const { t } = useTranslation();
     const [keyword, setKeyword] = useState<string>('')
-    const searchSite = (keyword: string) => {
+    const [observations, setobservations] = useState<any[] | undefined>(undefined)
+
+    const searchObservation = (keyword: string) => {
         setKeyword(keyword)
-        //     const filtedSites = props.sites?.filter(site => site.name.indexOf(keyword) !== -1)
-        //     setSites(filtedSites)
+        const filtedObservations = props.observation?.filter(observation => observation.title.indexOf(keyword) !== -1)
+        setobservations(filtedObservations)
     }
+    type ItemProps = { title: string };
+
+    const Item = ({ title }: ItemProps) => (
+        <View style={styles.item}>
+            <Text style={styles.title_item}>{title}</Text>
+            <Image source={utils.images.btn_ajout} style={styles.btn_ajout} />
+        </View>
+    );
     return (
         <Modal
             testID="modal"
@@ -31,9 +43,26 @@ export const ObservationModal = (props: Props) => {
                     leftLabel={t('flash_alert_button')}
                     onLeftPress={() => props.onClose()}
                 />
-                <SearchInputAccompanion keyword={keyword} searchSites={searchSite} />
+                <SearchInputAccompanion keyword={keyword} searchSites={searchObservation} />
+                <View style={styles.btnFilter}>
+                    <Text style={styles.textFiletr}> {t('txt.conformité')}</Text>
+                    <Image
+                        source={utils.images.filterArrowIcon}
+                        style={styles.filterIcon} />
+                </View>
+                <FlatList
+                    data={props.observation}
+                    renderItem={({ item }) => <Item title={item.title} />}
+                    keyExtractor={item => item.id}
+                />
+                <Pressable style={styles.footer} onPress={() => console.log('clicked')}>
+                    <Image source={utils.images.btn_add_circle} style={styles.image_add} />
+                    <Text style={styles.text_add}>{t('ajouter_une_nouvelle_observation')}</Text>
+                </Pressable>
+
 
             </View>
+
         </Modal>
     );
 };
@@ -45,4 +74,64 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         shadowColor: '#000',
     },
+    title: {
+        color: utils.colors.gris200,
+        fontWeight: '700',
+        fontSize: 12,
+    },
+    textFiletr: {
+        color: utils.colors.textColor,
+    },
+    btnFilter: {
+        marginEnd: 15,
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+    },
+    filterIcon: {
+        width: 15,
+        height: 10,
+        marginHorizontal: 8,
+        top: 7,
+        resizeMode: 'stretch',
+    },
+    footer: {
+        backgroundColor: utils.colors.gray90,
+        height: 70,
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    },
+    image_add: {
+        width: 70,
+        height: 70,
+        alignSelf: 'center',
+        marginVertical: -35
+    },
+    text_add: {
+        fontSize: 17,
+        color: utils.colors.black,
+        marginVertical: 10,
+        fontWeight: '700'
+    },
+    item: {
+        width: '100%',
+        height: 60,
+        flex: 1,
+        borderBottomColor: utils.colors.gray90,
+        borderTopColor: utils.colors.gray90,
+        borderTopWidth: 1,
+        borderBottomWidth: 1,
+        flexDirection: 'row'
+    },
+    title_item: {
+        color: utils.colors.black,
+        flex: 3,
+        fontWeight: '700',
+        fontSize: 16,
+    },
+    btn_ajout: {
+        width: 20,
+        height: 20,
+        alignSelf: 'center',
+        marginEnd: 10
+    }
 });

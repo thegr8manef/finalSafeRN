@@ -47,6 +47,8 @@ const images = {
   icn_collapse: require('../assets/img/icn_collapse.png'),
   icn_delete: require('../assets/img/img_delete_default.png'),
   icn_edit: require('../assets/img/img_edit_default.png'),
-
+  btn_add_circle: require('../assets/img/btn_add_rq.png'),
+  btn_ajout: require('../assets/img/icn_ajout_obervation.png'),
+  back_left_arrow: require('../assets/img/back_left_arrow.png'),
 };
 export default images;

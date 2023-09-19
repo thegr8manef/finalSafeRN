@@ -9,6 +9,9 @@ import { SearchInputAccompanion } from './searchInputAccompanion';
 import { WarringTextView } from '../warringTextView';
 import { AddAccompanionsInput } from './addAccompanionsInput';
 import { CommentInfo } from '../../../components/comment/commentInfo';
+import { BottomFooter } from '../../../components/BottomFooter';
+import { ListAccoumpanions } from './ListAccompanions';
+import { accompanying } from "@utils/utils";
 
 interface Props {
   modalVisible: boolean;
@@ -24,6 +27,10 @@ export const SearchAccompanionWithNameModal = (props: Props) => {
   const [keyword, setKeyword] = useState<string>('')
   const [sites, setSites] = useState<Site[] | undefined>(undefined)
   const [selectedSite, setSelectedSite] = useState<Site | undefined>(undefined)
+  const [accoumpanionsVisible, setAccoumpanionsVisible] = useState(false);
+  const [selectedItems, setSelectedItems] = useState<string[]>([]);
+  console.log("🚀 ~ file: searchAccompanionWithNameModal.tsx:32 ~ SearchAccompanionWithNameModal ~ selectedItems:", selectedItems)
+
   const searchSite = (keyword: string) => {
     setKeyword(keyword)
     const filtedSites = props.sites?.filter(site => site.name.indexOf(keyword) !== -1)
@@ -46,9 +53,10 @@ export const SearchAccompanionWithNameModal = (props: Props) => {
       <View style={styles.centeredView}>
         <HeaderModal title={t('txt.accompagnats')} onLeftPress={props.onClose} leftLabel='back' onRightPress={onSelectSite} rightLabel='Confirm' />
         <WarringTextView WarringTest={t('txt.selectionnez.plusisieurs.accompagnat')} />
-        <AddAccompanionsInput selectAccompanions={selectedSite} ShowAddAccompanionsModal={props.ShowAddAccompanionsModal} />
+        <AddAccompanionsInput selectAccompanions={selectedItems} ShowAddAccompanionsModal={props.ShowAddAccompanionsModal} />
         <SearchInputAccompanion keyword={keyword} searchSites={searchSite} />
-        <SearchResultAccompanion sites={sites} onSelect={(site: Site | undefined) => setSelectedSite(site)} />
+        {/* <SearchResultAccompanion sites={sites} onSelect={(site: Site | undefined) => setSelectedSite(site)} /> */}
+        <ListAccoumpanions accompanying={accompanying} selectedItems={selectedItems} setSelectedItems={setSelectedItems} />
       </View>
     </Modal>
 

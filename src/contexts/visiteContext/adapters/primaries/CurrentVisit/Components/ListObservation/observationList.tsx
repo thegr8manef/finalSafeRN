@@ -7,13 +7,15 @@ import { ObservationListItem } from './observationListItem';
 interface Props {
   onClickObservation: () => void;
   onClickObvLifted: () => void;
+  NumObservation : number;
+  NumObservationTobeLifted : number;
 
 }
 export const ObservationList = (props: Props) => {
   return (
     <View style={styles.container}>
-      <ObservationListItem title={t('txt_Observations')} listLenght={0} onClick={props.onClickObservation} />
-      <ObservationListItem title={t('txt.my.remarks')} listLenght={16} onClick={props.onClickObvLifted} />
+      <ObservationListItem title={t('txt_Observations')} listLenght={props.NumObservation} onClick={props.onClickObservation} />
+      <ObservationListItem title={t('txt.my.remarks')} listLenght={props.NumObservationTobeLifted} onClick={props.onClickObvLifted} />
     </View>
   );
 

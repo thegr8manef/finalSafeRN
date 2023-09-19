@@ -52,6 +52,7 @@ export const VisitsContainer = (props: Props): JSX.Element => {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [screenToNavigate, setscreenToNavigate] = useState<string>('');
   const [title, settitle] = useState<string>('');
+  const [selectedSite, setselectedSite] = useState<string>('');
 
   const changeTitle = () => {
     if(screenToNavigate !== ''){
@@ -185,7 +186,7 @@ switch(screenToNavigate){
           <CustomAddNewVisit testID='img-conformite' title={t('txt.conformite')} icon={utils.images.addConformite} screenToNavigate='ConformityVisit' />
           <CustomAddNewVisit testID='img-hierarchical' title={t('txt.hierarchique')} icon={utils.images.addhierarchicalIcon} screenToNavigate='HierarchicalVisit' />
         </View>
-        <VisitModal onClose={() => setModalVisible(false)} sites={props.sites} visible={modalVisible} title={title} NextStep={() => props.navigation.navigate(screenToNavigate)} />
+        <VisitModal onClose={() => setModalVisible(false)} sites={props.sites} visible={modalVisible} title={title} NextStep={() => props.navigation.navigate(screenToNavigate)} selectedSite={selectedSite} />
       </View>
       <View style={props.loading ? styles.loaderContainer: {}}>    
         <ActivityIndicator
