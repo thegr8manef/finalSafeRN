@@ -5,14 +5,14 @@ import * as utils from '@utils/index';
 
 interface Props {
     keyword: string
-    searchSites: (keyword: string)=> void
+    searchAccompaying: (keyword: string)=> void
 }
 export const SearchInputAccompanion = (props: Props)=>{
     return(
         <View style={styles.filterContainer}>
                 <Image source={utils.images.searchIcon} style={styles.searchIcon} />
                 <TextInput
-                    style={styles.input} value={props.keyword} onChangeText={props.searchSites}
+                    style={styles.input} value={props.keyword} onChangeText={props.searchAccompaying}
                     placeholder={t('txt.filter')!}
                     cursorColor={utils.colors.primary} />
             </View>

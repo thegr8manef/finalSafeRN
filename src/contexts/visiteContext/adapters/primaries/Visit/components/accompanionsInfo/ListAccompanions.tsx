@@ -6,8 +6,8 @@ import { HeaderModal } from '../../../components/HeaderModal';
 import { WarringTextView } from '../../../Visit/components/warringTextView';
 interface Props {
     accompanying: any[];
-    selectedItems: string[];
-    setSelectedItems: (selectedItems: string[]) => void;
+    selectedItems: any[];
+    setSelectedItems: (selectedItems: any[]) => void;
 }
 
 export const ListAccoumpanions = (props: Props) => {

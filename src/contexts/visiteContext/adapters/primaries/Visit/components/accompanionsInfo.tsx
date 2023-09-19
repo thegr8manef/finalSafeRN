@@ -11,15 +11,17 @@ import { AccompanionsInput } from './accompanionsInputInfo';
 import { Site } from '@contexts/visiteContext/domain/entity/Site';
 import { t } from 'i18next';
 interface Props {
-    selectAccompanions : Site | undefined;
+    selectAccompanions : any[];
     ShowListAccompanions: () => void;
 }
 export const AccompanionsInfo= (props: Props) => {
     return (
             <View style={styles.Container}>
+                {/* this is the lable of input */}
                 <View style={styles.ContainerText}>
                     <Text style={styles.Text}>{t('txt.accompagnats')}</Text>
                 </View>
+                {/* this is the input container */}
                     <AccompanionsInput ShowListAccompanions={props.ShowListAccompanions} selectAccompanions={props.selectAccompanions} />
             </View>
     );

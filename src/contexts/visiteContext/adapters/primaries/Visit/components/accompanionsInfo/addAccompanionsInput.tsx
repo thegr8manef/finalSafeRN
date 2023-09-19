@@ -5,7 +5,8 @@ import {
     View,
     Alert,
     Text,
-    Image
+    Image,
+    Pressable
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Site } from '@contexts/visiteContext/domain/entity/Site';
@@ -16,22 +17,22 @@ interface Props {
 }
 export const AddAccompanionsInput = (props: Props) => {
     return (
-        <TouchableOpacity onPress={props.ShowAddAccompanionsModal} style={styles.ContainerInput}>
-            {props.selectAccompanions.length === 0  ? (<View style={styles.InputTextView}>
+        <Pressable onPress={props.ShowAddAccompanionsModal} style={styles.ContainerInput}>
+            {props.selectAccompanions.length === 0 ? (<View style={styles.InputTextView}>
                 <Text style={styles.InputText}>{t('txt.selectionnez.accompagnat')}</Text>
             </View>) : (
                 <View style={styles.InputTextView}>
-                    
-                        <Text style={styles.InputText}>
-                            {props.selectAccompanions.join(', ')}
-                        </Text>
-                
+
+                    <Text style={styles.InputText}>
+                        {props.selectAccompanions.join(', ')}
+                    </Text>
+
                 </View>
             )}
             <View style={styles.InputIconView}>
                 <Image style={styles.Icon} source={utils.images.btn_add}></Image>
             </View>
-        </TouchableOpacity>
+        </Pressable>
     );
 };
 

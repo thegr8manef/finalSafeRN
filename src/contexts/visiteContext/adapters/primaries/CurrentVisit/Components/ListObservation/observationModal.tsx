@@ -40,7 +40,7 @@ export const ObservationModal = (props: Props) => {
             <View style={styles.container}>
                 <HeaderModal
                     title={props.title}
-                    leftLabel={t('flash_alert_button')}
+                    leftLabel={t('flash_alert_button')!!}
                     onLeftPress={() => props.onClose()}
                 />
                 <SearchInputAccompanion keyword={keyword} searchSites={searchObservation} />

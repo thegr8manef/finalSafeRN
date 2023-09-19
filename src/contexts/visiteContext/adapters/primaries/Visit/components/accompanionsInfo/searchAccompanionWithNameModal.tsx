@@ -16,31 +16,28 @@ import { accompanying } from "@utils/utils";
 interface Props {
   modalVisible: boolean;
   onClose: () => void;
-  sites: Site[] | null;
-  onSearch: (site: Site) => void;
+  onSearch: (person: any[]) => void;
   ShowAddAccompanionsModal: () => void;
-
-
 }
 export const SearchAccompanionWithNameModal = (props: Props) => {
   const { t } = useTranslation();
   const [keyword, setKeyword] = useState<string>('')
-  const [sites, setSites] = useState<Site[] | undefined>(undefined)
   const [selectedSite, setSelectedSite] = useState<Site | undefined>(undefined)
   const [accoumpanionsVisible, setAccoumpanionsVisible] = useState(false);
-  const [selectedItems, setSelectedItems] = useState<string[]>([]);
+  const [selectedItems, setSelectedItems] = useState<any[]>([]);
+  const [accompanyings, setAccompanyings] = useState<any[]>([])
   console.log("🚀 ~ file: searchAccompanionWithNameModal.tsx:32 ~ SearchAccompanionWithNameModal ~ selectedItems:", selectedItems)
 
-  const searchSite = (keyword: string) => {
+  const searchAccompaying = (keyword: string) => {
     setKeyword(keyword)
-    const filtedSites = props.sites?.filter(site => site.name.indexOf(keyword) !== -1)
-    setSites(filtedSites)
+    const filtedAccompanyings = accompanying?.filter(person => person.Name.indexOf(keyword) !== -1)
+    setAccompanyings(filtedAccompanyings)
   }
-  const onSelectSite = () => {
-    if (!selectedSite) {
+  const onSelectAccompanying = () => {
+    if (selectedItems.length === 0) {
       Alert.alert('', t('txt.veuillez.choisir.chantier')!)
     } else {
-      props.onSearch(selectedSite)
+      props.onSearch(selectedItems)
       props.onClose()
     }
   }
@@ -51,12 +48,12 @@ export const SearchAccompanionWithNameModal = (props: Props) => {
       transparent={false}
       visible={props.modalVisible}>
       <View style={styles.centeredView}>
-        <HeaderModal title={t('txt.accompagnats')} onLeftPress={props.onClose} leftLabel='back' onRightPress={onSelectSite} rightLabel='Confirm' />
+        <HeaderModal title={t('txt.accompagnats')} onLeftPress={props.onClose} leftLabel='back' onRightPress={onSelectAccompanying} rightLabel='Confirm' />
         <WarringTextView WarringTest={t('txt.selectionnez.plusisieurs.accompagnat')} />
         <AddAccompanionsInput selectAccompanions={selectedItems} ShowAddAccompanionsModal={props.ShowAddAccompanionsModal} />
-        <SearchInputAccompanion keyword={keyword} searchSites={searchSite} />
+        <SearchInputAccompanion keyword={keyword} searchAccompaying={searchAccompaying} />
         {/* <SearchResultAccompanion sites={sites} onSelect={(site: Site | undefined) => setSelectedSite(site)} /> */}
-        <ListAccoumpanions accompanying={accompanying} selectedItems={selectedItems} setSelectedItems={setSelectedItems} />
+        {accompanyings.length === 0 ? (<ListAccoumpanions accompanying={accompanying} selectedItems={selectedItems} setSelectedItems={setSelectedItems} />) :(<ListAccoumpanions accompanying={accompanyings} selectedItems={selectedItems} setSelectedItems={setSelectedItems} />)}
       </View>
     </Modal>
 

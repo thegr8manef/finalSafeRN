@@ -8,7 +8,7 @@ interface Props {
     visible: boolean;
     onClose: () => void;
     title: string;
-    observation: any[]
+    observationToBeLifted: any[]
 }
 
 export const ObservationToBeLiftedModal = (props: Props) => {
@@ -39,12 +39,12 @@ export const ObservationToBeLiftedModal = (props: Props) => {
             <View style={styles.container}>
                 <HeaderModal
                     title={props.title}
-                    leftLabel={t('txt.annuler')}
+                    leftLabel={t('txt.annuler')!!}
                     onLeftPress={() => props.onClose()}
                 />
                 <WarringTextView WarringTest={t('txt.consult.or.raise.rq')} />
                 <FlatList
-                    data={props.observation}
+                    data={props.observationToBeLifted}
                     renderItem={({ item }) => <Item title={item.title} date={item.date} />}
                     keyExtractor={item => item.id}
                 />

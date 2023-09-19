@@ -9,19 +9,17 @@ import { onChange } from 'react-native-reanimated';
 import { CommentModal } from '../../../components/comment/CommentModal';
 
 interface Props {
-  sites: Site[] | null;
-  selectedSite: Site | undefined
-  setSelectedSite: (site: Site | undefined) => void
-  selectedIdSite: string;
+  setAccompanying: (accompagant: any[]) => void
+  selectedIdSite: string[];
   searchWithNameVisible: boolean;
   setSearchWithNameVisible : (visible : boolean) => void;
+  ShowAddAccompanionsModal:() => void;
 }
 export const AccompanionsSelect = (props: Props) => {
   return (
     <View style={styles.container}>
-      {/* <PreviewAccompanion site={props.selectedSite} /> */}
-      <SearchAccompanionWithNameModal modalVisible={props.searchWithNameVisible} onClose={() => props.setSearchWithNameVisible(false)} sites={props.sites}
-      onSearch={(site: Site | undefined) => props.setSelectedSite(site)} ShowAddAccompanionsModal={() => console.log('ff')} />
+      <SearchAccompanionWithNameModal modalVisible={props.searchWithNameVisible} onClose={() => props.setSearchWithNameVisible(false)}
+      onSearch={(accompagant: any[]) => props.setAccompanying(accompagant)} ShowAddAccompanionsModal={props.ShowAddAccompanionsModal} />
     </View>
   )
 }

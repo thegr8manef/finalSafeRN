@@ -16,7 +16,7 @@ export const Collapse = (props: Props) => {
     return (
         <View style={styles.container}>
             {selectedSite ? (
-                <View style={{ flex: 5 }}>
+                <View style={styles.container}>
                     <AfterCollapse toggleCollapse={() => toggleCollapse()} />
                 </View>
             ) : (
@@ -31,7 +31,7 @@ export const Collapse = (props: Props) => {
 };
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex:1,
         flexDirection: 'column',
 
     },
