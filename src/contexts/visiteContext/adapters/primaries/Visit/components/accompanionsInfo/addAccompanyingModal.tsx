@@ -1,17 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { View, Modal, StyleSheet, Alert, TextInput, Text } from 'react-native';
 import * as utils from '@utils/index';
 import { useTranslation } from 'react-i18next';
-import { Site } from '@contexts/visiteContext/domain/entity/Site';
-import { SearchResultAccompanion } from './searchResultAccompanion';
 import { HeaderModal } from '../../../components/HeaderModal';
-import { SearchInputAccompanion } from './searchInputAccompanion';
 import { WarringTextView } from '../warringTextView';
-import { AddAccompanionsInput } from './addAccompanionsInput';
-import { CommentInfo } from '../../../components/comment/commentInfo';
-import { BottomFooter } from '../../../components/BottomFooter';
-import { ListAccoumpanions } from './ListAccompanions';
-import { accompanying } from "@utils/utils";
+
 
 interface Props {
     modalVisible: boolean;

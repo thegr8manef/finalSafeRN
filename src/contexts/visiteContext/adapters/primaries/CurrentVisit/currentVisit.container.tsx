@@ -8,6 +8,7 @@ import { t } from 'i18next';
 import { ObservationToBeLiftedModal } from './Components/ListObservation/observationToBeLiftedModal';
 import { ObservationModal } from './Components/ListObservation/observationModal';
 import { observations, observationsToBeLifted } from "@utils/utils";
+import { useRoute } from '@react-navigation/native';
 
 interface Props {
 
@@ -21,10 +22,14 @@ export const CurrentVisitContainer = (props: Props) => {
   const [observationToBeLiftedVisible, setObservationToBeLiftedVisible] = useState(false);
   const [observationVisible, setObservationVisible] = useState(false);
   const ObservationToBeLiftedTitle = t('txt.my.remarks') +' '+'('+observationsToBeLifted.length.toString()+')';
+  const route = useRoute();
+  const { comments, addAccompanying, date } = route.params; // Access the parameters
+  console.log("🚀 ~ file: currentVisit.container.tsx:27 ~ CurrentVisitContainer ~ date:", date)
+  console.log("🚀 ~ file: currentVisit.container.tsx:27 ~ CurrentVisitContainer ~ addAccompanying:", addAccompanying)
 
   return (
     <View style={styles.container}>
-      <Collapse />
+      <Collapse site={'test'} accompagnatsList={addAccompanying} date={date} comment={comments} />
       <ObservationList onClickObservation={() => setObservationVisible(true)} onClickObvLifted={() => setObservationToBeLiftedVisible(true)} NumObservation={observations.length} NumObservationTobeLifted={observationsToBeLifted.length} />
       <BottomFooter confirmPress={() => console.log('bottomButton')} confirmText={t('flash_alert_button')} content={content} />
       <ObservationToBeLiftedModal visible={observationToBeLiftedVisible} onClose={() => setObservationToBeLiftedVisible(false)} title={ObservationToBeLiftedTitle} observationToBeLifted={observationsToBeLifted} />

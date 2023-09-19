@@ -5,6 +5,11 @@ import { ButtonCollapse } from './buttonCollapse';
 import { t } from 'i18next';
 interface Props {
     toggleCollapse: () => void;
+    site: string;
+    accompagnatsList: any[];
+    date:string;
+    comment:string;
+
 }
 export const AfterCollapse = (props: Props) => {
     return (
@@ -19,25 +24,25 @@ export const AfterCollapse = (props: Props) => {
                 <Text style={styles.textDescription}>Site</Text>
             </View>
             <View>
-                <Text style={styles.textSite}>Campus ESI - Atruim</Text>
+                <Text style={styles.textSite}>{props.site}</Text>
             </View>
             <View>
                 <Text style={styles.textDescription}>{t('txt.accompagnats')}</Text>
             </View>
             <View>
-                <Text style={styles.textDescription}></Text>
+                <Text style={styles.textSite}>{props.accompagnatsList.map((item) => item).join(', ')}</Text>
             </View>
             <View>
                 <Text style={styles.textDescription}>{t('txt.date.operation')}</Text>
             </View>
             <View>
-                <Text style={styles.textSite}>07 September 2023</Text>
+                <Text style={styles.textSite}>{props.date}</Text>
             </View>
             <View>
                 <Text style={styles.textDescription}>{t('txt.informations.complementaires')}</Text>
             </View>
             <View>
-                <Text style={styles.textSite}></Text>
+                <Text style={styles.textSite}>{props.comment}</Text>
             </View>
             <ButtonCollapse toggleCollapse={props.toggleCollapse} stat={'collapse'} />
         </View>

@@ -14,12 +14,14 @@ interface Props {
   searchWithNameVisible: boolean;
   setSearchWithNameVisible : (visible : boolean) => void;
   ShowAddAccompanionsModal:() => void;
+  selectedItems: any[];
+  setSelectedItems:(selectedItems : any[]) => void;
 }
 export const AccompanionsSelect = (props: Props) => {
   return (
     <View style={styles.container}>
       <SearchAccompanionWithNameModal modalVisible={props.searchWithNameVisible} onClose={() => props.setSearchWithNameVisible(false)}
-      onSearch={(accompagant: any[]) => props.setAccompanying(accompagant)} ShowAddAccompanionsModal={props.ShowAddAccompanionsModal} />
+      onSearch={(accompagant: any[]) => props.setAccompanying(accompagant)} ShowAddAccompanionsModal={props.ShowAddAccompanionsModal} selectedItems={props.selectedItems} setSelectedItems={props.setSelectedItems} />
     </View>
   )
 }

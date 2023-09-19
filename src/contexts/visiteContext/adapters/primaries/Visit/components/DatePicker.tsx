@@ -2,29 +2,32 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Text, Button, Platform, TouchableOpacity, Image } from 'react-native';
 import * as utils from '@utils/index';
 import DateTimePicker from '@react-native-community/datetimepicker';
-
-export const DatePicker = () => {
+interface Props{
+date : Date
+setDate : (date : Date) => void
+}
+export const DatePicker = (props : Props) => {
   const [isPickerShow, setIsPickerShow] = useState(false);
-  const [date, setDate] = useState(new Date(Date.now()));
+  
+
 
   const showPicker = () => {
     setIsPickerShow(true);
   };
 
   const onChange = (event: any, value: React.SetStateAction<Date>) => {
-    setDate(value);
+    props.setDate(value);
     if (Platform.OS === 'android') {
       setIsPickerShow(false);
     }
   };
 
   // Format the date to "7 September 2023"
-  const formattedDate = date.toLocaleDateString('en-GB' ,{
+  const formattedDate = props.date.toLocaleDateString('en-GB' ,{
     day: 'numeric',
     month: 'long',
     year: 'numeric',
   });
-
   return (
     <View style={styles.container}>
       {/* The button that used to trigger the date picker */}
@@ -46,7 +49,7 @@ export const DatePicker = () => {
       {/* The date picker */}
       {isPickerShow && (
         <DateTimePicker
-          value={date}
+          value={props.date}
           mode={'date'}
           display={Platform.OS === 'ios' ? 'spinner' : 'default'}
           is24Hour={true}

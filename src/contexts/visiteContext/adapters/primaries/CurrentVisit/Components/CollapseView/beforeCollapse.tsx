@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image, ImageSourcePropType } from 'react-native';
 import * as utils from '@utils/index';
 import { ButtonCollapse } from './buttonCollapse';
+import { t } from 'i18next';
 interface Props {
     toggleCollapse: () => void;
+    site: string;
+    date: string;
 }
 export const BeforeCollapse = (props: Props) => {
     return (
@@ -15,7 +18,7 @@ export const BeforeCollapse = (props: Props) => {
                 <Text style={styles.text}>Hierarchical Visit</Text>
             </View>
             <View>
-                <Text style={styles.textDescription}>chantier test sept 21 - 15 September 2023</Text>
+                <Text style={styles.textDescription}>{t('txt.chantier')+' '+props.site+ ' - '+ props.date}</Text>
             </View>
             <View></View>
             <ButtonCollapse toggleCollapse={props.toggleCollapse} stat={'expand'} />

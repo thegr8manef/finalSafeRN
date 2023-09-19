@@ -35,18 +35,18 @@ function generateID() {
     let ID = "";
 
     for (let i = 0; i < 4; i++) {
-      for (let j = 0; j < 4; j++) {
-        const randomIndex = Math.floor(Math.random() * CHARACTERS.length);
-        ID += CHARACTERS[randomIndex];
-      }
+        for (let j = 0; j < 4; j++) {
+            const randomIndex = Math.floor(Math.random() * CHARACTERS.length);
+            ID += CHARACTERS[randomIndex];
+        }
 
-      if (i < 3) {
-        ID += "-";
-      }
+        if (i < 3) {
+            ID += "-";
+        }
     }
 
     return ID;
-  }
+}
 export const HierarchicalVisitContainer = (props: Props) => {
 
     const [selectedSite, setSelectedSite] = useState<Site | undefined>(undefined)
@@ -55,27 +55,37 @@ export const HierarchicalVisitContainer = (props: Props) => {
     const [comment, setComment] = useState<string>('');
     const [Accompanying, setAccompanying] = useState<string[]>([]);
     const [addAccompanying, setAddAccompanying] = useState<string>('');
-
+    const [date, setDate] = useState(new Date(Date.now()));
+    const [selectedItems, setSelectedItems] = useState<any[]>([]);
     useEffect(() => {
         props.loadSites();
     }, [])
     useEffect(() => {
         if (addAccompanying.length !== 0) {
-                accompanying.push({ id: generateID(), Name: addAccompanying, reference: '' })
-                console.log("🚀 ~ file: hierarchicalVisit.container.tsx:51 ~ useEffect ~ accompanying1020:", accompanying)
+            accompanying.push({ id: generateID(), Name: addAccompanying, reference: '' })
         }
     }, [addAccompanying])
 
     const NextStep = () => {
-        props.navigation.navigate('CurrentVisit');
+        const formattedDate = date.toLocaleDateString('en-GB', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+        });
+        props.navigation.navigate('CurrentVisit', {
+            comments: comment, // Replace with your comment data
+            addAccompanying: selectedItems, // Replace with your array data
+            date: formattedDate, //Date
+        });
+
     }
     return (
         <View style={styles.container}>
             <WarringTextView WarringTest={t('txt.completer.info')} />
             <AccompanionsInfo ShowListAccompanions={() => setSearchWithNameVisible(true)} selectAccompanions={Accompanying} />
-            <DatePicker />
-            <CommentInfo comment={comment} setComment={(comment: string) => setComment(comment)} title={('txt.informations.complementaires')} label={t('txt.informations.complementaires')} />
-            <AccompanionsSelect setAccompanying={setAccompanying} selectedIdSite={Accompanying} searchWithNameVisible={searchWithNameVisible} setSearchWithNameVisible={() => setSearchWithNameVisible(false)} ShowAddAccompanionsModal={() => setAddAccompanyingVisible(true)} />
+            <DatePicker date={date} setDate={setDate} />
+            <CommentInfo comment={comment} setComment={(comment: string) => setComment(comment)} title={t('txt.informations.complementaires')} label={t('txt.informations.complementaires')} />
+            <AccompanionsSelect setAccompanying={setAccompanying} selectedIdSite={Accompanying} searchWithNameVisible={searchWithNameVisible} setSearchWithNameVisible={() => setSearchWithNameVisible(false)} ShowAddAccompanionsModal={() => setAddAccompanyingVisible(true)} selectedItems={selectedItems} setSelectedItems={setSelectedItems} />
             <View style={{ flex: 2 }}></View>
             <BottomFooter confirmText={t('txt.creez.la.visite')} confirmPress={() => NextStep()} content={content} />
             <AddAccompanyingModal modalVisible={addAccompanyingVisible} onClose={() => setAddAccompanyingVisible(false)} accompanying={addAccompanying} setAccompanying={setAddAccompanying} label={addAccompanying} />

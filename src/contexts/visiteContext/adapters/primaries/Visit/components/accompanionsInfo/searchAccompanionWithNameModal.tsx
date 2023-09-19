@@ -18,15 +18,17 @@ interface Props {
   onClose: () => void;
   onSearch: (person: any[]) => void;
   ShowAddAccompanionsModal: () => void;
+  selectedItems: any[];
+  setSelectedItems:(selectedItems : any[]) => void;
 }
 export const SearchAccompanionWithNameModal = (props: Props) => {
   const { t } = useTranslation();
   const [keyword, setKeyword] = useState<string>('')
   const [selectedSite, setSelectedSite] = useState<Site | undefined>(undefined)
   const [accoumpanionsVisible, setAccoumpanionsVisible] = useState(false);
-  const [selectedItems, setSelectedItems] = useState<any[]>([]);
+  // const [selectedItems, setSelectedItems] = useState<any[]>([]);
   const [accompanyings, setAccompanyings] = useState<any[]>([])
-  console.log("🚀 ~ file: searchAccompanionWithNameModal.tsx:32 ~ SearchAccompanionWithNameModal ~ selectedItems:", selectedItems)
+  console.log("🚀 ~ file: searchAccompanionWithNameModal.tsx:32 ~ SearchAccompanionWithNameModal ~ selectedItems:", props.selectedItems)
 
   const searchAccompaying = (keyword: string) => {
     setKeyword(keyword)
@@ -34,10 +36,10 @@ export const SearchAccompanionWithNameModal = (props: Props) => {
     setAccompanyings(filtedAccompanyings)
   }
   const onSelectAccompanying = () => {
-    if (selectedItems.length === 0) {
+    if (props.selectedItems.length === 0) {
       Alert.alert('', t('txt.veuillez.choisir.chantier')!)
     } else {
-      props.onSearch(selectedItems)
+      props.onSearch(props.selectedItems)
       props.onClose()
     }
   }
@@ -50,10 +52,10 @@ export const SearchAccompanionWithNameModal = (props: Props) => {
       <View style={styles.centeredView}>
         <HeaderModal title={t('txt.accompagnats')} onLeftPress={props.onClose} leftLabel='back' onRightPress={onSelectAccompanying} rightLabel='Confirm' />
         <WarringTextView WarringTest={t('txt.selectionnez.plusisieurs.accompagnat')} />
-        <AddAccompanionsInput selectAccompanions={selectedItems} ShowAddAccompanionsModal={props.ShowAddAccompanionsModal} />
+        <AddAccompanionsInput selectAccompanions={props.selectedItems} ShowAddAccompanionsModal={props.ShowAddAccompanionsModal} />
         <SearchInputAccompanion keyword={keyword} searchAccompaying={searchAccompaying} />
         {/* <SearchResultAccompanion sites={sites} onSelect={(site: Site | undefined) => setSelectedSite(site)} /> */}
-        {accompanyings.length === 0 ? (<ListAccoumpanions accompanying={accompanying} selectedItems={selectedItems} setSelectedItems={setSelectedItems} />) :(<ListAccoumpanions accompanying={accompanyings} selectedItems={selectedItems} setSelectedItems={setSelectedItems} />)}
+        {accompanyings.length === 0 ? (<ListAccoumpanions accompanying={accompanying} selectedItems={props.selectedItems} setSelectedItems={props.setSelectedItems} />) :(<ListAccoumpanions accompanying={accompanyings} selectedItems={props.selectedItems} setSelectedItems={props.setSelectedItems} />)}
       </View>
     </Modal>
 

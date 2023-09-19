@@ -5,7 +5,10 @@ import { AfterCollapse } from './afterCollapse';
 import { BeforeCollapse } from './beforeCollapse';
 
 interface Props {
-
+    site: string;
+    accompagnatsList: any[];
+    date:string;
+    comment:string;
 }
 export const Collapse = (props: Props) => {
     const [selectedSite, setSelectedSite] = useState<boolean>(false)
@@ -17,11 +20,11 @@ export const Collapse = (props: Props) => {
         <View style={styles.container}>
             {selectedSite ? (
                 <View style={styles.container}>
-                    <AfterCollapse toggleCollapse={() => toggleCollapse()} />
+                    <AfterCollapse toggleCollapse={() => toggleCollapse()} site={props.site} accompagnatsList={props.accompagnatsList} date={props.date} comment={props.comment} />
                 </View>
             ) : (
                 <View style={styles.container}>
-                    <BeforeCollapse toggleCollapse={() => toggleCollapse()} />
+                    <BeforeCollapse toggleCollapse={() => toggleCollapse()} site={props.site} date={props.date} />
                 </View>
             )
             }
@@ -31,7 +34,7 @@ export const Collapse = (props: Props) => {
 };
 const styles = StyleSheet.create({
     container: {
-        flex:1,
+        flex:1.2,
         flexDirection: 'column',
 
     },
