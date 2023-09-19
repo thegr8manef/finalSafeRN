@@ -9,8 +9,12 @@ import { ObservationToBeLiftedModal } from './Components/ListObservation/observa
 import { ObservationModal } from './Components/ListObservation/observationModal';
 import { observations, observationsToBeLifted } from "@utils/utils";
 import { useRoute } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { StackParamList } from '@navigConfig/navigation.types';
+import { AddNewObservationModal } from './Components/ListObservation/addNewObservationModal';
 
 interface Props {
+  navigation: StackNavigationProp<StackParamList>;
 
 }
 const content = [
@@ -21,19 +25,19 @@ const content = [
 export const CurrentVisitContainer = (props: Props) => {
   const [observationToBeLiftedVisible, setObservationToBeLiftedVisible] = useState(false);
   const [observationVisible, setObservationVisible] = useState(false);
-  const ObservationToBeLiftedTitle = t('txt.my.remarks') +' '+'('+observationsToBeLifted.length.toString()+')';
+  const [addNewObservationVisible, setAddNewObservationVisible] = useState(false);
+  const [observation, setobservations] = useState<any[]>([]);
+  const ObservationToBeLiftedTitle = t('txt.my.remarks') + ' ' + '(' + observationsToBeLifted.length.toString() + ')';
   const route = useRoute();
   const { comments, addAccompanying, date } = route.params; // Access the parameters
-  console.log("🚀 ~ file: currentVisit.container.tsx:27 ~ CurrentVisitContainer ~ date:", date)
-  console.log("🚀 ~ file: currentVisit.container.tsx:27 ~ CurrentVisitContainer ~ addAccompanying:", addAccompanying)
-
   return (
     <View style={styles.container}>
       <Collapse site={'test'} accompagnatsList={addAccompanying} date={date} comment={comments} />
       <ObservationList onClickObservation={() => setObservationVisible(true)} onClickObvLifted={() => setObservationToBeLiftedVisible(true)} NumObservation={observations.length} NumObservationTobeLifted={observationsToBeLifted.length} />
       <BottomFooter confirmPress={() => console.log('bottomButton')} confirmText={t('flash_alert_button')} content={content} />
       <ObservationToBeLiftedModal visible={observationToBeLiftedVisible} onClose={() => setObservationToBeLiftedVisible(false)} title={ObservationToBeLiftedTitle} observationToBeLifted={observationsToBeLifted} />
-      <ObservationModal visible={observationVisible} onClose={() => setObservationVisible(false)} title={t('txt.title.ajout.observations')} observation={observations} />
+      <ObservationModal visible={observationVisible} onClose={() => setObservationVisible(false)} title={t('txt.title.ajout.observations')} observation={observations} setobservations={setobservations} filtedObservations={observation} AddNewObservationModal={() => setAddNewObservationVisible(true)} />
+      <AddNewObservationModal visible={addNewObservationVisible} onClose={() => setAddNewObservationVisible(false)} title={t('txt.title.ajout.observations')} />
     </View>
 
   );

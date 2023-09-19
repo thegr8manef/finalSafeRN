@@ -11,17 +11,19 @@ interface Props {
     visible: boolean;
     onClose: () => void;
     title: string;
-    observation: any[]
+    observation: any[];
+    filtedObservations: any[];
+    setobservations: (observation: string[]) => void
+    AddNewObservationModal : () => void;
+
 }
 export const ObservationModal = (props: Props) => {
     const { t } = useTranslation();
     const [keyword, setKeyword] = useState<string>('')
-    const [observations, setobservations] = useState<any[] | undefined>(undefined)
-
     const searchObservation = (keyword: string) => {
         setKeyword(keyword)
         const filtedObservations = props.observation?.filter(observation => observation.title.indexOf(keyword) !== -1)
-        setobservations(filtedObservations)
+        props.setobservations(filtedObservations)
     }
     type ItemProps = { title: string };
 
@@ -43,19 +45,27 @@ export const ObservationModal = (props: Props) => {
                     leftLabel={t('flash_alert_button')!!}
                     onLeftPress={() => props.onClose()}
                 />
-                <SearchInputAccompanion keyword={keyword} searchSites={searchObservation} />
+                <SearchInputAccompanion keyword={keyword} searchAccompaying={searchObservation} />
                 <View style={styles.btnFilter}>
                     <Text style={styles.textFiletr}> {t('txt.conformité')}</Text>
                     <Image
                         source={utils.images.filterArrowIcon}
                         style={styles.filterIcon} />
                 </View>
-                <FlatList
-                    data={props.observation}
-                    renderItem={({ item }) => <Item title={item.title} />}
-                    keyExtractor={item => item.id}
-                />
-                <Pressable style={styles.footer} onPress={() => console.log('clicked')}>
+                {props.filtedObservations.length === 0 ? (
+                    <FlatList
+                        data={props.observation}
+                        renderItem={({ item }) => <Item title={item.title} />}
+                        keyExtractor={item => item.id}
+                    />
+                ) : (
+                    <FlatList
+                        data={props.filtedObservations}
+                        renderItem={({ item }) => <Item title={item.title} />}
+                        keyExtractor={item => item.id}
+                    />
+                )}
+                <Pressable style={styles.footer} onPress={props.AddNewObservationModal}>
                     <Image source={utils.images.btn_add_circle} style={styles.image_add} />
                     <Text style={styles.text_add}>{t('ajouter_une_nouvelle_observation')}</Text>
                 </Pressable>
