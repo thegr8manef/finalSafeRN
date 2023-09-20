@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
-import { Modal, StyleSheet, View, TextInput, Alert, Text, Image, Pressable, FlatList } from 'react-native';
+import { Modal, StyleSheet, View } from 'react-native';
 import * as utils from '@utils/index';
 import { useTranslation } from 'react-i18next';
 import { HeaderModal } from '../../../components/HeaderModal';
-import { WarringTextView } from '../../../Visit/components/warringTextView';
-import { SearchInputAccompanion } from '../../../Visit/components/accompanionsInfo/searchInputAccompanion';
-import { TypeSelectionSites } from '../../../components/siteInfo/TypeSelectionSites';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { CommentInfo } from '../../../components/comment/commentInfo';
-import { AddNewObservationGroupItem, AddNewObservationType } from './addNewObservationGroupItem';
+import { AddNewObservationGroupItem } from './addNewObservationGroupItem';
 import { PreviewImages } from '../../../components/images/previewImages';
 import { Photo } from '@contexts/visiteContext/domain/entity/Photo';
 import { BottomFooter } from '../../../components/BottomFooter';
+import { chooseImage, launchCamera } from '@utils/utilsCamera';
 interface Props {
     visible: boolean;
     onClose: () => void;
@@ -22,21 +19,30 @@ export const AddNewObservationModal = (props: Props) => {
     const { t } = useTranslation();
     const [titleComment, setTitleComment] = useState<string>('');
     const [comment, setComment] = useState<string>('');
-    const [isClickedShow, setIsClickedShow] = useState(false);
+    const [isClickedConform, setIsClickedConform] = useState(true);
+    const [isClickedNonConform, setIsClickedNonConform] = useState(true);
+    const [isClickedSO, setIsClickedSO] = useState(true);
     const [images, setImages] = useState<Photo[]>([]);
     
     const content = [
-        { type: "image", source: utils.images.takePhotoIcon, onPress: () => { captureImage() /* Handle image press */ } },
-        { type: "image", source: utils.images.fileIcon, onPress: () => { chooseFile() /* Handle image press */ } },
+        { type: "image", source: utils.images.takePhotoIcon, onPress: () => { console.log('take photo') /* Handle image press */ } },
+        { type: "image", source: utils.images.fileIcon, onPress: () => { console.log('choose photo')/* Handle image press */ } },
       ];
 
-    const addImage = (image: Photo) => {
-        setImages([...images, image]);
+    const onCheckConform = () => {
+        setIsClickedConform(!isClickedConform);
+        setIsClickedNonConform(true);
+        setIsClickedSO(true);
     };
-
-
-    const OnCheckItem = () => {
-        setIsClickedShow(!isClickedShow);
+    const onCheckNonConform = () => {
+        setIsClickedConform(true);
+        setIsClickedNonConform(!isClickedNonConform);
+        setIsClickedSO(true);
+    };
+    const onCheckSO = () => {
+        setIsClickedConform(true);
+        setIsClickedNonConform(true);
+        setIsClickedSO(!isClickedSO);
     };
     return (
         <Modal
@@ -51,7 +57,7 @@ export const AddNewObservationModal = (props: Props) => {
                     onLeftPress={() => props.onClose()}
                 />
                 <CommentInfo comment={titleComment} setComment={(comment: string) => setTitleComment(comment)} title={t('txt.nouvelle.remarque')} label={t('txt.title')} />
-                <AddNewObservationGroupItem onCheckItem={() => { OnCheckItem() }} is_clicked={isClickedShow} />
+                <AddNewObservationGroupItem onCheckConform={() =>onCheckConform()} onCheckNonConform={() =>onCheckNonConform()} onCheckSO={() =>onCheckSO()} is_clicked_conforme={isClickedConform} is_clicked_non_conforme={isClickedNonConform} is_clicked_sans_objet={isClickedSO}   />
                 <CommentInfo comment={comment} setComment={(comment: string) => setComment(comment)} title={t('txt.commentaires.without.start')} label={t('txt.commentaires.without.start')} />
                 <PreviewImages images={images} />
                 <BottomFooter confirmPress={() => console.log('create observation')} confirmText={t('txt.creez.remarque')} content={content} />
@@ -70,11 +76,4 @@ const styles = StyleSheet.create({
         shadowColor: '#000',
     },
 });
-function captureImage() {
-    throw new Error('Function not implemented.');
-}
-
-function chooseFile() {
-    throw new Error('Function not implemented.');
-}
 
