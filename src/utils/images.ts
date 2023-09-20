@@ -50,5 +50,9 @@ const images = {
   btn_add_circle: require('../assets/img/btn_add_rq.png'),
   btn_ajout: require('../assets/img/icn_ajout_obervation.png'),
   back_left_arrow: require('../assets/img/back_left_arrow.png'),
+  icn_obs_conforme: require('../assets/img/icn_obs_conforme.png'),
+  icn_obs_non_conforme: require('../assets/img/icn_obs_non_conforme.png'),
+  icn_obs_sans_objet: require('../assets/img/icn_obs_sans_objet.png'),
+
 };
 export default images;

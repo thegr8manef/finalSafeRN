@@ -8,8 +8,6 @@ import { t } from 'i18next';
 import {
     StyleSheet,
     View,
-    Alert,
-    Text
 } from 'react-native';
 import { AccompanionsInfo } from '../../Visit/components/accompanionsInfo';
 import { WarringTextView } from '../../Visit/components/warringTextView';
@@ -19,7 +17,8 @@ import { AccompanionsSelect } from '../../Visit/components/accompanionsInfo/acco
 import { BottomFooter } from '../BottomFooter';
 import { AddAccompanyingModal } from '../../Visit/components/accompanionsInfo/addAccompanyingModal';
 import { accompanying } from "@utils/utils";
-import { CHARACTERS, NAME, NAMESPACE } from '@common/constants';
+import { CHARACTERS } from '@common/constants';
+import { useRoute } from '@react-navigation/native';
 
 interface Props {
     error: string | undefined;
@@ -57,6 +56,8 @@ export const HierarchicalVisitContainer = (props: Props) => {
     const [addAccompanying, setAddAccompanying] = useState<string>('');
     const [date, setDate] = useState(new Date(Date.now()));
     const [selectedItems, setSelectedItems] = useState<any[]>([]);
+    const route = useRoute();
+    const { selectedSiteName } = route.params; // Access the parameters
     useEffect(() => {
         props.loadSites();
     }, [])
@@ -76,8 +77,8 @@ export const HierarchicalVisitContainer = (props: Props) => {
             comments: comment, // Replace with your comment data
             addAccompanying: selectedItems, // Replace with your array data
             date: formattedDate, //Date
+            selectedSiteName: selectedSiteName, //Site Name
         });
-
     }
     return (
         <View style={styles.container}>

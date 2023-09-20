@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import * as utils from '@utils/index';
 import { Collapse } from './Components/CollapseView/collapse';
 import { ObservationList } from './Components/ListObservation/observationList';
@@ -29,10 +29,10 @@ export const CurrentVisitContainer = (props: Props) => {
   const [observation, setobservations] = useState<any[]>([]);
   const ObservationToBeLiftedTitle = t('txt.my.remarks') + ' ' + '(' + observationsToBeLifted.length.toString() + ')';
   const route = useRoute();
-  const { comments, addAccompanying, date } = route.params; // Access the parameters
+  const { comments, addAccompanying, date, selectedSiteName } = route.params; // Access the parameters
   return (
     <View style={styles.container}>
-      <Collapse site={'test'} accompagnatsList={addAccompanying} date={date} comment={comments} />
+      <Collapse site={selectedSiteName} accompagnatsList={addAccompanying} date={date} comment={comments} />
       <ObservationList onClickObservation={() => setObservationVisible(true)} onClickObvLifted={() => setObservationToBeLiftedVisible(true)} NumObservation={observations.length} NumObservationTobeLifted={observationsToBeLifted.length} />
       <BottomFooter confirmPress={() => console.log('bottomButton')} confirmText={t('flash_alert_button')} content={content} />
       <ObservationToBeLiftedModal visible={observationToBeLiftedVisible} onClose={() => setObservationToBeLiftedVisible(false)} title={ObservationToBeLiftedTitle} observationToBeLifted={observationsToBeLifted} />

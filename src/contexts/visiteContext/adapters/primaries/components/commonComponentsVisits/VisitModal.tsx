@@ -13,6 +13,7 @@ interface Props {
   sites: Site[] | null;
   title: string;
   selectedSite: string;
+  setSelectedSite :(site : string) => void
 }
 
 export const VisitModal = (props: Props) => {
@@ -26,9 +27,13 @@ const validVisit = (): boolean => {
       Alert.alert('', t('txt.qr.code.empty')!);
       return false
   } else {
+    props.setSelectedSite(selectedSite.name)
+    props.NextStep()
       return true
   }
 };
+console.log("🚀 ~ file: VisitModal.tsx:45 ~ VisitModal ~ selectedSite:", selectedSite?.name)
+
   return (
     <Modal
       testID="modal"
@@ -41,8 +46,8 @@ const validVisit = (): boolean => {
           leftLabel={t('txt.annuler')}
           onLeftPress={() => props.onClose()}
         />
-            <SiteInfo sites={props.sites} selectedSite={selectedSite} setSelectedSite={setSelectedSite} selectedIdSite={selectedSite} />
-            <BottomFooter confirmPress={props.NextStep} confirmText={t('txt.swivant')} contentText={selectedSite?.name } />
+            <SiteInfo sites={props.sites} selectedSite={selectedSite} setSelectedSite={setSelectedSite} selectedIdSite={selectedSite?.id!!} />
+            <BottomFooter confirmPress={() => validVisit()} confirmText={t('txt.swivant')} contentText={selectedSite?.name!!} />
         </View>
     </Modal>
   );

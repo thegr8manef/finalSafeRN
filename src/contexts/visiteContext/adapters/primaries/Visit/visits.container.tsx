@@ -54,28 +54,36 @@ export const VisitsContainer = (props: Props): JSX.Element => {
   const [title, settitle] = useState<string>('');
   const [selectedSite, setselectedSite] = useState<string>('');
 
-  const changeTitle = () => {
-    if(screenToNavigate !== ''){
-switch(screenToNavigate){
-  case 'PreventionVisit': { 
-    settitle('txt.new.visite.prevention');
-    break; 
-  } 
-  case 'ConformityVisit': { 
-    settitle('txt.new.visite.conformité');
-    break; 
-  } 
-  case 'HierarchicalVisit': { 
-    settitle('txt.new.visite.hiearchique');
-    break; 
-  } 
-  default: {
-    break; 
-  } 
+  const NextStep = () =>{
+    if(selectedSite !==''){
+    props.navigation.navigate(screenToNavigate, {
+      selectedSiteName: selectedSite,
+  });
 }
+  }
+  const changeTitle = () => {
+    if (screenToNavigate !== '') {
+      switch (screenToNavigate) {
+        case 'PreventionVisit': {
+          settitle('txt.new.visite.prevention');
+          break;
+        }
+        case 'ConformityVisit': {
+          settitle('txt.new.visite.conformité');
+          break;
+        }
+        case 'HierarchicalVisit': {
+          settitle('txt.new.visite.hiearchique');
+          break;
+        }
+        default: {
+          break;
+        }
+      }
     }
 
   }
+
 
   // Load visits when the component mounts
   useEffect(() => {
@@ -84,14 +92,15 @@ switch(screenToNavigate){
   }, [])
 
   useEffect(() => {
+    NextStep();
     changeTitle();
-  }, [props.visits,screenToNavigate]);
+  }, [props.visits, screenToNavigate,selectedSite]);
 
 
   const CustomAddNewVisit: React.FC<CustomAddNewVisitProps> = ({ title, icon, testID, screenToNavigate }) => {
     return (
       <TouchableOpacity
-        onPress={() => { [setModalVisible(true),setscreenToNavigate(screenToNavigate)] }}
+        onPress={() => { [setModalVisible(true), setscreenToNavigate(screenToNavigate)] }}
         style={styles.visitContatiner}>
         <Image testID={testID} source={icon} style={styles.visitImageStyle} />
         <Text style={globalStyle.fontMediumDark15Style}>{title}</Text>
@@ -139,10 +148,8 @@ switch(screenToNavigate){
 
   // Handler for synchronizing data
   const handlSynchronisation = () => {
-    props.sendData(props.profile?.accessToken!!, props.profile?.lastUpdate!!, props.visits!! )
+    props.sendData(props.profile?.accessToken!!, props.profile?.lastUpdate!!, props.visits!!)
   }
-
-
 
   // Render the main component
   return (
@@ -186,14 +193,14 @@ switch(screenToNavigate){
           <CustomAddNewVisit testID='img-conformite' title={t('txt.conformite')} icon={utils.images.addConformite} screenToNavigate='ConformityVisit' />
           <CustomAddNewVisit testID='img-hierarchical' title={t('txt.hierarchique')} icon={utils.images.addhierarchicalIcon} screenToNavigate='HierarchicalVisit' />
         </View>
-        <VisitModal onClose={() => setModalVisible(false)} sites={props.sites} visible={modalVisible} title={title} NextStep={() => props.navigation.navigate(screenToNavigate)} selectedSite={selectedSite} />
+        <VisitModal onClose={() => setModalVisible(false)} sites={props.sites} visible={modalVisible} title={title} NextStep={() => NextStep()} selectedSite={selectedSite} setSelectedSite={setselectedSite} />
       </View>
-      <View style={props.loading ? styles.loaderContainer: {}}>    
+      <View style={props.loading ? styles.loaderContainer : {}}>
         <ActivityIndicator
           testID='activity-indicator'
           size="large"
           color={utils.colors.primary}
-          style={{display:props.loading ? 'flex' : 'none'}}
+          style={{ display: props.loading ? 'flex' : 'none' }}
         />
       </View>
 
@@ -203,16 +210,16 @@ switch(screenToNavigate){
 
 // Define styles for the component
 const styles = StyleSheet.create({
-  loaderContainer : {
-    position : "absolute",
-    flex : 1,
-    width : "100%",
-    height : "100%",
-    backgroundColor :'rgba(0, 0, 0, 0.5)' ,
-    justifyContent : 'center',
-    alignItems : 'center'
+  loaderContainer: {
+    position: "absolute",
+    flex: 1,
+    width: "100%",
+    height: "100%",
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
- 
+
   visitDetailsStyle: {
     ...globalStyle.fontMedium13Style,
     ...globalStyle.fontCenterStyle,
