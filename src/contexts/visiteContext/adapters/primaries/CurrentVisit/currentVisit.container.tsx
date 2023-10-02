@@ -15,7 +15,6 @@ import { AddNewObservationModal } from './Components/ListObservation/addNewObser
 
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
-
 }
 const content = [
   { type: "image", source: utils.images.icn_delete, onPress: () => { console.log('delete') } },

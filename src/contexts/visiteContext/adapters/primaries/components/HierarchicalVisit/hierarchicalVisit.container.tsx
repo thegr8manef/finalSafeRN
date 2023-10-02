@@ -6,6 +6,7 @@ import { Site } from '@contexts/visiteContext/domain/entity/Site';
 
 import { t } from 'i18next';
 import {
+    Alert,
     StyleSheet,
     View,
 } from 'react-native';
@@ -19,6 +20,9 @@ import { AddAccompanyingModal } from '../../Visit/components/accompanionsInfo/ad
 import { accompanying } from "@utils/utils";
 import { CHARACTERS } from '@common/constants';
 import { useRoute } from '@react-navigation/native';
+import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
+import { VisitFlash } from '@contexts/visiteContext/domain/entity/VisitFlash';
+
 
 interface Props {
     error: string | undefined;
@@ -26,6 +30,9 @@ interface Props {
     loading: boolean;
     loadSites: () => void;
     navigation: StackNavigationProp<StackParamList>;
+    saveVisit: (data: Visit) => void;
+    saveFlash: (data: VisitFlash) => void;
+
 }
 const content = [
     { type: "text", text: t('txt.precedent'), onPress: () => { console.log('Previous') } },
@@ -57,7 +64,7 @@ export const HierarchicalVisitContainer = (props: Props) => {
     const [date, setDate] = useState(new Date(Date.now()));
     const [selectedItems, setSelectedItems] = useState<any[]>([]);
     const route = useRoute();
-    const { selectedSiteName } = route.params; // Access the parameters
+    //const { selectedSiteName } = route.params; // Access the parameters
     useEffect(() => {
         props.loadSites();
     }, [])
@@ -68,18 +75,20 @@ export const HierarchicalVisitContainer = (props: Props) => {
     }, [addAccompanying])
 
     const NextStep = () => {
-        const formattedDate = date.toLocaleDateString('en-GB', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric',
-        });
-        props.navigation.navigate('CurrentVisit', {
-            comments: comment, // Replace with your comment data
-            addAccompanying: selectedItems, // Replace with your array data
-            date: formattedDate, //Date
-            selectedSiteName: selectedSiteName, //Site Name
-        });
-    }
+        Alert.alert('', t('etes_vous_sur_de_vouloir_sauvegarder')!, [
+          {
+            text: 'NON',
+            style: 'cancel',
+          },
+          {
+            text: 'OUI',
+            onPress: () => {
+              props.navigation.navigate('CurrentVisit');
+            }
+          },
+        ]);
+
+            }
     return (
         <View style={styles.container}>
             <WarringTextView WarringTest={t('txt.completer.info')} />

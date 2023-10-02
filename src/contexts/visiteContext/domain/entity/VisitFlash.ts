@@ -30,10 +30,10 @@ export class VisitFlash {
   constructor(
     private _id : string,
     private _commentaire: string,
-    private _images: Photo[],
-    private _level: number,
-    private _site_id: string,
-    private _type: number,
+    private _images?: Photo[],
+    private _level?: number,
+    private _site_id?: string,
+    private _type?: number,
   ) { }
   public get id(): string {
     return this._id;
@@ -50,7 +50,7 @@ export class VisitFlash {
   get commentaire(): string {
     return this._commentaire;
   }
-  get images(): Photo[] {
+  get images(): Photo[] | undefined {
     return this._images;
   }
   get level(): number {

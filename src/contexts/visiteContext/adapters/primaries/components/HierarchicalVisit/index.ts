@@ -10,6 +10,12 @@ import {
 } from '@contexts/visiteContext/useCases/LoadSites/selectors';
 import { Site } from '@contexts/visiteContext/domain/entity/Site';
 import { HierarchicalVisitContainer } from './hierarchicalVisit.container';
+import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
+import { VisitActionTypes } from '@contexts/visiteContext/useCases/SaveVisit/actionTypes';
+import { SaveVisit } from '@contexts/visiteContext/useCases/SaveVisit/action';
+import { VisitFlash } from '@contexts/visiteContext/domain/entity/VisitFlash';
+import { FlashActionTypes } from '@contexts/visiteContext/useCases/saveFlash/actionTypes';
+import { SaveFlash } from '@contexts/visiteContext/useCases/saveFlash/action';
 
 interface StateToPropsType {
     error: string | undefined;
@@ -18,6 +24,9 @@ interface StateToPropsType {
 }
 interface DispatchToPropsType {
     loadSites: () => void;
+    saveVisit: (data: Visit) => void;
+    saveFlash: (data: VisitFlash) => void;
+
 }
 const mapStateToProps = (state: AppState): StateToPropsType => ({
     error: loadSitesErrorSelector(state),
@@ -26,7 +35,11 @@ const mapStateToProps = (state: AppState): StateToPropsType => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => ({
-    loadSites: (): LoadSitesActionTypes => dispatch(LoadSites())
+    loadSites: (): LoadSitesActionTypes => dispatch(LoadSites()),
+    saveVisit: (data: Visit): VisitActionTypes => dispatch(SaveVisit(data)),
+    saveFlash: (data: VisitFlash): FlashActionTypes => dispatch(SaveFlash(data)),
+
+
 });
 
 export const HierarchicalVisitPage = connect(

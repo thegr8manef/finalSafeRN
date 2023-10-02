@@ -150,7 +150,6 @@ export const VisitsContainer = (props: Props): JSX.Element => {
   const handlSynchronisation = () => {
     props.sendData(props.profile?.accessToken!!, props.profile?.lastUpdate!!, props.visits!!)
   }
-
   // Render the main component
   return (
     <View style={globalStyle.containerStyle}>

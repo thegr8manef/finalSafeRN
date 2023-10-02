@@ -11,6 +11,7 @@ export class Visit {
     private _dt?: string,
     private _rq?: VisitRemarque[],
     private _chantier?: Chantier,
+    private _type?: number,
   ) {
   }
   public get tp(): number | undefined {
@@ -48,5 +49,11 @@ export class Visit {
   }
   public setchantier?(chantier?: Chantier | undefined) {
     this._chantier = chantier;
+  }
+  public get type(): number {
+    return this._type;
+  }
+  public set type(type: number) {
+    this._type = type;
   }
 }

@@ -19,6 +19,7 @@ import { Remarque } from '@common/adapters/secondaries/db/entity/Remarque';
 import { Photo } from '@contexts/visiteContext/domain/entity/Photo';
 import { v5 as uuidv5 } from 'uuid';
 import { CHARACTERS, NAMESPACE } from '@common/constants';
+import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
 
 interface Props {
   navigation: any;
@@ -26,7 +27,7 @@ interface Props {
   errorVisits: string | undefined;
   flash: VisitFlash | undefined;
   saveFlash: (data: VisitFlash) => void;
-  saveVisit: (data: Remarque) => void;
+  saveVisit: (data: Visit) => void;
   error: string | undefined;
   sites: Site[] | null;
   loading: boolean;
@@ -108,6 +109,7 @@ export const VisitFlashContainer = (props: Props) => {
   const saveVisit = () => {
     if (validVisit()) {
       const flash = new VisitFlash(idRemarque!!, comment, images, levelId!!, selectedSite?.reference!!, 3);
+
       Alert.alert('', t('etes_vous_sur_de_vouloir_sauvegarder')!, [
         {
           text: 'NON',
@@ -117,6 +119,7 @@ export const VisitFlashContainer = (props: Props) => {
           text: 'OUI',
           onPress: () => {
             props.saveFlash(flash);
+
             props.navigation.navigate('visites');
           }
         },

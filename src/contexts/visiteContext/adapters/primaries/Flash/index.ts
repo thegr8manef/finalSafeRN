@@ -14,6 +14,9 @@ import {
   loadSitesErrorSelector,
   loadingSitesSelector,
 } from '@contexts/visiteContext/useCases/LoadSites/selectors';
+import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
+import { VisitActionTypes } from '@contexts/visiteContext/useCases/SaveVisit/actionTypes';
+import { SaveVisit } from '@contexts/visiteContext/useCases/SaveVisit/action';
 
 interface StateToPropsType {
   errorVisits: string | undefined;
@@ -24,6 +27,8 @@ interface StateToPropsType {
 interface DispatchToPropsType {
   saveFlash: (data: VisitFlash) => void;
   loadSites: () => void;
+  saveVisit: (data: Visit) => void;
+
 }
 const mapStateToProps = (state: AppState): StateToPropsType => ({
   errorVisits: saveFashErrorSelector(state),
@@ -34,7 +39,9 @@ const mapStateToProps = (state: AppState): StateToPropsType => ({
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => ({
   saveFlash: (data: VisitFlash): FlashActionTypes => dispatch(SaveFlash(data)),
-  loadSites: (): LoadSitesActionTypes => dispatch(LoadSites())
+  loadSites: (): LoadSitesActionTypes => dispatch(LoadSites()),
+  saveVisit: (data: Visit): VisitActionTypes => dispatch(SaveVisit(data)),
+
 });
 
 export const VisitsFlashPage = connect(
