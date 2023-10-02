@@ -9,23 +9,24 @@ import {
 interface Props {
     WarringTest: string;
 }
-export const WarringTextView= (props: Props) => {
+export const WarringTextView = (props: Props) => {
     return (
-            <View style={styles.warringContainer}>
-                <Text style={styles.warringText}>{props.WarringTest}</Text>
-            </View>
+        <View style={styles.warringContainer}>
+            <Text style={styles.warringText}>{props.WarringTest}</Text>
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
-    warringContainer:{
-        
-        height:50,
-        backgroundColor:utils.colors.gray90,
+    warringContainer: {
+
+        height: 30,
+        backgroundColor: utils.colors.gray90,
     },
-    warringText:{
+    warringText: {
         color: utils.colors.black,
-        margin:15,
-        fontSize: 15
+        marginTop: 5,
+        marginStart: 10,
+        fontSize: 14
     },
 });
