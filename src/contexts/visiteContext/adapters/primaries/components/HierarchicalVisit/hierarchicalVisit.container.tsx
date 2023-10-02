@@ -64,7 +64,7 @@ export const HierarchicalVisitContainer = (props: Props) => {
     const [date, setDate] = useState(new Date(Date.now()));
     const [selectedItems, setSelectedItems] = useState<any[]>([]);
     const route = useRoute();
-    //const { selectedSiteName } = route.params; // Access the parameters
+    const { selectedSiteName } = route.params; // Access the parameters
     useEffect(() => {
         props.loadSites();
     }, [])
@@ -75,6 +75,11 @@ export const HierarchicalVisitContainer = (props: Props) => {
     }, [addAccompanying])
 
     const NextStep = () => {
+        const formattedDate = date.toLocaleDateString('en-GB', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+        });
         Alert.alert('', t('etes_vous_sur_de_vouloir_sauvegarder')!, [
           {
             text: 'NON',
@@ -83,7 +88,13 @@ export const HierarchicalVisitContainer = (props: Props) => {
           {
             text: 'OUI',
             onPress: () => {
-              props.navigation.navigate('CurrentVisit');
+              props.navigation.navigate('CurrentVisit', {
+                comments: comment, // Replace with your comment data
+                addAccompanying: selectedItems, // Replace with your array data
+                date: formattedDate, //Date
+                selectedSiteName: selectedSiteName, //Site Name
+                type: 'hierarchical' //type Visit
+            });
             }
           },
         ]);

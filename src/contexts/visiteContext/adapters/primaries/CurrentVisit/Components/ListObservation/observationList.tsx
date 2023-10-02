@@ -3,26 +3,42 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import * as utils from '@utils/index';
 import { t } from 'i18next';
 import { ObservationListItem } from './observationListItem';
+import { ListObservationHierarchical } from './ListObservationHierarchical';
+import { ListObservationConformity } from './ListObservationConformity';
+import { ListObservationPrevention } from './ListObservationPrevention';
 
 interface Props {
   onClickObservation: () => void;
   onClickObvLifted: () => void;
-  NumObservation : number;
-  NumObservationTobeLifted : number;
+  onClickEssentialActions: () => void;
+  onClickStrongPoints: () => void;
+  onClickPointsToImprove: () => void;
+  NumObservation: number;
+  NumObservationTobeLifted: number;
+  NumEssentialActions: number;
+  NumStrongPoints: number;
+  NumPointsToImprove: number;
+  type: string;
 
 }
 export const ObservationList = (props: Props) => {
   return (
     <View style={styles.container}>
-      <ObservationListItem title={t('txt_Observations')} listLenght={props.NumObservation} onClick={props.onClickObservation} />
-      <ObservationListItem title={t('txt.my.remarks')} listLenght={props.NumObservationTobeLifted} onClick={props.onClickObvLifted} />
+      {props.type === 'hierarchical' ? (
+        <ListObservationHierarchical onClickObservation={props.onClickObservation} onClickObvLifted={props.onClickObvLifted} NumObservation={props.NumObservation} NumObservationTobeLifted={props.NumObservationTobeLifted} />
+      ) : props.type === 'conformity' ? (
+        <ListObservationConformity onClickObservation={props.onClickObservation} onClickObvLifted={props.onClickObvLifted} onClickEssentialActions={props.onClickEssentialActions} NumObservation={props.NumObservation} NumObservationTobeLifted={props.NumObservationTobeLifted} NumEssentialActions={props.NumEssentialActions} />
+      ) : (
+        <ListObservationPrevention onClickObservation={props.onClickObservation} onClickEssentialActions={props.onClickEssentialActions} onClickStrongPoints={props.onClickStrongPoints} onClickPointsToImprove={props.onClickPointsToImprove} NumObservation={props.NumObservation} NumEssentialActions={props.NumEssentialActions} NumStrongPoints={props.NumStrongPoints} NumPointsToImprove={props.NumPointsToImprove} />
+      )
+      }
     </View>
   );
 
 };
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1.2,
     flexDirection: 'column',
     flexWrap: 'nowrap'
 

@@ -7,18 +7,33 @@ interface Props {
     toggleCollapse: () => void;
     site: string;
     accompagnatsList: any[];
-    date:string;
-    comment:string;
+    date: string;
+    comment: string;
+    type: string;
 
 }
+
 export const AfterCollapse = (props: Props) => {
+    let imageSource = utils.images.addhierarchicalIcon;
+    let textContent = t('txt.visite.de.hierarchique');
+
+    if (props.type === 'hierarchical') {
+        imageSource = utils.images.addhierarchicalIcon;
+        textContent = t('txt.visite.de.hierarchique');
+    } else if (props.type === 'conformity') {
+        imageSource = utils.images.addConformite;
+        textContent = t('txt.visite.de.conformité');
+    } else if (props.type === 'prevention') {
+        imageSource = utils.images.addPrevenationIcon;
+        textContent = t('txt.visite.de.prevention');
+    }
     return (
         <View style={styles.container}>
             <View>
-                <Image source={utils.images.addhierarchicalIcon} style={styles.image} />
+                <Image source={imageSource} style={styles.image} />
             </View>
             <View>
-                <Text style={styles.text}>Hierarchical Visit</Text>
+                <Text style={styles.text}>{textContent}</Text>
             </View>
             <View>
                 <Text style={styles.textDescription}>Site</Text>

@@ -54,12 +54,12 @@ export const VisitsContainer = (props: Props): JSX.Element => {
   const [title, settitle] = useState<string>('');
   const [selectedSite, setselectedSite] = useState<string>('');
 
-  const NextStep = () =>{
-    if(selectedSite !==''){
-    props.navigation.navigate(screenToNavigate, {
-      selectedSiteName: selectedSite,
-  });
-}
+  const NextStep = () => {
+    if (selectedSite !== '') {
+      props.navigation.navigate(screenToNavigate, {
+        selectedSiteName: selectedSite,
+      });
+    }
   }
   const changeTitle = () => {
     if (screenToNavigate !== '') {
@@ -81,7 +81,6 @@ export const VisitsContainer = (props: Props): JSX.Element => {
         }
       }
     }
-
   }
 
 
@@ -94,7 +93,7 @@ export const VisitsContainer = (props: Props): JSX.Element => {
   useEffect(() => {
     NextStep();
     changeTitle();
-  }, [props.visits, screenToNavigate,selectedSite]);
+  }, [props.visits, screenToNavigate, selectedSite]);
 
 
   const CustomAddNewVisit: React.FC<CustomAddNewVisitProps> = ({ title, icon, testID, screenToNavigate }) => {

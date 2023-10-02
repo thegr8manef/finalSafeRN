@@ -28,11 +28,11 @@ export const CurrentVisitContainer = (props: Props) => {
   const [observation, setobservations] = useState<any[]>([]);
   const ObservationToBeLiftedTitle = t('txt.my.remarks') + ' ' + '(' + observationsToBeLifted.length.toString() + ')';
   const route = useRoute();
-  const { comments, addAccompanying, date, selectedSiteName } = route.params; // Access the parameters
+  const { comments, addAccompanying, date, selectedSiteName, type } = route.params; // Access the parameters
   return (
     <View style={styles.container}>
-      <Collapse site={selectedSiteName} accompagnatsList={addAccompanying} date={date} comment={comments} />
-      <ObservationList onClickObservation={() => setObservationVisible(true)} onClickObvLifted={() => setObservationToBeLiftedVisible(true)} NumObservation={observations.length} NumObservationTobeLifted={observationsToBeLifted.length} />
+      <Collapse site={selectedSiteName} accompagnatsList={addAccompanying} date={date} comment={comments} type={type} />
+      <ObservationList onClickObservation={() => setObservationVisible(true)} onClickObvLifted={() => setObservationToBeLiftedVisible(true)} NumObservation={observations.length} NumObservationTobeLifted={observationsToBeLifted.length} type={type} onClickEssentialActions={()=> setObservationVisible(true)} NumEssentialActions={observations.length} onClickStrongPoints={()=> console.log('StrongPointsModal')} onClickPointsToImprove={()=> console.log('PointsToImproveModal')} NumStrongPoints={0} NumPointsToImprove={0} />
       <BottomFooter confirmPress={() => console.log('bottomButton')} confirmText={t('flash_alert_button')} content={content} />
       <ObservationToBeLiftedModal visible={observationToBeLiftedVisible} onClose={() => setObservationToBeLiftedVisible(false)} title={ObservationToBeLiftedTitle} observationToBeLifted={observationsToBeLifted} />
       <ObservationModal visible={observationVisible} onClose={() => setObservationVisible(false)} title={t('txt.title.ajout.observations')} observation={observations} setobservations={setobservations} filtedObservations={observation} AddNewObservationModal={() => setAddNewObservationVisible(true)} />
