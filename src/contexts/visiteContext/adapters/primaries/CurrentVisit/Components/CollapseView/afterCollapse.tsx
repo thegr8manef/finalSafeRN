@@ -10,7 +10,7 @@ interface Props {
     accompagnatsList: Accompagnants[];
     date: string;
     comment: string;
-    type: string;
+    type: Number;
 
 }
 
@@ -18,13 +18,13 @@ export const AfterCollapse = (props: Props) => {
     let imageSource = utils.images.addhierarchicalIcon;
     let textContent = t('txt.visite.de.hierarchique');
 
-    if (props.type === 'hierarchical') {
+    if (props.type === 3) {
         imageSource = utils.images.addhierarchicalIcon;
         textContent = t('txt.visite.de.hierarchique');
-    } else if (props.type === 'conformity') {
+    } else if (props.type === 1) {
         imageSource = utils.images.addConformite;
         textContent = t('txt.visite.de.conformité');
-    } else if (props.type === 'prevention') {
+    } else if (props.type === 0) {
         imageSource = utils.images.addPrevenationIcon;
         textContent = t('txt.visite.de.prevention');
     }

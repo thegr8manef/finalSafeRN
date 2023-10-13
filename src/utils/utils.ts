@@ -5,6 +5,7 @@ import 'moment/locale/de';
 import 'moment/locale/pl';
 import 'moment/locale/en-in';
 import moment from "moment";
+import { CHARACTERS } from '@common/constants';
 
 // Function to convert a date to a specific format
 export function convertDate(date: string, lang: string): string {
@@ -25,7 +26,22 @@ export function getLanguageCode(language: string) {
     // If not found in the mapping, default to the provided language name
     return languageCodeMap[language] || language;
 }
+export function generateID() {
+  let ID = "";
 
+  for (let i = 0; i < 4; i++) {
+      for (let j = 0; j < 4; j++) {
+          const randomIndex = Math.floor(Math.random() * CHARACTERS.length);
+          ID += CHARACTERS[randomIndex];
+      }
+
+      if (i < 3) {
+          ID += "-";
+      }
+  }
+
+  return ID;
+}
 export const observations = [
     {
       id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',

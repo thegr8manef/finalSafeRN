@@ -23,6 +23,7 @@ import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
 import { VisitFlash } from '@contexts/visiteContext/domain/entity/VisitFlash';
 import { Accompagnants } from '@contexts/visiteContext/domain/entity/Accompagnant';
 import { VisitObservation } from '@contexts/visiteContext/domain/entity/VisitsObservation';
+import { generateID } from '@utils/utils';
 
 
 interface Props {
@@ -40,22 +41,6 @@ interface Props {
 const content = [
     { type: "text", text: t('txt.precedent'), onPress: () => { console.log('Previous') } },
 ];
-function generateID() {
-    let ID = "";
-
-    for (let i = 0; i < 4; i++) {
-        for (let j = 0; j < 4; j++) {
-            const randomIndex = Math.floor(Math.random() * CHARACTERS.length);
-            ID += CHARACTERS[randomIndex];
-        }
-
-        if (i < 3) {
-            ID += "-";
-        }
-    }
-
-    return ID;
-}
 export const ConformityVisitContainer = (props: Props) => {
 
     const [searchWithNameVisible, setSearchWithNameVisible] = useState(false);
@@ -91,9 +76,6 @@ export const ConformityVisitContainer = (props: Props) => {
             year: 'numeric',
         });
         const accompagant: Accompagnants[] = [new Accompagnants(generateID(), selectedItems[0].fn, selectedItems[0].ln, selectedItems[0].em, selectedItems[0].idVisite, selectedItems[0].fullnameLowerCase, selectedItems[0].ac, selectedItems[0].ol, selectedItems[0].prId)];
-        const observation: VisitObservation[] = [new VisitObservation(generateID(), "manef123456", "manef123456", selectedSite?.id, undefined, 0, 0, generateID(), comment, formattedDate, comment, true, "manef123456")];
-        const visitConformity = new Visit('', formattedDate, '', '', 12345789, selectedSite, selectedSiteRef, comment, undefined, observation, accompagant, 0, undefined, undefined, 0, '', '', 1)
-
         Alert.alert('', t('etes_vous_sur_de_vouloir_sauvegarder')!, [
             {
                 text: 'NON',
@@ -102,13 +84,15 @@ export const ConformityVisitContainer = (props: Props) => {
             {
                 text: 'OUI',
                 onPress: () => {
-                    props.saveVisit(visitConformity)
                     props.navigation.navigate('CurrentVisit', {
                         comments: comment, // Replace with your comment data
                         addAccompanying: selectedItems, // Replace with your array data
+                        Accompagant : accompagant, // Accompagant
                         date: formattedDate, //Date
-                        selectedSiteName: selectedSite?.name, //Site Name
-                        type: 'conformity' //type Visit
+                        selectedSiteName: selectedSiteName, //Site Name
+                        selectedSite: selectedSite, //Site
+                        selectedSiteRef: selectedSiteRef,//Site ref
+                        type: 1 //type Visit
                     });
                 }
             },

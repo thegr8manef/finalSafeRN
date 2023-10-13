@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Pressable, StyleSheet, View } from 'react-native';
+import { Alert, Modal, Pressable, StyleSheet, View } from 'react-native';
 import * as utils from '@utils/index';
 import { useTranslation } from 'react-i18next';
 import { HeaderModal } from '../../../components/HeaderModal';
@@ -10,21 +10,29 @@ import { Photo } from '@contexts/visiteContext/domain/entity/Photo';
 import { BottomFooter } from '../../../components/BottomFooter';
 import { chooseImage, launchCamera } from '@utils/utilsCamera';
 import { isDisplayZoomed } from 'react-native-device-info';
+import { VisitObservation } from '@contexts/visiteContext/domain/entity/VisitsObservation';
 interface Props {
     visible: boolean;
     onClose: () => void;
     title: string;
     observationTitle: string;
-
+    titleComment: string;
+    setTitleComment: (titleComment : string) => void;
+    comment: string;
+    setComment: (comment : string) => void;
+    images: Photo[];
+    setImages: (images: Photo[]) => void;
+    responseId: Number;
+    setResponseId: (responseId: Number) => void;
 }
 export const AddNewObservationModal = (props: Props) => {
     const { t } = useTranslation();
-    const [titleComment, setTitleComment] = useState<string>('');
-    const [comment, setComment] = useState<string>('');
+    //const [titleComment, setTitleComment] = useState<string>('');
+    //const [comment, setComment] = useState<string>('');
     const [isClickedConform, setIsClickedConform] = useState(true);
     const [isClickedNonConform, setIsClickedNonConform] = useState(true);
     const [isClickedSO, setIsClickedSO] = useState(true);
-    const [images, setImages] = useState<Photo[]>([]);
+    //const [images, setImages] = useState<Photo[]>([]);
 
     const content = [
         { type: "image", source: utils.images.takePhotoIcon, onPress: () => { console.log('take photo') /* Handle image press */ } },
@@ -35,17 +43,43 @@ export const AddNewObservationModal = (props: Props) => {
         setIsClickedConform(!isClickedConform);
         setIsClickedNonConform(true);
         setIsClickedSO(true);
+        props.setResponseId(1)
     };
     const onCheckNonConform = () => {
         setIsClickedConform(true);
         setIsClickedNonConform(!isClickedNonConform);
         setIsClickedSO(true);
+        props.setResponseId(0)
     };
     const onCheckSO = () => {
         setIsClickedConform(true);
         setIsClickedNonConform(true);
         setIsClickedSO(!isClickedSO);
+        props.setResponseId(2)
     };
+    const saveObservation = () => {
+        if(verification()){
+            props.onClose()
+        }
+    }
+    const verification = () : boolean =>{
+        if (props.responseId === 4) {
+            Alert.alert('', t('neg_ou_pos')!);
+            return false
+          } else {
+            if (props.observationTitle.length ===0 && props.titleComment.length === 0) {
+              Alert.alert('', t('msg.saisr.commentaires.flash')!);
+              return false
+            } else {
+                if (props.comment.length === 0) {
+                    Alert.alert('', t('msg.saisr.commentaires.flash')!);
+                    return false
+            }else{
+                return true
+            }
+          }
+    }
+}
     return (
         <Modal
             testID="modal"
@@ -62,12 +96,12 @@ export const AddNewObservationModal = (props: Props) => {
                     <CommentInfo comment={props.observationTitle} setComment={null} title={t('txt.nouvelle.remarque')} label={t('txt.title')} />
                 </View>)
                     : (
-                        <CommentInfo comment={titleComment} setComment={(comment: string) => setTitleComment(comment)} title={t('txt.nouvelle.remarque')} label={t('txt.title')} />
+                        <CommentInfo comment={props.titleComment} setComment={(comment: string) => props.setTitleComment(comment)} title={t('txt.nouvelle.remarque')} label={t('txt.title')} />
                     )}
                 <AddNewObservationGroupItem onCheckConform={() => onCheckConform()} onCheckNonConform={() => onCheckNonConform()} onCheckSO={() => onCheckSO()} is_clicked_conforme={isClickedConform} is_clicked_non_conforme={isClickedNonConform} is_clicked_sans_objet={isClickedSO} />
-                <CommentInfo comment={comment} setComment={(comment: string) => setComment(comment)} title={t('txt.commentaires.without.start')} label={t('txt.commentaires.without.start')} />
-                <PreviewImages images={images} />
-                <BottomFooter confirmPress={() => console.log('create observation')} confirmText={t('txt.creez.remarque')} content={content} />
+                <CommentInfo comment={props.comment} setComment={(comment: string) => props.setComment(comment)} title={t('txt.commentaires.without.start')} label={t('txt.commentaires.without.start')} />
+                <PreviewImages images={props.images} />
+                <BottomFooter confirmPress={() => saveObservation()} confirmText={t('txt.creez.remarque')} content={content} />
             </View>
 
         </Modal>

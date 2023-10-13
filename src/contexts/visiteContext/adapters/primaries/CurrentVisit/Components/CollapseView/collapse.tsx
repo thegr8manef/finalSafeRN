@@ -9,7 +9,7 @@ interface Props {
     accompagnatsList: any[];
     date: string;
     comment: string;
-    type: string;
+    type: Number;
 }
 export const Collapse = (props: Props) => {
     const [selectedSite, setSelectedSite] = useState<boolean>(false)
