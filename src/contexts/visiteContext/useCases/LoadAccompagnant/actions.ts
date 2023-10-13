@@ -1,22 +1,20 @@
-import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
-import { LOAD_ACCOMPAGNANT, LOAD_ACCOMPAGNANT_FAILED, LOAD_ACCOMPAGNANT_SUCCESS, LoadAccompagnantAction, LoadAccompagnantFailedAction, LoadAccompagnantSuccessAction } from './actionType';
+import { LOAD_ACCOMPAGNANTS, LOAD_ACCOMPAGNANTS_FAILED, LOAD_ACCOMPAGNANTS_SUCCESS, LoadAccompagnantsAction, LoadAccompagnantsFailedAction, LoadAccompagnantsSuccessAction } from './actionType';
+import { Accompagnant } from '@contexts/visiteContext/domain/entity/Accompagnant';
 
 
-export const LoadAccompagnant = (): LoadAccompagnantAction => {
-    return {
-        type: LOAD_ACCOMPAGNANT
-    };
-};
-export const LoadAccompagnantFailed = (
+export const LoadAccompagnants = (): LoadAccompagnantsAction => ({
+        type: LOAD_ACCOMPAGNANTS
+});
+export const LoadAccompagnantsFailed = (
     error: string,
-): LoadAccompagnantFailedAction => ({
-    type: LOAD_ACCOMPAGNANT_FAILED,
+): LoadAccompagnantsFailedAction => ({
+    type: LOAD_ACCOMPAGNANTS_FAILED,
     payload: error,
 });
 
-export const LoadAccompagnantSuccess = (
-    Accompagnant: Visit[],
-): LoadAccompagnantSuccessAction => ({
-    type: LOAD_ACCOMPAGNANT_SUCCESS,
+export const LoadAccompagnantsSuccess = (
+    Accompagnant: Accompagnant[],
+): LoadAccompagnantsSuccessAction => ({
+    type: LOAD_ACCOMPAGNANTS_SUCCESS,
     payload: Accompagnant,
 });

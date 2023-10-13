@@ -8,7 +8,7 @@ interface Props {
   comment: string
   setComment: (comment: string) => void;
   title: string;
-  label:string;
+  label: string;
 }
 export const CommentInfo = (props: Props) => {
   const { t } = useTranslation();
@@ -22,19 +22,23 @@ export const CommentInfo = (props: Props) => {
         style={styles.button}
         onPress={() => setModalVisible(true)}
         android_ripple={styles.androidRipple}>
-        {props.comment.length > 0 ? (
+        {props.comment.length > 0 && props.comment.length < 40 ? (
           <Text testID="comment-text" style={styles.commentText}>
             {props.comment}
           </Text>
+        ) : props.comment.length > 41 ? (
+          <Text testID="comment-text" style={styles.commentText}>
+            {props.comment.slice(0,42)+"..."}
+          </Text>
         ) : (
-          <View testID="divider" style={styles.divider} />
+            <View testID = "divider" style = {styles.divider} />
         )}
         <Image testID="text-area-img" source={utils.images.textareaIcon} style={styles.logoImage3} />
         <Image testID="divider-img" source={utils.images.dividerIcon} style={styles.logoImage4} />
       </Pressable>
       <CommentModal key={'comment-modal'} visible={modalVisible} onClose={() => setModalVisible(false)}
-      comment={props.comment}
-      setComment={props.setComment} title={props.title} label={props.label}      />
+        comment={props.comment}
+        setComment={props.setComment} title={props.title} label={props.label} />
     </View>
   )
 }

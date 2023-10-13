@@ -15,6 +15,7 @@ import { windowWidth } from '@styles/dimension';
 import { Profile } from '@contexts/profileContext/domain/entity/profile';
 import { VisitModal } from '../components/commonComponentsVisits/VisitModal';
 import { Site } from '@contexts/visiteContext/domain/entity/Site';
+import { VisitFlash } from '@contexts/visiteContext/domain/entity/VisitFlash';
 
 // Define the props for the component
 interface Props {
@@ -24,7 +25,8 @@ interface Props {
   loading: boolean;
   profile: Profile | undefined;
   sites: Site[] | null;
-
+  flash: VisitFlash[] | undefined;
+  loadFlash: () => void;
   sendData: (accessToken: string, lastUpadet: string, visits: Visit[]) => void;
   loadVisits: () => void;
   loadSites: () => void;
@@ -41,7 +43,9 @@ interface CustomAddNewVisitProps {
 interface CustomVistList {
   visit: Visit;
 }
-
+interface CustomFlashList {
+  flash: VisitFlash;
+}
 interface CustomVisitDetailsProps {
   title: string;
   value: number; // You might need to specify the correct type for the icon,
@@ -52,12 +56,14 @@ export const VisitsContainer = (props: Props): JSX.Element => {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [screenToNavigate, setscreenToNavigate] = useState<string>('');
   const [title, settitle] = useState<string>('');
-  const [selectedSite, setselectedSite] = useState<string>('');
-
+  const [selectedSite, setselectedSite] = useState<Site | undefined>();
+  const combinedData = [];
   const NextStep = () => {
-    if (selectedSite !== '') {
+    if (selectedSite !== undefined) {
       props.navigation.navigate(screenToNavigate, {
-        selectedSiteName: selectedSite,
+        selectedSite: selectedSite,
+        selectedSiteName: selectedSite.name,
+        selectedSiteRef: selectedSite.reference
       });
     }
   }
@@ -88,13 +94,13 @@ export const VisitsContainer = (props: Props): JSX.Element => {
   useEffect(() => {
     props.loadVisits();
     props.loadSites();
+    props.loadFlash();
   }, [])
 
   useEffect(() => {
     NextStep();
     changeTitle();
-  }, [props.visits, screenToNavigate, selectedSite]);
-
+  }, [props.visits, screenToNavigate, selectedSite, props.flash]);
 
   const CustomAddNewVisit: React.FC<CustomAddNewVisitProps> = ({ title, icon, testID, screenToNavigate }) => {
     return (
@@ -116,7 +122,7 @@ export const VisitsContainer = (props: Props): JSX.Element => {
     )
   }
   const CustomVistList: React.FC<CustomVistList> = ({ visit }) => {
-    const imageSource = VISIT_TYPE_TO_IMAGE_SOURCE[visit.tp] || VISIT_TYPE_TO_IMAGE_SOURCE.default
+    const imageSource = VISIT_TYPE_TO_IMAGE_SOURCE[visit.type] || VISIT_TYPE_TO_IMAGE_SOURCE.default
     return (
       <View testID='custom-visit-list' style={flexBoxStyle.flexRowSpace}>
         <View style={flexBoxStyle.m1}>
@@ -124,19 +130,50 @@ export const VisitsContainer = (props: Props): JSX.Element => {
             <View style={styles.visitRowStyle}>
               <Image source={imageSource} style={globalStyle.defaultImageStyle} />
               <View >
-                <Text style={globalStyle.fontMedium15Style} numberOfLines={2}> {convertDate(visit?.dt, i18next.language)} </Text>
-                <Text style={globalStyle.fontMediumDark15Style} numberOfLines={2}> {visit?.getchantier()?.no}</Text>
+                <Text style={globalStyle.fontMedium15Style} numberOfLines={2}> {convertDate(visit?.dateStart, i18next.language)} </Text>
+                <Text style={globalStyle.fontMediumDark15Style} numberOfLines={2}> {visit.chantier?.no}</Text>
               </View>
             </View>
           </View>
         </View>
         <View>
           <View style={flexBoxStyle.flexEnd}>
-            {visit.tp != 4 &&
-              <CustomVisitOption title={t('txt_Observations')} value={0} />
+            {visit.type != 4 &&
+              <CustomVisitOption title={t('txt_Observations')} value={visit.observations?.length} />
+
             }
             <CustomVisitOption title={t('txt.levee')} value={0} />
-            <CustomVisitOption title={t('txt.photos')} value={visit?.rq?.[0]?.md?.length} />
+            <CustomVisitOption title={t('txt.photos')} value={visit ? 0 : visit.remarques?.[0]?.md?.length} />
+            <Image source={utils.images.visitLockIcon} style={globalStyle.defaultImageStyle} />
+          </View>
+        </View>
+      </View>
+    );
+  };
+
+  const CustomFlashList: React.FC<CustomFlashList> = ({ flash }) => {
+    const imageSource = VISIT_TYPE_TO_IMAGE_SOURCE[4] || VISIT_TYPE_TO_IMAGE_SOURCE.default
+    return (
+      <View testID='custom-visit-list' style={flexBoxStyle.flexRowSpace}>
+        <View style={flexBoxStyle.m1}>
+          <View style={flexBoxStyle.flexRowCenterSpace}>
+            <View style={styles.visitRowStyle}>
+              <Image source={imageSource} style={globalStyle.defaultImageStyle} />
+              <View >
+                <Text style={globalStyle.fontMedium15Style} numberOfLines={2}> {convertDate(flash?.date, i18next.language)} </Text>
+                <Text style={globalStyle.fontMediumDark15Style} numberOfLines={2}> {flash.site_name}</Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View>
+          <View style={flexBoxStyle.flexEnd}>
+            {/* {visit.type != 4 &&
+              <CustomVisitOption title={t('txt_Observations')} value={0} />
+
+            } */}
+            <CustomVisitOption title={t('txt.levee')} value={0} />
+            <CustomVisitOption title={t('txt.photos')} value={flash ? 0 : flash.images.length} />
             <Image source={utils.images.visitLockIcon} style={globalStyle.defaultImageStyle} />
           </View>
         </View>
@@ -149,6 +186,15 @@ export const VisitsContainer = (props: Props): JSX.Element => {
   const handlSynchronisation = () => {
     props.sendData(props.profile?.accessToken!!, props.profile?.lastUpdate!!, props.visits!!)
   }
+
+
+  if (Array.isArray(props.visits)) {
+    combinedData.push(...props.visits.map((visit) => ({ key: 'visit', data: visit })));
+  }
+
+  if (Array.isArray(props.flash)) {
+    combinedData.push(...props.flash.map((flash) => ({ key: 'flash', data: flash })));
+  }
   // Render the main component
   return (
     <View style={globalStyle.containerStyle}>
@@ -160,22 +206,32 @@ export const VisitsContainer = (props: Props): JSX.Element => {
         </View>
         <View style={[globalStyle.rowContainerStyle, styles.synchroContainerStyle]}>
           <Text style={globalStyle.fontMediumDark17Style}>
-            {props.visits?.length} {t('txt.visites.cloturees')}
+            {combinedData?.length} {t('txt.visites.cloturees')}
           </Text>
           <ButtonComponent
             testID='sync-button'
-            buttonColor={props.visits?.length ? utils.colors.primary : utils.colors.gray90}
+            buttonColor={combinedData?.length ? utils.colors.primary : utils.colors.gray90}
             width={'30%'}
             textButton={t('txt.synchroniser')}
             onPressButton={handlSynchronisation}
           />
         </View>
         <Divider />
-        {props.visits?.length ? (
+
+        {props.visits?.length || props.flash?.length ? (
           <FlatList
-            data={props.visits}
-            keyExtractor={(item) => item.tk?.toString()} // Adjust the key extractor based on your data structure
-            renderItem={({ item }) => <CustomVistList visit={item} />}
+            // data={props.visits}
+            // keyExtractor={(item) => item.id?.toString()} // Adjust the key extractor based on your data structure
+            // renderItem={({ item }) => <CustomVistList visit={item} />}
+            data={combinedData}
+            keyExtractor={(item, index) => `${item.key}-${index}`} // Adjust the key extractor based on your data structure
+            renderItem={({ item }) => {
+              if (item.key === 'visit') {
+                return <CustomVistList visit={item.data} />;
+              } else if (item.key === 'flash') {
+                return <CustomFlashList flash={item.data} />;
+              }
+            }}
             ItemSeparatorComponent={() => (<Divider />)}
           />
         ) : (

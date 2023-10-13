@@ -12,8 +12,8 @@ interface Props {
   NextStep: () => void;
   sites: Site[] | null;
   title: string;
-  selectedSite: string;
-  setSelectedSite :(site : string) => void
+  selectedSite: Site | undefined;
+  setSelectedSite :(site : Site) => void
 }
 
 export const VisitModal = (props: Props) => {
@@ -27,13 +27,11 @@ const validVisit = (): boolean => {
       Alert.alert('', t('txt.qr.code.empty')!);
       return false
   } else {
-    props.setSelectedSite(selectedSite.name)
+    props.setSelectedSite(selectedSite)
     props.NextStep()
       return true
   }
 };
-console.log("🚀 ~ file: VisitModal.tsx:45 ~ VisitModal ~ selectedSite:", selectedSite?.name)
-
   return (
     <Modal
       testID="modal"

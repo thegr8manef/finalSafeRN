@@ -14,7 +14,8 @@ interface Props {
     observation: any[];
     filtedObservations: any[];
     setobservations: (observation: string[]) => void
-    AddNewObservationModal : () => void;
+    AddNewObservationModal: () => void;
+    setObservationTitle: (title: string) => void;
 
 }
 export const ObservationModal = (props: Props) => {
@@ -26,13 +27,17 @@ export const ObservationModal = (props: Props) => {
         props.setobservations(filtedObservations)
     }
     type ItemProps = { title: string };
-
+    const SaveObservationTitle = (title: string) => {
+        props.setObservationTitle(title);
+        props.AddNewObservationModal;
+    }
     const Item = ({ title }: ItemProps) => (
-        <View style={styles.item}>
+        <Pressable style={styles.item} onPress={props.AddNewObservationModal} onPressIn={() => props.setObservationTitle(title)}>
             <Text style={styles.title_item}>{title}</Text>
             <Image source={utils.images.btn_ajout} style={styles.btn_ajout} />
-        </View>
+        </Pressable>
     );
+
     return (
         <Modal
             testID="modal"
@@ -65,7 +70,7 @@ export const ObservationModal = (props: Props) => {
                         keyExtractor={item => item.id}
                     />
                 )}
-                <Pressable style={styles.footer} onPress={props.AddNewObservationModal}>
+                <Pressable style={styles.footer} onPress={props.AddNewObservationModal} onPressIn={()=>props.setObservationTitle('')}>
                     <Image source={utils.images.btn_add_circle} style={styles.image_add} />
                     <Text style={styles.text_add}>{t('ajouter_une_nouvelle_observation')}</Text>
                 </Pressable>

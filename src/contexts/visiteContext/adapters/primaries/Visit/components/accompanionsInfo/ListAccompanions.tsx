@@ -1,22 +1,21 @@
-import React, { useState } from 'react';
-import { Modal, StyleSheet, View, TextInput, Alert, Text, Image, FlatList, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { StyleSheet, View, Text, Image, FlatList, TouchableOpacity } from 'react-native';
 import * as utils from '@utils/index';
 import { useTranslation } from 'react-i18next';
-import { HeaderModal } from '../../../components/HeaderModal';
 import { WarringTextView } from '../../../Visit/components/warringTextView';
+import { Accompagnants } from '@contexts/visiteContext/domain/entity/Accompagnant';
 interface Props {
-    accompanying: any[];
-    selectedItems: any[];
-    setSelectedItems: (selectedItems: any[]) => void;
+    accompanying: Accompagnants[] | undefined;
+    selectedItems: Accompagnants[];
+    setSelectedItems: (selectedItems: Accompagnants[]) => void;
 }
 
 export const ListAccoumpanions = (props: Props) => {
     const { t } = useTranslation();
 
-    type ItemProps = { Name: string; reference: string };
+    type ItemProps = { Name: Accompagnants; reference: Accompagnants };
 
-
-    const toggleItemSelection = (itemId: string) => {
+    const toggleItemSelection = (itemId: Accompagnants) => {
         if (props.selectedItems.includes(itemId)) {
             props.setSelectedItems(props.selectedItems.filter((name) => name !== itemId));
         } else {
@@ -33,14 +32,14 @@ export const ListAccoumpanions = (props: Props) => {
             <View style={{ flexDirection: 'row', alignItems: 'center', flex: 5 }}>
                 <View>
                     <Text style={styles.name}>
-                        {Name}
+                        {Name.fn +' '+ Name.ln}
                     </Text>
                     <Text
                         style={
                             styles.reference
                         }
                     >
-                        {reference}
+                        {reference.em}
                     </Text>
                 </View>
             </View>
@@ -60,8 +59,13 @@ export const ListAccoumpanions = (props: Props) => {
             <WarringTextView WarringTest={t('txt.consult.or.raise.rq')} />
             <FlatList
                 data={props.accompanying}
-                renderItem={({ item }) => <Item Name={item.Name} reference={item.reference} />}
+                renderItem={({ item }) => <Item Name={item} reference={item} />}
+                optimizationFlags={{
+                    removeClippedSubviews: true,
+                    // Other optimization flags as needed
+                }}
                 keyExtractor={(item) => item.id}
+
             />
         </View>
     );

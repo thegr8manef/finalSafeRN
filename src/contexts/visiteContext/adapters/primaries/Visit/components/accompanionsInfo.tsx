@@ -10,8 +10,9 @@ import {
 import { AccompanionsInput } from './accompanionsInputInfo';
 import { Site } from '@contexts/visiteContext/domain/entity/Site';
 import { t } from 'i18next';
+import { Accompagnant } from '@contexts/visiteContext/domain/entity/Accompagnant';
 interface Props {
-    selectAccompanions : any[];
+    selectAccompanions : Accompagnant[] | undefined;
     ShowListAccompanions: () => void;
 }
 export const AccompanionsInfo= (props: Props) => {

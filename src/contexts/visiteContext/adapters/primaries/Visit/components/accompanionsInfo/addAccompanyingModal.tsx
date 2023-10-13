@@ -9,18 +9,18 @@ import { WarringTextView } from '../warringTextView';
 interface Props {
     modalVisible: boolean;
     onClose: () => void;
-    accompanying: string;
-    setAccompanying: (text: string) => void;
+    accompanyingName: string;
+    setAccompanyingName: (text: string) => void;
     label:string;
 
 }
 export const AddAccompanyingModal = (props: Props) => {
-    const [accompanying, setAccompanying] = useState<string>(props.accompanying);
+    const [accompanying, setAccompanying] = useState<string>(props.accompanyingName);
     const { t } = useTranslation();
 
     const saveAccompanyingPerson = () => {
         if (accompanying.length !== 0) {
-            props.setAccompanying(accompanying);
+            props.setAccompanyingName(accompanying);
             props.onClose();
         } else Alert.alert(t('txt.verfier.champs'));
     };

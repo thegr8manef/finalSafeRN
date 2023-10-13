@@ -1,4 +1,3 @@
-import Remarque from '@contexts/visiteContext/domain/entity/Remarque';
 import {
     VisitActionFailed,
     VisitActionSuccess,
@@ -7,8 +6,9 @@ import {
     SAVE_VISIT_SUCCESS,
     SaveVisitAction,
 } from './actionTypes';
+import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
 
-export const SaveVisit = (data: Remarque): SaveVisitAction => ({
+export const SaveVisit = (data: Visit): SaveVisitAction => ({
     type: SAVE_VISIT,
     payload: data,
 });

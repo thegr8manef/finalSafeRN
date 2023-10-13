@@ -7,6 +7,8 @@ import {
   LOAD_VISITS_SUCCESS,
   LoadVisitsAction,
 } from './actionTypes';
+import Remarque from '@contexts/visiteContext/domain/entity/Remarque';
+import { VisitFlash } from '@contexts/visiteContext/domain/entity/VisitFlash';
 
 export const LoadVisits = (): LoadVisitsAction => {
   return {
@@ -21,7 +23,7 @@ export const LoadVisitsFailed = (
 });
 
 export const LoadVisitsSuccess = (
-  visits: Visit[],
+  visits: Visit[] | VisitFlash[],
 ): LoadVisitsSuccessAction => ({
   type: LOAD_VISITS_SUCCESS,
   payload: visits,

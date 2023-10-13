@@ -8,23 +8,23 @@ import {
     Image,
     Pressable
 } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Site } from '@contexts/visiteContext/domain/entity/Site';
 import { t } from 'i18next';
+import { Accompagnants } from '@contexts/visiteContext/domain/entity/Accompagnant';
 interface Props {
-    selectAccompanions : any[];
+    selectAccompanions : Accompagnants[] | undefined;
     ShowListAccompanions: () => void;
 }
 export const AccompanionsInput= (props: Props) => {
     return (
         <Pressable onPress={props.ShowListAccompanions} style={styles.ContainerInput}>
-            {props.selectAccompanions.length === 0 ? (<View style={styles.InputTextView}>
+            {props.selectAccompanions?.length === 0  ? (<View style={styles.InputTextView}>
                 <Text style={styles.InputText}>{t('txt.selectionnez.accompagnat')}</Text>
             </View>) : (
                 <View style={styles.InputTextView}>
 
                     <Text style={styles.InputText}>
-                        {props.selectAccompanions.join(', ')}
+                        {/* {props.selectAccompanions?.join(', ')} */}
+                        {props.selectAccompanions?.map(acc => acc.fn+' '+acc.ln+', ')}
                     </Text>
 
                 </View>

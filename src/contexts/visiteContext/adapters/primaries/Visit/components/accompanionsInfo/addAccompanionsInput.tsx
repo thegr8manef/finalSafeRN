@@ -3,36 +3,36 @@ import * as utils from '@utils/index';
 import {
     StyleSheet,
     View,
-    Alert,
     Text,
     Image,
     Pressable
 } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Site } from '@contexts/visiteContext/domain/entity/Site';
 import { t } from 'i18next';
+import { Accompagnants } from '@contexts/visiteContext/domain/entity/Accompagnant';
 interface Props {
-    selectAccompanions: string[];
+    selectAccompanions: Accompagnants[];
     ShowAddAccompanionsModal: () => void;
 }
 export const AddAccompanionsInput = (props: Props) => {
     return (
-        <Pressable onPress={props.ShowAddAccompanionsModal} style={styles.ContainerInput}>
-            {props.selectAccompanions.length === 0 ? (<View style={styles.InputTextView}>
-                <Text style={styles.InputText}>{t('txt.selectionnez.accompagnat')}</Text>
-            </View>) : (
+        <View style={styles.ContainerInput}>
+            {props.selectAccompanions.length === 0 ? (
+                <View style={styles.InputTextView}>
+                    <Text style={styles.InputText}>{t('txt.selectionnez.accompagnat')}</Text>
+                </View>) : (
                 <View style={styles.InputTextView}>
 
                     <Text style={styles.InputText}>
-                        {props.selectAccompanions.join(', ')}
+                        {/* {[props.selectAccompanions[0].fn]+' '+[props.selectAccompanions[0].ln].join(', ')} */}
+                        {props.selectAccompanions.map(acc => acc.fn+' '+acc.ln+', ')}
                     </Text>
 
                 </View>
             )}
-            <View style={styles.InputIconView}>
+            <Pressable style={styles.InputIconView} onPress={props.ShowAddAccompanionsModal}>
                 <Image style={styles.Icon} source={utils.images.btn_add}></Image>
-            </View>
-        </Pressable>
+            </Pressable>
+        </View>
     );
 };
 

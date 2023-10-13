@@ -27,7 +27,6 @@ interface StateToPropsType {
 interface DispatchToPropsType {
   saveFlash: (data: VisitFlash) => void;
   loadSites: () => void;
-  saveVisit: (data: Visit) => void;
 
 }
 const mapStateToProps = (state: AppState): StateToPropsType => ({
@@ -40,7 +39,6 @@ const mapStateToProps = (state: AppState): StateToPropsType => ({
 const mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => ({
   saveFlash: (data: VisitFlash): FlashActionTypes => dispatch(SaveFlash(data)),
   loadSites: (): LoadSitesActionTypes => dispatch(LoadSites()),
-  saveVisit: (data: Visit): VisitActionTypes => dispatch(SaveVisit(data)),
 
 });
 

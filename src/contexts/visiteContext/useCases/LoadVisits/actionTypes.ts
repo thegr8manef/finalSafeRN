@@ -1,4 +1,6 @@
+import Remarque from "@contexts/visiteContext/domain/entity/Remarque";
 import { Visit } from "@contexts/visiteContext/domain/entity/Visit";
+import { VisitFlash } from "@contexts/visiteContext/domain/entity/VisitFlash";
 
 export const LOAD_VISITS = 'LOAD_VISITS';
 export const LOAD_VISITS_SUCCESS = 'LOAD_VISITS_SUCCESS';
@@ -15,7 +17,7 @@ export interface LoadVisitsFailedAction {
 
 export interface LoadVisitsSuccessAction {
     type: typeof LOAD_VISITS_SUCCESS;
-    payload: Visit[];
+    payload: Visit[] | VisitFlash[];
 }
 
 export type LoadVisitsActionDbTypes =

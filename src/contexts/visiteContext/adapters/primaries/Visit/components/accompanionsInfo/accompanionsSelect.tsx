@@ -7,21 +7,23 @@ import { SearchAccompanionWithNameModal } from './searchAccompanionWithNameModal
 import { PreviewAccompanion } from './previewAccompanion';
 import { onChange } from 'react-native-reanimated';
 import { CommentModal } from '../../../components/comment/CommentModal';
+import { Accompagnants } from '@contexts/visiteContext/domain/entity/Accompagnant';
 
 interface Props {
-  setAccompanying: (accompagant: any[]) => void
-  selectedIdSite: string[];
+  setAccompanying: (accompagant: Accompagnants[] | undefined) => void
+  selectedIdSite: Accompagnants[] | undefined;
   searchWithNameVisible: boolean;
   setSearchWithNameVisible : (visible : boolean) => void;
   ShowAddAccompanionsModal:() => void;
-  selectedItems: any[];
-  setSelectedItems:(selectedItems : any[]) => void;
+  selectedItems: Accompagnants[];
+  setSelectedItems:(selectedItems : Accompagnants[]) => void;
+  Accompagnants: Accompagnants[] | undefined;
 }
 export const AccompanionsSelect = (props: Props) => {
   return (
     <View style={styles.container}>
       <SearchAccompanionWithNameModal modalVisible={props.searchWithNameVisible} onClose={() => props.setSearchWithNameVisible(false)}
-      onSearch={(accompagant: any[]) => props.setAccompanying(accompagant)} ShowAddAccompanionsModal={props.ShowAddAccompanionsModal} selectedItems={props.selectedItems} setSelectedItems={props.setSelectedItems} />
+      onSearch={(accompagant: Accompagnants[] | undefined) => props.setAccompanying(accompagant)} ShowAddAccompanionsModal={props.ShowAddAccompanionsModal} selectedItems={props.selectedItems} setSelectedItems={props.setSelectedItems} Accompagnants={props.Accompagnants} />
     </View>
   )
 }

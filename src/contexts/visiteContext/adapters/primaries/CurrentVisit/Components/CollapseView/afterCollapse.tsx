@@ -3,10 +3,11 @@ import { View, Text, TouchableOpacity, StyleSheet, Image, ImageSourcePropType } 
 import * as utils from '@utils/index';
 import { ButtonCollapse } from './buttonCollapse';
 import { t } from 'i18next';
+import { Accompagnants } from '@contexts/visiteContext/domain/entity/Accompagnant';
 interface Props {
     toggleCollapse: () => void;
     site: string;
-    accompagnatsList: any[];
+    accompagnatsList: Accompagnants[];
     date: string;
     comment: string;
     type: string;
@@ -45,7 +46,7 @@ export const AfterCollapse = (props: Props) => {
                 <Text style={styles.textDescription}>{t('txt.accompagnats')}</Text>
             </View>
             <View>
-                <Text style={styles.textSite}>{props.accompagnatsList.map((item) => item).join(', ')}</Text>
+                <Text style={styles.textSite}>{props.accompagnatsList.map((item) => item.fn+' '+item.ln+', ')}</Text>
             </View>
             <View>
                 <Text style={styles.textDescription}>{t('txt.date.operation')}</Text>

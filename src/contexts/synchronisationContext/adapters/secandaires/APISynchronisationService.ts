@@ -9,7 +9,7 @@ import { Site } from '@contexts/visiteContext/domain/entity/Site';
 import ws from '@config/ws';
 import { Synchronisation } from '@contexts/synchronisationContext/domain/entity/Synchronisation';
 import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
-import { Accompagnant } from '@contexts/visiteContext/domain/entity/Accompagnant';
+import { Accompagnants } from '@contexts/visiteContext/domain/entity/Accompagnant';
 
 
 export class APISynchronisationService implements SynchronisationService {
@@ -36,7 +36,7 @@ export class APISynchronisationService implements SynchronisationService {
       .pipe(
         map(response => {
           const chanties: Site[] = SynchronisationMapper.mapperToChanties(response.response);
-          const accompagnant: Accompagnant[] = SynchronisationMapper.mapperToAccompangnant(response.response);
+          const accompagnant: Accompagnants[] = SynchronisationMapper.mapperToAccompangnant(response.response);
 
           const loadDataResponse: LoadDataResponse = {
             chanties,
@@ -69,6 +69,7 @@ export class APISynchronisationService implements SynchronisationService {
       .pipe(
         map(response =>
           response.response
+          
         ),
         catchError(err => throwError(err)),
       );

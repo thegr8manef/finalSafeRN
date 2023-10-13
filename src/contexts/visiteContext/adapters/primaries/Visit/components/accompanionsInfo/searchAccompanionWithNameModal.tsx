@@ -2,48 +2,46 @@ import React, { useEffect, useState } from 'react';
 import { View, Modal, StyleSheet, Alert } from 'react-native';
 import * as utils from '@utils/index';
 import { useTranslation } from 'react-i18next';
-import { Site } from '@contexts/visiteContext/domain/entity/Site';
-import { SearchResultAccompanion } from './searchResultAccompanion';
 import { HeaderModal } from '../../../components/HeaderModal';
 import { SearchInputAccompanion } from './searchInputAccompanion';
 import { WarringTextView } from '../warringTextView';
 import { AddAccompanionsInput } from './addAccompanionsInput';
-import { CommentInfo } from '../../../components/comment/commentInfo';
-import { BottomFooter } from '../../../components/BottomFooter';
 import { ListAccoumpanions } from './ListAccompanions';
-import { accompanying } from "@utils/utils";
+import { Accompagnants } from '@contexts/visiteContext/domain/entity/Accompagnant';
 
 interface Props {
   modalVisible: boolean;
   onClose: () => void;
-  onSearch: (person: any[]) => void;
+  onSearch: (person: Accompagnants[]) => void;
   ShowAddAccompanionsModal: () => void;
-  selectedItems: any[];
-  setSelectedItems:(selectedItems : any[]) => void;
+  selectedItems: Accompagnants[];
+  setSelectedItems: (selectedItems: Accompagnants[]) => void;
+  Accompagnants: Accompagnants[] | undefined
 }
 export const SearchAccompanionWithNameModal = (props: Props) => {
   const { t } = useTranslation();
   const [keyword, setKeyword] = useState<string>('')
-  const [selectedSite, setSelectedSite] = useState<Site | undefined>(undefined)
-  const [accoumpanionsVisible, setAccoumpanionsVisible] = useState(false);
-  // const [selectedItems, setSelectedItems] = useState<any[]>([]);
-  const [accompanyings, setAccompanyings] = useState<any[]>([])
-  console.log("🚀 ~ file: searchAccompanionWithNameModal.tsx:32 ~ SearchAccompanionWithNameModal ~ selectedItems:", props.selectedItems)
-
+  const [accompanyings, setAccompanyings] = useState<Accompagnants[] | undefined>([])
   const searchAccompaying = (keyword: string) => {
-    setKeyword(keyword)
-    const filtedAccompanyings = accompanying?.filter(person => person.Name.indexOf(keyword) !== -1)
-    setAccompanyings(filtedAccompanyings)
-  }
+    setKeyword(keyword);
+
+    if (props.Accompagnants) {
+      const filteredAccompanyings = props.Accompagnants.filter((person) => {
+        return person.fn && person.fn.indexOf(keyword) !== -1;
+      });
+      setAccompanyings(filteredAccompanyings);
+    } else {
+      setAccompanyings([]);
+    }
+  };
   const onSelectAccompanying = () => {
-    if (props.selectedItems.length === 0) {
+    if (props.selectedItems === undefined) {
       Alert.alert('', t('txt.veuillez.choisir.chantier')!)
     } else {
       props.onSearch(props.selectedItems)
       props.onClose()
     }
   }
-
   return (
     <Modal
       animationType="slide"
@@ -54,8 +52,7 @@ export const SearchAccompanionWithNameModal = (props: Props) => {
         <WarringTextView WarringTest={t('txt.selectionnez.plusisieurs.accompagnat')} />
         <AddAccompanionsInput selectAccompanions={props.selectedItems} ShowAddAccompanionsModal={props.ShowAddAccompanionsModal} />
         <SearchInputAccompanion keyword={keyword} searchAccompaying={searchAccompaying} />
-        {/* <SearchResultAccompanion sites={sites} onSelect={(site: Site | undefined) => setSelectedSite(site)} /> */}
-        {accompanyings.length === 0 ? (<ListAccoumpanions accompanying={accompanying} selectedItems={props.selectedItems} setSelectedItems={props.setSelectedItems} />) :(<ListAccoumpanions accompanying={accompanyings} selectedItems={props.selectedItems} setSelectedItems={props.setSelectedItems} />)}
+        {accompanyings?.length === 0 ? (<ListAccoumpanions accompanying={props.Accompagnants} selectedItems={props.selectedItems} setSelectedItems={props.setSelectedItems} />) : (<ListAccoumpanions accompanying={accompanyings} selectedItems={props.selectedItems} setSelectedItems={props.setSelectedItems} />)}
       </View>
     </Modal>
 

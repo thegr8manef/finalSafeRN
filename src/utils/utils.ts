@@ -13,7 +13,7 @@ export function convertDate(date: string, lang: string): string {
         // Set the locale based on the language code
         moment.locale(changeLangCode);
         // Parse the input date using Moment.js and format it as 'DD MMMM YYYY'
-        return moment(date, 'YYYY/MM/DD HH:mm:ss').format('DD MMMM YYYY');
+        return moment(date, 'DD MMMM YYYY').format('DD MMMM YYYY');
     } catch (error) {
         // Handle any errors that might occur during the operation
         return date; // Return the original date if an error occurs

@@ -1,5 +1,6 @@
 import { VisitFlash } from '@contexts/visiteContext/domain/entity/VisitFlash';
 import { FlashDto } from './../dto/flash.dto';
+import { Remarque } from "@common/adapters/secondaries/db/entity/Remarque";
 
 export class FlashMapper {
   static mapTodb(item: VisitFlash): FlashDto {
@@ -32,4 +33,17 @@ export class FlashMapper {
     };
     return flash;
   }
+  static mapToVisitRemarqueFlash(flashs: Remarque[]): VisitFlash[] {
+        
+    return flashs.map(flash => new VisitFlash(
+    flash.tk!!,
+    flash.ds!!,
+    flash.photos,
+    flash.lvl,
+    flash.idcs,
+    flash.dtl,
+    flash.tg,
+    flash.pm
+    ));
+}
 }
