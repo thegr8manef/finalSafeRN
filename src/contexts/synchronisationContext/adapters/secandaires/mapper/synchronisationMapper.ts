@@ -107,12 +107,8 @@ export class SynchronisationMapper {
 static mapToRemoteVisitDto(visits : Visit[]) : VisitSynchronistaionDto{
   const visites = visits.map((visit: Visit) => {
     if(visit.type === 4){
-    console.log("🚀 ~ file: synchronisationMapper.ts:110 ~ SynchronisationMapper ~ visites ~ visit.type:", visit.type)
     this.MapToFlash(visit)
-    console.log("🚀 ~ file: synchronisationMapper.ts:110 ~ SynchronisationMapper ~ visites ~ visit.type === flash):")
     }else{
-      console.log("🚀 ~ file: synchronisationMapper.ts:110 ~ SynchronisationMapper ~ visites ~ visit.type:", visit.type)
-      console.log("🚀 ~ file: synchronisationMapper.ts:113 ~ SynchronisationMapper ~ visites ~ visit.type === other):")
       this.MapToFlash(visit)
       //this.MapToVisitCPH(visit)
     }

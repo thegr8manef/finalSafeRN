@@ -56,7 +56,6 @@ export class DbVisitsService implements VisitsService {
             qt: this.generateUUID(name, NAMESPACE)
           });
           resolve(newRemarque);
-          console.log("🚀 ~ file: dbVisitsService.ts:73 ~ DbVisitsService ~ realm?.write ~ newRemarque:", newRemarque)
         });
       }).catch(error => {
         reject(error);
@@ -83,7 +82,6 @@ export class DbVisitsService implements VisitsService {
         const accompagnant = realm
           .objects('Accompagnant')
           .filtered(`em = "${createdVisit.accompagnants!![0].em}"`);
-        console.log("🚀 ~ file: dbVisitsService.ts:86 ~ DbVisitsService ~ db.then ~ accompagnant:", accompagnant)
         realm?.write(() => {
           const newVisit = realm.create<Visit>("Visit", {
             // Map Visit properties from data
@@ -108,11 +106,9 @@ export class DbVisitsService implements VisitsService {
           //   console.log('SaveVisit1212',newVisit)
           //   newVisit.remarques.push(createdVisit);
           // }
-          console.log('SaveVisitError1212', newVisit)
           resolve(newVisit);
         });
       }).catch((error) => {
-        console.log('SaveVisitError1212', error)
         reject(error);
       });
 

@@ -104,11 +104,7 @@ export const VisitsContainer = (props: Props): JSX.Element => {
     props.loadVisits();
     props.loadSites();
     props.loadFlash();
-    console.log('use effect simple');
   }, [])
-  useFocusEffect(() => {
-    console.log('screenToNavigate ===> ', screenToNavigate);
-  })
   useEffect(() => {
     NextStep();
     changeTitle();
@@ -192,8 +188,7 @@ export const VisitsContainer = (props: Props): JSX.Element => {
       </View>
     );
   };
-  console.log("🚀 ~ file: visits.container.tsx:196 ~ VisitsContainer ~ props.flash outside:", props.flash)
-  console.log("🚀 ~ file: visits.container.tsx:197 ~ VisitsContainer ~ props.visits outside:", props.visits)
+
   const handleRefresh = () => {
     setRefreshing(true);
     // Assuming that props.loadFlash and props.loadVisits return Promises

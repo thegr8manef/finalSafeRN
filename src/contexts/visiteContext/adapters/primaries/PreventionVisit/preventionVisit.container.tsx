@@ -77,14 +77,6 @@ export const PreventionVisitContainer = (props: Props) => {
         });
         const accompagant: Accompagnants[] = [new Accompagnants(generateID(), selectedItems[0].fn, selectedItems[0].ln, selectedItems[0].em, selectedItems[0].idVisite, selectedItems[0].fullnameLowerCase, selectedItems[0].ac, selectedItems[0].ol, selectedItems[0].prId)];
 
-        Alert.alert('', t('etes_vous_sur_de_vouloir_sauvegarder')!, [
-            {
-                text: 'NON',
-                style: 'cancel',
-            },
-            {
-                text: 'OUI',
-                onPress: () => {
                     props.navigation.navigate('CurrentVisit', {
                         comments: comment, // Replace with your comment data
                         addAccompanying: selectedItems, // Replace with your array data
@@ -96,10 +88,6 @@ export const PreventionVisitContainer = (props: Props) => {
                         type: 0 //type Visit
                     });
                 }
-            },
-        ]);
-
-    }
     return (
         <View style={styles.container}>
             <WarringTextView WarringTest={t('txt.completer.info')} />
