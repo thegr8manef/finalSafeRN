@@ -17,12 +17,10 @@ import { CommentInfo } from '../comment/commentInfo';
 import { AccompanionsSelect } from '../../Visit/components/accompanionsInfo/accompanionsSelect';
 import { BottomFooter } from '../BottomFooter';
 import { AddAccompanyingModal } from '../../Visit/components/accompanionsInfo/addAccompanyingModal';
-import { CHARACTERS } from '@common/constants';
 import { useRoute } from '@react-navigation/native';
 import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
 import { VisitFlash } from '@contexts/visiteContext/domain/entity/VisitFlash';
 import { Accompagnants } from '@contexts/visiteContext/domain/entity/Accompagnant';
-import { VisitObservation } from '@contexts/visiteContext/domain/entity/VisitsObservation';
 import { generateID } from '@utils/utils';
 
 
@@ -57,18 +55,6 @@ export const ConformityVisitContainer = (props: Props) => {
         props.loadAccompagnants();
         props.loadSites();
     }, [])
-    useEffect(() => {
-        if (addAccompanying.length !== 0) {
-            props.Accompagnants.push({
-                id: "54098",
-                _fn: 'manef',
-                _em: 'test@test.com',
-                ac: true,
-                _ln: 'lastnameManef',
-            });
-        }
-    }, [addAccompanying])
-
     const NextStep = () => {
         const formattedDate = date.toLocaleDateString('en-GB', {
             day: 'numeric',

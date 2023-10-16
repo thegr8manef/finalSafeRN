@@ -27,10 +27,6 @@ export const ObservationModal = (props: Props) => {
         props.setobservations(filtedObservations)
     }
     type ItemProps = { title: string };
-    const SaveObservationTitle = (title: string) => {
-        props.setObservationTitle(title);
-        props.AddNewObservationModal;
-    }
     const Item = ({ title }: ItemProps) => (
         <Pressable style={styles.item} onPress={props.AddNewObservationModal} onPressIn={() => props.setObservationTitle(title)}>
             <Text style={styles.title_item}>{title}</Text>

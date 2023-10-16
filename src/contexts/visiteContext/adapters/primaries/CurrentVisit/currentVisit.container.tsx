@@ -39,6 +39,7 @@ export const CurrentVisitContainer = (props: Props) => {
   const [images, setImages] = useState<Photo[]>([]);
   const [responseId, setResponseId] = useState<Number>(4);
 
+  let observationList: VisitObservation[] = [];
   const ObservationToBeLiftedTitle = t('txt.my.remarks') + ' ' + '(' + observationsToBeLifted.length.toString() + ')';
   const StrongpointsTitle = t('txt.points.forts') + ' ' + '(0)';
   const PointsToImproveTitle = t('txt.points.a.ameliorer') + ' ' + '(0)';
@@ -47,17 +48,22 @@ export const CurrentVisitContainer = (props: Props) => {
     props.navigation.goBack();
   }
   const content = [
-    { type: "image", source: utils.images.icn_delete, onPress: () => { console.log('delete') } },
+    { type: "image", source: utils.images.icn_delete, onPress: () => { DeleteVisit() } },
     { type: "image", source: utils.images.icn_edit, onPress: () => editCurrentVisit() },
   ];
   const route = useRoute();
   const { comments, addAccompanying, date, selectedSiteName, type, Accompagant, selectedSite, selectedSiteRef } = route.params; // Access the parameters
 
-  const observationList: VisitObservation[] = [new VisitObservation(generateID(), "manef123456", "manef123456", selectedSite?.id, images, responseId, 0, generateID(), comment, date, titleComment, true, "manef123456")];
+  if (titleComment.length > 0 && observationTitle.length === 0) {
+    observationList = [new VisitObservation(generateID(), "manef123456", "manef123456", selectedSite?.id, images, responseId, 0, generateID(), comment, date, titleComment, true, "manef123456")];
+  } else {
+    observationList = [new VisitObservation(generateID(), "manef123456", "manef123456", selectedSite?.id, images, responseId, 0, generateID(), comment, date, observationTitle, true, "manef123456")];
+  }
   const visit = new Visit('', date, '', '', 12345789, selectedSite, selectedSiteRef, comments, undefined, observationList, Accompagant, 0, undefined, undefined, 0, '', '', type);
+  
   const verification = (): boolean => {
     if (responseId === 4) {
-      Alert.alert('', t('neg_ou_pos')!);
+      Alert.alert('', t('msg.cant.cloture.viste')!);
       return false
     } else {
       if (observationTitle.length === 0 && titleComment.length === 0) {
@@ -90,7 +96,21 @@ export const CurrentVisitContainer = (props: Props) => {
       },
     ]);
   }
-
+  const DeleteVisit = () => {
+    Alert.alert('', t('msg.are.you.sure.to.delete.visite')!, [
+      {
+        text: 'CANCEL',
+        style: 'cancel',
+      },
+      {
+        text: 'DELETE',
+        onPress: () => {
+          //visit deleted
+          props.navigation.navigate('visites');
+      }
+    },
+    ]);
+  }
   return (
     <View style={styles.container}>
       <Collapse site={selectedSiteName} accompagnatsList={addAccompanying} date={date} comment={comments} type={type} />
@@ -98,7 +118,7 @@ export const CurrentVisitContainer = (props: Props) => {
       <BottomFooter confirmPress={() => saveVisit()} confirmText={t('flash_alert_button')} content={content} />
       <ObservationToBeLiftedModal visible={observationToBeLiftedVisible} onClose={() => setObservationToBeLiftedVisible(false)} title={ObservationToBeLiftedTitle} observationToBeLifted={observationsToBeLifted} />
       <ObservationModal visible={observationVisible} onClose={() => setObservationVisible(false)} title={t('txt.title.ajout.observations')} observation={observations} setobservations={setobservations} filtedObservations={observation} AddNewObservationModal={() => setAddNewObservationVisible(true)} setObservationTitle={setobservationTitle} />
-      <AddNewObservationModal visible={addNewObservationVisible} onClose={() => setAddNewObservationVisible(false)} title={t('txt.title.ajout.observations')} observationTitle={observationTitle.toString()} titleComment={titleComment} setTitleComment={setTitleComment} comment={comment} setComment={setComment} images={images} setImages={setImages} responseId={responseId} setResponseId={setResponseId} />
+      <AddNewObservationModal visible={addNewObservationVisible} onClose={() => setAddNewObservationVisible(false)} title={t('txt.title.ajout.observations')} observationTitle={observationTitle.toString()} titleComment={titleComment} setTitleComment={setTitleComment} comment={comment} setComment={setComment} images={images} setImages={setImages} responseId={responseId} setResponseId={setResponseId} idRemarque={generateID()} idVisits={visit.id} />
       <StrongPointsModal visible={strongPointsVisible} onClose={() => setStrongPointsVisible(false)} title={StrongpointsTitle} StrongPointsList={[]} AddNewStrongPointsModal={() => console.log('Add New Strong Points Modal')} />
       <PointsToImproveModal visible={pointsToImproveVisible} onClose={() => setPointsToImproveVisible(false)} title={PointsToImproveTitle} StrongPointsList={[]} AddNewPointsToImproveModal={() => console.log('Add New Points To Be Improve Modal')} />
     </View>

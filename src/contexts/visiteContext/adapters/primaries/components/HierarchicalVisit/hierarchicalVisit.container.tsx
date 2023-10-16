@@ -56,7 +56,7 @@ export const HierarchicalVisitContainer = (props: Props) => {
     const [date, setDate] = useState(new Date(Date.now()));
     const [selectedItems, setSelectedItems] = useState<any[]>([]);
     const route = useRoute();
-    const { selectedSite, selectedSiteName, selectedSiteRef,  } = route.params; // Access the parameters
+    const { selectedSite, selectedSiteName, selectedSiteRef, } = route.params; // Access the parameters
     useEffect(() => {
         props.loadAccompagnants();
         props.loadSites();
@@ -80,29 +80,18 @@ export const HierarchicalVisitContainer = (props: Props) => {
             year: 'numeric',
         });
         const accompagant: Accompagnants[] = [new Accompagnants(generateID(), selectedItems[0].fn, selectedItems[0].ln, selectedItems[0].em, selectedItems[0].idVisite, selectedItems[0].fullnameLowerCase, selectedItems[0].ac, selectedItems[0].ol, selectedItems[0].prId)];
-        
-        Alert.alert('', t('etes_vous_sur_de_vouloir_sauvegarder')!, [
-            {
-                text: 'NON',
-                style: 'cancel',
-            },
-            {
-                text: 'OUI',
-                onPress: () => {
-                    //props.saveVisit(visitHierarchical)
-                    props.navigation.navigate('CurrentVisit', {
-                        comments: comment, // Replace with your comment data
-                        addAccompanying: selectedItems, // Replace with your array data
-                        Accompagant : accompagant, // Accompagant
-                        date: formattedDate, //Date
-                        selectedSiteName: selectedSiteName, //Site Name
-                        selectedSite: selectedSite, //Site
-                        selectedSiteRef: selectedSiteRef,//Site ref
-                        type: 3 //type Visit
-                    });
-                }
-            },
-        ]);
+        //props.saveVisit(visitHierarchical)
+        props.navigation.navigate('CurrentVisit', {
+            comments: comment, // Replace with your comment data
+            addAccompanying: selectedItems, // Replace with your array data
+            Accompagant: accompagant, // Accompagant
+            date: formattedDate, //Date
+            selectedSiteName: selectedSiteName, //Site Name
+            selectedSite: selectedSite, //Site
+            selectedSiteRef: selectedSiteRef,//Site ref
+            type: 3 //type Visit
+        });
+
 
     }
     return (

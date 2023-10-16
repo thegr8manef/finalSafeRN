@@ -11,6 +11,7 @@ import { BottomFooter } from '../../../components/BottomFooter';
 import { chooseImage, launchCamera } from '@utils/utilsCamera';
 import { isDisplayZoomed } from 'react-native-device-info';
 import { VisitObservation } from '@contexts/visiteContext/domain/entity/VisitsObservation';
+import { generateID } from '@utils/utils';
 interface Props {
     visible: boolean;
     onClose: () => void;
@@ -24,6 +25,9 @@ interface Props {
     setImages: (images: Photo[]) => void;
     responseId: Number;
     setResponseId: (responseId: Number) => void;
+    idRemarque: string;
+    idVisits: string;
+    
 }
 export const AddNewObservationModal = (props: Props) => {
     const { t } = useTranslation();
@@ -35,9 +39,37 @@ export const AddNewObservationModal = (props: Props) => {
     //const [images, setImages] = useState<Photo[]>([]);
 
     const content = [
-        { type: "image", source: utils.images.takePhotoIcon, onPress: () => { console.log('take photo') /* Handle image press */ } },
-        { type: "image", source: utils.images.fileIcon, onPress: () => { console.log('choose photo')/* Handle image press */ } },
+        { type: "image", source: utils.images.takePhotoIcon, onPress: () => { captureImage() /* Handle image press */ } },
+        { type: "image", source: utils.images.fileIcon, onPress: () => { chooseFile()/* Handle image press */ } },
     ];
+    const addImage = (image: Photo) => {
+        props.setImages([...props.images, image]);
+      };
+    const captureImage = async () => {
+        launchCamera()
+          .then((data) => {
+            if (
+              data.assets &&
+              data.assets.length > 0 &&
+              data.assets[0].uri
+            )
+              var image = new Photo(generateID(), data.assets[0].fileName, data.assets[0].uri, props.idRemarque, props.idVisits, false, 0, "test-id-formation", false, false, 0);
+            addImage(image!!);
+          })
+          .catch((error) => {
+            // Handle errors here
+          });
+      };
+    
+      const chooseFile = () => {
+        chooseImage()
+          .then((data) => {
+            if (data.getParts()?.length > 0) {
+              var image = new Photo(generateID(), data.getParts()[0]?.fileName, data.getParts()[0]?.uri, props.idRemarque, props.idVisits, false, 0, "test-id-formation", false, false, 0);
+              addImage(image!!);
+            }
+          })
+      };
 
     const onCheckConform = () => {
         setIsClickedConform(!isClickedConform);
@@ -64,7 +96,7 @@ export const AddNewObservationModal = (props: Props) => {
     }
     const verification = () : boolean =>{
         if (props.responseId === 4) {
-            Alert.alert('', t('neg_ou_pos')!);
+            Alert.alert('', t('txt.veuillez.ajouter.observation')!);
             return false
           } else {
             if (props.observationTitle.length ===0 && props.titleComment.length === 0) {

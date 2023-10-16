@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity, ActivityIndicator, RefreshControl } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import * as utils from '@utils/index';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -16,6 +16,7 @@ import { Profile } from '@contexts/profileContext/domain/entity/profile';
 import { VisitModal } from '../components/commonComponentsVisits/VisitModal';
 import { Site } from '@contexts/visiteContext/domain/entity/Site';
 import { VisitFlash } from '@contexts/visiteContext/domain/entity/VisitFlash';
+import { useFocusEffect, useRoute } from '@react-navigation/native';
 
 // Define the props for the component
 interface Props {
@@ -57,7 +58,11 @@ export const VisitsContainer = (props: Props): JSX.Element => {
   const [screenToNavigate, setscreenToNavigate] = useState<string>('');
   const [title, settitle] = useState<string>('');
   const [selectedSite, setselectedSite] = useState<Site | undefined>();
+  const [refreshing, setRefreshing] = useState(false);
+
   const combinedData = [];
+
+
   const NextStep = () => {
     if (selectedSite !== undefined) {
       props.navigation.navigate(screenToNavigate, {
@@ -66,20 +71,24 @@ export const VisitsContainer = (props: Props): JSX.Element => {
         selectedSiteRef: selectedSite.reference
       });
     }
+
   }
   const changeTitle = () => {
     if (screenToNavigate !== '') {
       switch (screenToNavigate) {
         case 'PreventionVisit': {
           settitle('txt.new.visite.prevention');
+
           break;
         }
         case 'ConformityVisit': {
           settitle('txt.new.visite.conformité');
+
           break;
         }
         case 'HierarchicalVisit': {
           settitle('txt.new.visite.hiearchique');
+
           break;
         }
         default: {
@@ -95,8 +104,11 @@ export const VisitsContainer = (props: Props): JSX.Element => {
     props.loadVisits();
     props.loadSites();
     props.loadFlash();
+    console.log('use effect simple');
   }, [])
-
+  useFocusEffect(() => {
+    console.log('screenToNavigate ===> ', screenToNavigate);
+  })
   useEffect(() => {
     NextStep();
     changeTitle();
@@ -143,7 +155,7 @@ export const VisitsContainer = (props: Props): JSX.Element => {
 
             }
             <CustomVisitOption title={t('txt.levee')} value={0} />
-            <CustomVisitOption title={t('txt.photos')} value={visit ? 0 : visit.remarques?.[0]?.md?.length} />
+            <CustomVisitOption title={t('txt.photos')} value={visit ? visit.observations!![0].listPhotos!!.length : 0} />
             <Image source={utils.images.visitLockIcon} style={globalStyle.defaultImageStyle} />
           </View>
         </View>
@@ -173,15 +185,34 @@ export const VisitsContainer = (props: Props): JSX.Element => {
 
             } */}
             <CustomVisitOption title={t('txt.levee')} value={0} />
-            <CustomVisitOption title={t('txt.photos')} value={flash ? 0 : flash.images.length} />
+            <CustomVisitOption title={t('txt.photos')} value={ flash ?0 : flash.images.length} />
             <Image source={utils.images.visitLockIcon} style={globalStyle.defaultImageStyle} />
           </View>
         </View>
       </View>
     );
   };
-
-
+  console.log("🚀 ~ file: visits.container.tsx:196 ~ VisitsContainer ~ props.flash outside:", props.flash)
+  console.log("🚀 ~ file: visits.container.tsx:197 ~ VisitsContainer ~ props.visits outside:", props.visits)
+  const handleRefresh = () => {
+    setRefreshing(true);
+    // Assuming that props.loadFlash and props.loadVisits return Promises
+    Promise.all([props.loadFlash(), props.loadVisits()])
+      .then(() => {
+        setRefreshing(false);
+        
+      })
+      .catch((error) => {
+        console.error('Refresh error:', error);
+        setRefreshing(false);
+      });
+  };
+  
+  useEffect(() => {
+    if (refreshing) {
+      handleRefresh();
+    }
+  }, [refreshing]);
   // Handler for synchronizing data
   const handlSynchronisation = () => {
     props.sendData(props.profile?.accessToken!!, props.profile?.lastUpdate!!, props.visits!!)
@@ -224,7 +255,14 @@ export const VisitsContainer = (props: Props): JSX.Element => {
             // keyExtractor={(item) => item.id?.toString()} // Adjust the key extractor based on your data structure
             // renderItem={({ item }) => <CustomVistList visit={item} />}
             data={combinedData}
-            keyExtractor={(item, index) => `${item.key}-${index}`} // Adjust the key extractor based on your data structure
+            keyExtractor={(item, index) => `${item.key}-${index}`}
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={handleRefresh}
+              />
+            }
+             // Adjust the key extractor based on your data structure
             renderItem={({ item }) => {
               if (item.key === 'visit') {
                 return <CustomVistList visit={item.data} />;
