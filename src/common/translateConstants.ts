@@ -10,4 +10,5 @@ export const TRANSLATE = {
   ABOUT: 'settings_about',
   CONFIDENTIALITY: 'settings_confidentiality',
   LEGAL_NOTICE: 'settings_legal_notice',
+  LAST_UPDATE: 'txt.last.update.at',
 };

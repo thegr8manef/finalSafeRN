@@ -7,10 +7,11 @@ import {StackParamList} from '@navigConfig/navigation.types';
 import {Visit} from '@contexts/visiteContext/domain/entity/Visit';
 import {Profile} from '@contexts/profileContext/domain/entity/profile';
 
-import {REGEX_SETTING, URL_NOTICE, URL_POLICY} from '@common/constants';
+import {REGEX_DATE, URL_NOTICE, URL_POLICY} from '@common/constants';
 import {SettingsAppInfo} from '../Settings/Components/SettingsAppInfo';
 import {LanguageModal} from '../Settings/Components/languageModal';
 import {SettingsContents} from './Components/SettingsContents';
+import {TRANSLATE} from '@common/translateConstants';
 
 interface Props {
   navigation: Partial<StackNavigationProp<StackParamList>>;
@@ -37,7 +38,7 @@ export const SettingsContainer = (props: Props) => {
     );
   };
   if (props.profile?.lastUpdate!! === undefined) {
-    DateNow = Date().replace(REGEX_SETTING, '').toString();
+    DateNow = Date().replace(REGEX_DATE, '').toString();
   } else {
     DateNow = props.profile?.lastUpdate!!;
   }
@@ -91,12 +92,19 @@ export const SettingsContainer = (props: Props) => {
     onPressItem(pressedItemID!!);
   }, [pressedItemID]);
 
+  useEffect(() => {
+    console.log(
+      '🚀 ~ SettingsContainer ~ props.profile?.lastUpdate:',
+      props.profile,
+    );
+  }, [props.profile]);
+
   return (
     <ScrollView style={styles.conatiner}>
       <SettingsAppInfo
         visits={props.visits}
         sendData={handlSynchronisation}
-        lastUpdateDate={t('txt.last.update.at') + ' ' + DateNow}
+        lastUpdateDate={t(TRANSLATE.LAST_UPDATE) + ' ' + DateNow}
       />
       <SettingsContents
         lastUpDate={props.profile?.lastUpdate!!.toString()!!}

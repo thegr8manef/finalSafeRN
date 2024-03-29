@@ -20,6 +20,7 @@ export const SettingsList = (props: Props) => {
 
   return (
     <SectionList
+      scrollEnabled={false}
       sections={SETTINGS(DateNow)}
       keyExtractor={(item, index) => item.label + index}
       renderItem={({item}) => (
