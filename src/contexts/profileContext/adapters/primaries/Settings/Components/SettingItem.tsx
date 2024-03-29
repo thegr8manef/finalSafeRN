@@ -1,62 +1,64 @@
-import { View, StyleSheet, SafeAreaView, Text, SectionList, TouchableOpacity, Image } from 'react-native';
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import {View, StyleSheet, Text, TouchableOpacity, Image} from 'react-native';
+import React from 'react';
+import {useTranslation} from 'react-i18next';
 import * as utils from '@utils/index';
 
-
 interface Props {
-pressedItemID: number | undefined;
-setPressedItemID: (id : number) => void;
-item: {id:number,label:string,name:string,icon:any};
+  pressedItemID: number | undefined;
+  setPressedItemID: (id: number) => void;
+  item: {id: number; label: string; name: string; icon: any};
 }
 
 export const SettingsItem = (props: Props) => {
-  const { t } = useTranslation();
+  const {t} = useTranslation();
   return (
-            <TouchableOpacity onPress={()=>props.setPressedItemID(props.item.id)}>
-            <View style={styles.item}>
-              <Text style={styles.Subtitle}>{props.item.label}</Text>
-                    {props.item.name ===null ?   (<View style={{flex:0.5}}></View>) : (
-                          <View style={styles.lastUpDateContainer}>
-                          <Text style={styles.last_update}>{t('txt.last.update.at')}</Text>
-                          <Text style={styles.last_update}>{props.item.name}</Text>
-                      </View>
-                        )}
-                          {props.item.icon && (
-                                <Image
-                                source={props.item.icon}
-                                style={styles.Image}
-                                />
-                        )}
-            </View>
-            </TouchableOpacity>
+    <TouchableOpacity
+      style={styles.item}
+      onPress={() => props.setPressedItemID(props.item.id)}>
+      <Text style={styles.Subtitle}>{props.item.label}</Text>
+      {props.item.name === null ? (
+        <View></View>
+      ) : (
+        <View style={styles.lastUpDateContainer}>
+          <Text style={styles.last_update}>{t('txt.last.update.at')}</Text>
+          <Text style={styles.last_update}>{props.item.name}</Text>
+        </View>
+      )}
+      {props.item.icon && (
+        <Image source={props.item.icon} style={styles.Image} />
+      )}
+    </TouchableOpacity>
   );
 };
 const styles = StyleSheet.create({
-    item: {
-      flexDirection : 'row',
-      height: 60,
-      borderBottomWidth: 1,
-      borderBottomColor: utils.colors.gris200,
-      padding: 10,
+  item: {
+    flexDirection: 'row',
+    borderBottomWidth: 1,
+    borderBottomColor: utils.colors.gris200,
+    padding: 10,
 
-    },
-    Subtitle: {
-      flex: 0.7,
-      fontSize: 17,
-      color: utils.colors.black,
-    },
-    Image:{
-      width: 35,
-      height: 30,
-      alignSelf: 'center',
-      resizeMode:'center',
-    },
-  last_update:{
-    flex: 0.5,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  Subtitle: {
+    fontSize: 15,
+    color: utils.colors.black,
+    paddingStart: 5,
+    flex: 2,
+  },
+  Image: {
+    width: 24,
+    height: 24,
+    marginEnd: 5,
+    resizeMode: 'center',
+  },
+  last_update: {
     fontSize: 12,
     color: utils.colors.gris200,
-
-},
-lastUpDateContainer:{ flex: 0.5,flexDirection:'column',flexWrap:'wrap'}
-  });
+  },
+  lastUpDateContainer: {
+    flexDirection: 'column',
+    flexWrap: 'wrap',
+    flex: 2,
+  },
+});
