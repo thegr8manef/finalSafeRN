@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { DashboardPage } from '@contexts/statisticContext/adapters/primaries/Dashboard';
-import { VisitsFlashPage } from '@contexts/visiteContext/adapters/primaries/Flash';
-import { MenuLeftPage } from './index';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import {DashboardPage} from '@contexts/statisticContext/adapters/primaries/Dashboard';
+import {VisitsFlashPage} from '@contexts/visiteContext/adapters/primaries/Flash';
+import {MenuLeftPage} from './index';
 import * as utils from '@utils/index';
-import { t } from 'i18next';
-import { HeaderOption } from '@common/adapters/primaries/components/HeaderOption';
+import {t} from 'i18next';
+import {HeaderOption} from '@common/adapters/primaries/components/HeaderOption';
 import globalStyle from '@styles/globalStyle';
 import {
   StyleSheet,
@@ -15,9 +15,10 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-import { LocalProfilePage } from '@contexts/profileContext/adapters/primaries/LocalProfile';
-import { VisitsPage } from '@contexts/visiteContext/adapters/primaries/Visit';
-import { SettingsPage } from '@contexts/profileContext/adapters/primaries/Settings';
+import {LocalProfilePage} from '@contexts/profileContext/adapters/primaries/LocalProfile';
+import {VisitsPage} from '@contexts/visiteContext/adapters/primaries/Visit';
+import {SettingsPage} from '@contexts/profileContext/adapters/primaries/Settings';
+import {TRANSLATE} from '@common/translateConstants';
 
 // Create a Drawer navigator
 const Drawer = createDrawerNavigator();
@@ -40,15 +41,16 @@ export const HomeNavigation = (props: Props) => {
       titleKey,
       renderHeaderRight: headerRightContent,
     }),
-    drawerLabel: () => <Text style={globalStyle.fontBoldDark15Style}>{t(titleKey)}</Text>,
+    drawerLabel: () => (
+      <Text style={globalStyle.fontBoldDark15Style}>{t(titleKey)}</Text>
+    ),
     drawerIcon: () => (
       <Image source={drawerIconPath} style={styles.iconStyle} />
     ),
   });
 
   const headerRightContent = (
-    <TouchableOpacity
-    onPress={() => props.navigation.navigate('visit.flash')}>
+    <TouchableOpacity onPress={() => props.navigation.navigate('visit.flash')}>
       <Image
         style={styles.flashIcon}
         source={utils.images.dashboardFlashIcon}
@@ -65,7 +67,7 @@ export const HomeNavigation = (props: Props) => {
         name={'dashboard'}
         component={DashboardPage}
         options={createScreenOptions({
-          titleKey: 'txt.dashboard',
+          titleKey: TRANSLATE.DASHBOARD,
           drawerIconPath: utils.images.dashboardIcon,
         })}
       />
@@ -73,7 +75,7 @@ export const HomeNavigation = (props: Props) => {
         name={'visites'}
         component={VisitsPage}
         options={createScreenOptions({
-          titleKey: 'txt.visites',
+          titleKey: TRANSLATE.VISITS,
           drawerIconPath: utils.images.visitIcon,
         })}
       />
@@ -81,7 +83,7 @@ export const HomeNavigation = (props: Props) => {
         name={'visit.flash'}
         component={VisitsFlashPage}
         options={createScreenOptions({
-          titleKey: 'txt.new.visit.flash',
+          titleKey: TRANSLATE.VISIT_FLASH,
           drawerIconPath: utils.images.visitflashIcon,
         })}
       />
@@ -89,7 +91,7 @@ export const HomeNavigation = (props: Props) => {
         name={'my.remarks'}
         component={DashboardPage}
         options={createScreenOptions({
-          titleKey: 'txt.my.remarks',
+          titleKey: TRANSLATE.REMARKS,
           drawerIconPath: utils.images.remarksIcon,
         })}
       />
@@ -97,7 +99,7 @@ export const HomeNavigation = (props: Props) => {
         name={'profile'}
         component={LocalProfilePage}
         options={createScreenOptions({
-          titleKey: 'txt.profile',
+          titleKey: TRANSLATE.PROFILE,
           drawerIconPath: utils.images.profileIcon,
         })}
       />
@@ -105,7 +107,7 @@ export const HomeNavigation = (props: Props) => {
         name={'settings'}
         component={SettingsPage}
         options={createScreenOptions({
-          titleKey: 'txt.settings',
+          titleKey: TRANSLATE.SETTINGS,
           drawerIconPath: utils.images.settingsIcon,
         })}
       />

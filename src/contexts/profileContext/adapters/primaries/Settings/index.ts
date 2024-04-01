@@ -15,6 +15,7 @@ import {SendDataActionTypes} from '@contexts/synchronisationContext/useCases/Sen
 import {sendData} from '@contexts/synchronisationContext/useCases/SendData/actions';
 import {profileSelector} from '@contexts/profileContext/useCases/Login/selectors';
 import {loadingSendSelector} from '@contexts/synchronisationContext/useCases/SendData/selector';
+import {localProfileSelector} from '@contexts/profileContext/useCases/LoadLocalProfile/selectors';
 
 interface StateToPropsType {
   visits: Visit[] | undefined;
@@ -28,7 +29,7 @@ interface DispatchToPropsType {
 }
 
 const mapStateToProps = (state: AppState): StateToPropsType => ({
-  profile: profileSelector(state),
+  profile: localProfileSelector(state),
   error: loadVisitsErrorSelector(state),
   visits: loadVisitsSelector(state),
   loading: loadingVisitsSelector(state) || loadingSendSelector(state),

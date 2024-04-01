@@ -11,4 +11,10 @@ export const TRANSLATE = {
   CONFIDENTIALITY: 'settings_confidentiality',
   LEGAL_NOTICE: 'settings_legal_notice',
   LAST_UPDATE: 'txt.last.update.at',
+  SETTINGS: 'txt.settings',
+  PROFILE: 'txt.profile',
+  REMARKS: 'txt.my.remarks',
+  VISIT_FLASH: 'txt.new.visit.flash',
+  VISITS: 'txt.visites',
+  DASHBOARD: 'txt.dashboard',
 };

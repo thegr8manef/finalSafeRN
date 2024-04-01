@@ -20,6 +20,7 @@ module.exports = {
           '@utils': './src/utils/',
           '@assets': './src/assets/',
           '@config': './src/config/',
+          '@helpers': './src/helpers/',
         },
       },
     ],

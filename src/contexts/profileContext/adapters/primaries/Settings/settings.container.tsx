@@ -12,6 +12,8 @@ import {SettingsAppInfo} from '../Settings/Components/SettingsAppInfo';
 import {LanguageModal} from '../Settings/Components/languageModal';
 import {SettingsContents} from './Components/SettingsContents';
 import {TRANSLATE} from '@common/translateConstants';
+import {convertTimeStampToDate} from '@helpers/index';
+import {SettingsList} from './Components/SettingsList';
 
 interface Props {
   navigation: Partial<StackNavigationProp<StackParamList>>;
@@ -40,7 +42,7 @@ export const SettingsContainer = (props: Props) => {
   if (props.profile?.lastUpdate!! === undefined) {
     DateNow = Date().replace(REGEX_DATE, '').toString();
   } else {
-    DateNow = props.profile?.lastUpdate!!;
+    DateNow = convertTimeStampToDate(Number(props.profile?.lastUpdate!!));
   }
   const loadInBrowserPolicy = () => {
     Linking.openURL(URL_POLICY).catch(err =>
@@ -56,22 +58,30 @@ export const SettingsContainer = (props: Props) => {
     switch (pressedItemID) {
       case 1: {
         handlSynchronisation();
+        setPressedItemID(-1);
+
         break;
       }
       case 2: {
-        console.log('other Site pressed');
+        setPressedItemID(-1);
+
         break;
       }
       case 3: {
         handlSynchronisation();
+        setPressedItemID(-1);
+
         break;
       }
       case 4: {
         handlSynchronisation();
+        setPressedItemID(-1);
+
         break;
       }
       case 5: {
         setModalVisible(true);
+        setPressedItemID(-1);
         break;
       }
       case 6: {
@@ -80,6 +90,7 @@ export const SettingsContainer = (props: Props) => {
       }
       case 7: {
         loadInBrowserNotice();
+        setPressedItemID(-1);
         break;
       }
       default: {
@@ -92,13 +103,6 @@ export const SettingsContainer = (props: Props) => {
     onPressItem(pressedItemID!!);
   }, [pressedItemID]);
 
-  useEffect(() => {
-    console.log(
-      '🚀 ~ SettingsContainer ~ props.profile?.lastUpdate:',
-      props.profile,
-    );
-  }, [props.profile]);
-
   return (
     <ScrollView style={styles.conatiner}>
       <SettingsAppInfo
@@ -106,8 +110,8 @@ export const SettingsContainer = (props: Props) => {
         sendData={handlSynchronisation}
         lastUpdateDate={t(TRANSLATE.LAST_UPDATE) + ' ' + DateNow}
       />
-      <SettingsContents
-        lastUpDate={props.profile?.lastUpdate!!.toString()!!}
+      <SettingsList
+        lastUpDate={props.profile?.lastUpdate!!}
         pressedItemID={pressedItemID}
         setPressedItemID={setPressedItemID}
       />
