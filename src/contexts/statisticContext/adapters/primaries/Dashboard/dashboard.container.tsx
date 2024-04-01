@@ -65,20 +65,25 @@ export const DashboardContainer = (props: Props) => {
 
       <ScrollView style={styles.f1}>
         <GeneralStats stat={props.stat} />
+        {/* spacer */}
+        <View style={{height: 15}} />
         <View style={styles.visitContentStats}>
           <ProgressVisitsStats
             title={t('txt.type.visits')}
             statsVisit={props.stat?.statVisit}
           />
+          <View style={{height: 10}} />
           <PieChartObservationStats
             observationStats={props.stat?.statObservation}
             title={t('txt.conform.positive.not.conform.negative')}
             accessor={'total'}
           />
+          <View style={{height: 10}} />
           <ProgressRisksStats
             statsRisk={props.stat?.statRisk}
             title={t('txt.top.risks')}
           />
+          <View style={{height: 20}} />
         </View>
       </ScrollView>
 
@@ -99,13 +104,13 @@ export const DashboardContainer = (props: Props) => {
 const styles = StyleSheet.create({
   f1: {
     flex: 1,
+    backgroundColor: '#eaeaea',
   },
   header: {
     flexDirection: 'row-reverse',
   },
   visitContentStats: {
     flex: 3,
-    backgroundColor: '#eaeaea',
     flexDirection: 'column',
   },
   button_container: {

@@ -4,6 +4,7 @@ import * as utils from '@utils/index';
 import {ProgressBarCard} from '../../components/ProgressBarCard';
 import {StatVisit} from '../../../../domain/entity/statVisit';
 import {useTranslation} from 'react-i18next';
+import {windowWidth} from '@styles/dimension';
 
 interface Props {
   title: string;
@@ -11,58 +12,75 @@ interface Props {
 }
 export const ProgressVisitsStats = (props: Props) => {
   const {t} = useTranslation();
-  
+
+  let arr = [
+    props.statsVisit?.visitFlash,
+    props.statsVisit?.visitPrevention,
+    props.statsVisit?.visitConformity,
+    props.statsVisit?.visitHierarchical,
+  ];
+  // get total list
+  const total = arr.reduce((a, b) => a + b, 0);
+  console.log(total);
+  console.log((props.statsVisit?.visitFlash * 100) / total);
+
   return (
     <View
       style={[
         styles.container,
-        {height: props.statsVisit !== undefined ? 200 : 120},
+        {height: props.statsVisit !== undefined ? 250 : 120},
       ]}>
       <View style={styles.header}>
         <Text style={styles.label} testID="Title">
-          {props.title}
+          {' ' + props.title}
         </Text>
       </View>
-      {props.statsVisit !== undefined ? (
+      {total && props.statsVisit !== undefined ? (
         <View style={styles.content}>
-
-          <View style={styles.item}> 
-          <ProgressBarCard
-            height={10}
-            borderRadius={0}
-            label={t('txt.prevention')}
-            value={props.statsVisit.visitPrevention * 0.01}
-            color={utils.colors.yellow}
-            
-          />
-        </View>  
-        <View style={styles.item}>  
-          <ProgressBarCard
-            height={10}
-            borderRadius={0}
-            label={t('txt.conformité')}
-            value={props.statsVisit.visitConformity * 0.01}
-            color={utils.colors.green}
-          />
-       </View>
-        <View style={styles.item}> 
-          <ProgressBarCard
-            height={10}
-            borderRadius={0}
-            label={t('txt.hierarchique')}
-            value={props.statsVisit.visitHierarchical * 0.01}
-            color={utils.colors.blue}
-          />
-            </View>
-          <View style={styles.item}> 
-          <ProgressBarCard
-            label={t('txt.flash')}
-            height={10}
-            borderRadius={0}
-            value={props.statsVisit.visitFlash * 0.01}
-            color={utils.colors.red}
-          />
-            </View>
+          <View style={styles.item}>
+            <ProgressBarCard
+              height={12}
+              width={windowWidth * 0.8}
+              borderRadius={0}
+              label={t('txt.prevention')}
+              value={(props.statsVisit?.visitPrevention * 100) / total}
+              color={utils.colors.yellow}
+              visitNumber={props.statsVisit.visitPrevention}
+            />
+          </View>
+          <View style={styles.item}>
+            <ProgressBarCard
+              height={12}
+              width={windowWidth * 0.8}
+              borderRadius={0}
+              label={t('txt.conformité')}
+              value={(props.statsVisit.visitConformity * 100) / total}
+              color={utils.colors.green}
+              visitNumber={props.statsVisit.visitConformity}
+            />
+          </View>
+          <View style={styles.item}>
+            <ProgressBarCard
+              height={12}
+              width={windowWidth * 0.8}
+              borderRadius={0}
+              label={t('txt.hierarchique')}
+              value={(props.statsVisit.visitHierarchical * 100) / total}
+              color={utils.colors.blue}
+              visitNumber={props.statsVisit.visitHierarchical}
+            />
+          </View>
+          <View style={styles.item}>
+            <ProgressBarCard
+              label={t('txt.flash')}
+              height={12}
+              width={windowWidth * 0.8}
+              borderRadius={0}
+              value={(props.statsVisit.visitFlash * 100) / total}
+              color={utils.colors.red}
+              visitNumber={props.statsVisit.visitFlash}
+            />
+          </View>
         </View>
       ) : (
         <View style={styles.contentUndefined}>
@@ -75,29 +93,29 @@ export const ProgressVisitsStats = (props: Props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: 10,
+    alignSelf: 'center',
     overflow: 'hidden',
-
+    elevation: 2,
     width: '96%',
     backgroundColor: 'white',
+    borderRadius: 5,
+    padding: 5,
   },
   header: {
-    marginTop: 5,
-    marginStart: 5,
+    height: 30,
+    marginVertical: 10,
   },
   label: {
-    textAlign: 'left',
-    fontWeight: '700',
     color: 'black',
-    fontSize: 12,
-    marginTop: 10,
-    marginLeft: 5,
+    fontSize: 13,
+    fontFamily: utils.fonts.AvenirHeavy,
+    fontWeight: 'bold',
   },
   content: {
     flex: 1,
-    justifyContent:"center",
+    justifyContent: 'center',
     marginStart: 5,
-    marginTop : -30
+    marginTop: -30,
   },
   contentUndefined: {
     justifyContent: 'center',
@@ -107,5 +125,5 @@ const styles = StyleSheet.create({
   textNoData: {
     color: utils.colors.gray700,
   },
- item: {marginTop : 5}
+  item: {marginTop: 10},
 });

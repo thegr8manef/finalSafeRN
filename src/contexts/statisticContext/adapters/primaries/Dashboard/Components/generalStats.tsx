@@ -9,7 +9,7 @@ interface Props {
 export const GeneralStats = (props: Props): JSX.Element => {
   const {t} = useTranslation();
   return (
-    <View style={{flex: 1, backgroundColor: '#eaeaea', flexDirection: 'row'}}>
+    <View style={{flex: 1,  flexDirection: 'row'}}>
       <NumberCard
         label={t('txt.visites')}
         value={
@@ -17,7 +17,7 @@ export const GeneralStats = (props: Props): JSX.Element => {
             ? props.stat?.statVisit.visitNumber.toString()
             : '-'
         }
-        descriptipn={''}
+        description={'\n\n'}
         colorText={'black'}
       />
       <NumberCard
@@ -27,7 +27,7 @@ export const GeneralStats = (props: Props): JSX.Element => {
             ? props.stat?.statObservation.observationNumber.toString()
             : '-'
         }
-        descriptipn={
+        description={
           t('txt.conform.positive') +
           props.stat?.statObservation.hintObservation
         }
@@ -40,7 +40,7 @@ export const GeneralStats = (props: Props): JSX.Element => {
             ? props.stat?.statObservation.leveeDesReservesNumber + '%'
             : '-'
         }
-        descriptipn={
+        description={
           t('txt.not.conform.negative') + props.stat?.statObservation.hintLevee
         }
         colorText={'green'}

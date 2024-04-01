@@ -25,36 +25,43 @@ export const PieChartObservationStats = (props: Props): JSX.Element => {
   const totalPositive = !props.observationStats?.observationPositive
     ? 0
     : props.observationStats.observationPositive;
+
+  const total =
+    totalConforme + totalPositive + totalNonConforme + totalAmeliorer;
   const data: PieChartData[] = [
     {
       name: t('txt.conformes'),
-      total: totalConforme,
+      total: Number(((totalConforme * 100) / total).toFixed(0)),
       color: utils.colors.green,
       legendFontColor: '#7F7F7F',
       legendFontSize: 12,
     },
     {
       name: t('txt.positives'),
-      total: totalPositive,
+      total: Number(((totalPositive * 100) / total).toFixed(0)),
       color: utils.colors.green200,
       legendFontColor: '#7F7F7F',
       legendFontSize: 12,
+      percent: (totalPositive * 100) / total,
     },
     {
       name: t('txt.non.conformes'),
-      total: totalNonConforme,
+      total: Number(((totalNonConforme * 100) / total).toFixed(0)),
       color: utils.colors.red,
       legendFontColor: '#7F7F7F',
       legendFontSize: 12,
+      percent: (totalNonConforme * 100) / total,
     },
     {
       name: t('txt.a.ameliorer'),
-      total: totalAmeliorer,
+      total: Number(((totalAmeliorer * 100) / total).toFixed(0)),
       color: utils.colors.red200,
       legendFontColor: '#7F7F7F',
       legendFontSize: 12,
+      percent: (totalAmeliorer * 100) / total,
     },
   ];
+  
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -75,12 +82,12 @@ export const PieChartObservationStats = (props: Props): JSX.Element => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    margin: 10,
-    overflow: 'hidden',
     height: 200,
     width: '96%',
     backgroundColor: 'white',
+    elevation: 2,
+    borderRadius: 5,
+    alignSelf: 'center',
   },
   header: {
     marginTop: 5,

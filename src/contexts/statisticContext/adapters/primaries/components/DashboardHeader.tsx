@@ -34,8 +34,7 @@ export const DashboardHeader = (props: Props): JSX.Element => {
           <View style={styles.containerPerimetre}>
             <Text style={styles.textArea}>{t('txt.chantiers')}</Text>
             <Text style={styles.textDetails}>
-              {props.numberChantier}
-              {t('txt.selections')}
+              {`${props.numberChantier} ${t('txt.selections')}`}
             </Text>
           </View>
           <View style={styles.imagePerimetre}>
@@ -82,7 +81,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
   },
   containerChantier: {
-    height: 70,
+    height: 80,
     backgroundColor: utils.colors.white,
   },
   perimetre: {
@@ -92,17 +91,18 @@ const styles = StyleSheet.create({
   statics: {
     flexDirection: 'row',
     height: '30%',
+    justifyContent:'center'
   },
   ImageInfo: {
     marginStart: 10,
-
-    width: '5%',
-    height: '70%',
+    width: 18,
+    height: 18,
     resizeMode: 'contain',
   },
   textStat: {
     flex: 3,
     marginStart: 10,
+    fontFamily: utils.fonts.AvenirMedium,
   },
   container_divider: {
     margin: 5,
@@ -136,11 +136,14 @@ const styles = StyleSheet.create({
   textArea: {
     color: utils.colors.gris200,
     textAlign: 'justify',
-
+    fontFamily: utils.fonts.AvenirMedium,
     width: '100%',
+    fontSize: 12,
   },
   textDetails: {
     color: utils.colors.textColor,
+    fontFamily: utils.fonts.AvenirMedium,
+    fontSize: 12,
   },
   containerVide: {
     flex: 1,

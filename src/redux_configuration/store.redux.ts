@@ -7,10 +7,10 @@ import {AppState} from './appState';
 export const reduxStore = (): Store<AppState> => {
   const middlewares = [epicsMiddleware,]
 
-  if (process.env.NODE_ENV === `development`) {
-    const { logger } = require(`redux-logger`);
-    middlewares.push(logger);
-  }
+  // if (process.env.NODE_ENV === `development`) {
+  //   const { logger } = require(`redux-logger`);
+  //   middlewares.push(logger);
+  // }
 
   const store: Store = createStore<AppState, Action, object, object>(
     reduxReducer,
