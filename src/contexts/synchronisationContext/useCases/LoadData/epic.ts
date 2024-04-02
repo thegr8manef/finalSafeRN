@@ -32,7 +32,6 @@ export const loadDataEpic: Epic = (
             .loadData(action.payload, lastUpdateDate)
             .pipe(
               mergeMap((data: LoadDataResponse) => {
-                // Use mergeMap to save the data and return the success action
                 return synchronisationRepository.saveData(data.chanties).pipe(
                   mergeMap(() => {
                     // Now, save accompagnant data
@@ -42,7 +41,7 @@ export const loadDataEpic: Epic = (
                         concatMap(() => [
                           loadDataSuccess(),
                           updateLocalProfile(
-                            new User('', '', data.lastUpdateDate),
+                            new User('', '', data.lastUpdateDate!!),
                           ),
                         ]),
                         catchError(error => {
@@ -56,6 +55,7 @@ export const loadDataEpic: Epic = (
                 );
               }),
               catchError(error => {
+                console.log(error);
                 return of(loadDataFailed(error));
               }),
             );

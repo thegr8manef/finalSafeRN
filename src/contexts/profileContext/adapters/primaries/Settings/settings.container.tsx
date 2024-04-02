@@ -111,7 +111,7 @@ export const SettingsContainer = (props: Props) => {
         lastUpdateDate={t(TRANSLATE.LAST_UPDATE) + ' ' + DateNow}
       />
       <SettingsList
-        lastUpDate={props.profile?.lastUpdate!!}
+        lastUpDate={convertTimeStampToDate(Number(props.profile?.lastUpdate!!))}
         pressedItemID={pressedItemID}
         setPressedItemID={setPressedItemID}
       />
