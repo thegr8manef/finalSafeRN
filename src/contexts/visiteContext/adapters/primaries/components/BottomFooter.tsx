@@ -10,6 +10,7 @@ interface ContentItem {
   source?: ImageSourcePropType;
   text?: string;
   onPress?: () => void;
+  contentText?: string;
 }
 
 // Define the props for the BottomFooter component.

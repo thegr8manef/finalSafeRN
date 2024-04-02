@@ -40,5 +40,19 @@ const images = {
   mediaSyncho: require('../assets/img/btn_synchroniser_photos_highlighted.png'),
   synchoLogo: require('../assets/img/icn_synchroniser_parametres.png'),
   arrow_right: require('../assets/img/arrow_right.png'),
+  date_picker: require('../assets/img/icn_date.png'),
+  arrow_down: require('../assets/img/arrow_down.png'),
+  btn_add: require('../assets/img/btn_add.png'),
+  icn_expand: require('../assets/img/icn_expand.png'),
+  icn_collapse: require('../assets/img/icn_collapse.png'),
+  icn_delete: require('../assets/img/img_delete_default.png'),
+  icn_edit: require('../assets/img/img_edit_default.png'),
+  btn_add_circle: require('../assets/img/btn_add_rq.png'),
+  btn_ajout: require('../assets/img/icn_ajout_obervation.png'),
+  back_left_arrow: require('../assets/img/back_left_arrow.png'),
+  icn_obs_conforme: require('../assets/img/icn_obs_conforme.png'),
+  icn_obs_non_conforme: require('../assets/img/icn_obs_non_conforme.png'),
+  icn_obs_sans_objet: require('../assets/img/icn_obs_sans_objet.png'),
+
 };
 export default images;

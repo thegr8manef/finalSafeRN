@@ -1,3 +1,4 @@
+import { FlashPhotoDto } from '@contexts/visiteContext/adapters/secondaires/dto/flash.photo.dto';
 import {Photo} from './Photo';
 import Realm from 'realm';
 
@@ -8,7 +9,7 @@ export class Remarque extends Realm.Object<Remarque> {
   nbPhoto?: number;
   ds?: string;
   pm?: string;
-  photos?: Array<Photo>;
+  photos?: Array<Photo> | FlashPhotoDto[];
   nt?: boolean;
   idcs?: string;
   ti?: string;

@@ -106,26 +106,84 @@ export class SynchronisationMapper {
 
 static mapToRemoteVisitDto(visits : Visit[]) : VisitSynchronistaionDto{
   const visites = visits.map((visit: Visit) => {
-    return {
-        tp: visit.tp,
-        tk: visit.tk,
-        cdcs: visit.cdc,
-        dt: visit.dt, 
-        rq: {
-            dt : visit.rq!![0].dt, 
-            ds : visit.rq!![0].ds,
-            tk : visit.rq!![0].tk,
-            lvl: visit.rq!![0].lvl,
-            nt : visit.rq!![0].nt,
-            md : []
-        }
-    };
+    if(visit.type === 4){
+    this.MapToFlash(visit)
+    }else{
+      this.MapToFlash(visit)
+      //this.MapToVisitCPH(visit)
+    }
 });
-
       return {
                 vs: visites
             };
  }
-
-
+static MapToFlash(visit:Visit) {
+  return {
+    tp: visit.type,
+    tk: visit.id,
+    cdcs: visit.codeChantier,
+    dt: visit.date.toString(), 
+    // rq: {
+    //     dt : visit.remarques!![0].dt, 
+    //     ds : visit.remarques!![0].ds,
+    //     tk : visit.remarques!![0].tk,
+    //     lvl: visit.remarques!![0].lvl,
+    //     nt : visit.remarques!![0].nt,
+    //     md : visit.remarques!![0].md
+    // }
+};
+}
+// static MapToVisitCPH(visit:Visit) {
+//   return {
+//     id:visit.id,
+//     dt: visit.date,
+//     dtc:visit.dateCreation,
+//     timeStamp: visit.timeStamp,
+//     date: visit.date,
+//     chantier: visit.getchantier, 
+//     codeChantier: visit.codeChantier,
+//     InfoComplementaire : visit.InfoComplementaire,
+//     remarques : {
+//       dt : visit.remarques!![0].dt, 
+//       ds : visit.remarques!![0].ds,
+//       tk : visit.remarques!![0].tk,
+//       lvl: visit.remarques!![0].lvl,
+//       nt : visit.remarques!![0].nt,
+//       md : visit.remarques!![0].md
+//     },
+//     observations: {
+//       token: visit.observations!![0].token,
+//       tokenQuestion: visit.observations!![0].tokenQuestion,
+//       parentQuestionToken: visit.observations!![0].parentQuestionToken,
+//       idCS: visit.observations!![0].idCS,
+//       listPhotos: visit.observations!![0].listPhotos,
+//       responseId: visit.observations!![0].responseId,
+//       ordre: visit.observations!![0].ordre,
+//       VId: visit.observations!![0].VId,
+//       commentaire: visit.observations!![0].commentaire,
+//       dt: visit.observations!![0].dt,
+//       title: visit.observations!![0].title,
+//       unq: visit.observations!![0].unq,
+//       remarqueID: visit.observations!![0].remarqueID
+//     },
+//     accompagnants: {
+//       id: visit.accompagnants!![0].id,
+//       fn: visit.accompagnants!![0].fn,
+//       em: visit.accompagnants!![0].em,
+//       ac: visit.accompagnants!![0].ac,
+//       ln: visit.accompagnants!![0].ln,
+//       prId: visit.accompagnants!![0].prId,
+//       ol: visit.accompagnants!![0].ol,
+//       fullnameLowerCase: visit.accompagnants!![0].fullnameLowerCase,
+//       idVisite: visit.accompagnants!![0].idVisite
+//     },
+//     _V_enCours: visit.V_enCours,
+//     pointToImprove: visit.pointToImprove,
+//     strongPoint: visit.strongPoint,
+//     ordre: visit.ordre,
+//     userId: visit.userId,
+//     dateVisite: visit.dateCreation,
+//     type: visit.type
+// };
+// }
 }

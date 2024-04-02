@@ -15,10 +15,11 @@ import {
   ScrollView,
   Alert,
 } from 'react-native';
-import { Remarque } from '@common/adapters/secondaries/db/entity/Remarque';
 import { Photo } from '@contexts/visiteContext/domain/entity/Photo';
 import { v5 as uuidv5 } from 'uuid';
 import { CHARACTERS, NAMESPACE } from '@common/constants';
+import moment from 'moment';
+
 
 interface Props {
   navigation: any;
@@ -26,7 +27,6 @@ interface Props {
   errorVisits: string | undefined;
   flash: VisitFlash | undefined;
   saveFlash: (data: VisitFlash) => void;
-  saveVisit: (data: Remarque) => void;
   error: string | undefined;
   sites: Site[] | null;
   loading: boolean;
@@ -107,7 +107,13 @@ export const VisitFlashContainer = (props: Props) => {
 
   const saveVisit = () => {
     if (validVisit()) {
-      const flash = new VisitFlash(idRemarque!!, comment, images, levelId!!, selectedSite?.reference!!, 3);
+      const currentDate = new Date();
+      const formattedDate = currentDate.toLocaleDateString('en-GB', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+    });
+      const flash = new VisitFlash(idRemarque!!, comment, images, levelId!!, selectedSite?.reference!!, selectedSite?.name,4,formattedDate);
       Alert.alert('', t('etes_vous_sur_de_vouloir_sauvegarder')!, [
         {
           text: 'NON',
@@ -117,6 +123,7 @@ export const VisitFlashContainer = (props: Props) => {
           text: 'OUI',
           onPress: () => {
             props.saveFlash(flash);
+
             props.navigation.navigate('visites');
           }
         },
@@ -146,11 +153,11 @@ export const VisitFlashContainer = (props: Props) => {
         <ObservationInfo onSave={(levelId) => {
           setLevelId(levelId)
         }} />
-        <CommentInfo comment={comment} setComment={(comment: string) => setComment(comment)} />
+        <CommentInfo comment={comment} setComment={(comment: string) => setComment(comment)} title={t('txt.commentaires.without.start')} label={t('txt.commentaires')} />
         <PreviewImages images={images} />
       </ScrollView>
 
-      <BottomFooter confirmPress={saveVisit} confirmText={t('txt.sauvegarder.remarque')} content={content} />
+      <BottomFooter confirmPress={() => saveVisit()} confirmText={t('txt.sauvegarder.remarque')} content={content} />
 
     </View>
   );

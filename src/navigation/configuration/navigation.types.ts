@@ -4,5 +4,8 @@ export type StackParamList = {
   Home: undefined;
   Splash: undefined;
   PreventionVisit: undefined;
+  HierarchicalVisit: undefined;
+  ConformityVisit: undefined;
+  CurrentVisit: undefined;
   Settings: undefined;
 };

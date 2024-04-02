@@ -6,6 +6,8 @@ import { AppState } from '@redux/appState';
 import { LoadVisitsFailed, LoadVisitsSuccess } from './action';
 import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
 import { VisitsService } from '@contexts/visiteContext/domain/gateway/visitsService';
+import Remarque from '@contexts/visiteContext/domain/entity/Remarque';
+import { VisitFlash } from '@contexts/visiteContext/domain/entity/VisitFlash';
 
 export const loadVisitsEpic: Epic = (
   action$,
@@ -17,7 +19,7 @@ export const loadVisitsEpic: Epic = (
     switchMap(() => {
       // Log that the LOAD_VISITS action has been triggered
       return visitsService.loadVisitsDetails().pipe(
-        map((data: Visit[]) => {
+        map((data: Visit[] | VisitFlash[]) => {
           // Log the data received from the repository
           return LoadVisitsSuccess(data);
         }),

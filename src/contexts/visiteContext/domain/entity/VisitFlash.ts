@@ -2,38 +2,27 @@ import { FlashPhotoDto } from '@contexts/visiteContext/adapters/secondaires/dto/
 import { Photo } from './Photo';
 
 export class VisitFlash {
-  tk: string;
-  idt: string;
-  idr: string;
-  nbPhoto: number;
-  ds: string;
-  pm: string;
-  photos: FlashPhotoDto[];
-  nt: boolean;
-  idcs: string;
-  ti: string;
-  VisiteId: string;
-  or: number;
-  note: string;
-  levee: boolean;
-  VisiteIdLevee: string;
-  dt: string;
-  dtl: string;
-  ordreGlobal: number;
-  fromObs: boolean;
-  completed: boolean;
-  unq: boolean;
-  lvl: number;
-  tg: number;
-  qt: string;
-
+  public get site_name(): string {
+    return this._site_name;
+  }
+  public set site_name(value: string) {
+    this._site_name = value;
+  }
+  public get date(): string {
+    return this._date;
+  }
+  public set date(value: string) {
+    this._date = value;
+  }
   constructor(
     private _id : string,
     private _commentaire: string,
-    private _images: Photo[],
-    private _level: number,
-    private _site_id: string,
-    private _type: number,
+    private _images?: Photo[],
+    private _level?: number,
+    private _site_id?: string,
+    private _site_name?: string,
+    private _type?: number,
+    private _date?: string,
   ) { }
   public get id(): string {
     return this._id;
@@ -50,7 +39,7 @@ export class VisitFlash {
   get commentaire(): string {
     return this._commentaire;
   }
-  get images(): Photo[] {
+  get images(): Photo[] | undefined {
     return this._images;
   }
   get level(): number {

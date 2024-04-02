@@ -2,6 +2,7 @@ import { t } from 'i18next'
 import React from 'react'
 import { View, Text, Image, TextInput, StyleSheet } from 'react-native'
 import * as utils from '@utils/index';
+import { TypeSelectionSites } from './TypeSelectionSites';
 
 interface Props {
     keyword: string
@@ -10,17 +11,7 @@ interface Props {
 export const SearchInputSite = (props: Props)=>{
     return(
         <View>
-            <View style={styles.container}>
-            <View style={styles.filter}>
-                <Text style={styles.textFiletr}> {t('choisir_un_chantier')}</Text>
-                <View style={styles.btnFilter}>
-                    <Text style={styles.textFiletr}> {t('txt.mes.chantier')}</Text>
-                    <Image
-                        source={utils.images.filterArrowIcon}
-                        style={styles.filterIcon} />
-                </View>
-            </View>
-        </View>
+          <TypeSelectionSites />
         <View style={styles.filterContainer}>
                 <Image source={utils.images.searchIcon} style={styles.searchIcon} />
                 <TextInput
@@ -65,27 +56,6 @@ const styles = StyleSheet.create({
       height: '90%',
       marginTop: '10%',
       alignItems: 'center',
-    },
-    container: {
-      margin: 20,
-    },
-    filter: {
-      flexDirection: 'row',
-    },
-    textFiletr: {
-      color: utils.colors.textColor,
-    },
-    btnFilter: {
-      flexDirection: 'row',
-      flex: 1,
-      justifyContent: 'flex-end',
-    },
-    filterIcon: {
-      width: 15,
-      height: 10,
-      marginLeft: 8,
-      top: 7,
-      resizeMode: 'stretch',
     },
     input: {
       borderColor: utils.colors.gray90,

@@ -1,3 +1,4 @@
+import { Site } from "@contexts/visiteContext/domain/entity/Site";
 import { Accompagnant } from "./Accompagnant";
 import { Chantier } from "./Chantier";
 import { Observation } from "./Observation";
@@ -12,10 +13,10 @@ export class Visit extends Realm.Object<Visit> {
     dtc?: string;
     timeStamp?: string;
     date?: number;
-    chantier?: Chantier;
+    chantier?: Site;
     codeChantier?: string;
     InfoComplementaire?: string;
-    remarques?: Remarque[];
+    remarques?: Remarque[] | undefined;
     observations?: Observation[];
     accompagnants?: Accompagnant[];
     V_enCours?: number;

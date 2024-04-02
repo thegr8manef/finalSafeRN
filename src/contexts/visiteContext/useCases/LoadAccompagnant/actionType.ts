@@ -1,24 +1,24 @@
 import { Accompagnant } from "@contexts/visiteContext/domain/entity/Accompagnant";
 
-export const LOAD_ACCOMPAGNANT = 'LOAD_ACCOMPAGNANT';
-export const LOAD_ACCOMPAGNANT_SUCCESS = 'LOAD_ACCOMPAGNANT_SUCCESS';
-export const LOAD_ACCOMPAGNANT_FAILED = 'LOAD_ACCOMPAGNANT_FAILED';
+export const LOAD_ACCOMPAGNANTS = 'LOAD_ACCOMPAGNANTS';
+export const LOAD_ACCOMPAGNANTS_SUCCESS = 'LOAD_ACCOMPAGNANTS_SUCCESS';
+export const LOAD_ACCOMPAGNANTS_FAILED = 'LOAD_ACCOMPAGNANTS_FAILED';
 
-export interface LoadAccompagnantAction {
-    type: typeof LOAD_ACCOMPAGNANT;
+export interface LoadAccompagnantsAction {
+    type: typeof LOAD_ACCOMPAGNANTS;
 }
 
-export interface LoadAccompagnantFailedAction {
-    type: typeof LOAD_ACCOMPAGNANT_FAILED;
+export interface LoadAccompagnantsFailedAction {
+    type: typeof LOAD_ACCOMPAGNANTS_FAILED;
     payload: string;
 }
 
-export interface LoadAccompagnantSuccessAction {
-    type: typeof LOAD_ACCOMPAGNANT_SUCCESS;
+export interface LoadAccompagnantsSuccessAction {
+    type: typeof LOAD_ACCOMPAGNANTS_SUCCESS;
     payload: Accompagnant[];
 }
 
-export type LoadAccompagnantActionDbTypes =
-    | LoadAccompagnantAction
-    | LoadAccompagnantSuccessAction
-    | LoadAccompagnantFailedAction;
+export type LoadAccompagnantsActionTypes =
+    | LoadAccompagnantsAction
+    | LoadAccompagnantsSuccessAction
+    | LoadAccompagnantsFailedAction;

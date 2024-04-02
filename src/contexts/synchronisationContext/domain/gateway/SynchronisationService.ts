@@ -1,13 +1,13 @@
 import { Observable } from 'rxjs';
 import { Site } from '@contexts/visiteContext/domain/entity/Site';
 import { Synchronisation } from '../entity/Synchronisation';
-import { Accompagnant } from '@contexts/visiteContext/domain/entity/Accompagnant';
+import { Accompagnants } from '@contexts/visiteContext/domain/entity/Accompagnant';
 import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
 
 
 export interface LoadDataResponse {
   chanties: Site[];
-  accompagnant: Accompagnant[];
+  accompagnant: Accompagnants[];
 }
 
 

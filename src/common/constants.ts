@@ -22,8 +22,8 @@ export const NAME = Date.now().toString() + Math.random().toString();
 export const VISIT_TYPE_TO_IMAGE_SOURCE = {
   0: utils.images.visitpreventionIcon,
   1: utils.images.visitConformiteIcon,
-  2: utils.images.visithierachicalIcon,
-  3: utils.images.visitFlasIcon,
+  2: utils.images.visitFlasIcon,
+  3: utils.images.visithierachicalIcon,
   4: utils.images.visitFlasIcon,
   // Add more mappings for different types as needed
   default: utils.images.visitFlasIcon, // Default image for unknown types

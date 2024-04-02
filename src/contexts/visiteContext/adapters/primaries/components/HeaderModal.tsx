@@ -10,10 +10,13 @@ interface Props {
   title: string; // Header title
   onRightPress?: () => void; // Function to handle the press of a right button (optional)
   onLeftPress?: () => void; // Function to handle the press of a left button (optional)
-  leftLabel: string; // Label for the left button
+  leftLabel?: string; // Label for the left button
   rightLabel?: string; // Label for the right button (optional)
   rightIcon?: ImageSourcePropType[]; // Array of images/icons for the right buttons (optional)
+  leftIcon?: ImageSourcePropType[]; // Array of images/icons for the left buttons (optional)
   onRightIconPress?: (index: number) => void; // Function to handle the press of an icon button (optional)
+  onLeftIconPress?: (index: number) => void; // Function to handle the press of an icon button (optional)
+
 }
 
 // Define the HeaderModal component
@@ -47,20 +50,50 @@ export const HeaderModal = (props: Props) => {
       );
     }
 
-    return null; // Return null if there is no right content to render
+    return null; // Return null if there is no left content to render
   };
-
-  // Render the HeaderModal component
-  return (
-    <View style={[flexBoxStyle.flexRowCenterSpace, styles.container, flexBoxStyle.p1]}>
-      <View>
+  const renderLeftContent = () => {
+    if (props.leftIcon) {
+      // If there are left icons, render them
+      return (
+        <View style={flexBoxStyle.flexRow}>
+          {props.leftIcon.map((icons: ImageSourcePropType, index: number) => (
+            <Pressable
+              key={index}
+              testID='header-modal-left-button'
+              onPress={() => props.onLeftIconPress && props.onLeftIconPress(index)}
+              android_ripple={styles.androidRipple}>
+              <Image source={icons} style={globalStyle.defaultImageStyle} />
+            </Pressable>
+          ))}
+        </View>
+      );
+    } else if (props.leftLabel) {
+      // If there is a left label, render it
+      return (
         <Pressable
           testID='header-modal-left-button'
           onPress={props.onLeftPress}
           android_ripple={styles.androidRipple}>
           <Text style={globalStyle.fontBoldDark15Style}>{props.leftLabel}</Text>
         </Pressable>
-      </View>
+      );
+    }
+
+    return null; // Return null if there is no right content to render
+  };
+  // Render the HeaderModal component
+  return (
+    <View style={[flexBoxStyle.flexRowCenterSpace, styles.container, flexBoxStyle.p1]}>
+      {/*<View>
+         <Pressable
+          testID='header-modal-left-button'
+          onPress={props.onLeftPress}
+          android_ripple={styles.androidRipple}>
+          <Text style={globalStyle.fontBoldDark15Style}>{props.leftLabel}</Text>
+        </Pressable>
+      </View> */}
+      <View>{renderLeftContent()}</View>
       <View>
         <Text style={globalStyle.fontBoldDark15Style}>{props.title}</Text>
       </View>

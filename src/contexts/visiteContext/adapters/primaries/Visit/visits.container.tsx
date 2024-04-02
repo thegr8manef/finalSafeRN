@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
-import React, { useEffect } from 'react';
+import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity, ActivityIndicator, RefreshControl } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import * as utils from '@utils/index';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { StackParamList } from '@navigConfig/navigation.types';
@@ -13,6 +13,10 @@ import { VISIT_TYPE_TO_IMAGE_SOURCE } from '@common/constants';
 import { convertDate } from '@utils/utils';
 import { windowWidth } from '@styles/dimension';
 import { Profile } from '@contexts/profileContext/domain/entity/profile';
+import { VisitModal } from '../components/commonComponentsVisits/VisitModal';
+import { Site } from '@contexts/visiteContext/domain/entity/Site';
+import { VisitFlash } from '@contexts/visiteContext/domain/entity/VisitFlash';
+import { useFocusEffect, useRoute } from '@react-navigation/native';
 
 // Define the props for the component
 interface Props {
@@ -21,9 +25,12 @@ interface Props {
   error: string | undefined;
   loading: boolean;
   profile: Profile | undefined;
-
+  sites: Site[] | null;
+  flash: VisitFlash[] | undefined;
+  loadFlash: () => void;
   sendData: (accessToken: string, lastUpadet: string, visits: Visit[]) => void;
   loadVisits: () => void;
+  loadSites: () => void;
 
 }
 
@@ -37,7 +44,9 @@ interface CustomAddNewVisitProps {
 interface CustomVistList {
   visit: Visit;
 }
-
+interface CustomFlashList {
+  flash: VisitFlash;
+}
 interface CustomVisitDetailsProps {
   title: string;
   value: number; // You might need to specify the correct type for the icon,
@@ -45,20 +54,66 @@ interface CustomVisitDetailsProps {
 
 // Define the main component
 export const VisitsContainer = (props: Props): JSX.Element => {
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [screenToNavigate, setscreenToNavigate] = useState<string>('');
+  const [title, settitle] = useState<string>('');
+  const [selectedSite, setselectedSite] = useState<Site | undefined>();
+  const [refreshing, setRefreshing] = useState(false);
+
+  const combinedData = [];
+
+
+  const NextStep = () => {
+    if (selectedSite !== undefined) {
+      props.navigation.navigate(screenToNavigate, {
+        selectedSite: selectedSite,
+        selectedSiteName: selectedSite.name,
+        selectedSiteRef: selectedSite.reference
+      });
+    }
+
+  }
+  const changeTitle = () => {
+    if (screenToNavigate !== '') {
+      switch (screenToNavigate) {
+        case 'PreventionVisit': {
+          settitle('txt.new.visite.prevention');
+
+          break;
+        }
+        case 'ConformityVisit': {
+          settitle('txt.new.visite.conformité');
+
+          break;
+        }
+        case 'HierarchicalVisit': {
+          settitle('txt.new.visite.hiearchique');
+
+          break;
+        }
+        default: {
+          break;
+        }
+      }
+    }
+  }
+
 
   // Load visits when the component mounts
   useEffect(() => {
     props.loadVisits();
+    props.loadSites();
+    props.loadFlash();
   }, [])
-
   useEffect(() => {
-  }, [props.visits]);
-
+    NextStep();
+    changeTitle();
+  }, [props.visits, screenToNavigate, selectedSite, props.flash]);
 
   const CustomAddNewVisit: React.FC<CustomAddNewVisitProps> = ({ title, icon, testID, screenToNavigate }) => {
     return (
       <TouchableOpacity
-        onPress={() => { props.navigation.navigate(screenToNavigate) }}
+        onPress={() => { [setModalVisible(true), setscreenToNavigate(screenToNavigate)] }}
         style={styles.visitContatiner}>
         <Image testID={testID} source={icon} style={styles.visitImageStyle} />
         <Text style={globalStyle.fontMediumDark15Style}>{title}</Text>
@@ -75,7 +130,7 @@ export const VisitsContainer = (props: Props): JSX.Element => {
     )
   }
   const CustomVistList: React.FC<CustomVistList> = ({ visit }) => {
-    const imageSource = VISIT_TYPE_TO_IMAGE_SOURCE[visit.tp] || VISIT_TYPE_TO_IMAGE_SOURCE.default
+    const imageSource = VISIT_TYPE_TO_IMAGE_SOURCE[visit.type] || VISIT_TYPE_TO_IMAGE_SOURCE.default
     return (
       <View testID='custom-visit-list' style={flexBoxStyle.flexRowSpace}>
         <View style={flexBoxStyle.m1}>
@@ -83,19 +138,20 @@ export const VisitsContainer = (props: Props): JSX.Element => {
             <View style={styles.visitRowStyle}>
               <Image source={imageSource} style={globalStyle.defaultImageStyle} />
               <View >
-                <Text style={globalStyle.fontMedium15Style} numberOfLines={2}> {convertDate(visit?.dt, i18next.language)} </Text>
-                <Text style={globalStyle.fontMediumDark15Style} numberOfLines={2}> {visit?.getchantier()?.no}</Text>
+                <Text style={globalStyle.fontMedium15Style} numberOfLines={2}> {convertDate(visit?.dateStart, i18next.language)} </Text>
+                <Text style={globalStyle.fontMediumDark15Style} numberOfLines={2}> {visit.chantier?.no}</Text>
               </View>
             </View>
           </View>
         </View>
         <View>
           <View style={flexBoxStyle.flexEnd}>
-            {visit.tp != 4 &&
-              <CustomVisitOption title={t('txt_Observations')} value={0} />
+            {visit.type != 4 &&
+              <CustomVisitOption title={t('txt_Observations')} value={visit.observations?.length} />
+
             }
             <CustomVisitOption title={t('txt.levee')} value={0} />
-            <CustomVisitOption title={t('txt.photos')} value={visit?.rq?.[0]?.md?.length} />
+            <CustomVisitOption title={t('txt.photos')} value={visit ? visit.observations!![0].listPhotos!!.length : 0} />
             <Image source={utils.images.visitLockIcon} style={globalStyle.defaultImageStyle} />
           </View>
         </View>
@@ -103,13 +159,68 @@ export const VisitsContainer = (props: Props): JSX.Element => {
     );
   };
 
+  const CustomFlashList: React.FC<CustomFlashList> = ({ flash }) => {
+    const imageSource = VISIT_TYPE_TO_IMAGE_SOURCE[4] || VISIT_TYPE_TO_IMAGE_SOURCE.default
+    return (
+      <View testID='custom-visit-list' style={flexBoxStyle.flexRowSpace}>
+        <View style={flexBoxStyle.m1}>
+          <View style={flexBoxStyle.flexRowCenterSpace}>
+            <View style={styles.visitRowStyle}>
+              <Image source={imageSource} style={globalStyle.defaultImageStyle} />
+              <View >
+                <Text style={globalStyle.fontMedium15Style} numberOfLines={2}> {convertDate(flash?.date, i18next.language)} </Text>
+                <Text style={globalStyle.fontMediumDark15Style} numberOfLines={2}> {flash.site_name}</Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View>
+          <View style={flexBoxStyle.flexEnd}>
+            {/* {visit.type != 4 &&
+              <CustomVisitOption title={t('txt_Observations')} value={0} />
+
+            } */}
+            <CustomVisitOption title={t('txt.levee')} value={0} />
+            <CustomVisitOption title={t('txt.photos')} value={ flash ?0 : flash.images.length} />
+            <Image source={utils.images.visitLockIcon} style={globalStyle.defaultImageStyle} />
+          </View>
+        </View>
+      </View>
+    );
+  };
+
+  const handleRefresh = () => {
+    setRefreshing(true);
+    // Assuming that props.loadFlash and props.loadVisits return Promises
+    Promise.all([props.loadFlash(), props.loadVisits()])
+      .then(() => {
+        setRefreshing(false);
+        
+      })
+      .catch((error) => {
+        console.error('Refresh error:', error);
+        setRefreshing(false);
+      });
+  };
+  
+  useEffect(() => {
+    if (refreshing) {
+      handleRefresh();
+    }
+  }, [refreshing]);
   // Handler for synchronizing data
   const handlSynchronisation = () => {
-    props.sendData(props.profile?.accessToken!!, props.profile?.lastUpdate!!, props.visits!! )
+    props.sendData(props.profile?.accessToken!!, props.profile?.lastUpdate!!, props.visits!!)
   }
 
 
+  if (Array.isArray(props.visits)) {
+    combinedData.push(...props.visits.map((visit) => ({ key: 'visit', data: visit })));
+  }
 
+  if (Array.isArray(props.flash)) {
+    combinedData.push(...props.flash.map((flash) => ({ key: 'flash', data: flash })));
+  }
   // Render the main component
   return (
     <View style={globalStyle.containerStyle}>
@@ -121,22 +232,39 @@ export const VisitsContainer = (props: Props): JSX.Element => {
         </View>
         <View style={[globalStyle.rowContainerStyle, styles.synchroContainerStyle]}>
           <Text style={globalStyle.fontMediumDark17Style}>
-            {props.visits?.length} {t('txt.visites.cloturees')}
+            {combinedData?.length} {t('txt.visites.cloturees')}
           </Text>
           <ButtonComponent
             testID='sync-button'
-            buttonColor={props.visits?.length ? utils.colors.primary : utils.colors.gray90}
+            buttonColor={combinedData?.length ? utils.colors.primary : utils.colors.gray90}
             width={'30%'}
             textButton={t('txt.synchroniser')}
             onPressButton={handlSynchronisation}
           />
         </View>
         <Divider />
-        {props.visits?.length ? (
+
+        {props.visits?.length || props.flash?.length ? (
           <FlatList
-            data={props.visits}
-            keyExtractor={(item) => item.tk?.toString()} // Adjust the key extractor based on your data structure
-            renderItem={({ item }) => <CustomVistList visit={item} />}
+            // data={props.visits}
+            // keyExtractor={(item) => item.id?.toString()} // Adjust the key extractor based on your data structure
+            // renderItem={({ item }) => <CustomVistList visit={item} />}
+            data={combinedData}
+            keyExtractor={(item, index) => `${item.key}-${index}`}
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={handleRefresh}
+              />
+            }
+             // Adjust the key extractor based on your data structure
+            renderItem={({ item }) => {
+              if (item.key === 'visit') {
+                return <CustomVistList visit={item.data} />;
+              } else if (item.key === 'flash') {
+                return <CustomFlashList flash={item.data} />;
+              }
+            }}
             ItemSeparatorComponent={() => (<Divider />)}
           />
         ) : (
@@ -149,16 +277,17 @@ export const VisitsContainer = (props: Props): JSX.Element => {
       <View style={globalStyle.containerStyle}>
         <View style={styles.visitTypesStyle}>
           <CustomAddNewVisit testID='img-prevention' title={t('txt.prevention')} icon={utils.images.addPrevenationIcon} screenToNavigate='PreventionVisit' />
-          <CustomAddNewVisit testID='img-conformite' title={t('txt.conformite')} icon={utils.images.addConformite} screenToNavigate='PreventionVisit' />
-          <CustomAddNewVisit testID='img-hierarchical' title={t('txt.hierarchique')} icon={utils.images.addhierarchicalIcon} screenToNavigate='PreventionVisit' />
+          <CustomAddNewVisit testID='img-conformite' title={t('txt.conformite')} icon={utils.images.addConformite} screenToNavigate='ConformityVisit' />
+          <CustomAddNewVisit testID='img-hierarchical' title={t('txt.hierarchique')} icon={utils.images.addhierarchicalIcon} screenToNavigate='HierarchicalVisit' />
         </View>
+        <VisitModal onClose={() => setModalVisible(false)} sites={props.sites} visible={modalVisible} title={title} NextStep={() => NextStep()} selectedSite={selectedSite} setSelectedSite={setselectedSite} />
       </View>
-      <View style={props.loading ? styles.loaderContainer: {}}>    
+      <View style={props.loading ? styles.loaderContainer : {}}>
         <ActivityIndicator
           testID='activity-indicator'
           size="large"
           color={utils.colors.primary}
-          style={{display:props.loading ? 'flex' : 'none'}}
+          style={{ display: props.loading ? 'flex' : 'none' }}
         />
       </View>
 
@@ -168,16 +297,16 @@ export const VisitsContainer = (props: Props): JSX.Element => {
 
 // Define styles for the component
 const styles = StyleSheet.create({
-  loaderContainer : {
-    position : "absolute",
-    flex : 1,
-    width : "100%",
-    height : "100%",
-    backgroundColor :'rgba(0, 0, 0, 0.5)' ,
-    justifyContent : 'center',
-    alignItems : 'center'
+  loaderContainer: {
+    position: "absolute",
+    flex: 1,
+    width: "100%",
+    height: "100%",
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
- 
+
   visitDetailsStyle: {
     ...globalStyle.fontMedium13Style,
     ...globalStyle.fontCenterStyle,

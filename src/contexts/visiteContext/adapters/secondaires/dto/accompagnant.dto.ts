@@ -1,7 +1,11 @@
 export interface AccompagnantDto {
-    ac?: boolean;
-    em?: string;
+    id?: string;
     fn?: string;
-    id?: number;
     ln?: string;
+    em?: string;
+    idVisite?: string;
+    fullnameLowerCase?: string;
+    ac?: boolean;
+    ol?: string;
+    prId?: string;
 }

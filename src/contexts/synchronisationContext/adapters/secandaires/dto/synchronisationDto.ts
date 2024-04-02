@@ -43,11 +43,15 @@ export interface SynchronisationDto {
       ad: string;
     }[];
     au: {
-      ac: boolean;
-      em: string;
+      id: string;
       fn: string;
-      id: number;
       ln: string;
+      em: string;
+      idVisite: string;
+      fullnameLowerCase: string;
+      ac: boolean;
+      ol: string;
+      prId: string;
     }[];
     lus: string;
   };
