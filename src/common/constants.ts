@@ -1,6 +1,7 @@
-
 import * as utils from '@utils/index';
+import {t} from 'i18next';
 import * as ImagePicker from 'react-native-image-picker';
+import {TRANSLATE} from './translateConstants';
 
 export default {
   accessToken:
@@ -8,11 +9,11 @@ export default {
 };
 
 export const LANGUAGE_CONSTANTS = [
-  { label: 'Français', value: 'fr' },
-  { label: 'Néelandais', value: 'bl' },
-  { label: 'Polonais', value: 'pl' },
-  { label: 'Allemand', value: 'al' },
-  { label: 'Anglais', value: 'en' },
+  {label: 'Français', value: 'fr'},
+  {label: 'Néelandais', value: 'bl'},
+  {label: 'Polonais', value: 'pl'},
+  {label: 'Allemand', value: 'al'},
+  {label: 'Anglais', value: 'en'},
 ];
 
 export const NAMESPACE = '1b671a64-40d5-491e-99b0-da01ff1f3341'; // UUID of the "namespace"
@@ -40,5 +41,78 @@ export const IMAGE_OPTION: ImagePicker.CameraOptions = {
   durationLimit: 30,
   saveToPhotos: true,
 };
-export const URL_POLICY : string = 'https://finalsafe.eiffage.com/politique-confidentialite';
-export const URL_NOTICE : string = 'https://finalsafe.eiffage.com/mentions-legales';
+export const URL_POLICY: string =
+  'https://finalsafe.eiffage.com/politique-confidentialite';
+export const URL_NOTICE: string =
+  'https://finalsafe.eiffage.com/mentions-legales';
+
+export const REGEX_DATE = /\sGMT.*/;
+
+export const SETTINGS = (date: String) => [
+  {
+    title: t(TRANSLATE.CHANTIERS),
+    data: [
+      {
+        id: 1,
+        label: t(TRANSLATE.MY_CHANTIERS),
+        name: date,
+        icon: utils.images.synchoLogo,
+      },
+      {
+        id: 2,
+        label: t(TRANSLATE.AUTRES_CHANTIERS),
+        name: date,
+        icon: utils.images.arrow_right,
+      },
+    ],
+  },
+  {
+    title: t(TRANSLATE.REFERNTIEL_LISTES),
+    data: [
+      {
+        id: 3,
+        label: t(TRANSLATE.RISQUES_QUESTIONS),
+        name: date,
+        icon: utils.images.synchoLogo,
+      },
+    ],
+  },
+  {
+    title: t(TRANSLATE.PHOTOS),
+    data: [
+      {
+        id: 4,
+        label: t(TRANSLATE.NO_PHOTOS),
+        name: null,
+        icon: utils.images.mediaSyncho,
+      },
+    ],
+  },
+  {
+    title: t(TRANSLATE.LANGUAGE),
+    data: [
+      {
+        id: 5,
+        label: t(TRANSLATE.LANGUAGE),
+        name: null,
+      },
+    ],
+  },
+  {
+    title: t(TRANSLATE.ABOUT),
+    data: [
+      {
+        id: 6,
+        label: t(TRANSLATE.CONFIDENTIALITY),
+        name: null,
+        icon: utils.images.arrow_right,
+      },
+      {
+        id: 7,
+        label: t(TRANSLATE.LEGAL_NOTICE),
+        name: null,
+        icon: utils.images.arrow_right,
+      },
+    ],
+  },
+];
