@@ -10,10 +10,8 @@ import {catchError, map} from 'rxjs/operators';
 import constants from '@common/constants';
 import {Site} from '@contexts/visiteContext/domain/entity/Site';
 import ws from '@config/ws';
-import { Synchronisation } from '@contexts/synchronisationContext/domain/entity/Synchronisation';
-import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
-import { Accompagnants } from '@contexts/visiteContext/domain/entity/Accompagnant';
-
+import {Visit} from '@contexts/visiteContext/domain/entity/Visit';
+import {Accompagnants} from '@contexts/visiteContext/domain/entity/Accompagnant';
 
 export class APISynchronisationService implements SynchronisationService {
   loadData(
@@ -39,13 +37,18 @@ export class APISynchronisationService implements SynchronisationService {
       .post<SynchronisationDto>(URL, body, _headers)
       .pipe(
         map(response => {
-          const chanties: Site[] = SynchronisationMapper.mapperToChanties(response.response);
-          const accompagnant: Accompagnants[] = SynchronisationMapper.mapperToAccompangnant(response.response);
+          const chanties: Site[] = SynchronisationMapper.mapperToChanties(
+            response.response,
+          );
+          const accompagnant: Accompagnants[] =
+            SynchronisationMapper.mapperToAccompangnant(response.response);
+
+          const _lastUpdateCode = response.response.rd.lus;
 
           const loadDataResponse: LoadDataResponse = {
             chanties,
             accompagnant,
-            lastUpdateDate,
+            lastUpdateDate: _lastUpdateCode,
           };
 
           return loadDataResponse;

@@ -1,13 +1,12 @@
-import { Observable, from } from 'rxjs';
-import { SynchronisationRepository } from '../../domain/gateway/SynchronisationRepository';
+import {Observable, from} from 'rxjs';
+import {SynchronisationRepository} from '../../domain/gateway/SynchronisationRepository';
 import ApplicationContext from '@common/appConfig/ApplicationContext';
-import { SynchronisationMapper } from './mapper/synchronisationMapper';
-import { Site } from '@contexts/visiteContext/domain/entity/Site';
-import { Accompagnant } from '@contexts/visiteContext/domain/entity/Accompagnant';
-import { AccompagnantMapper } from '@contexts/visiteContext/adapters/secondaires/mapper/accompagnant.mapper';
+import {SynchronisationMapper} from './mapper/synchronisationMapper';
+import {Site} from '@contexts/visiteContext/domain/entity/Site';
+import {Accompagnants} from '@contexts/visiteContext/domain/entity/Accompagnant';
+import {AccompagnantMapper} from '@contexts/visiteContext/adapters/secondaires/mapper/accompagnant.mapper';
 
 export class DBSynchronisationRepository implements SynchronisationRepository {
-  
   saveData(sites: Site[]): Observable<void> {
     const promisSaveData = new Promise<void>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
@@ -31,7 +30,7 @@ export class DBSynchronisationRepository implements SynchronisationRepository {
     return from(promisSaveData);
   }
 
-  saveAccompagnant(accompagnant: Accompagnant[]): Observable<void> {
+  saveAccompagnant(accompagnant: Accompagnants[]): Observable<void> {
     const promisSaveData = new Promise<void>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
       if (accompagnant.length > 0) {
