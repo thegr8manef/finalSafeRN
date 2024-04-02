@@ -18,7 +18,7 @@ interface Props {
 export const SearchSiteWithNameModal = (props: Props) => {
   const { t } = useTranslation();
   const [keyword, setKeyword] = useState<string>('')
-  const [sites, setSites] = useState<Site[] | undefined>(undefined)
+  const [sites, setSites] = useState<Site[] | undefined>(props?.sites ?? [])
   const [selectedSite, setSelectedSite] = useState<Site | undefined>(undefined)
   const searchSite = (keyword: string) => {
     setKeyword(keyword)
