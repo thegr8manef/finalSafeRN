@@ -8,7 +8,7 @@ import {HeaderModal} from '../HeaderModal';
 interface Props {
   modalVisible: boolean;
   onClose: () => void;
-  onSearch: (site: Site | undefined) => void;
+  onSearch: (site: Site) => void;
   sites: Site[] | null;
 }
 

@@ -55,7 +55,6 @@ export const loadDataEpic: Epic = (
                 );
               }),
               catchError(error => {
-                console.log(error);
                 return of(loadDataFailed(error));
               }),
             );
