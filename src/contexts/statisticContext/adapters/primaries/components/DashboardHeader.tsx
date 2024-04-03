@@ -4,7 +4,6 @@ import React from 'react';
 import { t } from 'i18next';
 
 interface Props {
-  visits: number;
   dateDebut: string;
   dateFinale: string;
   labelPerimetre: string | undefined;
@@ -13,11 +12,6 @@ interface Props {
 export const DashboardHeader = (props: Props): JSX.Element => {
   return (
     <View style={styles.container}>
-      <View style={styles.containerVisites}>
-        <View style={styles.containerText}>
-          <Text style={styles.text}>Mes visites :{props.visits}</Text>
-        </View>
-      </View>
       <View style={styles.containerChantier}>
         <View style={styles.perimetre}>
           <View style={styles.imagePerimetre}>

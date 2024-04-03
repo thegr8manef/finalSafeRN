@@ -1,6 +1,6 @@
 const colors = {
   primary: '#fed73e',
-  white: '#fff',
+  white: '#ffffff',
   textColor: '#000',
   default: '#fafafa',
   gris: '#e1e1e1',
@@ -9,7 +9,7 @@ const colors = {
   gris200: '#bdbbbb',
   griy500: '#eeeeee',
   gray700: '#8b8b8b',
-  black: '#000',
+  black: '#000000',
   gris300: '#656565',
   yellow: '#ffdc2e',
   yellow900: '#ffe4d1',
@@ -18,11 +18,14 @@ const colors = {
   green200: '#90d68a',
   green300: '#dff2d6',
   blue: '#2387c6',
+  blue90: '#34448B',
+  blue100: '#5090ff',
   blue200: '#b6a8f3',
   red: '#e10f21',
   red200: '#fc9ca0',
   orange: '#ff9f54',
   pink: '#fbd7d7',
   statusBar: '#d6b518',
+  tomato:'#ff6347'
 };
 export default colors;

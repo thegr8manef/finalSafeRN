@@ -459,7 +459,7 @@
     "txt.msg.connection.failed": "Une erreur s'est produite. Veuillez réessayer plus tard.",
     "txt_pwd_error_special_characters": "Mot de passe non valide.",
     "txt.visites": "Visites",
-    "sso_description": "Bienvenue sur l'application Eiffage Construction de management de la prévention.nVous devez disposer d'un compte Eiffage pour vous connecter.",
+    "sso_description": "Bienvenue sur l'application Eiffage Construction de management de la prévention.\nVous devez disposer d'un compte Eiffage pour vous connecter.",
     "txt.ajout.edit.remarque": "Ajouter ou éditer une observation",
     "txt.vous.reste": "Il vous reste",
     "txt.filters": "Filtres",

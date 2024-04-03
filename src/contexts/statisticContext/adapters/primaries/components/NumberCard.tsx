@@ -1,6 +1,7 @@
 import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
 import * as utils from '@utils/index';
+import LinearGradient from 'react-native-linear-gradient';
 
 interface Props {
   label: string;
@@ -19,41 +20,57 @@ const formatNumber = (value: string | undefined) => {
 export const NumberCard = (props: Props) => {
   return (
     <View style={styles.container}>
-      <View style={styles.item}>
+      <LinearGradient
+        colors={
+          props.colorText !== 'green'
+            ? [utils.colors.white, utils.colors.white]
+            : [utils.colors.white, utils.colors.white]
+        }
+        angle={140}
+        useAngle
+        style={{
+          flex: 1,
+          padding: 5,
+        }}>
         <Text
           testID="label"
           style={StyleSheet.flatten([styles.label, {color: props.colorText}])}>
           {props.label}
         </Text>
-      </View>
-      <View style={styles.item}>
-        <Text
-          testID="value"
-          style={StyleSheet.flatten([styles.value, {color: props.colorText}])}>
-          {formatNumber(props.value)}
-        </Text>
-      </View>
-      <View style={styles.item}>
-        <Text testID="description" style={styles.description}>
-          {props.description}
-        </Text>
-      </View>
+        <View style={styles.item}>
+          <Text
+            testID="value"
+            style={StyleSheet.flatten([
+              styles.value,
+              {color: props.colorText},
+            ])}>
+            {formatNumber(props.value)}
+          </Text>
+        </View>
+        <View style={styles.item}>
+          <Text
+            testID="description"
+            style={[
+              styles.description,
+            ]}>
+            {props.description}
+          </Text>
+        </View>
+      </LinearGradient>
     </View>
   );
 };
 const styles = StyleSheet.create({
   container: {
+    margin: 7,
     borderRadius: 5,
-    flex: 1,
-    margin: 8,
+    width: '45%',
     overflow: 'hidden',
-    height: '90%',
     backgroundColor: 'white',
     elevation: 3,
   },
   item: {
     flex: 1,
-    padding: 5,
   },
   label: {
     textAlign: 'left',
@@ -69,7 +86,7 @@ const styles = StyleSheet.create({
   },
   description: {
     textAlign: 'left',
-    color: 'grey',
+    color: 'black',
     fontSize: 10,
     fontFamily: utils.fonts.AvenirMedium,
   },
