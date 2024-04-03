@@ -1,11 +1,11 @@
-import { Observable, from } from 'rxjs';
-import { UserRepository } from '../../domain/gateway/userReposiory';
+import {Observable, from} from 'rxjs';
+import {UserRepository} from '../../domain/gateway/userReposiory';
 import ApplicationContext from '@common/appConfig/ApplicationContext';
-import { Profile } from '../../domain/entity/profile';
-import { LocalProfilMapper } from './mapper/localProfile.mapper';
-import { User } from '../../domain/entity/user';
-import { NAMESPACE } from '@common/constants';
-import { v5 as uuidv5 } from 'uuid';
+import {Profile} from '../../domain/entity/profile';
+import {LocalProfilMapper} from './mapper/localProfile.mapper';
+import {User} from '../../domain/entity/user';
+import {NAMESPACE} from '@common/constants';
+import {v5 as uuidv5} from 'uuid';
 
 export class DBUserRepository implements UserRepository {
   pipe: any;
@@ -26,7 +26,7 @@ export class DBUserRepository implements UserRepository {
             connected: true,
             lr: false,
             visitCreated: 0,
-            lu: '-1',
+            lu: userConnected.lastUpdate,
             token: userConnected.accessToken,
           });
         });
@@ -75,7 +75,13 @@ export class DBUserRepository implements UserRepository {
       db.then(realm => {
         const updt = realm.objects('User');
         realm?.write(() => {
-          updt[0].rg = user.region;
+          if (user.region != undefined) {
+            updt[0].rg = user.region;
+          }
+
+          if (user.lastUpdateDate != undefined) {
+            updt[0].lu = user.lastUpdateDate;
+          }
         });
         resolve();
       }).catch(error => reject(error));
