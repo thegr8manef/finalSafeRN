@@ -24,6 +24,7 @@ interface ContentItem {
 interface Props {
   content?: ContentItem[]; // Array of content items to render.
   confirmText: string; // Text for the confirmation button.
+  onCancel?: () => void;
   confirmPress: (params?: any) => void; // Function to handle the confirmation button press.
 }
 
@@ -44,7 +45,8 @@ export const BottomFooter = (props: Props) => {
             )}
             {/* Render text if the content type is "text" */}
             {item.type === 'text' && item.text && (
-              <Pressable onPress={item.onPress}>
+              <Pressable
+                onPress={props.onCancel ? props.onCancel : item.onPress}>
                 <Text style={globalStyle.fontBoldDark15Style}>{item.text}</Text>
               </Pressable>
             )}

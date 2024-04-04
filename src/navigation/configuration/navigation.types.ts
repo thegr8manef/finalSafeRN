@@ -8,7 +8,7 @@ export type StackParamList = {
   PreventionVisit: StackVisitsType;
   HierarchicalVisit: StackVisitsType;
   ConformityVisit: StackVisitsType;
-  CurrentVisit: undefined;
+  CurrentVisit: {};
   Settings: undefined;
   CheckSiteScreen: {
     sites: Site[] | undefined;

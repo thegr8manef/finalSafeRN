@@ -338,14 +338,24 @@ export const VisitsContainer = (props: Props): JSX.Element => {
             testID="img-conformite"
             title={t('txt.conformite')}
             icon={utils.images.addConformite}
-            onPrees={() => props.navigation.navigate(Route.CheckSiteScreen)}
+            onPrees={() =>
+              props.navigation.navigate(Route.CheckSiteScreen, {
+                sites: props.sites!!,
+                title: TRANSLATE.CONFORMITE,
+              })
+            }
             screenToNavigate="ConformityVisit"
           />
           <CustomAddNewVisit
             testID="img-hierarchical"
             title={t('txt.hierarchique')}
             icon={utils.images.addhierarchicalIcon}
-            onPrees={() => props.navigation.navigate(Route.CheckSiteScreen)}
+            onPrees={() =>
+              props.navigation.navigate(Route.CheckSiteScreen, {
+                sites: props.sites!!,
+                title: TRANSLATE.HIERACHIQUE,
+              })
+            }
             screenToNavigate="HierarchicalVisit"
           />
         </View>

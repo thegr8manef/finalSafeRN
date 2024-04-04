@@ -1,4 +1,5 @@
 import globalStyle from '@styles/globalStyle';
+import {t} from 'i18next';
 import React from 'react';
 import {Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
 
@@ -19,7 +20,7 @@ export const CustomAddNewVisit: React.FC<CustomAddNewVisitProps> = ({
   return (
     <TouchableOpacity onPress={onPrees} style={styles.visitContatiner}>
       <Image testID={testID} source={icon} style={styles.visitImageStyle} />
-      <Text style={globalStyle.fontMediumDark15Style}>{title}</Text>
+      <Text style={globalStyle.fontMediumDark15Style}>{t(title)}</Text>
     </TouchableOpacity>
   );
 };
