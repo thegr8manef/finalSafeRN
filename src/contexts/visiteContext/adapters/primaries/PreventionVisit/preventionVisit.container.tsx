@@ -22,6 +22,7 @@ import {VisitObservation} from '@contexts/visiteContext/domain/entity/VisitsObse
 import {generateID} from '@utils/utils';
 import {ROUTES, Route} from '@navigConfig/routes';
 import {TRANSLATE} from '@common/translateConstants';
+import {showMessage} from 'react-native-flash-message';
 
 interface Props {
   error: string | undefined;
@@ -39,9 +40,7 @@ export const PreventionVisitContainer = (props: Props) => {
   const [searchWithNameVisible, setSearchWithNameVisible] = useState(false);
   const [addAccompanyingVisible, setAddAccompanyingVisible] = useState(false);
   const [comment, setComment] = useState<string>('');
-  const [Accompanying, setAccompanying] = useState<Accompagnants[] | undefined>(
-    [],
-  );
+  const [Accompanying, setAccompanying] = useState<Accompagnants[]>([]);
   const [addAccompanying, setAddAccompanying] = useState<string>('');
   const [date, setDate] = useState(new Date(Date.now()));
   const [selectedItems, setSelectedItems] = useState<any[]>([]);
@@ -65,35 +64,44 @@ export const PreventionVisitContainer = (props: Props) => {
   }, []);
 
   const NextStep = () => {
-    const formattedDate = date.toLocaleDateString('en-GB', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric',
-    });
-    const accompagant: Accompagnants[] = [
-      new Accompagnants(
-        generateID(),
-        selectedItems[0].fn,
-        selectedItems[0].ln,
-        selectedItems[0].em,
-        selectedItems[0].idVisite,
-        selectedItems[0].fullnameLowerCase,
-        selectedItems[0].ac,
-        selectedItems[0].ol,
-        selectedItems[0].prId,
-      ),
-    ];
+    console.log(Accompanying);
+    if (Accompanying?.length!! > 0) {
+      const formattedDate = date.toLocaleDateString('en-GB', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      });
+      const accompagant: Accompagnants[] = [
+        new Accompagnants(
+          generateID(),
+          selectedItems[0].fn,
+          selectedItems[0].ln,
+          selectedItems[0].em,
+          selectedItems[0].idVisite,
+          selectedItems[0].fullnameLowerCase,
+          selectedItems[0].ac,
+          selectedItems[0].ol,
+          selectedItems[0].prId,
+        ),
+      ];
 
-    props.navigation.navigate('CurrentVisit', {
-      comments: comment, // Replace with your comment data
-      addAccompanying: selectedItems, // Replace with your array data
-      Accompagant: accompagant, // Accompagant
-      date: formattedDate, //Date
-      selectedSiteName: selectedSiteName, //Site Name
-      selectedSite: selectedSite, //Site
-      selectedSiteRef: selectedSiteRef, //Site ref
-      type: 0, //type Visit
-    });
+      props.navigation.navigate(Route.CurrentVisit, {
+        comments: comment, // Replace with your comment data
+        addAccompanying: selectedItems, // Replace with your array data
+        Accompagant: accompagant, // Accompagant
+        date: formattedDate, //Date
+        selectedSiteName: selectedSiteName, //Site Name
+        selectedSite: selectedSite, //Site
+        selectedSiteRef: selectedSiteRef, //Site ref
+        type: 0, //type Visit
+      });
+    } else {
+      showMessage({
+        message: t(TRANSLATE.SORRY),
+        type: 'danger',
+        description: t(TRANSLATE.PLEASE_ENRTE_VALID_INFORAMTIONS)!!,
+      });
+    }
   };
 
   return (
@@ -124,6 +132,9 @@ export const PreventionVisitContainer = (props: Props) => {
       <BottomFooter
         confirmText={t(TRANSLATE.CREATE_VISIT)}
         confirmPress={() => NextStep()}
+        onCancel={() => {
+          props.navigation.goBack();
+        }}
         content={content}
       />
       <AddAccompanyingModal

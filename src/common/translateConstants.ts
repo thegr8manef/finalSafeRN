@@ -27,4 +27,8 @@ export const TRANSLATE = {
   NEXT: 'txt.swivant',
   NO_QR_CODE: 'txt.qr.code.empty',
   PREVENTION: 'txt.prevention',
+  SORRY: 'txt.sorry',
+  PLEASE_ENRTE_VALID_INFORAMTIONS: 'txt.please.enter.valid.info',
+  CONFORMITE: 'txt.conformite',
+  HIERACHIQUE: 'txt.hierarchique',
 };
