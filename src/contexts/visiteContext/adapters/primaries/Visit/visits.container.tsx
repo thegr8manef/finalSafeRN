@@ -1,26 +1,37 @@
-import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity, ActivityIndicator, RefreshControl } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  FlatList,
+  TouchableOpacity,
+  ActivityIndicator,
+  RefreshControl,
+} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import * as utils from '@utils/index';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { StackParamList } from '@navigConfig/navigation.types';
-import i18next, { t } from 'i18next';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {StackParamList} from '@navigConfig/navigation.types';
+import i18next, {t} from 'i18next';
 import globalStyle from '@styles/globalStyle';
 import ButtonComponent from '@common/adapters/primaries/components/ButtonPrimary';
-import { Divider } from '@common/adapters/primaries/components/Divider';
-import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
-import { flexBoxStyle } from '@styles/flexBoxStyle';
-import { VISIT_TYPE_TO_IMAGE_SOURCE } from '@common/constants';
-import { convertDate } from '@utils/utils';
-import { windowWidth } from '@styles/dimension';
-import { Profile } from '@contexts/profileContext/domain/entity/profile';
-import { VisitModal } from '../components/commonComponentsVisits/VisitModal';
-import { Site } from '@contexts/visiteContext/domain/entity/Site';
-import { VisitFlash } from '@contexts/visiteContext/domain/entity/VisitFlash';
-import { useFocusEffect, useRoute } from '@react-navigation/native';
+import {Divider} from '@common/adapters/primaries/components/Divider';
+import {Visit} from '@contexts/visiteContext/domain/entity/Visit';
+import {flexBoxStyle} from '@styles/flexBoxStyle';
+import {VISIT_TYPE_TO_IMAGE_SOURCE} from '@common/constants';
+import {convertDate} from '@utils/utils';
+import {windowWidth} from '@styles/dimension';
+import {Profile} from '@contexts/profileContext/domain/entity/profile';
+import {VisitModal} from '../components/commonComponentsVisits/VisitModal';
+import {Site} from '@contexts/visiteContext/domain/entity/Site';
+import {VisitFlash} from '@contexts/visiteContext/domain/entity/VisitFlash';
+import {TRANSLATE} from '@common/translateConstants';
+import {CustomAddNewVisit} from '../components/customAddNewVisit';
+import {Route} from '@navigConfig/routes';
 
 // Define the props for the component
 interface Props {
-  navigation: Partial<StackNavigationProp<StackParamList>>;
+  navigation: StackNavigationProp<StackParamList>;
   visits: Visit[] | undefined;
   error: string | undefined;
   loading: boolean;
@@ -31,14 +42,6 @@ interface Props {
   sendData: (accessToken: string, lastUpadet: string, visits: Visit[]) => void;
   loadVisits: () => void;
   loadSites: () => void;
-
-}
-
-interface CustomAddNewVisitProps {
-  title: string;
-  icon: any; // You might need to specify the correct type for the icon,
-  testID?: string,
-  screenToNavigate: string
 }
 
 interface CustomVistList {
@@ -62,17 +65,15 @@ export const VisitsContainer = (props: Props): JSX.Element => {
 
   const combinedData = [];
 
-
-  const NextStep = () => {
-    if (selectedSite !== undefined) {
-      props.navigation.navigate(screenToNavigate, {
-        selectedSite: selectedSite,
-        selectedSiteName: selectedSite.name,
-        selectedSiteRef: selectedSite.reference
-      });
-    }
-
-  }
+  // const NextStep = () => {
+  //   if (selectedSite !== undefined) {
+  //     props.navigation.replace(screenToNavigate, {
+  //       selectedSite: selectedSite,
+  //       selectedSiteName: selectedSite.name,
+  //       selectedSiteRef: selectedSite.reference,
+  //     });
+  //   }
+  // };
   const changeTitle = () => {
     if (screenToNavigate !== '') {
       switch (screenToNavigate) {
@@ -96,80 +97,106 @@ export const VisitsContainer = (props: Props): JSX.Element => {
         }
       }
     }
-  }
-
+  };
 
   // Load visits when the component mounts
   useEffect(() => {
     props.loadVisits();
     props.loadSites();
     props.loadFlash();
-  }, [])
+  }, []);
   useEffect(() => {
-    NextStep();
+    // NextStep();
     changeTitle();
   }, [props.visits, screenToNavigate, selectedSite, props.flash]);
 
-  const CustomAddNewVisit: React.FC<CustomAddNewVisitProps> = ({ title, icon, testID, screenToNavigate }) => {
-    return (
-      <TouchableOpacity
-        onPress={() => { [setModalVisible(true), setscreenToNavigate(screenToNavigate)] }}
-        style={styles.visitContatiner}>
-        <Image testID={testID} source={icon} style={styles.visitImageStyle} />
-        <Text style={globalStyle.fontMediumDark15Style}>{title}</Text>
-      </TouchableOpacity>
-    );
-  };
-
-  const CustomVisitOption: React.FC<CustomVisitDetailsProps> = ({ title, value }) => {
+  const CustomVisitOption: React.FC<CustomVisitDetailsProps> = ({
+    title,
+    value,
+  }) => {
     return (
       <View style={flexBoxStyle.flexColumn}>
-        <Text style={[styles.visitDetailsStyle, flexBoxStyle.mT1]}>{value}</Text>
+        <Text style={[styles.visitDetailsStyle, flexBoxStyle.mT1]}>
+          {value}
+        </Text>
         <Text style={styles.visitDetailsStyle}>{title}</Text>
       </View>
-    )
-  }
-  const CustomVistList: React.FC<CustomVistList> = ({ visit }) => {
-    const imageSource = VISIT_TYPE_TO_IMAGE_SOURCE[visit.type] || VISIT_TYPE_TO_IMAGE_SOURCE.default
+    );
+  };
+  const CustomVistList: React.FC<CustomVistList> = ({visit}) => {
+    const imageSource =
+      VISIT_TYPE_TO_IMAGE_SOURCE[visit.type] ||
+      VISIT_TYPE_TO_IMAGE_SOURCE.default;
     return (
-      <View testID='custom-visit-list' style={flexBoxStyle.flexRowSpace}>
+      <View testID="custom-visit-list" style={flexBoxStyle.flexRowSpace}>
         <View style={flexBoxStyle.m1}>
           <View style={flexBoxStyle.flexRowCenterSpace}>
             <View style={styles.visitRowStyle}>
-              <Image source={imageSource} style={globalStyle.defaultImageStyle} />
-              <View >
-                <Text style={globalStyle.fontMedium15Style} numberOfLines={2}> {convertDate(visit?.dateStart, i18next.language)} </Text>
-                <Text style={globalStyle.fontMediumDark15Style} numberOfLines={2}> {visit.chantier?.no}</Text>
+              <Image
+                source={imageSource}
+                style={globalStyle.defaultImageStyle}
+              />
+              <View>
+                <Text style={globalStyle.fontMedium15Style} numberOfLines={2}>
+                  {' '}
+                  {convertDate(visit?.dateStart, i18next.language)}{' '}
+                </Text>
+                <Text
+                  style={globalStyle.fontMediumDark15Style}
+                  numberOfLines={2}>
+                  {' '}
+                  {visit.chantier?.name}
+                </Text>
               </View>
             </View>
           </View>
         </View>
         <View>
           <View style={flexBoxStyle.flexEnd}>
-            {visit.type != 4 &&
-              <CustomVisitOption title={t('txt_Observations')} value={visit.observations?.length} />
-
-            }
+            {visit.type != 4 && (
+              <CustomVisitOption
+                title={t('txt_Observations')}
+                value={visit.observations?.length!!}
+              />
+            )}
             <CustomVisitOption title={t('txt.levee')} value={0} />
-            <CustomVisitOption title={t('txt.photos')} value={visit ? visit.observations!![0].listPhotos!!.length : 0} />
-            <Image source={utils.images.visitLockIcon} style={globalStyle.defaultImageStyle} />
+            <CustomVisitOption
+              title={t('txt.photos')}
+              value={visit ? visit.observations!![0].listPhotos!!.length : 0}
+            />
+            <Image
+              source={utils.images.visitLockIcon}
+              style={globalStyle.defaultImageStyle}
+            />
           </View>
         </View>
       </View>
     );
   };
 
-  const CustomFlashList: React.FC<CustomFlashList> = ({ flash }) => {
-    const imageSource = VISIT_TYPE_TO_IMAGE_SOURCE[4] || VISIT_TYPE_TO_IMAGE_SOURCE.default
+  const CustomFlashList: React.FC<CustomFlashList> = ({flash}) => {
+    const imageSource =
+      VISIT_TYPE_TO_IMAGE_SOURCE[4] || VISIT_TYPE_TO_IMAGE_SOURCE.default;
     return (
-      <View testID='custom-visit-list' style={flexBoxStyle.flexRowSpace}>
+      <View testID="custom-visit-list" style={flexBoxStyle.flexRowSpace}>
         <View style={flexBoxStyle.m1}>
           <View style={flexBoxStyle.flexRowCenterSpace}>
             <View style={styles.visitRowStyle}>
-              <Image source={imageSource} style={globalStyle.defaultImageStyle} />
-              <View >
-                <Text style={globalStyle.fontMedium15Style} numberOfLines={2}> {convertDate(flash?.date, i18next.language)} </Text>
-                <Text style={globalStyle.fontMediumDark15Style} numberOfLines={2}> {flash.site_name}</Text>
+              <Image
+                source={imageSource}
+                style={globalStyle.defaultImageStyle}
+              />
+              <View>
+                <Text style={globalStyle.fontMedium15Style} numberOfLines={2}>
+                  {' '}
+                  {convertDate(flash?.date, i18next.language)}{' '}
+                </Text>
+                <Text
+                  style={globalStyle.fontMediumDark15Style}
+                  numberOfLines={2}>
+                  {' '}
+                  {flash.site_name}
+                </Text>
               </View>
             </View>
           </View>
@@ -181,8 +208,14 @@ export const VisitsContainer = (props: Props): JSX.Element => {
 
             } */}
             <CustomVisitOption title={t('txt.levee')} value={0} />
-            <CustomVisitOption title={t('txt.photos')} value={ flash ?0 : flash.images.length} />
-            <Image source={utils.images.visitLockIcon} style={globalStyle.defaultImageStyle} />
+            <CustomVisitOption
+              title={t('txt.photos')}
+              value={flash ? 0 : flash.images.length}
+            />
+            <Image
+              source={utils.images.visitLockIcon}
+              style={globalStyle.defaultImageStyle}
+            />
           </View>
         </View>
       </View>
@@ -195,14 +228,13 @@ export const VisitsContainer = (props: Props): JSX.Element => {
     Promise.all([props.loadFlash(), props.loadVisits()])
       .then(() => {
         setRefreshing(false);
-        
       })
-      .catch((error) => {
+      .catch(error => {
         console.error('Refresh error:', error);
         setRefreshing(false);
       });
   };
-  
+
   useEffect(() => {
     if (refreshing) {
       handleRefresh();
@@ -210,16 +242,23 @@ export const VisitsContainer = (props: Props): JSX.Element => {
   }, [refreshing]);
   // Handler for synchronizing data
   const handlSynchronisation = () => {
-    props.sendData(props.profile?.accessToken!!, props.profile?.lastUpdate!!, props.visits!!)
-  }
-
+    props.sendData(
+      props.profile?.accessToken!!,
+      props.profile?.lastUpdate!!,
+      props.visits!!,
+    );
+  };
 
   if (Array.isArray(props.visits)) {
-    combinedData.push(...props.visits.map((visit) => ({ key: 'visit', data: visit })));
+    combinedData.push(
+      ...props.visits.map(visit => ({key: 'visit', data: visit})),
+    );
   }
 
   if (Array.isArray(props.flash)) {
-    combinedData.push(...props.flash.map((flash) => ({ key: 'flash', data: flash })));
+    combinedData.push(
+      ...props.flash.map(flash => ({key: 'flash', data: flash})),
+    );
   }
   // Render the main component
   return (
@@ -227,18 +266,23 @@ export const VisitsContainer = (props: Props): JSX.Element => {
       <View style={styles.mainStyle}>
         <View style={styles.fontBackground}>
           <View style={flexBoxStyle.p1}>
-            <Text style={[globalStyle.fontMedium15Style]}>{t('txt.aucune.synchro')}</Text>
+            <Text style={[globalStyle.fontMedium15Style]}>
+              {t('txt.aucune.synchro')}
+            </Text>
           </View>
         </View>
-        <View style={[globalStyle.rowContainerStyle, styles.synchroContainerStyle]}>
+        <View
+          style={[globalStyle.rowContainerStyle, styles.synchroContainerStyle]}>
           <Text style={globalStyle.fontMediumDark17Style}>
             {combinedData?.length} {t('txt.visites.cloturees')}
           </Text>
           <ButtonComponent
-            testID='sync-button'
-            buttonColor={combinedData?.length ? utils.colors.primary : utils.colors.gray90}
+            testID="sync-button"
+            buttonColor={
+              combinedData?.length ? utils.colors.primary : utils.colors.gray90
+            }
             width={'30%'}
-            textButton={t('txt.synchroniser')}
+            textButton={t(TRANSLATE.SYNCRONIZATION)}
             onPressButton={handlSynchronisation}
           />
         </View>
@@ -257,40 +301,72 @@ export const VisitsContainer = (props: Props): JSX.Element => {
                 onRefresh={handleRefresh}
               />
             }
-             // Adjust the key extractor based on your data structure
-            renderItem={({ item }) => {
+            // Adjust the key extractor based on your data structure
+            renderItem={({item}) => {
               if (item.key === 'visit') {
                 return <CustomVistList visit={item.data} />;
               } else if (item.key === 'flash') {
                 return <CustomFlashList flash={item.data} />;
               }
             }}
-            ItemSeparatorComponent={() => (<Divider />)}
+            ItemSeparatorComponent={() => <Divider />}
           />
         ) : (
           <View style={globalStyle.centerContainerStyle}>
-            <Text style={globalStyle.fontMedium15Style}>{t('txt.no.visit.clotured')}</Text>
+            <Text style={globalStyle.fontMedium15Style}>
+              {t(TRANSLATE.NO_VISIT_CLOSED)}
+            </Text>
           </View>
         )}
       </View>
       <Divider />
       <View style={globalStyle.containerStyle}>
         <View style={styles.visitTypesStyle}>
-          <CustomAddNewVisit testID='img-prevention' title={t('txt.prevention')} icon={utils.images.addPrevenationIcon} screenToNavigate='PreventionVisit' />
-          <CustomAddNewVisit testID='img-conformite' title={t('txt.conformite')} icon={utils.images.addConformite} screenToNavigate='ConformityVisit' />
-          <CustomAddNewVisit testID='img-hierarchical' title={t('txt.hierarchique')} icon={utils.images.addhierarchicalIcon} screenToNavigate='HierarchicalVisit' />
+          <CustomAddNewVisit
+            testID="img-prevention"
+            title={t('txt.prevention')}
+            icon={utils.images.addPrevenationIcon}
+            onPrees={() =>
+              props.navigation.navigate(Route.CheckSiteScreen, {
+                sites: props.sites!!,
+                title: TRANSLATE.PREVENTION,
+              })
+            }
+            screenToNavigate="PreventionVisit"
+          />
+          <CustomAddNewVisit
+            testID="img-conformite"
+            title={t('txt.conformite')}
+            icon={utils.images.addConformite}
+            onPrees={() => props.navigation.navigate(Route.CheckSiteScreen)}
+            screenToNavigate="ConformityVisit"
+          />
+          <CustomAddNewVisit
+            testID="img-hierarchical"
+            title={t('txt.hierarchique')}
+            icon={utils.images.addhierarchicalIcon}
+            onPrees={() => props.navigation.navigate(Route.CheckSiteScreen)}
+            screenToNavigate="HierarchicalVisit"
+          />
         </View>
-        <VisitModal onClose={() => setModalVisible(false)} sites={props.sites} visible={modalVisible} title={title} NextStep={() => NextStep()} selectedSite={selectedSite} setSelectedSite={setselectedSite} />
+        <VisitModal
+          onClose={() => setModalVisible(false)}
+          sites={props.sites}
+          visible={modalVisible}
+          title={title}
+          NextStep={() => NextStep()}
+          selectedSite={selectedSite}
+          setSelectedSite={setselectedSite}
+        />
       </View>
       <View style={props.loading ? styles.loaderContainer : {}}>
         <ActivityIndicator
-          testID='activity-indicator'
+          testID="activity-indicator"
           size="large"
           color={utils.colors.primary}
-          style={{ display: props.loading ? 'flex' : 'none' }}
+          style={{display: props.loading ? 'flex' : 'none'}}
         />
       </View>
-
     </View>
   );
 };
@@ -298,19 +374,19 @@ export const VisitsContainer = (props: Props): JSX.Element => {
 // Define styles for the component
 const styles = StyleSheet.create({
   loaderContainer: {
-    position: "absolute",
+    position: 'absolute',
     flex: 1,
-    width: "100%",
-    height: "100%",
+    width: '100%',
+    height: '100%',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
 
   visitDetailsStyle: {
     ...globalStyle.fontMedium13Style,
     ...globalStyle.fontCenterStyle,
-    ...flexBoxStyle.mL1
+    ...flexBoxStyle.mL1,
   },
   visitRowStyle: {
     ...flexBoxStyle.flexRow,
@@ -329,17 +405,5 @@ const styles = StyleSheet.create({
   visitTypesStyle: {
     flex: 1,
     flexDirection: 'row',
-  },
-  visitContatiner: {
-    flex: 1,
-    marginTop: 10,
-    alignItems: 'center',
-    marginBottom: 10,
-
-  },
-  visitImageStyle: {
-    width: '65%',
-    height: '65%',
-    resizeMode: 'contain',
   },
 });

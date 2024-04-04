@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import * as utils from '@utils/index';
 interface Props {
   toggleCollapse: () => void;
@@ -11,12 +11,15 @@ export const ButtonCollapse = (props: Props) => {
     <View style={styles.container}>
       <TouchableOpacity onPress={props.toggleCollapse}>
         <View style={styles.button}>
-          {props.stat === 'collapse' ? (<Image source={utils.images.icn_collapse} style={styles.image} />) : (<Image source={utils.images.icn_expand} style={styles.image} />)}
+          {props.stat === 'collapse' ? (
+            <Image source={utils.images.icn_collapse} style={styles.image} />
+          ) : (
+            <Image source={utils.images.icn_expand} style={styles.image} />
+          )}
         </View>
       </TouchableOpacity>
     </View>
   );
-
 };
 const styles = StyleSheet.create({
   container: {
@@ -26,8 +29,7 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     alignSelf: 'center',
-    marginVertical: -15
-
+    marginVertical: -15,
   },
   button: {
     width: '100%',
@@ -37,7 +39,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderTopColor: utils.colors.gris200,
     borderBottomColor: utils.colors.gris200,
-    marginTop: 20
-  }
-
+    marginTop: 20,
+  },
 });

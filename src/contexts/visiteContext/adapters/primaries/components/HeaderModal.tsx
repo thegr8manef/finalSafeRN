@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet, Pressable, Image } from 'react-native';
-import { ImageSourcePropType } from 'react-native';
+import {View, Text, StyleSheet, Pressable, Image} from 'react-native';
+import {ImageSourcePropType} from 'react-native';
 import * as utils from '@utils/index'; // Import utility functions
 import globalStyle from '@styles/globalStyle'; // Import global styles
-import { flexBoxStyle } from '@styles/flexBoxStyle'; // Import flexbox styles
+import {flexBoxStyle} from '@styles/flexBoxStyle'; // Import flexbox styles
 
 // Define the expected props for the HeaderModal component
 interface Props {
@@ -16,7 +16,6 @@ interface Props {
   leftIcon?: ImageSourcePropType[]; // Array of images/icons for the left buttons (optional)
   onRightIconPress?: (index: number) => void; // Function to handle the press of an icon button (optional)
   onLeftIconPress?: (index: number) => void; // Function to handle the press of an icon button (optional)
-
 }
 
 // Define the HeaderModal component
@@ -30,9 +29,10 @@ export const HeaderModal = (props: Props) => {
           {props.rightIcon.map((icons: ImageSourcePropType, index: number) => (
             <Pressable
               key={index}
-              testID='header-modal-right-button'
-              onPress={() => props.onRightIconPress && props.onRightIconPress(index)}
-              android_ripple={styles.androidRipple}>
+              testID="header-modal-right-button"
+              onPress={() =>
+                props.onRightIconPress && props.onRightIconPress(index)
+              }>
               <Image source={icons} style={globalStyle.defaultImageStyle} />
             </Pressable>
           ))}
@@ -42,10 +42,11 @@ export const HeaderModal = (props: Props) => {
       // If there is a right label, render it
       return (
         <Pressable
-          testID='header-modal-right-button'
-          onPress={props.onRightPress}
-          android_ripple={styles.androidRipple}>
-          <Text style={globalStyle.fontBoldDark15Style}>{props.rightLabel}</Text>
+          testID="header-modal-right-button"
+          onPress={props.onRightPress}>
+          <Text style={globalStyle.fontBoldDark15Style}>
+            {props.rightLabel}
+          </Text>
         </Pressable>
       );
     }
@@ -60,9 +61,10 @@ export const HeaderModal = (props: Props) => {
           {props.leftIcon.map((icons: ImageSourcePropType, index: number) => (
             <Pressable
               key={index}
-              testID='header-modal-left-button'
-              onPress={() => props.onLeftIconPress && props.onLeftIconPress(index)}
-              android_ripple={styles.androidRipple}>
+              testID="header-modal-left-button"
+              onPress={() =>
+                props.onLeftIconPress && props.onLeftIconPress(index)
+              }>
               <Image source={icons} style={globalStyle.defaultImageStyle} />
             </Pressable>
           ))}
@@ -72,9 +74,8 @@ export const HeaderModal = (props: Props) => {
       // If there is a left label, render it
       return (
         <Pressable
-          testID='header-modal-left-button'
-          onPress={props.onLeftPress}
-          android_ripple={styles.androidRipple}>
+          testID="header-modal-left-button"
+          onPress={props.onLeftPress}>
           <Text style={globalStyle.fontBoldDark15Style}>{props.leftLabel}</Text>
         </Pressable>
       );
@@ -84,7 +85,12 @@ export const HeaderModal = (props: Props) => {
   };
   // Render the HeaderModal component
   return (
-    <View style={[flexBoxStyle.flexRowCenterSpace, styles.container, flexBoxStyle.p1]}>
+    <View
+      style={[
+        flexBoxStyle.flexRowCenterSpace,
+        styles.container,
+        flexBoxStyle.p1,
+      ]}>
       {/*<View>
          <Pressable
           testID='header-modal-left-button'

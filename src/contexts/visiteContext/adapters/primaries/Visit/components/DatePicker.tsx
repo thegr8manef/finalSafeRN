@@ -1,15 +1,22 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, Text, Button, Platform, TouchableOpacity, Image } from 'react-native';
+import React, {useState} from 'react';
+import {
+  StyleSheet,
+  View,
+  Text,
+  Button,
+  Platform,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
 import * as utils from '@utils/index';
 import DateTimePicker from '@react-native-community/datetimepicker';
-interface Props{
-date : Date
-setDate : (date : Date) => void
+import colors from '@assets/colors';
+interface Props {
+  date: Date;
+  setDate: (date: Date) => void;
 }
-export const DatePicker = (props : Props) => {
+export const DatePicker = (props: Props) => {
   const [isPickerShow, setIsPickerShow] = useState(false);
-  
-
 
   const showPicker = () => {
     setIsPickerShow(true);
@@ -23,7 +30,7 @@ export const DatePicker = (props : Props) => {
   };
 
   // Format the date to "7 September 2023"
-  const formattedDate = props.date.toLocaleDateString('en-GB' ,{
+  const formattedDate = props.date.toLocaleDateString('en-GB', {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
@@ -33,22 +40,27 @@ export const DatePicker = (props : Props) => {
       {/* The button that used to trigger the date picker */}
       {!isPickerShow && (
         <View style={styles.pickedDateContainer}>
-          <TouchableOpacity onPress={showPicker} style={{marginTop:3}}>
+          <TouchableOpacity onPress={showPicker} style={{marginTop: 3}}>
             <View style={{flex: 1}}>
-                <Image source={utils.images.date_picker} style={styles.Icon}/>
+              <Image source={utils.images.date_picker} style={styles.Icon} />
             </View>
-            <View style={{marginStart:30}}>
-                <Text style={styles.pickedDate}>{formattedDate}</Text>
+            <View style={{marginStart: 30}}>
+              <Text style={styles.pickedDate}>{formattedDate}</Text>
             </View>
           </TouchableOpacity>
-          <Image testID="text-area-img" source={utils.images.arrow_down} style={styles.logoImage3} />
-        <Image testID="divider-img" source={utils.images.dividerIcon} style={styles.logoImage4} />
+          <Image
+            testID="text-area-img"
+            source={utils.images.arrow_down}
+            style={styles.logoImage3}
+          />
+          <View testID="divider-img" style={styles.devider} />
         </View>
       )}
 
       {/* The date picker */}
       {isPickerShow && (
         <DateTimePicker
+          themeVariant="light"
           value={props.date}
           mode={'date'}
           display={Platform.OS === 'ios' ? 'spinner' : 'default'}
@@ -57,7 +69,6 @@ export const DatePicker = (props : Props) => {
           style={styles.datePicker}
         />
       )}
-
     </View>
   );
 };
@@ -68,12 +79,16 @@ const styles = StyleSheet.create({
   },
   pickedDateContainer: {
     borderRadius: 10,
-    width:250,
-    marginStart:20,
+    width: 250,
+    marginStart: 20,
+    marginTop: 20,
   },
   pickedDate: {
-    fontSize: 18,
-    color: 'black', // Assuming you want black text color
+    fontSize: 14,
+    paddingStart: 20,
+
+    fontFamily: utils.fonts.AvenirMedium,
+    color: colors.textColor,
   },
   btnContainer: {
     padding: 30,
@@ -86,21 +101,27 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'flex-start',
     color: 'yellow', // Assuming you want black text color
-    backgroundColor:'yellow'
+    backgroundColor: 'yellow',
   },
-  Icon:{
-    width:25,
-    height:25
+  Icon: {
+    width: 25,
+    height: 25,
   },
   logoImage3: {
     width: 11,
     height: 8,
+    bottom: 10,
     resizeMode: 'stretch',
     alignSelf: 'flex-end',
   },
   logoImage4: {
     width: '100%',
     height: 20,
-    marginTop:2,
-  }
+    marginTop: 2,
+  },
+  devider: {
+    width: 250,
+    height: 1,
+    backgroundColor: colors.primary,
+  },
 });

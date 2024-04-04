@@ -1,29 +1,28 @@
-import { VisitsService } from '../../domain/gateway/visitsService';
-import { Observable, from } from 'rxjs';
+import {VisitsService} from '../../domain/gateway/visitsService';
+import {Observable, from} from 'rxjs';
 import ApplicationContext from '@common/appConfig/ApplicationContext';
-import { Site } from '../../domain/entity/Site';
-import { SiteMapper } from './mapper/site.mapper';
-import { VisitFlash } from '@contexts/visiteContext/domain/entity/VisitFlash';
-import moment from "moment"; // Import Moment.js
-import { VisitMapper } from './mapper/visit.mapper';
-import { Visit as VisitDb } from '@common/adapters/secondaries/db/entity/Visit';
-import { Remarque } from '@common/adapters/secondaries/db/entity/Remarque';
-import { v5 as uuidv5 } from 'uuid';
-import { NAMESPACE } from '@common/constants';
-import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
-import CustomRemarque from "@contexts/visiteContext/domain/entity/Remarque";
-import { RemarqueMapper } from './mapper/remarque.mapper';
-import { Accompagnants } from '@contexts/visiteContext/domain/entity/Accompagnant';
-import { AccompagnantMapper } from './mapper/accompagnant.mapper';
-import { FlashMapper } from './mapper/flash.mapper';
-
+import {Site} from '../../domain/entity/Site';
+import {SiteMapper} from './mapper/site.mapper';
+import {VisitFlash} from '@contexts/visiteContext/domain/entity/VisitFlash';
+import moment from 'moment'; // Import Moment.js
+import {VisitMapper} from './mapper/visit.mapper';
+import {Visit as VisitDb} from '@common/adapters/secondaries/db/entity/Visit';
+import {Remarque} from '@common/adapters/secondaries/db/entity/Remarque';
+import {v5 as uuidv5} from 'uuid';
+import {NAMESPACE} from '@common/constants';
+import {Visit} from '@contexts/visiteContext/domain/entity/Visit';
+import CustomRemarque from '@contexts/visiteContext/domain/entity/Remarque';
+import {RemarqueMapper} from './mapper/remarque.mapper';
+import {Accompagnants} from '@contexts/visiteContext/domain/entity/Accompagnant';
+import {AccompagnantMapper} from './mapper/accompagnant.mapper';
+import {FlashMapper} from './mapper/flash.mapper';
 
 export class DbVisitsService implements VisitsService {
-
-  SaveFlash(data: VisitFlash): Observable<Remarque> { // Update the return type to Observable<Remarque>
+  SaveFlash(data: VisitFlash): Observable<Remarque> {
+    // Update the return type to Observable<Remarque>
 
     const currentDateTime = moment();
-    const formattedCurrentDateTime = currentDateTime.format("YYYY/MM/DD");
+    const formattedCurrentDateTime = currentDateTime.format('YYYY/MM/DD');
     const name = Date.now().toString() + Math.random().toString();
     const saveFlashtoDb = new Promise<Remarque>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
@@ -53,7 +52,7 @@ export class DbVisitsService implements VisitsService {
             unq: false,
             lvl: data.level,
             tg: 4,
-            qt: this.generateUUID(name, NAMESPACE)
+            qt: this.generateUUID(name, NAMESPACE),
           });
           resolve(newRemarque);
         });
@@ -67,14 +66,16 @@ export class DbVisitsService implements VisitsService {
 
   SaveVisit(createdVisit: Visit): Observable<Visit> {
     const currentDateTime = moment();
-    const formattedCurrentDateTime = currentDateTime.format("YYYY/MM/DD HH:mm:ss");
+    const formattedCurrentDateTime = currentDateTime.format(
+      'YYYY/MM/DD HH:mm:ss',
+    );
     const currentDateTimeInMillis = moment().valueOf();
     const saveVisitToDb = new Promise<Visit>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
       const name = Date.now().toString() + Math.random().toString();
       // Find the chantier based on createdRemarque.idcs
 
-      db.then((realm) => {
+      db.then(realm => {
         const user = realm.objects('User');
         const chantier = realm
           .objects('Chantier')
@@ -83,13 +84,13 @@ export class DbVisitsService implements VisitsService {
           .objects('Accompagnant')
           .filtered(`em = "${createdVisit.accompagnants!![0].em}"`);
         realm?.write(() => {
-          const newVisit = realm.create<Visit>("Visit", {
+          const newVisit = realm.create<Visit>('Visit', {
             // Map Visit properties from data
             id: this.generateUUID(name, NAMESPACE),
             dt: createdVisit.dateStart,
             dtc: currentDateTimeInMillis.toString(),
             date: createdVisit.date,
-            timeStamp: currentDateTime.format("DD MMMM YYYY"),
+            timeStamp: currentDateTime.format('DD MMMM YYYY'),
             chantier: chantier,
             codeChantier: createdVisit.codeChantier,
             InfoComplementaire: createdVisit.InfoComplementaire,
@@ -108,10 +109,9 @@ export class DbVisitsService implements VisitsService {
           // }
           resolve(newVisit);
         });
-      }).catch((error) => {
+      }).catch(error => {
         reject(error);
       });
-
     });
 
     return from(saveVisitToDb);
@@ -121,13 +121,12 @@ export class DbVisitsService implements VisitsService {
     const LoadVisitDb = new Promise<VisitFlash[]>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
       db.then(realm => {
-        const object1 = realm.objects('Remarque')
+        const object1 = realm.objects('Remarque');
         resolve(FlashMapper.mapToVisitRemarqueFlash(object1));
-      }).catch((error) => reject(error))
+      }).catch(error => reject(error));
     });
     return from(LoadVisitDb);
   }
-
 
   loadVisitsDetails(): Observable<Visit[]> {
     const LoadVisitDb = new Promise<Visit[]>((resolve, reject) => {
@@ -135,7 +134,7 @@ export class DbVisitsService implements VisitsService {
       db.then(realm => {
         const objects = realm.objects('Visit');
         resolve(VisitMapper.mapToVisit(objects));
-      }).catch((error) => reject(error))
+      }).catch(error => reject(error));
     });
     return from(LoadVisitDb);
   }
@@ -144,9 +143,9 @@ export class DbVisitsService implements VisitsService {
     const LoadChantierInDb = new Promise<Site[]>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
       db.then(realm => {
-        const objects = realm.objects('Chantier')
+        const objects = realm.objects('Chantier');
         resolve(SiteMapper.maptoSites(objects));
-      }).catch(error => reject(error))
+      }).catch(error => reject(error));
     });
     return from(LoadChantierInDb);
   }
@@ -155,24 +154,25 @@ export class DbVisitsService implements VisitsService {
     const LoadRemarqueDB = new Promise<CustomRemarque[]>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
       db.then(realm => {
-        const objects = realm.objects('Remarque')
+        const objects = realm.objects('Remarque');
         resolve(RemarqueMapper.mapperToRemarques(objects));
-      }).catch(error => reject(error))
+      }).catch(error => reject(error));
     });
     return from(LoadRemarqueDB);
   }
 
   loadAccompagnants(): Observable<Accompagnants[]> {
-    const LoadAccompagnantsDB = new Promise<Accompagnants[]>((resolve, reject) => {
-      const db = ApplicationContext.getInstance().db();
-      db.then(realm => {
-        const objects = realm.objects('Accompagnant')
-        resolve(AccompagnantMapper.mapAccompagnant(objects));
-      }).catch(error => reject(error))
-    });
+    const LoadAccompagnantsDB = new Promise<Accompagnants[]>(
+      (resolve, reject) => {
+        const db = ApplicationContext.getInstance().db();
+        db.then(realm => {
+          const objects = realm.objects('Accompagnant');
+          resolve(AccompagnantMapper.mapAccompagnant(objects));
+        }).catch(error => reject(error));
+      },
+    );
     return from(LoadAccompagnantsDB);
   }
-
 
   deleteVisits(): Observable<void> {
     const LoadRemarqueDB = new Promise<void>((resolve, reject) => {
@@ -184,24 +184,15 @@ export class DbVisitsService implements VisitsService {
         realm.write(() => {
           // Delete all items in the visit schema
           realm.delete(visits);
-          realm.delete(remarques)
+          realm.delete(remarques);
         });
         resolve();
-      }).catch(error => reject(error))
-
-
-
+      }).catch(error => reject(error));
     });
     return from(LoadRemarqueDB);
   }
 
   private generateUUID(name: string, namespace: string): string {
-    return uuidv5(name, namespace) + "an" + moment().valueOf()
+    return uuidv5(name, namespace) + 'an' + moment().valueOf();
   }
-
 }
-
-
-
-
-
