@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, Text, TouchableOpacityProps } from 'react-native';
+import {TouchableOpacity, Text, TouchableOpacityProps} from 'react-native';
 import globalStyle from '@styles/globalStyle';
 
 interface Props {
@@ -15,10 +15,9 @@ interface Props {
   titleStyle?: any;
   borderRadius?: number;
 }
-type ButtonComponentProps = Props & TouchableOpacityProps
+type ButtonComponentProps = Props & TouchableOpacityProps;
 
 export const ButtonComponent = (props: ButtonComponentProps): JSX.Element => {
-
   return (
     <TouchableOpacity
       {...props}
@@ -34,11 +33,12 @@ export const ButtonComponent = (props: ButtonComponentProps): JSX.Element => {
           borderColor: props.borderColor,
           borderRadius: props.borderRadius,
         },
-      ]} >
-      <Text style={[globalStyle.fontMediumDark14Style, props.titleStyle]}>{props.textButton}</Text>
+      ]}>
+      <Text style={[globalStyle.fontMediumDark14Style, props.titleStyle]}>
+        {props.textButton}
+      </Text>
     </TouchableOpacity>
   );
 };
-
 
 export default ButtonComponent;

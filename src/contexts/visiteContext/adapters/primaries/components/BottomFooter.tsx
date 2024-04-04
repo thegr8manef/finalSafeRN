@@ -35,10 +35,7 @@ export const BottomFooter = (props: Props) => {
           <View key={index} style={flexBoxStyle.mL1}>
             {/* Render an image if the content type is "image" */}
             {item.type === 'image' && item.source && (
-              <Pressable
-                testID="choose-img"
-                onPress={item.onPress}
-                android_ripple={{color: utils.colors.gris300}}>
+              <Pressable testID="choose-img" onPress={item.onPress}>
                 <Image
                   source={item.source}
                   style={globalStyle.defaultImageStyle}
@@ -60,10 +57,7 @@ export const BottomFooter = (props: Props) => {
             flexBoxStyle.flexEnd,
             flexBoxStyle.m2,
           ]}>
-          <Pressable
-            testID="save-btn"
-            android_ripple={globalStyle.androidRipple}
-            onPress={props.confirmPress}>
+          <Pressable testID="save-btn" onPress={props.confirmPress}>
             <Text style={globalStyle.fontMediumDark15Style}>
               {props.confirmText}
             </Text>

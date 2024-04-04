@@ -32,8 +32,7 @@ export const HeaderModal = (props: Props) => {
               testID="header-modal-right-button"
               onPress={() =>
                 props.onRightIconPress && props.onRightIconPress(index)
-              }
-              android_ripple={styles.androidRipple}>
+              }>
               <Image source={icons} style={globalStyle.defaultImageStyle} />
             </Pressable>
           ))}
@@ -44,8 +43,7 @@ export const HeaderModal = (props: Props) => {
       return (
         <Pressable
           testID="header-modal-right-button"
-          onPress={props.onRightPress}
-          android_ripple={styles.androidRipple}>
+          onPress={props.onRightPress}>
           <Text style={globalStyle.fontBoldDark15Style}>
             {props.rightLabel}
           </Text>
@@ -66,8 +64,7 @@ export const HeaderModal = (props: Props) => {
               testID="header-modal-left-button"
               onPress={() =>
                 props.onLeftIconPress && props.onLeftIconPress(index)
-              }
-              android_ripple={styles.androidRipple}>
+              }>
               <Image source={icons} style={globalStyle.defaultImageStyle} />
             </Pressable>
           ))}
@@ -78,8 +75,7 @@ export const HeaderModal = (props: Props) => {
       return (
         <Pressable
           testID="header-modal-left-button"
-          onPress={props.onLeftPress}
-          android_ripple={styles.androidRipple}>
+          onPress={props.onLeftPress}>
           <Text style={globalStyle.fontBoldDark15Style}>{props.leftLabel}</Text>
         </Pressable>
       );

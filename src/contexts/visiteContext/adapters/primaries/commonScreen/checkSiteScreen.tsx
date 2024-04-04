@@ -45,7 +45,7 @@ export const CheckSiteScreen = (props: Props) => {
         title={t(title!!)}
         leftLabel={t(TRANSLATE.CANCEL)!!}
         onLeftPress={() => {
-          console.log('I will go back ');
+          props.navigation.goBack();
         }}
       />
       <SiteInfo
