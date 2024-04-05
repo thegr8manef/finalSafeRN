@@ -1,25 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import * as utils from '@utils/index';
-import { VisitFlash } from '../../../domain/entity/VisitFlash';
-import { Site } from '../../../domain/entity/Site';
-import { SiteInfo } from '../components/siteInfo/siteInfo';
-import { ObservationInfo } from '../components/observation/observationInfo';
-import { CommentInfo } from '../components/comment/commentInfo';
-import { PreviewImages } from '../components/images/previewImages';
-import { BottomFooter } from '../components/BottomFooter';
-import { chooseImage, launchCamera } from '@utils/utilsCamera';
-import { t } from 'i18next';
-import {
-  StyleSheet,
-  View,
-  ScrollView,
-  Alert,
-} from 'react-native';
-import { Photo } from '@contexts/visiteContext/domain/entity/Photo';
-import { v5 as uuidv5 } from 'uuid';
-import { CHARACTERS, NAMESPACE } from '@common/constants';
+import {VisitFlash} from '../../../domain/entity/VisitFlash';
+import {Site} from '../../../domain/entity/Site';
+import {SiteInfo} from '../components/siteInfo/siteInfo';
+import {ObservationInfo} from '../components/observation/observationInfo';
+import {CommentInfo} from '../components/comment/commentInfo';
+import {PreviewImages} from '../components/images/previewImages';
+import {BottomFooter} from '../components/BottomFooter';
+import {chooseImage, launchCamera} from '@utils/utilsCamera';
+import {t} from 'i18next';
+import {StyleSheet, View, ScrollView, Alert} from 'react-native';
+import {Photo} from '@contexts/visiteContext/domain/entity/Photo';
+import {v5 as uuidv5} from 'uuid';
+import {CHARACTERS, NAMESPACE} from '@common/constants';
 import moment from 'moment';
-
+import {showMessage} from 'react-native-flash-message';
+import {TRANSLATE} from '@common/translateConstants';
 
 interface Props {
   navigation: any;
@@ -35,30 +31,40 @@ interface Props {
 }
 
 export const VisitFlashContainer = (props: Props) => {
-
   const [comment, setComment] = useState<string>('');
   const [idRemarque, setIdRemarque] = useState<string>();
   const [idVisits, setIdVisits] = useState<string>();
   const [levelId, setLevelId] = useState<number | null>(null);
   const [images, setImages] = useState<Photo[]>([]);
-  const [selectedSite, setSelectedSite] = useState<Site | undefined>(undefined)
+  const [selectedSite, setSelectedSite] = useState<Site | undefined>(undefined);
   const content = [
-    { type: "image", source: utils.images.takePhotoIcon, onPress: () => { captureImage() /* Handle image press */ } },
-    { type: "image", source: utils.images.fileIcon, onPress: () => { chooseFile() /* Handle image press */ } },
+    {
+      type: 'image',
+      source: utils.images.takePhotoIcon,
+      onPress: () => {
+        captureImage(); /* Handle image press */
+      },
+    },
+    {
+      type: 'image',
+      source: utils.images.fileIcon,
+      onPress: () => {
+        chooseFile(); /* Handle image press */
+      },
+    },
   ];
 
   useEffect(() => {
     props.loadSites();
     const name_id_remarque = Date.now().toString() + Math.random().toString();
-    setIdRemarque(uuidv5(name_id_remarque, NAMESPACE))
+    setIdRemarque(uuidv5(name_id_remarque, NAMESPACE));
 
     const name_id_visits = Date.now().toString() + Math.random().toString();
-    setIdVisits(uuidv5(name_id_visits, NAMESPACE))
-  }, [])
-
+    setIdVisits(uuidv5(name_id_visits, NAMESPACE));
+  }, []);
 
   function generateID() {
-    let ID = "";
+    let ID = '';
 
     for (let i = 0; i < 4; i++) {
       for (let j = 0; j < 4; j++) {
@@ -67,7 +73,7 @@ export const VisitFlashContainer = (props: Props) => {
       }
 
       if (i < 3) {
-        ID += "-";
+        ID += '-';
       }
     }
 
@@ -78,31 +84,49 @@ export const VisitFlashContainer = (props: Props) => {
     setImages([...images, image]);
   };
 
-
   const captureImage = async () => {
     launchCamera()
-      .then((data) => {
-        if (
-          data.assets &&
-          data.assets.length > 0 &&
-          data.assets[0].uri
-        )
-          var image = new Photo(generateID(), data.assets[0].fileName, data.assets[0].uri, idRemarque, idVisits, false, 0, "test-id-formation", false, false, 0);
+      .then(data => {
+        if (data.assets && data.assets.length > 0 && data.assets[0].uri)
+          var image = new Photo(
+            generateID(),
+            data.assets[0].fileName,
+            data.assets[0].uri,
+            idRemarque,
+            idVisits,
+            false,
+            0,
+            'test-id-formation',
+            false,
+            false,
+            0,
+          );
         addImage(image!!);
       })
-      .catch((error) => {
+      .catch(error => {
         // Handle errors here
       });
   };
 
   const chooseFile = () => {
-    chooseImage()
-      .then((data) => {
-        if (data.getParts()?.length > 0) {
-          var image = new Photo(generateID(), data.getParts()[0]?.fileName, data.getParts()[0]?.uri, idRemarque, idVisits, false, 0, "test-id-formation", false, false, 0);
-          addImage(image!!);
-        }
-      })
+    chooseImage().then(data => {
+      if (data.getParts()?.length > 0) {
+        var image = new Photo(
+          generateID(),
+          data.getParts()[0]?.fileName,
+          data.getParts()[0]?.uri,
+          idRemarque,
+          idVisits,
+          false,
+          0,
+          'test-id-formation',
+          false,
+          false,
+          0,
+        );
+        addImage(image!!);
+      }
+    });
   };
 
   const saveVisit = () => {
@@ -112,53 +136,92 @@ export const VisitFlashContainer = (props: Props) => {
         day: 'numeric',
         month: 'long',
         year: 'numeric',
-    });
-      const flash = new VisitFlash(idRemarque!!, comment, images, levelId!!, selectedSite?.reference!!, selectedSite?.name,4,formattedDate);
-      Alert.alert('', t('etes_vous_sur_de_vouloir_sauvegarder')!, [
-        {
-          text: 'NON',
-          style: 'cancel',
-        },
-        {
-          text: 'OUI',
-          onPress: () => {
-            props.saveFlash(flash);
+      });
+      const flash = new VisitFlash(
+        idRemarque!!,
+        comment,
+        images,
+        levelId!!,
+        selectedSite?.reference!!,
+        selectedSite?.name,
+        4,
+        formattedDate,
+      );
+      // Alert.alert('', t('etes_vous_sur_de_vouloir_sauvegarder')!, [
+      //   {
+      //     text: 'NON',
+      //     style: 'cancel',
+      //   },
+      //   {
+      //     text: 'OUI',
+      //     onPress: () => {
+      //       props.saveFlash(flash);
 
-            props.navigation.navigate('visites');
-          }
-        },
-      ]);
+      //       props.navigation.navigate('visites');
+      //     }
+      //   },
+      // ]);
+
+      showMessage({
+        message: t(TRANSLATE.SORRY),
+        type: 'danger',
+        description: t('etes_vous_sur_de_vouloir_sauvegarder')!!,
+      });
     }
-  }
+  };
 
   const validVisit = (): boolean => {
     if (levelId === null) {
-      Alert.alert('', t('neg_ou_pos')!);
-      return false
+      showMessage({
+        message: t(TRANSLATE.SORRY),
+        type: 'danger',
+        description: t('neg_ou_pos')!!,
+      });
+      //  Alert.alert('', t('neg_ou_pos')!);
+      return false;
     } else {
       if (comment === '') {
-        Alert.alert('', t('msg.saisr.commentaires.flash')!);
-        return false
+        // Alert.alert('', t('msg.saisr.commentaires.flash')!);
+        showMessage({
+          message: t(TRANSLATE.SORRY),
+          type: 'danger',
+          description: t('msg.saisr.commentaires.flash')!!,
+        });
+        return false;
       } else {
-        return true
+        return true;
       }
     }
   };
 
   return (
     <View style={styles.container}>
-
       <ScrollView contentContainerStyle={styles.scrollViewContainer}>
-        <SiteInfo sites={props.sites} selectedSite={selectedSite} setSelectedSite={setSelectedSite} selectedIdSite={''} />
-        <ObservationInfo onSave={(levelId) => {
-          setLevelId(levelId)
-        }} />
-        <CommentInfo comment={comment} setComment={(comment: string) => setComment(comment)} title={t('txt.commentaires.without.start')} label={t('txt.commentaires')} />
+        <SiteInfo
+          sites={props.sites}
+          selectedSite={selectedSite}
+          setSelectedSite={setSelectedSite}
+          selectedIdSite={''}
+        />
+        <ObservationInfo
+          onSave={levelId => {
+            setLevelId(levelId);
+          }}
+        />
+        <CommentInfo
+          comment={comment}
+          setComment={(comment: string) => setComment(comment)}
+          title={t('txt.commentaires.without.start')}
+          label={t('txt.commentaires')}
+        />
         <PreviewImages images={images} />
       </ScrollView>
 
-      <BottomFooter confirmPress={() => saveVisit()} confirmText={t('txt.sauvegarder.remarque')} content={content} />
-
+      <BottomFooter
+        confirmPress={() => saveVisit()}
+        confirmText={t('txt.sauvegarder.remarque')}
+        content={content}
+      />
     </View>
   );
 };
@@ -170,6 +233,6 @@ const styles = StyleSheet.create({
   },
   scrollViewContainer: {
     flexGrow: 1,
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
 });

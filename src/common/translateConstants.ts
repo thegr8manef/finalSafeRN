@@ -31,4 +31,5 @@ export const TRANSLATE = {
   PLEASE_ENRTE_VALID_INFORAMTIONS: 'txt.please.enter.valid.info',
   CONFORMITE: 'txt.conformite',
   HIERACHIQUE: 'txt.hierarchique',
+  YOU_MUST_SELECTED: 'etes_vous_sur_de_vouloir_sauvegarder',
 };
