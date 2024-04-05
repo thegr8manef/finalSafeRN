@@ -5,7 +5,7 @@ import { Text, FlatList, View, StyleSheet, TouchableOpacity, Image } from 'react
 import * as utils from '@utils/index';
 interface Props {
     sites: Site[] | undefined
-    onSelect: (site: Site) => void
+    onSelect: (site: Site) => void,
 }
 export const SearchResultSites = (props: Props) => {
     const [selectedItem, setSelectedItem] = useState<Site | undefined>(undefined);
@@ -58,8 +58,9 @@ const styles = StyleSheet.create({
         color: utils.colors.gray700
     },
     image: {
-        width: 30,
-        height: 30,
+        width: 20,
+        height: 20,
+        resizeMode:'contain'
     },
     no_Site_text:{
       marginTop: '25%',
