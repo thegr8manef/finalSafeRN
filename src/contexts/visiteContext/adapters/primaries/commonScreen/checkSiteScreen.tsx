@@ -19,11 +19,11 @@ export const CheckSiteScreen = (props: Props) => {
   const [selectedSite, setSelectedSite] = useState<Site | undefined>(undefined);
   const {t} = useTranslation();
 
-  const {sites, title} =
+  const {sites, title, screenToNavigate} =
     useRoute<RouteProp<StackParamList, Route.CheckSiteScreen>>().params;
 
   const handleNextStep = () => {
-    props.navigation.navigate(Route.PreventionVisit, {
+    props.navigation.navigate(screenToNavigate, {
       selectedSite: selectedSite?.id!!,
       selectedSiteName: selectedSite?.name!!,
       selectedSiteRef: selectedSite?.reference!!,

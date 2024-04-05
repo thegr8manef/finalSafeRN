@@ -1,4 +1,5 @@
 import {Site} from '@contexts/visiteContext/domain/entity/Site';
+import {ScreenProps} from 'react-native-screens';
 
 export type StackParamList = {
   Login: undefined;
@@ -13,6 +14,7 @@ export type StackParamList = {
   CheckSiteScreen: {
     sites: Site[] | undefined;
     title?: string;
+    screenToNavigate: ScreenProps;
   };
 };
 

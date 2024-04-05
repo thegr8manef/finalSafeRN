@@ -330,6 +330,7 @@ export const VisitsContainer = (props: Props): JSX.Element => {
               props.navigation.navigate(Route.CheckSiteScreen, {
                 sites: props.sites!!,
                 title: TRANSLATE.PREVENTION,
+                screenToNavigate: 'PreventionVisit',
               })
             }
             screenToNavigate="PreventionVisit"
@@ -342,6 +343,7 @@ export const VisitsContainer = (props: Props): JSX.Element => {
               props.navigation.navigate(Route.CheckSiteScreen, {
                 sites: props.sites!!,
                 title: TRANSLATE.CONFORMITE,
+                screenToNavigate: 'ConformityVisit',
               })
             }
             screenToNavigate="ConformityVisit"
@@ -354,6 +356,7 @@ export const VisitsContainer = (props: Props): JSX.Element => {
               props.navigation.navigate(Route.CheckSiteScreen, {
                 sites: props.sites!!,
                 title: TRANSLATE.HIERACHIQUE,
+                screenToNavigate: 'HierarchicalVisit',
               })
             }
             screenToNavigate="HierarchicalVisit"
