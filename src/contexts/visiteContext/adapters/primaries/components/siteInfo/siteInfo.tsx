@@ -52,7 +52,7 @@ export const SiteInfo = (props: Props) => {
         modalVisible={searchWithNameVisible}
         onClose={() => setSearchWithNameVisible(false)}
         sites={props.sites}
-        onSearch={(site: Site | undefined) => props.setSelectedSite(site)}
+        onSearch={(site: Site) => props.setSelectedSite(site)}
       />
       <SearchSiteWithQrCode
         modalVisible={searchWithQrCodeVisible}

@@ -1,38 +1,39 @@
-import React, { useEffect, useState } from 'react';
-import { View, Modal, StyleSheet, Alert } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {View, Modal, StyleSheet, Alert} from 'react-native';
 import * as utils from '@utils/index';
-import { useTranslation } from 'react-i18next';
-import { Site } from '@contexts/visiteContext/domain/entity/Site';
-import { HeaderModal } from '../HeaderModal';
-import { SearchInputSite } from './searchInputSite';
-import { SearchResultSites } from './searchResultSites';
-import { FooterSearchSiteWithName } from './FooterSearchSiteWithName';
+import {useTranslation} from 'react-i18next';
+import {Site} from '@contexts/visiteContext/domain/entity/Site';
+import {HeaderModal} from '../HeaderModal';
+import {SearchInputSite} from './searchInputSite';
+import {SearchResultSites} from './searchResultSites';
+import {FooterSearchSiteWithName} from './FooterSearchSiteWithName';
 
 interface Props {
   modalVisible: boolean;
   onClose: () => void;
   sites: Site[] | null;
   onSearch: (site: Site) => void;
-
 }
 export const SearchSiteWithNameModal = (props: Props) => {
-  const { t } = useTranslation();
-  const [keyword, setKeyword] = useState<string>('')
-  const [sites, setSites] = useState<Site[] | undefined>(props?.sites ?? [])
-  const [selectedSite, setSelectedSite] = useState<Site | undefined>(undefined)
+  const {t} = useTranslation();
+  const [keyword, setKeyword] = useState<string>('');
+  const [sites, setSites] = useState<Site[] | undefined>(props?.sites ?? []);
+  const [selectedSite, setSelectedSite] = useState<Site>();
   const searchSite = (keyword: string) => {
-    setKeyword(keyword)
-    const filtedSites = props.sites?.filter(site => site.name.indexOf(keyword) !== -1)
-    setSites(filtedSites)
-  }
+    setKeyword(keyword);
+    const filtedSites = props.sites?.filter(
+      site => site.name.indexOf(keyword) !== -1,
+    );
+    setSites(filtedSites);
+  };
   const onSelectSite = () => {
     if (!selectedSite) {
-      Alert.alert('', t('txt.veuillez.choisir.chantier')!)
+      Alert.alert('', t('txt.veuillez.choisir.chantier')!);
     } else {
-      props.onSearch(selectedSite)
-      props.onClose()
+      props.onSearch(selectedSite);
+      props.onClose();
     }
-  }
+  };
 
   return (
     <Modal
@@ -40,10 +41,17 @@ export const SearchSiteWithNameModal = (props: Props) => {
       transparent={false}
       visible={props.modalVisible}>
       <View style={styles.centeredView}>
-        <HeaderModal title={t('choisir_un_chantier')} onLeftPress={props.onClose} leftLabel={t('txt_cancel')} />
+        <HeaderModal
+          title={t('choisir_un_chantier')}
+          onLeftPress={props.onClose}
+          leftLabel={t('txt_cancel')}
+        />
 
         <SearchInputSite keyword={keyword} searchSites={searchSite} />
-        <SearchResultSites sites={sites} onSelect={(site: Site | undefined) => setSelectedSite(site)} />
+        <SearchResultSites
+          sites={sites}
+          onSelect={(site: Site) => setSelectedSite(site)}
+        />
         <FooterSearchSiteWithName onSelectSite={onSelectSite} />
       </View>
     </Modal>
@@ -56,7 +64,7 @@ const styles = StyleSheet.create({
     height: '90%',
     marginTop: '10%',
     alignItems: 'center',
-    flex: 1
+    flex: 1,
   },
   centeredText: {
     fontWeight: 'bold',
