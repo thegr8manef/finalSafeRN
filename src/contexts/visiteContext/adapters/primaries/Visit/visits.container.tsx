@@ -359,7 +359,7 @@ export const VisitsContainer = (props: Props): JSX.Element => {
             screenToNavigate="HierarchicalVisit"
           />
         </View>
-        <VisitModal
+        {/* <VisitModal
           onClose={() => setModalVisible(false)}
           sites={props.sites}
           visible={modalVisible}
@@ -367,7 +367,7 @@ export const VisitsContainer = (props: Props): JSX.Element => {
           NextStep={() => NextStep()}
           selectedSite={selectedSite}
           setSelectedSite={setselectedSite}
-        />
+        /> */}
       </View>
       <View style={props.loading ? styles.loaderContainer : {}}>
         <ActivityIndicator
