@@ -19,6 +19,14 @@ import {
 } from '../../../useCases/LoadRemoteStats/selectors';
 import {Profile} from '@contexts/profileContext/domain/entity/profile';
 import {localProfileSelector} from '@contexts/profileContext/useCases/LoadLocalProfile/selectors';
+import {sitesSelector} from '@contexts/visiteContext/useCases/LoadSites/selectors';
+import { LoadFlash } from '@contexts/visiteContext/useCases/LoadFlash/action';
+import { LoadFlashActionDbTypes } from '@contexts/visiteContext/useCases/LoadFlash/actionTypes';
+import { LoadSites } from '@contexts/visiteContext/useCases/LoadSites/action';
+import { LoadSitesActionTypes } from '@contexts/visiteContext/useCases/LoadSites/actionTypes';
+import { LoadVisits } from '@contexts/visiteContext/useCases/LoadVisits/action';
+import { LoadVisitsActionDbTypes } from '@contexts/visiteContext/useCases/LoadVisits/actionTypes';
+import { loadVisitsSelector } from '@contexts/visiteContext/useCases/LoadVisits/selector';
 
 interface StateToPropsType {
   loading: boolean;
@@ -26,10 +34,14 @@ interface StateToPropsType {
   stat: Stat | undefined;
   profile: Profile | undefined;
   connectionStatus: boolean | undefined;
+  sites: any;
+  visits: any;
 }
 interface DispatchToPropsType {
   loadRemoteStats: () => void;
   loadLocalStats: () => void;
+  loadSites: () => void;
+  loadVisits: () => void;
 }
 const mapStateToProps = (state: AppState): StateToPropsType => ({
   loading:
@@ -40,11 +52,16 @@ const mapStateToProps = (state: AppState): StateToPropsType => ({
   stat: localStatsSelector(state),
   connectionStatus: connectionStatusSelector(state),
   profile: localProfileSelector(state),
+  sites: sitesSelector(state),
+  visits  : loadVisitsSelector(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => ({
   loadRemoteStats: (): LoadRemoteStatsAction => dispatch(loadRemoteStats()),
   loadLocalStats: (): LoadLocalStatsAction => dispatch(loadLocalStats()),
+  loadSites: (): LoadSitesActionTypes => dispatch(LoadSites()),
+  loadVisits: (): LoadVisitsActionDbTypes => dispatch(LoadVisits()),
+
 });
 
 export const DashboardPage = connect(

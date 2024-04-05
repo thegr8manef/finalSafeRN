@@ -16,10 +16,13 @@ import {ProgressRisksStats} from './Components/ProgressRisksStats';
 import {DashboardHeader} from '../components/DashboardHeader';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {StackParamList} from '@navigConfig/navigation.types';
-
 import {Profile} from '../../../../profileContext/domain/entity/profile';
+import {windowHeight, windowWidth} from '@styles/dimension';
+import {StatisticFilterModal} from './Components/StatisticFilterModal';
 
 interface Props {
+  loadVisits(): unknown;
+  loadSites(): unknown;
   navigation: StackNavigationProp<StackParamList>;
   loading: boolean;
   error: string;
@@ -28,6 +31,8 @@ interface Props {
   connectionStatus: boolean | undefined;
   loadRemoteStats: () => void;
   loadLocalStats: () => void;
+  sites?: any;
+  visits?: any;
 }
 
 export const DashboardContainer = (props: Props) => {
@@ -45,57 +50,62 @@ export const DashboardContainer = (props: Props) => {
 
   useEffect(() => {
     setMount(true);
-
+    props.loadSites();
     if (props.error != undefined) {
       Alert.alert(t('txt.msg.connection.failed'));
     }
   }, [props.error]);
 
+  const [isFilterModalVisible, setIsFilterModalVisible] = useState(false);
   return (
     <View style={styles.f1}>
       <View style={styles.header}>
         <DashboardHeader
-          visits={165}
           dateDebut={'01/01/2023'}
           dateFinale={'30/05/2023'}
           labelPerimetre={props.profile?.region}
-          numberChantier={17}
+          numberChantier={props.sites?.length}
+          onPress={() => {
+            setIsFilterModalVisible(true);
+          }}
         />
       </View>
-
       <ScrollView style={styles.f1}>
-        <GeneralStats stat={props.stat} />
+        <GeneralStats visits={props.stat?.statUser} stat={props.stat} />
+        <View style={{height: 10}} />
         {/* spacer */}
-        <View style={{height: 15}} />
         <View style={styles.visitContentStats}>
           <ProgressVisitsStats
             title={t('txt.type.visits')}
             statsVisit={props.stat?.statVisit}
           />
-          <View style={{height: 10}} />
           <PieChartObservationStats
             observationStats={props.stat?.statObservation}
             title={t('txt.conform.positive.not.conform.negative')}
             accessor={'total'}
           />
-          <View style={{height: 10}} />
+
           <ProgressRisksStats
             statsRisk={props.stat?.statRisk}
             title={t('txt.top.risks')}
           />
-          <View style={{height: 20}} />
+          <View style={{height: 50, backgroundColor: 'white'}} />
         </View>
       </ScrollView>
-
-      <ActivityIndicator
-        size="large"
-        color={utils.colors.primary}
-        style={[
-          {
-            display: props.loading ? 'flex' : 'none',
-          },
-          styles.indicator,
-        ]}
+      {props.loading ? (
+        <ActivityIndicator
+          size="large"
+          color={utils.colors.primary}
+          style={[styles.indicator]}
+        />
+      ) : null}
+      <StatisticFilterModal
+        title={t('txt.filters')}
+        visible={isFilterModalVisible}
+        onClose={() => setIsFilterModalVisible(false)}
+        perimetre={props.profile?.region?.toString()}
+        period={'01/01/2023 - 30/05/2023'}
+        sites={props.sites}
       />
     </View>
   );
@@ -104,13 +114,12 @@ export const DashboardContainer = (props: Props) => {
 const styles = StyleSheet.create({
   f1: {
     flex: 1,
-    backgroundColor: '#eaeaea',
+    backgroundColor: utils.colors.griy500,
   },
   header: {
     flexDirection: 'row-reverse',
   },
   visitContentStats: {
-    flex: 3,
     flexDirection: 'column',
   },
   button_container: {
@@ -129,7 +138,8 @@ const styles = StyleSheet.create({
   },
   indicator: {
     position: 'absolute',
-    margin: '50%',
-    top: 180,
+    backgroundColor: utils.colors.black + '80',
+    height: windowHeight,
+    width: windowWidth,
   },
 });

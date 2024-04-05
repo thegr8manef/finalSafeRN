@@ -17,7 +17,6 @@ export const ProgressRisksStats = (props: Props) => {
     <View
       style={[
         styles.container,
-        {height: props.statsRisk !== undefined ? 250 : 120},
       ]}>
       <View style={styles.header}>
         <Text style={styles.label}>{props.title}</Text>
@@ -75,11 +74,10 @@ export const ProgressRisksStats = (props: Props) => {
 };
 const styles = StyleSheet.create({
   container: {
-    elevation: 2,
-    borderRadius: 5,
     alignSelf: 'center',
-    width: '96%',
+    width: '100%',
     backgroundColor: 'white',
+    alignItems:'center'
   },
   header: {
     marginTop: 5,
