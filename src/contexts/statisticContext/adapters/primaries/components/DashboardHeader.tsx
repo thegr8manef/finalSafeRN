@@ -1,17 +1,18 @@
-import { View, Text, StyleSheet, Image } from 'react-native';
+import {View, Text, StyleSheet, Image, Pressable} from 'react-native';
 import * as utils from '@utils/index';
 import React from 'react';
-import { t } from 'i18next';
+import {t} from 'i18next';
 
 interface Props {
   dateDebut: string;
   dateFinale: string;
   labelPerimetre: string | undefined;
   numberChantier: number;
+  onPress?: () => void;
 }
 export const DashboardHeader = (props: Props): JSX.Element => {
   return (
-    <View style={styles.container}>
+    <Pressable  onPress={props.onPress} style={styles.container}>
       <View style={styles.containerChantier}>
         <View style={styles.perimetre}>
           <View style={styles.imagePerimetre}>
@@ -41,18 +42,18 @@ export const DashboardHeader = (props: Props): JSX.Element => {
         <View style={styles.container_divider} />
         <View style={styles.statics}>
           <Image source={utils.images.infoIcon} style={styles.ImageInfo} />
-          <Text style={[styles.textStat, { fontSize: 12 }]}>
-            {t('txt.dashboard.message')} {props.dateDebut} {t('au')} {""}
+          <Text style={[styles.textStat, {fontSize: 12}]}>
+            {t('txt.dashboard.message')} {props.dateDebut} {t('au')} {''}
             {props.dateFinale}
           </Text>
         </View>
       </View>
-    </View>
+    </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: {flex: 1},
 
   containerVisites: {
     height: 50,
@@ -85,7 +86,7 @@ const styles = StyleSheet.create({
   statics: {
     flexDirection: 'row',
     height: '30%',
-    justifyContent:'center'
+    justifyContent: 'center',
   },
   ImageInfo: {
     marginStart: 10,

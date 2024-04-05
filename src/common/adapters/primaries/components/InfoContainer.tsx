@@ -25,14 +25,14 @@ const styles = StyleSheet.create({
   },
   container_text_info: {
     marginStart: 20,
-    marginTop: 20,
+    marginTop: 12,
   },
-  text_info_info: {
+  text_title_info: {
     color: 'black',
     fontSize: 17,
     fontWeight: 'bold',
   },
-  text_title_info: {
+  text_info_info: {
     color: 'grey',
     fontSize: 13,
   },

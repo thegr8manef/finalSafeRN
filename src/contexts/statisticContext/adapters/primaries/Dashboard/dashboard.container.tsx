@@ -16,9 +16,9 @@ import {ProgressRisksStats} from './Components/ProgressRisksStats';
 import {DashboardHeader} from '../components/DashboardHeader';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {StackParamList} from '@navigConfig/navigation.types';
-
 import {Profile} from '../../../../profileContext/domain/entity/profile';
 import {windowHeight, windowWidth} from '@styles/dimension';
+import {StatisticFilterModal} from './Components/StatisticFilterModal';
 
 interface Props {
   loadVisits(): unknown;
@@ -56,6 +56,7 @@ export const DashboardContainer = (props: Props) => {
     }
   }, [props.error]);
 
+  const [isFilterModalVisible, setIsFilterModalVisible] = useState(false);
   return (
     <View style={styles.f1}>
       <View style={styles.header}>
@@ -64,6 +65,9 @@ export const DashboardContainer = (props: Props) => {
           dateFinale={'30/05/2023'}
           labelPerimetre={props.profile?.region}
           numberChantier={props.sites?.length}
+          onPress={() => {
+            setIsFilterModalVisible(true);
+          }}
         />
       </View>
       <ScrollView style={styles.f1}>
@@ -95,6 +99,14 @@ export const DashboardContainer = (props: Props) => {
           style={[styles.indicator]}
         />
       ) : null}
+      <StatisticFilterModal
+        title={t('txt.filters')}
+        visible={isFilterModalVisible}
+        onClose={() => setIsFilterModalVisible(false)}
+        perimetre={props.profile?.region?.toString()}
+        period={'01/01/2023 - 30/05/2023'}
+        sites={props.sites}
+      />
     </View>
   );
 };
