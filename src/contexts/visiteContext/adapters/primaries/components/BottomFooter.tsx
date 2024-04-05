@@ -56,7 +56,8 @@ export const BottomFooter = (props: Props) => {
         <View
           style={[
             globalStyle.containerStyle,
-            flexBoxStyle.flexEnd,
+            props.content?.length ?
+            flexBoxStyle.flexEnd : flexBoxStyle.flexCenter ,
             flexBoxStyle.m2,
           ]}>
           <Pressable testID="save-btn" onPress={props.confirmPress}>
@@ -69,6 +70,7 @@ export const BottomFooter = (props: Props) => {
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {

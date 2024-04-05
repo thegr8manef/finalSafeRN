@@ -1,10 +1,10 @@
 import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
 import * as utils from '@utils/index';
-import {ProgressBarCard} from '../../components/ProgressBarCard';
 import {StatVisit} from '../../../../domain/entity/statVisit';
 import {useTranslation} from 'react-i18next';
-import {windowWidth} from '@styles/dimension';
+import {windowHeight, windowWidth} from '@styles/dimension';
+import {BarChart, barDataItem} from 'react-native-gifted-charts';
 
 interface Props {
   title: string;
@@ -19,74 +19,98 @@ export const ProgressVisitsStats = (props: Props) => {
     props.statsVisit?.visitConformity,
     props.statsVisit?.visitHierarchical,
   ];
-  // get total list
-  const total = arr.reduce((a, b) => a + b, 0);
-  console.log(total);
-  console.log((props.statsVisit?.visitFlash * 100) / total);
+  // get max value list
+  let total = Math.max(...arr);
 
+  const barData: barDataItem[] = [
+    {
+      value: props.statsVisit?.visitPrevention || 10,
+      label: t('txt.prevention'),
+      frontColor: utils.colors.primary,
+      sideColor: utils.colors.statusBar,
+    },
+
+    {
+      value: props.statsVisit?.visitConformity || 10,
+      label: t('txt.conformité'),
+      frontColor: utils.colors.green,
+      sideColor: utils.colors.green200,
+    },
+    {
+      value: props.statsVisit?.visitHierarchical || 10,
+      label: t('txt.hierarchique'),
+      frontColor: '#4ADDBA',
+      sideColor: '#399D9A',
+    },
+    {
+      value: props.statsVisit?.visitFlash || 10,
+      label: t('txt.flash'),
+      frontColor: utils.colors.red,
+      sideColor: utils.colors.red200,
+    },
+  ];
+
+  const mockData = [
+    {
+      value: 10,
+      label: t('txt.prevention'),
+      frontColor: utils.colors.primary,
+    },
+
+    {
+      value: 10,
+      label: t('txt.conformité'),
+      frontColor: utils.colors.green,
+    },
+    {
+      value: 10,
+      label: t('txt.hierarchique'),
+      frontColor: '#4ADDBA',
+    },
+    {
+      value: 10,
+      label: t('txt.flash'),
+      frontColor: utils.colors.red,
+    },
+  ];
   return (
     <View
-      style={[
-        styles.container,
-        {height: props.statsVisit !== undefined ? 250 : 120},
-      ]}>
+      style={{
+        ...styles.container,
+        width: windowWidth,
+        height: windowHeight * 0.35,
+      }}>
       <View style={styles.header}>
         <Text style={styles.label} testID="Title">
-          {' ' + props.title}
+          {props.title}
         </Text>
       </View>
-      {total && props.statsVisit !== undefined ? (
-        <View style={styles.content}>
-          <View style={styles.item}>
-            <ProgressBarCard
-              height={12}
-              width={windowWidth * 0.8}
-              borderRadius={0}
-              label={t('txt.prevention')}
-              value={(props.statsVisit?.visitPrevention * 100) / total}
-              color={utils.colors.yellow}
-              visitNumber={props.statsVisit.visitPrevention}
-            />
-          </View>
-          <View style={styles.item}>
-            <ProgressBarCard
-              height={12}
-              width={windowWidth * 0.8}
-              borderRadius={0}
-              label={t('txt.conformité')}
-              value={(props.statsVisit.visitConformity * 100) / total}
-              color={utils.colors.green}
-              visitNumber={props.statsVisit.visitConformity}
-            />
-          </View>
-          <View style={styles.item}>
-            <ProgressBarCard
-              height={12}
-              width={windowWidth * 0.8}
-              borderRadius={0}
-              label={t('txt.hierarchique')}
-              value={(props.statsVisit.visitHierarchical * 100) / total}
-              color={utils.colors.blue}
-              visitNumber={props.statsVisit.visitHierarchical}
-            />
-          </View>
-          <View style={styles.item}>
-            <ProgressBarCard
-              label={t('txt.flash')}
-              height={12}
-              width={windowWidth * 0.8}
-              borderRadius={0}
-              value={(props.statsVisit.visitFlash * 100) / total}
-              color={utils.colors.red}
-              visitNumber={props.statsVisit.visitFlash}
-            />
-          </View>
-        </View>
-      ) : (
-        <View style={styles.contentUndefined}>
-          <Text style={styles.textNoData}>{t('txt.no.data')}</Text>
-        </View>
-      )}
+      {
+        <BarChart
+          width={windowWidth * 0.9}
+          showYAxisIndices
+          maxValue={total ? total + 100 : 100}
+          data={barData}
+          isAnimated
+          isThreeD
+          barWidth={20}
+          activeOpacity={0.2}
+          showVerticalLines
+          showValuesAsTopLabel
+          showXAxisIndices
+          xAxisLabelTextStyle={{fontSize: 12, color: utils.colors.black}}
+          xAxisTextNumberOfLines={2}
+          spacing={50}
+          topLabelTextStyle={{
+            color: utils.colors.black,
+            fontSize: 12,
+            fontFamily: utils.fonts.AvenirHeavy,
+          }}
+          yAxisTextStyle={{
+            fontSize: 10,
+          }}
+        />
+      }
     </View>
   );
 };
@@ -94,11 +118,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignSelf: 'center',
-    overflow: 'hidden',
-    elevation: 2,
-    width: '96%',
+    width: '100%',
     backgroundColor: 'white',
-    borderRadius: 5,
     padding: 5,
   },
   header: {
@@ -110,6 +131,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontFamily: utils.fonts.AvenirHeavy,
     fontWeight: 'bold',
+    marginStart: 35,
   },
   content: {
     flex: 1,

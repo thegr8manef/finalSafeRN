@@ -453,7 +453,7 @@
     "txt.msg.connection.failed": "An error has occurred. Please try again later.",
     "txt_pwd_error_special_characters": "Invalid password.",
     "txt.visites": "Visits",
-    "sso_description": "Welcome to the Eiffage Construction prevention management application. You must have an Eiffage account to log in.",
+    "sso_description": "Welcome to the Eiffage Construction prevention management application.\nYou must have an Eiffage account to log in.",
     "txt.ajout.edit.remarque": "Add or edit an observation",
     "txt.vous.reste": "You still have",
     "txt.filters": "Filters",
