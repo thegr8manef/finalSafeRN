@@ -1,4 +1,4 @@
-import { Visit } from '@contexts/visiteContext/domain/entity/Visit';
+import {Visit} from '@contexts/visiteContext/domain/entity/Visit';
 import {
   LoadVisitsFailedAction,
   LoadVisitsSuccessAction,
@@ -7,17 +7,14 @@ import {
   LOAD_VISITS_SUCCESS,
   LoadVisitsAction,
 } from './actionTypes';
-import Remarque from '@contexts/visiteContext/domain/entity/Remarque';
-import { VisitFlash } from '@contexts/visiteContext/domain/entity/VisitFlash';
+import {VisitFlash} from '@contexts/visiteContext/domain/entity/VisitFlash';
 
 export const LoadVisits = (): LoadVisitsAction => {
   return {
-    type: LOAD_VISITS
+    type: LOAD_VISITS,
   };
 };
-export const LoadVisitsFailed = (
-  error: string,
-): LoadVisitsFailedAction => ({
+export const LoadVisitsFailed = (error: string): LoadVisitsFailedAction => ({
   type: LOAD_VISITS_FAILED,
   payload: error,
 });

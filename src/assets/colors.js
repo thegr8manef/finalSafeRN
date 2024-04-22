@@ -19,6 +19,7 @@ export default colors = {
   green300: '#dff2d6',
   blue: '#2387c6',
   blue200: '#b6a8f3',
+  blue300: '#64befd',
   red: '#e10f21',
   red200: '#fc9ca0',
   orange: '#ff9f54',

@@ -59,5 +59,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     flexWrap: 'nowrap',
+    marginTop: 25,
   },
 });

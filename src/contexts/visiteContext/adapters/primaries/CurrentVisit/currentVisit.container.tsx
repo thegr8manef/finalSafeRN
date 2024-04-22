@@ -20,6 +20,7 @@ import {VisitObservation} from '@contexts/visiteContext/domain/entity/VisitsObse
 import {Photo} from '@contexts/visiteContext/domain/entity/Photo';
 import colors from '@assets/colors';
 import {SiteCards} from './Components/Cards/siteCards';
+import {TYPE_STRING, VISIT_TYPE} from '@common/constants';
 
 interface Props {
   navigation: StackNavigationProp<StackParamList>;
@@ -191,16 +192,16 @@ export const CurrentVisitContainer = (props: Props) => {
   };
   return (
     <View style={styles.container}>
-      {/* <Collapse
+      <Collapse
         site={selectedSiteName}
         accompagnatsList={addAccompanying}
         date={date}
         comment={comments}
         type={type}
-      /> */}
-      <View style={styles.siteCardContainer}>
-        <SiteCards site={selectedSiteName} />
-      </View>
+      />
+      {/* <View style={styles.siteCardContainer}>
+        <SiteCards site={selectedSiteName} type={type} />
+  </View>*/}
       <ObservationList
         onClickObservation={() => setObservationVisible(true)}
         onClickObvLifted={() => setObservationToBeLiftedVisible(true)}

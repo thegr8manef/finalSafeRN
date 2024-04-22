@@ -45,6 +45,7 @@ export const Collapse = (props: Props) => {
 const styles = StyleSheet.create({
   container: {
     height: '55%',
+    marginBottom: 20,
   },
   beforeCollapse: {height: '25%'},
 });
