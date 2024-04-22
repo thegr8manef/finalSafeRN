@@ -116,3 +116,14 @@ export const SETTINGS = (date: String) => [
     ],
   },
 ];
+
+// Visit type
+export enum VISIT_TYPE {
+  '3TYPE' = 'txt.visite.de.hierarchique',
+
+  '1TYPE' = 'txt.visite.de.conformité',
+
+  '0TYPE' = 'txt.visite.de.prevention',
+}
+
+export const TYPE_STRING = 'TYPE';

@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import * as utils from '@utils/index';
 import {t} from 'i18next';
+import globalStyle from '@styles/globalStyle';
 
 interface Props {
   title: string;
@@ -18,7 +19,7 @@ export const ObservationListItem = (props: Props) => {
         <Text style={styles.number}>{props.listLenght}</Text>
       </View>
       <View style={styles.iamgeContainer}>
-        <Image source={utils.images.arrow_right} style={styles.image} />
+        <Image source={utils.images.icn_right_chevron} style={styles.image} />
       </View>
     </TouchableOpacity>
   );
@@ -29,8 +30,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderTopWidth: 1,
     borderBottomWidth: 1,
-    borderTopColor: utils.colors.gris200,
-    borderBottomColor: utils.colors.gris200,
+    borderTopColor: utils.colors.gray90,
+    borderBottomColor: utils.colors.gray90,
     alignItems: 'center',
   },
   titleContainer: {
@@ -41,16 +42,19 @@ const styles = StyleSheet.create({
   },
   iamgeContainer: {
     flex: 0.3,
+    paddingEnd: 5,
   },
   image: {
-    width: 10,
+    width: 20,
     height: 20,
+    resizeMode: 'contain',
   },
   title: {
     fontSize: 16,
     color: utils.colors.black,
     marginStart: 15,
     fontWeight: '600',
+    fontFamily: utils.fonts.AvenirMedium,
   },
   number: {
     fontSize: 16,

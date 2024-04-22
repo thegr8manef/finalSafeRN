@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import * as utils from '@utils/index';
+import colors from '@assets/colors';
 interface Props {
   toggleCollapse: () => void;
   stat: string;
@@ -24,21 +25,21 @@ export const ButtonCollapse = (props: Props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 2,
+    marginTop: 20,
   },
   image: {
     width: 30,
     height: 30,
     alignSelf: 'center',
-    marginVertical: -15,
+    borderRadius: 50,
+    backgroundColor: colors.white,
   },
   button: {
-    width: '100%',
-    height: 20,
-    backgroundColor: utils.colors.gris100,
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    borderTopColor: utils.colors.gris200,
-    borderBottomColor: utils.colors.gris200,
-    marginTop: 20,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    width: '50%',
+    height: 40,
+    backgroundColor: colors.primary,
+    borderRadius: 7,
   },
 });

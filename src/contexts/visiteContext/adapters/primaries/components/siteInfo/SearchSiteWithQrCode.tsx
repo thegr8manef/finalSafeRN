@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { View, Modal, Alert, Image, StyleSheet } from 'react-native';
+import React, {useState} from 'react';
+import {View, Modal, Alert, Image, StyleSheet} from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
-import { HeaderModal } from '../HeaderModal';
-import { Site } from '@contexts/visiteContext/domain/entity/Site';
-import { flexBoxStyle } from '@styles/flexBoxStyle';
-import { t } from 'i18next';
-import { windowHeight, windowWidth } from '@styles/dimension';
+import {HeaderModal} from '../HeaderModal';
+import {Site} from '@contexts/visiteContext/domain/entity/Site';
+import {flexBoxStyle} from '@styles/flexBoxStyle';
+import {t} from 'i18next';
+import {windowHeight, windowWidth} from '@styles/dimension';
 import * as utils from '@utils/index';
-import { RNCamera } from 'react-native-camera';
+import {RNCamera} from 'react-native-camera';
 import RNQRGenerator from 'rn-qr-generator';
-import { chooseImage } from '@utils/utilsCamera';
+import {chooseImage} from '@utils/utilsCamera';
 import globalStyle from '@styles/globalStyle';
 
 // Define the Props interface
@@ -32,26 +32,26 @@ const SearchSiteWithQrCode = (props: Props) => {
   };
 
   // Handle QR code scanning
-  const handleReadQRCode = (e: { data: string }) => {
+  const handleReadQRCode = (e: {data: string}) => {
     if (e.data.length > 0) {
-      searchSite(e.data)
+      searchSite(e.data);
     }
   };
 
   //fct search site on click on validate
   const searchSite = (qrCode: any) => {
     if (qrCode.length !== 0) {
-      const selectedSite = props.sites?.find(site => site.reference === qrCode)
+      const selectedSite = props.sites?.find(site => site.reference === qrCode);
       if (!selectedSite) {
         Alert.alert(t('no_cs_by_ref'));
       } else {
-        props.onSearch(selectedSite)
-        props.onClose()
+        props.onSearch(selectedSite);
+        props.onClose();
       }
     } else {
       Alert.alert(t('error.point.empty'));
     }
-  }
+  };
 
   // Handle right icon press (e.g., flashlight)
   const handleRightIconPress = (index: number) => {
@@ -65,13 +65,13 @@ const SearchSiteWithQrCode = (props: Props) => {
   // Function to handle choosing a photo and detecting QR code from it
   const handleChoosePhoto = () => {
     chooseImage()
-      .then((data) => {
+      .then(data => {
         // Handle the formData here
         RNQRGenerator.detect({
-          uri: data.getParts()[0]?.uri
+          uri: data.getParts()[0]?.uri,
         })
           .then(response => {
-            const { values } = response;
+            const {values} = response;
             if (values.length > 0) {
               searchSite(values[0]);
             } else {
@@ -80,15 +80,18 @@ const SearchSiteWithQrCode = (props: Props) => {
           })
           .catch(error => Alert.alert(t('no_cs_by_ref')));
       })
-      .catch((error) => {
+      .catch(error => {
         // Handle errors here
-        Alert.alert(t('no_cs_by_ref'))
+        Alert.alert(t('no_cs_by_ref'));
       });
   };
 
   // Render the component
   return (
-    <Modal animationType="slide" transparent={false} visible={props.modalVisible}>
+    <Modal
+      animationType="slide"
+      transparent={false}
+      visible={props.modalVisible}>
       {/* Header */}
       <HeaderModal
         title={t('txt.scan')}
@@ -104,20 +107,20 @@ const SearchSiteWithQrCode = (props: Props) => {
       <View style={[flexBoxStyle.flexCenter, globalStyle.containerStyle]}>
         <QRCodeScanner
           onRead={handleReadQRCode}
-          cameraStyle={{ height: windowHeight, width: windowWidth }}
-          flashMode={light ? RNCamera.Constants.FlashMode.torch : RNCamera.Constants.FlashMode.off}
+          cameraStyle={{height: windowHeight, width: windowWidth}}
+          flashMode={
+            light
+              ? RNCamera.Constants.FlashMode.torch
+              : RNCamera.Constants.FlashMode.off
+          }
         />
-        <Image
-          source={utils.images.logoWhite}
-          style={styles.cameraLogoStyle}
-        />
+        <Image source={utils.images.logoWhite} style={styles.cameraLogoStyle} />
       </View>
     </Modal>
   );
 };
 
 const styles = StyleSheet.create({
-
   cameraLogoStyle: {
     position: 'absolute',
     bottom: 10,
@@ -125,7 +128,6 @@ const styles = StyleSheet.create({
     width: windowWidth / 3,
     height: windowWidth / 3,
     resizeMode: 'contain',
-  }
-
-})
+  },
+});
 export default SearchSiteWithQrCode;

@@ -53,6 +53,6 @@ const images = {
   icn_obs_conforme: require('../assets/img/icn_obs_conforme.png'),
   icn_obs_non_conforme: require('../assets/img/icn_obs_non_conforme.png'),
   icn_obs_sans_objet: require('../assets/img/icn_obs_sans_objet.png'),
-
+  icn_right_chevron: require('../assets/img/right-chevron.png'),
 };
 export default images;

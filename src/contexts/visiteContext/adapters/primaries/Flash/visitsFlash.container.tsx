@@ -147,26 +147,20 @@ export const VisitFlashContainer = (props: Props) => {
         4,
         formattedDate,
       );
-      // Alert.alert('', t('etes_vous_sur_de_vouloir_sauvegarder')!, [
-      //   {
-      //     text: 'NON',
-      //     style: 'cancel',
-      //   },
-      //   {
-      //     text: 'OUI',
-      //     onPress: () => {
-      //       props.saveFlash(flash);
+      Alert.alert('', t('etes_vous_sur_de_vouloir_sauvegarder')!, [
+        {
+          text: 'NON',
+          style: 'cancel',
+        },
+        {
+          text: 'OUI',
+          onPress: () => {
+            props.saveFlash(flash);
 
-      //       props.navigation.navigate('visites');
-      //     }
-      //   },
-      // ]);
-
-      showMessage({
-        message: t(TRANSLATE.SORRY),
-        type: 'danger',
-        description: t('etes_vous_sur_de_vouloir_sauvegarder')!!,
-      });
+            props.navigation.navigate('visites');
+          },
+        },
+      ]);
     }
   };
 
@@ -181,7 +175,7 @@ export const VisitFlashContainer = (props: Props) => {
       return false;
     } else {
       if (comment === '') {
-        // Alert.alert('', t('msg.saisr.commentaires.flash')!);
+        Alert.alert('', t('msg.saisr.commentaires.flash')!);
         showMessage({
           message: t(TRANSLATE.SORRY),
           type: 'danger',
