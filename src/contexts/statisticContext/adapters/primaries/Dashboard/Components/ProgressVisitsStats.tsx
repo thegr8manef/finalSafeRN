@@ -1,5 +1,5 @@
 import {View, Text, StyleSheet} from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import * as utils from '@utils/index';
 import {StatVisit} from '../../../../domain/entity/statVisit';
 import {useTranslation} from 'react-i18next';
@@ -12,15 +12,26 @@ interface Props {
 }
 export const ProgressVisitsStats = (props: Props) => {
   const {t} = useTranslation();
+  const [maxValue, setMaxValue] = useState(10);
 
-  let arr = [
-    props.statsVisit?.visitFlash,
-    props.statsVisit?.visitPrevention,
-    props.statsVisit?.visitConformity,
-    props.statsVisit?.visitHierarchical,
-  ];
-  // get max value list
-  let total = Math.max(...arr);
+  useEffect(() => {
+    if (
+      props.statsVisit?.visitFlash !== 0 &&
+      props.statsVisit?.visitPrevention !== 0 &&
+      props.statsVisit?.visitConformity !== 0 &&
+      props.statsVisit?.visitHierarchical !== 0
+    ) {
+      let arr = [
+        props.statsVisit?.visitFlash,
+        props.statsVisit?.visitPrevention,
+        props.statsVisit?.visitConformity,
+        props.statsVisit?.visitHierarchical,
+      ];
+      setMaxValue(Math.max(...arr));
+    } else {
+      setMaxValue(10);
+    }
+  }, [props]);
 
   const barData: barDataItem[] = [
     {
@@ -89,7 +100,7 @@ export const ProgressVisitsStats = (props: Props) => {
         <BarChart
           width={windowWidth * 0.9}
           showYAxisIndices
-          maxValue={total ? total + 100 : 100}
+          maxValue={maxValue ? maxValue + 10 : 50}
           data={barData}
           isAnimated
           isThreeD

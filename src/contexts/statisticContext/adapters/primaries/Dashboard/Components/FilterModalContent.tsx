@@ -12,7 +12,7 @@ interface Props {
   visible: boolean;
   onClose: () => void;
   title: string;
-  perimetre?: string;
+  perimetre?: any;
   sites?: any[];
   period?: string;
 
@@ -38,7 +38,7 @@ export const FilterModalContent = (props: Props) => {
         style={styles.detailsContainer}>
         <InfoContainer
           title={t('txt.primetre')}
-          subtitle={props.perimetre ?? '-'}
+          subtitle={props.perimetre?.rg?.[0]?.ti ?? '-'}
         />
       </Pressable>
       <Divider />

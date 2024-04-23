@@ -9,7 +9,7 @@ export class DBStatsRepository implements StatsRepository {
     const promisLoadStat = new Promise<Stat>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
       db.then(realm => {
-        const objects = realm.objects('Statistic');
+        const objects = realm.objects('Statistic');        
         resolve(StatMapper.mapStatisticToStat(objects[0]));
       }).catch(error => reject(error))
     });
@@ -20,7 +20,7 @@ export class DBStatsRepository implements StatsRepository {
     const promisSaveStat = new Promise<void>((resolve, reject) => {
       const db = ApplicationContext.getInstance().db();
       db.then(realm => {
-        realm?.write(() => {
+        realm?.write(() => {          
           realm.create('Statistic', StatMapper.mapStatToStatistic(stat));
         });
         resolve();

@@ -5,19 +5,13 @@ import {useTranslation} from 'react-i18next';
 import {BottomFooter} from '@contexts/visiteContext/adapters/primaries/components/BottomFooter';
 import {HeaderModal} from '@contexts/visiteContext/adapters/primaries/components/HeaderModal';
 import {Divider} from '@common/adapters/primaries/components/Divider';
-import {InfoContainer} from '@common/adapters/primaries/components/InfoContainer';
+import {FilterItem} from './SitesModalContent';
 
 interface Props {
   visible: boolean;
   onClose: () => void;
   title: string;
-  perimetre?: string;
-  sites?: any[];
   period?: string;
-
-  onPerimetrePress?: () => void;
-  onSitesPress?: () => void;
-  onPeriodPress?: () => void;
 }
 
 export const PeriodModalContent = (props: Props) => {
@@ -25,26 +19,58 @@ export const PeriodModalContent = (props: Props) => {
 
   const handleResetFilter = () => {
     props.onClose();
-    props.onPerimetrePress?.();
-    props.onSitesPress?.();
-    props.onPeriodPress?.();
-  }
+  };
+
+  const periodList = [
+    {
+      name: t('txt.yesterday'),
+      value: [new Date().setDate(new Date().getDate() - 1), new Date()],
+    },
+    {
+      name: t('txt.seven.days'),
+      value: [new Date().setDate(new Date().getDate() - 7), new Date()],
+    },
+    {
+      name: t('txt.thirteen.days'),
+      value: [new Date().setDate(new Date().getDate() - 30), new Date()],
+    },
+    {
+      name: t('txt.this.month'),
+      value: [new Date().setDate(1), new Date()],
+    },
+    {
+      name: t('txt.last.month'),
+      value: [new Date().setMonth(new Date().getMonth() - 1), new Date()],
+    },
+    // {
+    //   name: 'customized',
+    // },
+  ];
 
   return (
-      <View style={styles.container}>
-        <HeaderModal
-          title={props.title}
-          onRightPress={() => props.onClose()}
-          rightLabel={t('txt.appliquer')!!}
-          onLeftPress={() => props.onClose()}
-          leftLabel={t('txt.annuler')!!}
-        />    
-        <Divider />
-        <BottomFooter
-          confirmText={t('txt.reinitialiser.filtres')}
-          confirmPress={handleResetFilter}
+    <View style={styles.container}>
+      <HeaderModal
+        title={props.title}
+        onRightPress={() => props.onClose()}
+        rightLabel={t('txt.appliquer')!!}
+        onLeftPress={() => props.onClose()}
+        leftLabel={t('txt.annuler')!!}
+      />
+      <Divider />
+      {periodList.map((item, index) => (
+        <FilterItem
+          key={index}
+          item={item}
+          onPress={() => {
+            console.log('xxx');
+          }}
         />
-      </View>
+      ))}
+      <BottomFooter
+        confirmText={t('txt.reinitialiser.filtres')}
+        confirmPress={handleResetFilter}
+      />
+    </View>
   );
 };
 

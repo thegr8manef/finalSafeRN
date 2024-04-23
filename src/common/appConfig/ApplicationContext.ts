@@ -1,21 +1,24 @@
-import Realm, { Configuration } from 'realm';
+import Realm, {Configuration} from 'realm';
 
-import { Observation } from '@common/adapters/secondaries/db/entity/Observation';
-import { Accompagnant } from '@common/adapters/secondaries/db/entity/Accompagnant';
-import { User } from '@common/adapters/secondaries/db/entity/User';
-import { Chantier } from '@common/adapters/secondaries/db/entity/Chantier';
-import { Remarque } from '@common/adapters/secondaries/db/entity/Remarque';
-import { Photo } from '@common/adapters/secondaries/db/entity/Photo';
-import { Statistic } from '@common/adapters/secondaries/db/entity/Statistic';
-import { StatisticObservation } from '@common/adapters/secondaries/db/entity/StatisticObservation';
-import { StatisticRisk } from '@common/adapters/secondaries/db/entity/StatisticRisk';
-import { StatisticRiskObject } from '@common/adapters/secondaries/db/entity/StatisticRiskObject';
-import { StatisticUser } from '@common/adapters/secondaries/db/entity/StatisticUser';
-import { StatisticVisit } from '@common/adapters/secondaries/db/entity/StatisticVisit';
-import { Zone } from '@common/adapters/secondaries/db/entity/Zone';
-import { StrongPoint } from '@common/adapters/secondaries/db/entity/StrongPoint';
-import { PointToImprove } from '@common/adapters/secondaries/db/entity/PointToImprove';
-import { Visit } from '@common/adapters/secondaries/db/entity/Visit';
+import {Observation} from '@common/adapters/secondaries/db/entity/Observation';
+import {Accompagnant} from '@common/adapters/secondaries/db/entity/Accompagnant';
+import {User} from '@common/adapters/secondaries/db/entity/User';
+import {Chantier} from '@common/adapters/secondaries/db/entity/Chantier';
+import {Remarque} from '@common/adapters/secondaries/db/entity/Remarque';
+import {Photo} from '@common/adapters/secondaries/db/entity/Photo';
+import {Statistic} from '@common/adapters/secondaries/db/entity/Statistic';
+import {StatisticObservation} from '@common/adapters/secondaries/db/entity/StatisticObservation';
+import {StatisticRisk} from '@common/adapters/secondaries/db/entity/StatisticRisk';
+import {StatisticRiskObject} from '@common/adapters/secondaries/db/entity/StatisticRiskObject';
+import {StatisticUser} from '@common/adapters/secondaries/db/entity/StatisticUser';
+import {StatisticVisit} from '@common/adapters/secondaries/db/entity/StatisticVisit';
+import {Zone} from '@common/adapters/secondaries/db/entity/Zone';
+import {StrongPoint} from '@common/adapters/secondaries/db/entity/StrongPoint';
+import {PointToImprove} from '@common/adapters/secondaries/db/entity/PointToImprove';
+import {Visit} from '@common/adapters/secondaries/db/entity/Visit';
+import {StatisticRegion} from '@common/adapters/secondaries/db/entity/StatisticRegion';
+import {Region} from '@common/adapters/secondaries/db/entity/Region';
+import {SAS} from '@common/adapters/secondaries/db/entity/SAS';
 
 class ApplicationContext {
   private static instance: ApplicationContext;
@@ -34,13 +37,16 @@ class ApplicationContext {
       StatisticRiskObject,
       StatisticUser,
       StatisticVisit,
+      StatisticRegion,
+      Region,
+      SAS,
       Zone,
       Observation,
       StrongPoint,
       PointToImprove,
-      Visit
+      Visit,
     ],
-    schemaVersion: 15,
+    schemaVersion: 15.1,
     //encryptionKey: this.toByteArray(realm_config.databaseKey),
   };
 

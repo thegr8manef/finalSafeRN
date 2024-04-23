@@ -15,8 +15,8 @@ export const loadRemoteStatsEpic: Epic = (
 ) =>
   action$.pipe(
     ofType(LOAD_REMOTE_STATS),
-    switchMap(() =>
-      statisticService.loadStatistic().pipe(
+    switchMap(action =>
+      statisticService.loadStatistic(action.payload).pipe(
         concatMap((stat: Stat) => [
           saveStats(stat),
           loadRemoteStatsSuccess(stat),

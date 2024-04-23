@@ -116,6 +116,30 @@ interface SearchResultSitesProps {
   onSelect: (site: Site) => void;
   multiSelection?: boolean;
 }
+
+export const FilterItem = (props: {
+  item: Site;
+  isSelected: boolean;
+  onPress: () => void;
+  desactivated?: boolean;
+}) => {
+  return (
+    <TouchableOpacity
+      onPress={props.onPress}
+      style={[
+        styles.item,
+        props.desactivated && {backgroundColor: utils.colors.gray90},
+      ]}>
+      <Text style={styles.title}>{props.item.name}</Text>
+      <View style={{flex: 1, alignItems: 'flex-end', alignSelf: 'center'}}>
+        {props.isSelected && (
+          <Image source={utils.images.checkmarkIcon} style={styles.image} />
+        )}
+      </View>
+    </TouchableOpacity>
+  );
+};
+
 export const SearchResultSites = (props: SearchResultSitesProps) => {
   const {t} = useTranslation();
   const renderItem = ({
@@ -127,20 +151,12 @@ export const SearchResultSites = (props: SearchResultSitesProps) => {
   }) => {
     const isSelected = props.selectedSites?.includes(item);
     return (
-      <TouchableOpacity
-        key={item?.id}
+      <FilterItem
+        item={item}
+        desactivated={desactivated}
+        isSelected={isSelected}
         onPress={() => props.onSelect(item)}
-        style={[
-          styles.item,
-          desactivated && {backgroundColor: utils.colors.gray90},
-        ]}>
-        <Text style={styles.title}>{item.name}</Text>
-        <View style={{flex: 1, alignItems: 'flex-end', alignSelf: 'center'}}>
-          {isSelected && (
-            <Image source={utils.images.checkmarkIcon} style={styles.image} />
-          )}
-        </View>
-      </TouchableOpacity>
+      />
     );
   };
 

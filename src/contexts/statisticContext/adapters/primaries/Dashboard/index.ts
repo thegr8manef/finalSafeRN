@@ -57,7 +57,7 @@ const mapStateToProps = (state: AppState): StateToPropsType => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => ({
-  loadRemoteStats: (): LoadRemoteStatsAction => dispatch(loadRemoteStats()),
+  loadRemoteStats: (params?: any): LoadRemoteStatsAction => dispatch(loadRemoteStats(params)),
   loadLocalStats: (): LoadLocalStatsAction => dispatch(loadLocalStats()),
   loadSites: (): LoadSitesActionTypes => dispatch(LoadSites()),
   loadVisits: (): LoadVisitsActionDbTypes => dispatch(LoadVisits()),

@@ -10,7 +10,7 @@ export default {
 
 export const LANGUAGE_CONSTANTS = [
   {label: 'Français', value: 'fr'},
-  {label: 'Néelandais', value: 'bl'},
+  {label: 'Néelandais', value: 'nl'},
   {label: 'Polonais', value: 'pl'},
   {label: 'Allemand', value: 'al'},
   {label: 'Anglais', value: 'en'},

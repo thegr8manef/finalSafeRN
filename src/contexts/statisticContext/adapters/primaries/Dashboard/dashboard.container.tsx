@@ -29,7 +29,7 @@ interface Props {
   stat: Stat | undefined;
   profile: Profile | undefined;
   connectionStatus: boolean | undefined;
-  loadRemoteStats: () => void;
+  loadRemoteStats: (params: any) => void;
   loadLocalStats: () => void;
   sites?: any;
   visits?: any;
@@ -57,13 +57,14 @@ export const DashboardContainer = (props: Props) => {
   }, [props.error]);
 
   const [isFilterModalVisible, setIsFilterModalVisible] = useState(false);
+
   return (
     <View style={styles.f1}>
       <View style={styles.header}>
         <DashboardHeader
           dateDebut={'01/01/2023'}
           dateFinale={'30/05/2023'}
-          labelPerimetre={props.profile?.region}
+          labelPerimetre={props.stat?.statRegion?.rg?.[0]?.ti}
           numberChantier={props.sites?.length}
           onPress={() => {
             setIsFilterModalVisible(true);
@@ -103,7 +104,7 @@ export const DashboardContainer = (props: Props) => {
         title={t('txt.filters')}
         visible={isFilterModalVisible}
         onClose={() => setIsFilterModalVisible(false)}
-        perimetre={props.profile?.region?.toString()}
+        perimetre={props.stat?.statRegion}
         period={'01/01/2023 - 30/05/2023'}
         sites={props.sites}
       />

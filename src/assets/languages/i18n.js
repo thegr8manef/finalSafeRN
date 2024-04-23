@@ -1,8 +1,8 @@
 import i18next from 'i18next';
-import en from '../languages/en.json';
+import us from '../languages/us.json';
 import fr from '../languages/fr.json';
 import al from '../languages/al.json';
-import bl from '../languages/bl.json';
+import nl from '../languages/nl.json';
 import pl from '../languages/pl.json';
 
 import {initReactI18next} from 'react-i18next';
@@ -10,10 +10,10 @@ import {initReactI18next} from 'react-i18next';
 i18next.use(initReactI18next).init({
   compatibilityJSON: 'v3',
   resources: {
-    en: en,
+    en: us,
     fr: fr,
     al: al,
-    bl: bl,
+    nl: nl,
     pl: pl,
   },
   lng: 'fr', // Set the default language

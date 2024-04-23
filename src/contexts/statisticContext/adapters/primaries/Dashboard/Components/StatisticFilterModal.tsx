@@ -11,7 +11,7 @@ interface Props {
   visible: boolean;
   onClose: () => void;
   title: string;
-  perimetre?: string;
+  perimetre?: any;
   sites?: any[];
   period?: string;
 
@@ -62,6 +62,7 @@ export const StatisticFilterModal = (props: Props) => {
         ) : null}
         {step === 1 ? (
           <PerimetreModalContent
+            {...props}
             title={t('txt.primetre')}
             onClose={handleGoBack}
           />

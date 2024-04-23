@@ -11,7 +11,7 @@ interface Props {
   visible: boolean;
   onClose: () => void;
   title: string;
-  perimetre?: string;
+  perimetre?: any;
   sites?: any[];
   period?: string;
 
@@ -25,9 +25,6 @@ export const PerimetreModalContent = (props: Props) => {
 
   const handleResetFilter = () => {
     props.onClose();
-    props.onPerimetrePress?.();
-    props.onSitesPress?.();
-    props.onPeriodPress?.();
   };
 
   return (
@@ -42,7 +39,7 @@ export const PerimetreModalContent = (props: Props) => {
       <View style={styles.detailsContainer}>
         <InfoContainer
           title={t('txt.region')}
-          subtitle={props.perimetre ?? '-'}
+          subtitle={props.perimetre?.rg?.[0]?.ti ?? '-'}
         />
       </View>
       <Divider />
@@ -50,8 +47,8 @@ export const PerimetreModalContent = (props: Props) => {
         <InfoContainer
           title={t('txt.sas')}
           subtitle={
-            props.sites?.length
-              ? props.sites?.length.toString() + ' ' + t('txt.selected.items')
+            props.perimetre?.sas?.length
+              ? props.perimetre?.sas?.length + ' ' + t('txt.selected.items')
               : '-'
           }
         />
@@ -60,7 +57,7 @@ export const PerimetreModalContent = (props: Props) => {
       <View style={styles.detailsContainer}>
         <InfoContainer
           title={t('txt.etablissement')}
-          subtitle={props.period ?? '-'}
+          subtitle={props.perimetre?.etb?.[0]?.ti ?? '-'}
         />
       </View>
       <Divider />

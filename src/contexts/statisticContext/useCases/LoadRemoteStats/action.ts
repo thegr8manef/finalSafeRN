@@ -8,8 +8,9 @@ import {
 } from './actionTypes';
 import {Stat} from '../../domain/entity/Stat';
 
-export const loadRemoteStats = (): LoadRemoteStatsAction => ({
+export const loadRemoteStats = (payload?: any): LoadRemoteStatsAction => ({
   type: LOAD_REMOTE_STATS,
+  payload: payload,
 });
 export const loadRemoteStatsFailed = (
   error: string,

@@ -1,4 +1,5 @@
 import {StatisticObservation} from './StatisticObservation';
+import {StatisticRegion} from './StatisticRegion';
 import {StatisticRisk} from './StatisticRisk';
 import {StatisticUser} from './StatisticUser';
 import {StatisticVisit} from './StatisticVisit';
@@ -9,6 +10,7 @@ export class Statistic extends Realm.Object<Statistic> {
   statisticVisit?: StatisticVisit;
   statisticObservation?: StatisticObservation;
   statisticUser?: StatisticUser;
+  statisticRegion?: StatisticRegion;
   date_synchro?: number;
 
   static schema = {
@@ -18,6 +20,7 @@ export class Statistic extends Realm.Object<Statistic> {
       statisticVisit: 'StatisticVisit',
       statisticObservation: 'StatisticObservation',
       statisticUser: 'StatisticUser',
+      statisticRegion: 'StatisticRegion',
       date_synchro: 'int',
     },
   };

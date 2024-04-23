@@ -11,7 +11,13 @@ import {StatVisit} from '../../../domain/entity/statVisit';
 import {StatObservation} from '../../../domain/entity/statObservation';
 
 export class StatMapper {
+  /**
+   * Maps a Statistic entity to a Stat object
+   * @param data The Statistic entity
+   * @returns The Stat object
+   */
   static mapStatisticToStat(data: Statistic): Stat {
+    // Build the risk object
     const risk0 = {
       label: data.statisticRisk?.risk0?.to,
       value: data.statisticRisk?.risk0?.pct,
@@ -26,6 +32,8 @@ export class StatMapper {
     };
     const otherRisk = {label: '', value: data.statisticRisk?.riskOthers};
     const statRisk = new StatRisk(risk0, risk1, risk2, otherRisk);
+
+    // Build the visit object
     const statVisit = new StatVisit(
       data.statisticVisit?.vf,
       data.statisticVisit?.vh,
@@ -33,6 +41,8 @@ export class StatMapper {
       data.statisticVisit?.vp,
       data.statisticVisit?.tv,
     );
+
+    // Build the observation object
     const statObservation = new StatObservation(
       data.statisticObservation?.ol,
       data.statisticObservation?.onl,
@@ -45,14 +55,20 @@ export class StatMapper {
       data.statisticObservation?.to,
       data.statisticObservation?.pol,
     );
+
+    // Build the user object
     const statUser = data.statisticUser?.tvc;
+
+    // Build the stat object
     const stat = new Stat(
       statRisk,
       statVisit,
       statObservation,
       statUser,
+      data.statisticRegion,
       data.date_synchro,
     );
+
     return stat;
   }
 
@@ -61,14 +77,17 @@ export class StatMapper {
     const statVisit = this.mapToStatisicVisit(data);
     const statObser = data.rd.sob as StatisticObservation;
     const statUser = data.rd.su as StatisticUser;
+    const statRegion = data.rd.scp;
+
     const dateSychro = -1;
     const statistic = {
       statisticRisk: statRisk,
       statisticVisit: statVisit,
       statisticObservation: statObser,
       statisticUser: statUser,
+      statisticRegion: statRegion,
       date_synchro: dateSychro,
-    } as Statistic;
+    } as any;
     return this.mapStatisticToStat(statistic);
   }
   static mapStatToStatistic(data: Stat): Statistic {
@@ -102,6 +121,7 @@ export class StatMapper {
       statisticVisit,
       statisticObservation,
       statisticUser: {tvc: data.statUser} as StatisticUser,
+      statisticRegion: data.statRegion,
       date_synchro: data.dateSynchro,
     } as Statistic;
   }
