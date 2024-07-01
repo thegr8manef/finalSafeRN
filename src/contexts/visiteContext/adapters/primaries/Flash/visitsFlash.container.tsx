@@ -54,6 +54,7 @@ export const VisitFlashContainer = (props: Props) => {
     },
   ];
 
+
   useEffect(() => {
     props.loadSites();
     const name_id_remarque = Date.now().toString() + Math.random().toString();
